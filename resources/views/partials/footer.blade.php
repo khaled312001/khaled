@@ -31,10 +31,7 @@
                             <li><a href="{{ route('about') }}">About Us</a></li>
                             <li><a href="{{ route('services') }}">Services</a></li>
                             <li><a href="{{ route('portfolios') }}">Works</a></li>
-                            <li><a href="{{ route('faqs') }}">Faqs</a></li>
-                            <li><a href="{{ route('gallery') }}">Gallery</a></li>
-                            <li><a href="{{ route('plans') }}">Plans</a></li>
-                            <li><a href="{{ route('careers') }}">Careers</a></li>
+                           
                         </ul>
                     </div>
                 </div>
