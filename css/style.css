@@ -2702,6 +2702,7 @@ body[style], header[style] {
   box-shadow: 0 15px 30px 0 rgba(255, 69, 0, 0.15);
 }
 .portfolio-item .portfolio-item-img {
+  display: none !important;
   z-index: 1;
   border-radius: 30px;
   position: relative;

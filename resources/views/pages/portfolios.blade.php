@@ -8,6 +8,16 @@
 @section('og_image_alt', 'Portfolio - Khaled Ahmed Web Development Projects')
 
 @section('content')
+<style>
+    /* Hide portfolio images completely */
+    .portfolio-item .portfolio-item-img,
+    .portfolio-item-img,
+    .portfolio-item img {
+        display: none !important;
+        visibility: hidden !important;
+    }
+</style>
+
 <section class="breadcrumb-section section">
     <div class="container">
         <div class="row justify-content-center">
