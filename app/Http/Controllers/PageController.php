@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactMail;
+use Illuminate\Support\Facades\Session;
 
 class PageController extends Controller
 {
@@ -24,6 +27,33 @@ class PageController extends Controller
     public function contact()
     {
         return view('pages.contact');
+    }
+
+    public function contactSubmit(Request $request)
+    {
+        // Validate the form data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string|max:5000',
+        ]);
+
+        try {
+            // Send email
+            Mail::to('khaledahmedhaggagy@gmail.com')->send(
+                new ContactMail(
+                    $request->name,
+                    $request->email,
+                    $request->subject,
+                    $request->message
+                )
+            );
+
+            return redirect()->route('contact')->with('success', 'Thank you for your message! I will get back to you soon.');
+        } catch (\Exception $e) {
+            return redirect()->route('contact')->with('error', 'Sorry, there was an error sending your message. Please try again later.');
+        }
     }
 
     public function faqs()

@@ -31,8 +31,8 @@
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="section-heading">
-                    <span>Courses & Services</span>
-                    <h2>Courses I Can Teach</h2>
+                    <span>Services & Courses</span>
+                    <h2>What I Offer</h2>
                 </div>
             </div>
         </div>
@@ -42,14 +42,14 @@
                     <img src="{{ asset('images/1710763075-services-bg-img-1.jpg') }}" alt="Services image" class="services-bg-img">
                     <div class="body">
                     <h4>01</h4>
-                    <h5>Web Development</h5>
-                    <p>Frontend (HTML, CSS, JavaScript), Backend (PHP, MySQL), and Full-Stack Development with Laravel. Learn to build complete web applications from scratch.</p>
+                    <h5>Full-Stack Web Development</h5>
+                    <p>Complete web application development using Laravel, React.js, Vue.js, Nuxt.js, MySQL, and modern frameworks. Building responsive, scalable, and secure web solutions from frontend to backend.</p>
                     <div class="btn-box">
                         <a href="{{ route('contact') }}">Contact Me  <i class="fa fa-arrow-right"></i></a>
                     </div>
                     </div>
                     <div class="icon">
-                        <span class="fas fa-tablet-alt"></span>
+                        <span class="fas fa-code"></span>
                     </div>
                     <div class="icon-border"></div>
                 </div>
@@ -59,14 +59,14 @@
                     <img src="{{ asset('images/1710763115-services-bg-img-2.jpg') }}" alt="Services image" class="services-bg-img">
                     <div class="body">
                     <h4>02</h4>
-                    <h5>Kids & Teens Programming</h5>
-                    <p>Programming with Scratch, Game development, and Robotics & IoT for kids using Arduino. Fun and interactive learning for young minds.</p>
+                    <h5>E-Commerce & Business Platforms</h5>
+                    <p>Custom e-commerce solutions, restaurant management systems, delivery platforms, and business websites with payment gateway integration, admin dashboards, and real-time order management.</p>
                     <div class="btn-box">
                         <a href="{{ route('contact') }}">Contact Me  <i class="fa fa-arrow-right"></i></a>
                     </div>
                     </div>
                     <div class="icon">
-                        <span class="fas fa-adjust"></span>
+                        <span class="fas fa-shopping-cart"></span>
                     </div>
                     <div class="icon-border"></div>
                 </div>
@@ -76,14 +76,65 @@
                     <img src="{{ asset('images/1710763151-services-bg-img-3.jpg') }}" alt="Services image" class="services-bg-img">
                     <div class="body">
                     <h4>03</h4>
-                    <h5>Beginner Programming</h5>
-                    <p>Python or JavaScript basics, Arduino programming & IoT. Perfect starting point for those new to programming and technology.</p>
+                    <h5>AI & Computer Vision Systems</h5>
+                    <p>AI-powered applications, computer vision systems, real-time monitoring solutions using Python, OpenCV, Flask, and WebSocket technology. Building intelligent systems for various industries.</p>
                     <div class="btn-box">
                         <a href="{{ route('contact') }}">Contact Me  <i class="fa fa-arrow-right"></i></a>
                     </div>
                     </div>
                     <div class="icon">
-                        <span class="fab fa-uikit"></span>
+                        <span class="fas fa-brain"></span>
+                    </div>
+                    <div class="icon-border"></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay="0.4s">
+                <div class="services-item">
+                    <img src="{{ asset('images/1710763075-services-bg-img-1.jpg') }}" alt="Services image" class="services-bg-img">
+                    <div class="body">
+                    <h4>04</h4>
+                    <h5>Mobile App Development</h5>
+                    <p>Cross-platform mobile applications using Flutter, IoT integration, Bluetooth connectivity, and Arduino programming. Building mobile solutions for various platforms and devices.</p>
+                    <div class="btn-box">
+                        <a href="{{ route('contact') }}">Contact Me  <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                    </div>
+                    <div class="icon">
+                        <span class="fas fa-mobile-alt"></span>
+                    </div>
+                    <div class="icon-border"></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay="0.5s">
+                <div class="services-item">
+                    <img src="{{ asset('images/1710763115-services-bg-img-2.jpg') }}" alt="Services image" class="services-bg-img">
+                    <div class="body">
+                    <h4>05</h4>
+                    <h5>Programming Courses & Training</h5>
+                    <p>Teaching web development, programming basics (Python, JavaScript), kids & teens programming with Scratch, Arduino & IoT, and full-stack development courses. Interactive and hands-on learning.</p>
+                    <div class="btn-box">
+                        <a href="{{ route('contact') }}">Contact Me  <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                    </div>
+                    <div class="icon">
+                        <span class="fas fa-chalkboard-teacher"></span>
+                    </div>
+                    <div class="icon-border"></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay="0.6s">
+                <div class="services-item">
+                    <img src="{{ asset('images/1710763151-services-bg-img-3.jpg') }}" alt="Services image" class="services-bg-img">
+                    <div class="body">
+                    <h4>06</h4>
+                    <h5>API Development & Integration</h5>
+                    <p>RESTful API development, payment gateway integration (MyFatoorah), authentication systems (Sanctum), permission management (Spatie), and third-party service integrations for seamless connectivity.</p>
+                    <div class="btn-box">
+                        <a href="{{ route('contact') }}">Contact Me  <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                    </div>
+                    <div class="icon">
+                        <span class="fas fa-plug"></span>
                     </div>
                     <div class="icon-border"></div>
                 </div>

@@ -2820,6 +2820,79 @@ body[style], header[style] {
   visibility: visible;
 }
 
+/* Portfolio Overlay Icons */
+.portfolio-overlay-icons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 15px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease;
+  z-index: 2;
+}
+
+.portfolio-item:hover .portfolio-overlay-icons {
+  opacity: 1;
+  visibility: visible;
+}
+
+.portfolio-icon-link {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  color: var(--main-color);
+  border-radius: 50%;
+  font-size: 20px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.portfolio-icon-link:hover {
+  background: var(--main-color);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.portfolio-tech {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.portfolio-tech small {
+  padding: 4px 8px;
+  background: rgba(224, 6, 6, 0.1);
+  border-radius: 4px;
+  color: var(--main-color);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.portfolio-links {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.portfolio-item .body .portfolio-details h5 {
+  margin-bottom: 8px;
+  color: var(--secondary-color);
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+.portfolio-item .body .portfolio-details p {
+  margin: 0;
+}
+
 .call-to-action {
   margin-top: 76px;
   padding: 100px 0;

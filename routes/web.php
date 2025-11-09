@@ -21,6 +21,7 @@ Route::get('/about', [App\Http\Controllers\PageController::class, 'about'])->nam
 Route::get('/services', [App\Http\Controllers\PageController::class, 'services'])->name('services');
 Route::get('/blogs', [App\Http\Controllers\PageController::class, 'blogs'])->name('blogs');
 Route::get('/contact', [App\Http\Controllers\PageController::class, 'contact'])->name('contact');
+Route::post('/contact', [App\Http\Controllers\PageController::class, 'contactSubmit'])->name('contact.submit');
 Route::get('/faqs', [App\Http\Controllers\PageController::class, 'faqs'])->name('faqs');
 Route::get('/gallery', [App\Http\Controllers\PageController::class, 'gallery'])->name('gallery');
 Route::get('/teams', [App\Http\Controllers\PageController::class, 'teams'])->name('teams');
