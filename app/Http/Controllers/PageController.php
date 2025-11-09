@@ -229,5 +229,60 @@ class PageController extends Controller
         return response($sitemap, 200)
             ->header('Content-Type', 'application/xml');
     }
+
+    public function testEmail()
+    {
+        try {
+            // Test email data
+            $testData = [
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+                'subject' => 'Test Email from Website',
+                'message' => 'This is a test email to verify that the email configuration is working correctly.'
+            ];
+
+            // Send test email
+            Mail::to('khaledahmedhaggagy@gmail.com')->send(
+                new ContactMail(
+                    $testData['name'],
+                    $testData['email'],
+                    $testData['subject'],
+                    $testData['message']
+                )
+            );
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Test email sent successfully!',
+                'data' => $testData,
+                'config' => [
+                    'mailer' => config('mail.default'),
+                    'host' => config('mail.mailers.smtp.host'),
+                    'port' => config('mail.mailers.smtp.port'),
+                    'username' => config('mail.mailers.smtp.username'),
+                    'encryption' => config('mail.mailers.smtp.encryption'),
+                    'from_address' => config('mail.from.address'),
+                    'from_name' => config('mail.from.name'),
+                ]
+            ], 200);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to send test email',
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'config' => [
+                    'mailer' => config('mail.default'),
+                    'host' => config('mail.mailers.smtp.host'),
+                    'port' => config('mail.mailers.smtp.port'),
+                    'username' => config('mail.mailers.smtp.username'),
+                    'encryption' => config('mail.mailers.smtp.encryption'),
+                    'from_address' => config('mail.from.address'),
+                    'from_name' => config('mail.from.name'),
+                ]
+            ], 500);
+        }
+    }
 }
 

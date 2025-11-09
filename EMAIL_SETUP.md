@@ -19,15 +19,23 @@ Gmail لا يسمح باستخدام كلمة المرور العادية لإر
    - انسخ كلمة المرور المولدة (16 حرف بدون مسافات)
 
 3. **تحديث ملف .env**
+   
+   **مهم جداً:** إذا كان App Password يحتوي على مسافات، يجب وضعه بين علامات اقتباس:
+   
    ```
    MAIL_MAILER=smtp
    MAIL_HOST=smtp.gmail.com
    MAIL_PORT=587
    MAIL_USERNAME=khaledahmedhaggagy@gmail.com
-   MAIL_PASSWORD=xxxx xxxx xxxx xxxx  (استخدم App Password هنا)
+   MAIL_PASSWORD="zymc sbxc tflo rhug"
    MAIL_ENCRYPTION=tls
    MAIL_FROM_ADDRESS=khaledahmedhaggagy@gmail.com
    MAIL_FROM_NAME="Khaled Ahmed"
+   ```
+   
+   **أو** يمكنك إزالة المسافات:
+   ```
+   MAIL_PASSWORD=zymcsbxctflorhug
    ```
 
 4. **مسح الكاش**
@@ -37,7 +45,10 @@ Gmail لا يسمح باستخدام كلمة المرور العادية لإر
    ```
 
 ## ملاحظات مهمة:
-- App Password هو 16 حرف بدون مسافات
+- App Password من Gmail عادة ما يكون 16 حرف مع مسافات (مثل: "zymc sbxc tflo rhug")
+- **يجب وضع App Password بين علامات اقتباس في ملف .env إذا كان يحتوي على مسافات**
+- أو يمكنك إزالة المسافات يدوياً (zymcsbxctflorhug)
 - لا تستخدم كلمة المرور العادية
 - تأكد من أن MAIL_FROM_ADDRESS = MAIL_USERNAME
+- بعد تحديث .env، قم بمسح الكاش: `php artisan config:clear`
 

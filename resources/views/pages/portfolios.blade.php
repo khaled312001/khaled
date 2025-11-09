@@ -12,9 +12,30 @@
     /* Hide portfolio images completely */
     .portfolio-item .portfolio-item-img,
     .portfolio-item-img,
-    .portfolio-item img {
+    .portfolio-item img,
+    .portfolio-item-inner img,
+    .portfolio-item .portfolio-item-inner img,
+    .portfolio-item .body img,
+    .portfolio-item::before,
+    .portfolio-item::after,
+    .portfolio-item-inner::before,
+    .portfolio-item-inner::after,
+    .portfolio-item .body::before,
+    .portfolio-item .body::after {
         display: none !important;
         visibility: hidden !important;
+        opacity: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+        background-image: none !important;
+        content: none !important;
+    }
+    
+    /* Hide any background images */
+    .portfolio-item,
+    .portfolio-item-inner,
+    .portfolio-item .body {
+        background-image: none !important;
     }
 </style>
 
@@ -270,6 +291,20 @@
 @push('scripts')
 <script>
     jQuery(document).ready(function($) {
+        // Remove all images from portfolio items
+        $('.portfolio-item img').remove();
+        $('.portfolio-item-inner img').remove();
+        $('.portfolio-item .body img').remove();
+        $('.portfolio-item-img').remove();
+        
+        // Prevent images from loading
+        $('.portfolio-item').find('img').each(function() {
+            $(this).remove();
+        });
+        
+        // Remove background images
+        $('.portfolio-item, .portfolio-item-inner, .portfolio-item .body').css('background-image', 'none');
+        
         if (typeof Filaous_MyWorks !== 'undefined') {
             Filaous_MyWorks();
         }

@@ -31,4 +31,5 @@ Route::get('/portfolio/{slug}', [App\Http\Controllers\PageController::class, 'po
 Route::get('/plans', [App\Http\Controllers\PageController::class, 'plans'])->name('plans');
 Route::get('/careers', [App\Http\Controllers\PageController::class, 'careers'])->name('careers');
 Route::get('/sitemap.xml', [App\Http\Controllers\PageController::class, 'sitemap'])->name('sitemap');
+Route::get('/test-email', [App\Http\Controllers\PageController::class, 'testEmail'])->name('test.email');
 

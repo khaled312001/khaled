@@ -27,8 +27,12 @@
                         <li class="nav-item">
                             <a class="nav-link menu-link {{ request()->routeIs('portfolios') ? 'active' : '' }}" href="{{ route('portfolios') }}">Portfolio</a>
                         </li>
-                      
-                        <li class="nav-item navbar-btn-resp d-flex align-items-center">
+                        <li class="nav-item d-lg-none">
+                            <a class="nav-link menu-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">
+                                <i class="fas fa-envelope me-2"></i>Contact Me
+                            </a>
+                        </li>
+                        <li class="nav-item navbar-btn-resp d-none d-lg-flex align-items-center">
                             <a href="{{ route('contact') }}" class="primary-btn">
                                 <span class="text">contact With Me</span>
                                 <span class="icon"><i class="fa fa-arrow-right"></i></span>
