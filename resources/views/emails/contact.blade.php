@@ -84,7 +84,7 @@
 
         <div class="message-section">
             <h2>Message:</h2>
-            <div class="message-content">{{ $message }}</div>
+            <div class="message-content">{{ $body  }}</div>
         </div>
 
         <div class="footer">
