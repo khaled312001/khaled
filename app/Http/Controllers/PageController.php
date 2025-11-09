@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
+use Exception;
 
 class PageController extends Controller
 {
@@ -51,8 +53,12 @@ class PageController extends Controller
             );
 
             return redirect()->route('contact')->with('success', 'Thank you for your message! I will get back to you soon.');
-        } catch (\Exception $e) {
-            return redirect()->route('contact')->with('error', 'Sorry, there was an error sending your message. Please try again later.');
+        } catch (Exception $e) {
+            // Log the error for debugging
+            Log::error('Email sending failed: ' . $e->getMessage());
+            Log::error('Email error trace: ' . $e->getTraceAsString());
+            
+            return redirect()->route('contact')->with('error', 'Sorry, there was an error sending your message. Please check your email configuration. Error: ' . $e->getMessage());
         }
     }
 
