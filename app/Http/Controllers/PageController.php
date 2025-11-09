@@ -160,5 +160,68 @@ class PageController extends Controller
     {
         return view('pages.careers');
     }
+
+    public function sitemap()
+    {
+        $sitemap = '<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    
+    <url>
+        <loc>https://khaledahmed.net</loc>
+        <lastmod>' . date('Y-m-d') . '</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://khaledahmed.net/about</loc>
+        <lastmod>' . date('Y-m-d') . '</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://khaledahmed.net/services</loc>
+        <lastmod>' . date('Y-m-d') . '</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <url>
+        <loc>https://khaledahmed.net/portfolios</loc>
+        <lastmod>' . date('Y-m-d') . '</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <url>
+        <loc>https://khaledahmed.net/contact</loc>
+        <lastmod>' . date('Y-m-d') . '</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://khaledahmed.net/blogs</loc>
+        <lastmod>' . date('Y-m-d') . '</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://khaledahmed.net/faqs</loc>
+        <lastmod>' . date('Y-m-d') . '</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+</urlset>';
+
+        return response($sitemap, 200)
+            ->header('Content-Type', 'application/xml');
+    }
 }
 

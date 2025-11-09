@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'About Us')
+@section('title', 'About Me - Khaled Ahmed | Full-Stack Developer & Instructor')
+@section('description', 'Learn more about Khaled Ahmed, a Full Stack Developer and Certified Instructor based in Qena, Egypt. Specializing in web development, programming education, and building modern web applications.')
+@section('keywords', 'About Khaled Ahmed, Full Stack Developer Egypt, Web Developer Qena, Programming Instructor, Laravel Expert, React.js Developer, Vue.js Developer')
+@section('canonical', 'https://khaledahmed.net/about')
+@section('og_image', asset('images/your-logo.jpg'))
+@section('og_image_alt', 'About Khaled Ahmed - Full-Stack Developer')
 
 @section('content')
 <!--// Breadcrumb Section Start //-->

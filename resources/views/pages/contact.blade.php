@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Contact Us')
+@section('title', 'Contact Me - Get In Touch | Khaled Ahmed')
+@section('description', 'Contact Khaled Ahmed for web development services, programming courses, or collaboration opportunities. Located in Qena, Egypt. Email: khaledahmedhaggagy@gmail.com | Phone: +20 1204593124')
+@section('keywords', 'Contact Khaled Ahmed, Web Developer Contact, Programming Instructor Contact, Hire Web Developer, Web Development Services Contact, Egypt Developer Contact')
+@section('canonical', 'https://khaledahmed.net/contact')
+@section('og_image', asset('images/your-logo.jpg'))
+@section('og_image_alt', 'Contact Khaled Ahmed - Full-Stack Developer')
 
 @section('content')
 <!--// Breadcrumb Section Start //-->

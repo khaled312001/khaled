@@ -1,32 +1,56 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html dir="ltr" lang="en" itemscope itemtype="https://schema.org/WebSite">
 <head>
-    <!-- Meta Tags -->
-
+    <!-- Basic Meta Tags -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta name="title" content="@yield('title', 'Homepage')">
-    <meta name="description" content="@yield('description', '')">
-    <meta name="keywords" content="@yield('keywords', '')">
+    <meta name="robots" content="@yield('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1')">
+    <meta name="googlebot" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
     <meta name="author" content="Khaled Ahmed">
-    <meta property="fb:app_id" content="">
-    <meta property="og:title" content="@yield('title', 'Homepage')">
+    <meta name="copyright" content="Khaled Ahmed">
+    
+    <!-- Primary Meta Tags -->
+    <title>@yield('title', 'Khaled Ahmed - Full-Stack Developer & Certified Instructor')</title>
+    <meta name="title" content="@yield('title', 'Khaled Ahmed - Full-Stack Developer & Certified Instructor')">
+    <meta name="description" content="@yield('description', 'Full Stack Developer and Instructor with strong experience in building full web applications, teaching programming, and delivering interactive training. Based in Qena, Egypt.')">
+    <meta name="keywords" content="@yield('keywords', 'Full Stack Developer, Web Development, Laravel, React.js, Vue.js, Programming Instructor, Web Applications, PHP Developer, JavaScript Developer, Egypt Developer, Qena')">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="@yield('canonical', url()->current())">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:description" content="@yield('description', '')">
-    <meta property="og:image" content="@yield('og_image', '')">
-    <meta itemprop="image" content="@yield('og_image', '')">
-    <meta property="og:type" content="website">
+    <meta property="og:title" content="@yield('og_title', 'Khaled Ahmed - Full-Stack Developer & Certified Instructor')">
+    <meta property="og:description" content="@yield('og_description', 'Full Stack Developer and Instructor with strong experience in building full web applications, teaching programming, and delivering interactive training.')">
+    <meta property="og:image" content="@yield('og_image', asset('images/your-logo.jpg'))">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="@yield('og_image_alt', 'Khaled Ahmed - Full-Stack Developer')">
+    <meta property="og:site_name" content="Khaled Ahmed - Full-Stack Developer">
+    <meta property="og:locale" content="en_US">
+    <meta property="fb:app_id" content="">
+    
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="@yield('og_image', '')">
-    <meta property="twitter:title" content="@yield('title', 'Homepage')">
-    <meta property="twitter:description" content="@yield('description', '')">
-
+    <meta name="twitter:url" content="{{ url()->current() }}">
+    <meta name="twitter:title" content="@yield('twitter_title', 'Khaled Ahmed - Full-Stack Developer & Certified Instructor')">
+    <meta name="twitter:description" content="@yield('twitter_description', 'Full Stack Developer and Instructor with strong experience in building full web applications, teaching programming, and delivering interactive training.')">
+    <meta name="twitter:image" content="@yield('twitter_image', asset('images/your-logo.jpg'))">
+    <meta name="twitter:image:alt" content="@yield('twitter_image_alt', 'Khaled Ahmed - Full-Stack Developer')">
+    <meta name="twitter:creator" content="@khaledahmed">
+    <meta name="twitter:site" content="@khaledahmed">
+    
+    <!-- Additional Meta Tags -->
+    <meta itemprop="name" content="@yield('title', 'Khaled Ahmed - Full-Stack Developer & Certified Instructor')">
+    <meta itemprop="description" content="@yield('description', 'Full Stack Developer and Instructor with strong experience in building full web applications, teaching programming, and delivering interactive training.')">
+    <meta itemprop="image" content="@yield('og_image', asset('images/your-logo.jpg'))">
+    
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <!-- Title -->
-    <title>@yield('title', 'Homepage')</title>
 
     <!-- Favicon -->
     <link href="{{ asset('images/favicon.png') }}" sizes="128x128" rel="shortcut icon" type="image/x-icon">
@@ -80,6 +104,66 @@
             background-image: url({{ asset('images/counter-bg.png') }});
         }
     </style>
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Khaled Ahmed",
+        "jobTitle": "Full-Stack Developer & Certified Instructor",
+        "url": "https://khaledahmed.net",
+        "sameAs": [
+            "https://linkedin.com/in/khaled-ahmed-82368819b",
+            "https://github.com/khaled312001"
+        ],
+        "email": "khaledahmedhaggagy@gmail.com",
+        "telephone": "+20-1204593124",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Qena",
+            "addressCountry": "Egypt"
+        },
+        "image": "{{ asset('images/your-logo.jpg') }}",
+        "description": "Full Stack Developer and Instructor with strong experience in building full web applications, teaching programming, and delivering interactive training.",
+        "knowsAbout": [
+            "Web Development",
+            "Laravel",
+            "React.js",
+            "Vue.js",
+            "PHP",
+            "JavaScript",
+            "MySQL",
+            "Full-Stack Development",
+            "Programming Instruction"
+        ],
+        "alumniOf": {
+            "@type": "EducationalOrganization",
+            "name": "University"
+        }
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Khaled Ahmed - Full-Stack Developer",
+        "url": "https://khaledahmed.net",
+        "description": "Full Stack Developer and Instructor with strong experience in building full web applications, teaching programming, and delivering interactive training.",
+        "publisher": {
+            "@type": "Person",
+            "name": "Khaled Ahmed"
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://khaledahmed.net/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    
+    @yield('structured_data')
 
     @stack('styles')
 </head>

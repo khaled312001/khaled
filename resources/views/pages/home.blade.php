@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Homepage')
+@section('title', 'Khaled Ahmed - Full-Stack Developer & Certified Instructor | Web Development Services')
+@section('description', 'Full Stack Developer and Instructor with strong experience in building full web applications, teaching programming, and delivering interactive training. Expert in Laravel, React.js, Vue.js, and modern web technologies.')
+@section('keywords', 'Full Stack Developer, Web Development, Laravel Developer, React.js Developer, Vue.js Developer, PHP Developer, JavaScript Developer, Programming Instructor, Web Applications, Egypt Developer, Qena')
+@section('canonical', 'https://khaledahmed.net')
+@section('og_image', asset('images/your-logo.jpg'))
+@section('og_image_alt', 'Khaled Ahmed - Full-Stack Developer & Certified Instructor')
 
 @section('content')
 <!--// Hero Section Start //-->

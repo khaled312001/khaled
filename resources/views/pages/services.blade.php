@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Services')
+@section('title', 'Services - Web Development & Programming Courses | Khaled Ahmed')
+@section('description', 'Professional web development services including Full-Stack Web Development, E-Commerce Platforms, and Programming Courses & Training. Expert in Laravel, React.js, Vue.js, and modern web technologies.')
+@section('keywords', 'Web Development Services, Full-Stack Development, E-Commerce Development, Programming Courses, Laravel Development, React.js Development, Vue.js Development, Web Development Training, Programming Instructor')
+@section('canonical', 'https://khaledahmed.net/services')
+@section('og_image', asset('images/your-logo.jpg'))
+@section('og_image_alt', 'Web Development Services - Khaled Ahmed')
 
 @section('content')
 <!--// Breadcrumb Section Start //-->

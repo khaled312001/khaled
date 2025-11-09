@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Portfolio')
+@section('title', 'Portfolio - Web Development Projects | Khaled Ahmed')
+@section('description', 'View my portfolio of web development projects including Couvreur Roofing Website, King Kebab Restaurant System, Green Arrow Academy, Wasila Charity Platform, Focus Tracker AI System, and more.')
+@section('keywords', 'Web Development Portfolio, Laravel Projects, React.js Projects, Vue.js Projects, Full-Stack Projects, E-Commerce Websites, Restaurant Management Systems, Academy Websites')
+@section('canonical', 'https://khaledahmed.net/portfolios')
+@section('og_image', asset('images/your-logo.jpg'))
+@section('og_image_alt', 'Portfolio - Khaled Ahmed Web Development Projects')
 
 @section('content')
 <section class="breadcrumb-section section">
