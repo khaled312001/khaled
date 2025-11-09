@@ -73,43 +73,9 @@
             </div>
             <div class="col-lg-4 col-md-6 wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay="0.3s">
                 <div class="services-item">
-                    <img src="{{ asset('images/1710763151-services-bg-img-3.jpg') }}" alt="Services image" class="services-bg-img">
-                    <div class="body">
-                    <h4>03</h4>
-                    <h5>AI & Computer Vision Systems</h5>
-                    <p>AI-powered applications, computer vision systems, real-time monitoring solutions using Python, OpenCV, Flask, and WebSocket technology. Building intelligent systems for various industries.</p>
-                    <div class="btn-box">
-                        <a href="{{ route('contact') }}">Contact Me  <i class="fa fa-arrow-right"></i></a>
-                    </div>
-                    </div>
-                    <div class="icon">
-                        <span class="fas fa-brain"></span>
-                    </div>
-                    <div class="icon-border"></div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay="0.4s">
-                <div class="services-item">
-                    <img src="{{ asset('images/1710763075-services-bg-img-1.jpg') }}" alt="Services image" class="services-bg-img">
-                    <div class="body">
-                    <h4>04</h4>
-                    <h5>Mobile App Development</h5>
-                    <p>Cross-platform mobile applications using Flutter, IoT integration, Bluetooth connectivity, and Arduino programming. Building mobile solutions for various platforms and devices.</p>
-                    <div class="btn-box">
-                        <a href="{{ route('contact') }}">Contact Me  <i class="fa fa-arrow-right"></i></a>
-                    </div>
-                    </div>
-                    <div class="icon">
-                        <span class="fas fa-mobile-alt"></span>
-                    </div>
-                    <div class="icon-border"></div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay="0.5s">
-                <div class="services-item">
                     <img src="{{ asset('images/1710763115-services-bg-img-2.jpg') }}" alt="Services image" class="services-bg-img">
                     <div class="body">
-                    <h4>05</h4>
+                    <h4>03</h4>
                     <h5>Programming Courses & Training</h5>
                     <p>Teaching web development, programming basics (Python, JavaScript), kids & teens programming with Scratch, Arduino & IoT, and full-stack development courses. Interactive and hands-on learning.</p>
                     <div class="btn-box">
@@ -118,23 +84,6 @@
                     </div>
                     <div class="icon">
                         <span class="fas fa-chalkboard-teacher"></span>
-                    </div>
-                    <div class="icon-border"></div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay="0.6s">
-                <div class="services-item">
-                    <img src="{{ asset('images/1710763151-services-bg-img-3.jpg') }}" alt="Services image" class="services-bg-img">
-                    <div class="body">
-                    <h4>06</h4>
-                    <h5>API Development & Integration</h5>
-                    <p>RESTful API development, payment gateway integration (MyFatoorah), authentication systems (Sanctum), permission management (Spatie), and third-party service integrations for seamless connectivity.</p>
-                    <div class="btn-box">
-                        <a href="{{ route('contact') }}">Contact Me  <i class="fa fa-arrow-right"></i></a>
-                    </div>
-                    </div>
-                    <div class="icon">
-                        <span class="fas fa-plug"></span>
                     </div>
                     <div class="icon-border"></div>
                 </div>
