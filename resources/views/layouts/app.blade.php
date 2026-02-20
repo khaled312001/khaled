@@ -26,7 +26,7 @@
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="@yield('og_title', 'Khaled Ahmed - Full-Stack Developer & Certified Instructor')">
     <meta property="og:description" content="@yield('og_description', 'Full Stack Developer and Instructor with strong experience in building full web applications, teaching programming, and delivering interactive training.')">
-    <meta property="og:image" content="@yield('og_image', asset('images/your-logo.jpg'))">
+    <meta property="og:image" content="@yield('og_image', asset('images/logo.png'))">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="@yield('og_image_alt', 'Khaled Ahmed - Full-Stack Developer')">
@@ -39,7 +39,7 @@
     <meta name="twitter:url" content="{{ url()->current() }}">
     <meta name="twitter:title" content="@yield('twitter_title', 'Khaled Ahmed - Full-Stack Developer & Certified Instructor')">
     <meta name="twitter:description" content="@yield('twitter_description', 'Full Stack Developer and Instructor with strong experience in building full web applications, teaching programming, and delivering interactive training.')">
-    <meta name="twitter:image" content="@yield('twitter_image', asset('images/your-logo.jpg'))">
+    <meta name="twitter:image" content="@yield('twitter_image', asset('images/logo.png'))">
     <meta name="twitter:image:alt" content="@yield('twitter_image_alt', 'Khaled Ahmed - Full-Stack Developer')">
     <meta name="twitter:creator" content="@khaledahmed">
     <meta name="twitter:site" content="@khaledahmed">
@@ -47,7 +47,7 @@
     <!-- Additional Meta Tags -->
     <meta itemprop="name" content="@yield('title', 'Khaled Ahmed - Full-Stack Developer & Certified Instructor')">
     <meta itemprop="description" content="@yield('description', 'Full Stack Developer and Instructor with strong experience in building full web applications, teaching programming, and delivering interactive training.')">
-    <meta itemprop="image" content="@yield('og_image', asset('images/your-logo.jpg'))">
+    <meta itemprop="image" content="@yield('og_image', asset('images/logo.png'))">
     
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -81,12 +81,12 @@
 
     <style>
         :root {
-            --main-color: #e00606;
-            --secondary-color: #929090;
-            --scroll-button-color: #ff4400;
-            --bottom-button-color: #ff0000;
-            --bottom-button-hover-color: #4f4f4f;
-            --side-button-color: #ff0000;
+            --main-color: #2563eb;
+            --secondary-color: #6b7280;
+            --scroll-button-color: #2563eb;
+            --bottom-button-color: #1e40af;
+            --bottom-button-hover-color: #1e3a5f;
+            --side-button-color: #2563eb;
             --title-font: 'Poppins', sans-serif;
             --text-font: 'Roboto', sans-serif;
         }
@@ -121,10 +121,10 @@
         "telephone": "+20-1204593124",
         "address": {
             "@type": "PostalAddress",
-            "addressLocality": "Qena",
+            "addressLocality": "Cairo",
             "addressCountry": "Egypt"
         },
-        "image": "{{ asset('images/your-logo.jpg') }}",
+        "image": "{{ asset('images/logo.png') }}",
         "description": "Full Stack Developer and Instructor with strong experience in building full web applications, teaching programming, and delivering interactive training.",
         "knowsAbout": [
             "Web Development",
@@ -139,7 +139,7 @@
         ],
         "alumniOf": {
             "@type": "EducationalOrganization",
-            "name": "University"
+            "name": "Luxor University"
         }
     }
     </script>

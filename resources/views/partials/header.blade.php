@@ -3,8 +3,8 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg p-0">
                 <a class="navbar-brand" title="Home" href="{{ route('home') }}">
-                    <img src="{{ asset('images/your-logo.jpg') }}" alt="Logo White" class="img-fluid logo-transparent">
-                    <img src="{{ asset('images/your-logo.jpg') }}" alt="Logo Black" class="img-fluid logo-normal">
+                    <img src="{{ asset('images/logo.png') }}" alt="Khaled Ahmed Logo" class="img-fluid logo-transparent" style="max-height: 50px;">
+                    <img src="{{ asset('images/logo.png') }}" alt="Khaled Ahmed Logo" class="img-fluid logo-normal" style="max-height: 50px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#fixedNavbar" aria-controls="fixedNavbar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="togler-icon-inner">
@@ -34,7 +34,7 @@
                         </li>
                         <li class="nav-item navbar-btn-resp d-none d-lg-flex align-items-center">
                             <a href="{{ route('contact') }}" class="primary-btn">
-                                <span class="text">contact With Me</span>
+                                <span class="text">Contact Me</span>
                                 <span class="icon"><i class="fa fa-arrow-right"></i></span>
                             </a>
                         </li>
@@ -44,4 +44,3 @@
         </div>
     </div>
 </header>
-

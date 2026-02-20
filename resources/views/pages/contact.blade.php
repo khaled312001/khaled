@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('title', 'Contact Me - Get In Touch | Khaled Ahmed')
-@section('description', 'Contact Khaled Ahmed for web development services, programming courses, or collaboration opportunities. Located in Qena, Egypt. Email: khaledahmedhaggagy@gmail.com | Phone: +20 1204593124')
+@section('description', 'Contact Khaled Ahmed for web development services, programming courses, or collaboration opportunities. Located in Cairo, Egypt. Email: khaledahmedhaggagy@gmail.com | Phone: +20 120 459 3124')
 @section('keywords', 'Contact Khaled Ahmed, Web Developer Contact, Programming Instructor Contact, Hire Web Developer, Web Development Services Contact, Egypt Developer Contact')
 @section('canonical', 'https://khaledahmed.net/contact')
-@section('og_image', asset('images/your-logo.jpg'))
+@section('og_image', asset('images/logo.png'))
 @section('og_image_alt', 'Contact Khaled Ahmed - Full-Stack Developer')
 
 @section('content')
@@ -14,13 +14,13 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="breadcrumb-inner">
-                    <h1>Contact Us</h1>
+                    <h1>Contact Me</h1>
                     <ul class="breadcrumb-links">
                         <li>
                             <a href="{{ route('home') }}">Home</a>
                         </li>
                         <li class="active">
-                            Contact Us
+                            Contact Me
                         </li>
                     </ul>
                 </div>
@@ -47,7 +47,7 @@
                         </div>
                         <div class="body">
                             <h5>Address</h5>
-                            <p>Qena, Egypt</p>
+                            <p>Cairo, Egypt</p>
                         </div>
                     </div>
                     <div class="contact-info-item wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.3s">

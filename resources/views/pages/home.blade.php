@@ -1,39 +1,39 @@
 @extends('layouts.app')
 
-@section('title', 'Khaled Ahmed - Full-Stack Developer & Certified Instructor | Web Development Services')
-@section('description', 'Full Stack Developer and Instructor with strong experience in building full web applications, teaching programming, and delivering interactive training. Expert in Laravel, React.js, Vue.js, and modern web technologies.')
-@section('keywords', 'Full Stack Developer, Web Development, Laravel Developer, React.js Developer, Vue.js Developer, PHP Developer, JavaScript Developer, Programming Instructor, Web Applications, Egypt Developer, Qena')
+@section('title', 'Khaled Ahmed — Full Stack Web Developer | 25+ Projects Across 7 Countries')
+@section('description', 'Full Stack Web Developer with 5+ years of experience delivering 25+ production projects across 7 countries. Expert in React.js, Node.js, PHP/Laravel, MySQL, MongoDB and modern web technologies.')
+@section('keywords', 'Khaled Ahmed, Full Stack Developer, Web Developer, React, Laravel, Node.js, PHP, JavaScript, Portfolio, Egypt Developer, Barmagly')
 @section('canonical', 'https://khaledahmed.net')
-@section('og_image', asset('images/your-logo.jpg'))
-@section('og_image_alt', 'Khaled Ahmed - Full-Stack Developer & Certified Instructor')
+@section('og_image', asset('images/logo.png'))
+@section('og_image_alt', 'Khaled Ahmed — Full Stack Web Developer')
+
+@push('styles')
+<style>
+    .hero-img { display: none !important; }
+    .hero-banner .col-lg-7 { flex: 0 0 100%; max-width: 100%; }
+    .about-img { display: none !important; }
+    #about .col-lg-6:last-child { flex: 0 0 100%; max-width: 100%; }
+    .hero-banner { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%); }
+</style>
+@endpush
 
 @section('content')
 <!--// Hero Section Start //-->
 <section class="hero-banner" data-scroll-index="1">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-7 col-xl-6 col-md-10 wow fadeInUp">
+            <div class="col-lg-12 col-md-10 wow fadeInUp">
                 <div class="hero-inner">
                     <h1>
-                        Khaled Ahmed
-                        Full-Stack Developer & Certified Instructor
+                        Hi, I'm <span style="color:var(--main-color)">Khaled Ahmed</span>
                     </h1>
                     <h2>
-                        Full Stack Developer and Instructor with strong experience in building full web applications, teaching programming, and delivering interactive training. Skilled in PHP/Laravel, JavaScript, Python, React, and modern development practices.
+                        Full Stack Web Developer with 5+ years of professional experience delivering 25+ production projects across 7 countries. Specialized in React.js, Node.js, PHP/Laravel, and modern web technologies.
                     </h2>
-                    <a href="#" data-scroll-nav="4" class="white-btn">
-                        <span class="text">View Works</span>
+                    <a href="{{ route('portfolios') }}" class="white-btn">
+                        <span class="text">View My Work</span>
                         <span class="icon"><i class="fa fa-arrow-right"></i></span>
                     </a>
-                </div>
-            </div>
-            <div class="col-lg-5 col-xl-6 col-md-12 hero-img-resp wow fadeInUp" data-wow-duration="0.7s" data-wow-delay="0.5s">
-                <div class="hero-img">
-                    <div class="border-line-outer">
-                        <div class="border-line-inner">
-                            <img src="{{ asset('images/354x354.jpg') }}" title="banner image" alt="banner image" class="img-fluid">
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -51,75 +51,37 @@
 <section class="section" id="about">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6">
-                <div class="about-img wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.2s">
-                    <img src="{{ asset('images/480x600.jpg') }}" alt="About image" title="About image" class="img-fluid">
-                    <a class="about-video-btn" href="https://www.youtube.com/watch?v=KVdidEV8nbg"><i class="fa fa-play"></i></a>
-                    <div class="video-border-line"></div>
-                </div>
-            </div>
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div class="about-inner wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.1s">
                     <h6>About Me</h6>
-                    <h2>Full-Stack Developer & Certified Instructor</h2>
+                    <h2>Full Stack Developer & Founder of Barmagly</h2>
                     <p>
-                        Full Stack Developer and Instructor with strong experience in building full web applications, teaching programming, and delivering interactive training. Skilled in PHP/Laravel, JavaScript, Python, React, and modern development practices. Experienced in Agile/Scrum, team leadership, and mentoring students. Passionate about problem solving, high-quality development, and empowering learners.
+                        Results-driven Full Stack Web Developer with a Bachelor's degree in Information Technology from Luxor University, an ITI Diploma in Full Stack Development (PHP/Laravel), and 5+ years of hands-on experience building scalable web applications and teaching software development. Proficient in modern frontend and backend technologies including React.js, Node.js, PHP/Laravel, and databases (MySQL, MongoDB). Experienced in web hosting, server configuration, domain management, and deployment pipelines. Proven track record of delivering pixel-perfect, responsive websites and leading cross-functional teams across international organizations. Founder of Barmagly software startup, combining entrepreneurial vision with strong technical execution.
                     </p>
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
                             <ul class="mb-resp-15">
-                                <li>
-                                    <div class="text">
-                                        <h5>Name :</h5>
-                                        <p>Khaled Ahmed</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="text">
-                                        <h5>Location :</h5>
-                                        <p>Qena, Egypt</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="text">
-                                        <h5>Freelance :</h5>
-                                        <p>Available</p>
-                                    </div>
-                                </li>
+                                <li><div class="text"><h5>Name :</h5><p>Khaled Ahmed</p></div></li>
+                                <li><div class="text"><h5>Location :</h5><p>Cairo, Egypt</p></div></li>
+                                <li><div class="text"><h5>Freelance :</h5><p>Available</p></div></li>
                             </ul>
                         </div>
                         <div class="col-md-6 col-sm-6">
                             <ul>
-                                <li>
-                                    <div class="text">
-                                        <h5>Education :</h5>
-                                        <p>Luxor University, ITI</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="text">
-                                        <h5>Languages :</h5>
-                                        <p>Arabic (Native), English (Fluent), French (Intermediate)</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="text">
-                                        <h5>Phone :</h5>
-                                        <p>+20 1204593124 / +20 1010254819</p>
-                                    </div>
-                                </li>
+                                <li><div class="text"><h5>Education :</h5><p>Luxor University — IT, ITI Diploma</p></div></li>
+                                <li><div class="text"><h5>Languages :</h5><p>English (Fluent), Arabic (Native)</p></div></li>
+                                <li><div class="text"><h5>Phone :</h5><p>+20 120 459 3124 / +20 101 025 4819</p></div></li>
                             </ul>
                         </div>
                     </div>
                     <a href="{{ route('contact') }}" class="primary-btn me-3 mb-3">
-                        <span class="text">Get Started</span>
+                        <span class="text">Contact Me</span>
                         <span class="icon"><i class="fa fa-arrow-right"></i></span>
                     </a>
                     <a href="/Khaled_Ahmed.pdf" class="primary-btn" download>
-    <span class="text">Download CV</span>
-    <span class="icon"><i class="fa fa-download"></i></span>
-</a>
-
+                        <span class="text">Download CV</span>
+                        <span class="icon"><i class="fa fa-download"></i></span>
+                    </a>
                 </div>
             </div>
         </div>
