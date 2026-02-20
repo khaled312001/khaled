@@ -4,7 +4,7 @@
 @section('description', 'Full Stack Web Developer with 5+ years of experience delivering 25+ production projects across 7 countries. Expert in React.js, Node.js, PHP/Laravel, MySQL, MongoDB and modern web technologies.')
 @section('keywords', 'Khaled Ahmed, Full Stack Developer, Web Developer, React, Laravel, Node.js, PHP, JavaScript, Portfolio, Egypt Developer, Barmagly')
 @section('canonical', 'https://khaledahmed.net')
-@section('og_image', asset('images/your-logo.png'))
+@section('og_image', asset('images/logo.png'))
 @section('og_image_alt', 'Khaled Ahmed — Full Stack Web Developer')
 
 @push('styles')

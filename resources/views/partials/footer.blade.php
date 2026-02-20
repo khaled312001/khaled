@@ -6,7 +6,7 @@
                     <div class="footer-widget">
                         <h6 class="footer-title">About Me</h6>
                         <a href="{{ route('home') }}">
-                            <img src="{{ asset('images/your-logo.png') }}" alt="Khaled Ahmed Logo" class="img-fluid footer-logo" style="max-height: 60px;">
+                            <img src="{{ asset('images/logo.png') }}" alt="Khaled Ahmed Logo" class="img-fluid footer-logo" style="max-height: 60px;">
                         </a>
                         <p class="footer-desc">
                             Full Stack Web Developer with 5+ years of experience delivering 25+ production projects across 7 countries. Founder of Barmagly software startup.

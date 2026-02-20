@@ -4,7 +4,7 @@
 @section('description', 'Learn about Khaled Ahmed — Full Stack Web Developer with 5+ years experience, BSc in IT from Luxor University, ITI Diploma, and 25+ production projects delivered across 7 countries.')
 @section('keywords', 'About Khaled Ahmed, Full Stack Developer Egypt, Web Developer Cairo, Programming Instructor, Laravel Expert, React.js Developer, Node.js Developer')
 @section('canonical', 'https://khaledahmed.net/about')
-@section('og_image', asset('images/your-logo.png'))
+@section('og_image', asset('images/logo.png'))
 @section('og_image_alt', 'About Khaled Ahmed - Full Stack Web Developer')
 
 @push('styles')

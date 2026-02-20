@@ -4,7 +4,7 @@
 @section('description', 'Explore my portfolio of 25+ web development projects delivered across the UK, Switzerland, France, UAE, Saudi Arabia, Egypt, and Iraq. Full stack solutions for healthcare, e-commerce, education, tourism, and more.')
 @section('keywords', 'Web Development Portfolio, Laravel Projects, React.js Projects, Full Stack Projects, E-Commerce Websites, Healthcare Systems, Education Platforms, International Projects')
 @section('canonical', 'https://khaledahmed.net/portfolios')
-@section('og_image', asset('images/your-logo.png'))
+@section('og_image', asset('images/logo.png'))
 @section('og_image_alt', 'Portfolio - Khaled Ahmed Web Development Projects')
 
 @push('styles')
