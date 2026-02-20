@@ -4,7 +4,7 @@
 @section('description', 'Professional web development services: Full Stack Development, Frontend (React.js), Backend (Laravel/Node.js), Web Hosting & DevOps, UI/UX Implementation, and Coding Training & Mentoring.')
 @section('keywords', 'Web Development Services, Full Stack Development, React Development, Laravel Development, Node.js Development, Web Hosting, DevOps, Coding Training, Programming Instructor')
 @section('canonical', 'https://khaledahmed.net/services')
-@section('og_image', asset('images/logo.png'))
+@section('og_image', asset('images/your-logo.png'))
 @section('og_image_alt', 'Web Development Services - Khaled Ahmed')
 
 @push('styles')

@@ -4,7 +4,7 @@
 @section('description', 'Contact Khaled Ahmed for web development services, programming courses, or collaboration opportunities. Located in Cairo, Egypt. Email: khaledahmedhaggagy@gmail.com | Phone: +20 120 459 3124')
 @section('keywords', 'Contact Khaled Ahmed, Web Developer Contact, Programming Instructor Contact, Hire Web Developer, Web Development Services Contact, Egypt Developer Contact')
 @section('canonical', 'https://khaledahmed.net/contact')
-@section('og_image', asset('images/logo.png'))
+@section('og_image', asset('images/your-logo.png'))
 @section('og_image_alt', 'Contact Khaled Ahmed - Full-Stack Developer')
 
 @section('content')
