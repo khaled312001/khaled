@@ -523,19 +523,25 @@
             gap: 14px;
         }
 
-        /* Site logo sizing — clean, sharp, retina-ready */
+        /* Site logo sizing — clean, sharp, retina-ready
+           Note: legacy style.css hides .navbar-brand img by default — we override here. */
+        .header .navbar-brand.site-logo img,
         .navbar-brand.site-logo img {
-            height: 46px;
-            width: auto;
+            display: block !important;
+            visibility: visible !important;
+            height: 46px !important;
+            width: auto !important;
             max-height: 46px;
             object-fit: contain;
+            opacity: 1 !important;
             transition: opacity 0.2s ease;
         }
         .navbar-brand.site-logo:hover img {
-            opacity: 0.85;
+            opacity: 0.85 !important;
         }
         @media (max-width: 768px) {
-            .navbar-brand.site-logo img { height: 38px; max-height: 38px; }
+            .header .navbar-brand.site-logo img,
+            .navbar-brand.site-logo img { height: 38px !important; max-height: 38px; }
         }
 
         /* Footer logo (uses logo-light.png on dark background) */
@@ -684,6 +690,39 @@
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
+        }
+
+        /* ====================================================================
+           LOGO VISIBILITY — must override style.css which hides .navbar-brand img
+           ==================================================================== */
+        .header .navbar-brand img,
+        .navbar-brand.site-logo img,
+        .header .navbar-brand.site-logo img {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            height: 46px !important;
+            width: auto !important;
+            max-height: 46px !important;
+            object-fit: contain !important;
+            transition: opacity 0.2s ease !important;
+        }
+        @media (max-width: 768px) {
+            .header .navbar-brand img,
+            .navbar-brand.site-logo img,
+            .header .navbar-brand.site-logo img {
+                height: 38px !important;
+                max-height: 38px !important;
+            }
+        }
+        /* Footer logo (white via CSS filter on a dark background) */
+        .footer .footer-logo {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 0.95 !important;
+            max-height: 56px !important;
+            width: auto !important;
+            filter: brightness(0) invert(1);
         }
 
         /* ====================================================================
