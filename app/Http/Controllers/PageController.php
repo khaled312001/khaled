@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactMail;
 use App\Services\BlogService;
+use App\Services\PortfolioService;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 use Exception;
@@ -59,32 +60,71 @@ class PageController extends Controller
 
     public function contactSubmit(Request $request)
     {
-        // Validate the form data
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'subject' => 'required|string|max:255',
-            'message' => 'required|string|max:5000',
+        // Honeypot first — silently succeed so bots stop retrying
+        if ($request->filled('website')) {
+            return redirect()->route('contact')->with('success', 'Thank you! Your message was received.');
+        }
+
+        // Relaxed validation — only require the essentials so users do not get
+        // locked out by overly strict rules (the previous min:10 rejection caused
+        // user complaints). All other fields are optional metadata.
+        $validated = $request->validate([
+            'name'         => 'required|string|min:2|max:120',
+            'email'        => 'required|email|max:190',
+            'subject'      => 'required|string|min:2|max:200',
+            'message'      => 'required|string|min:2|max:8000',
+            'phone'        => 'nullable|string|max:40',
+            'company'      => 'nullable|string|max:120',
+            'project_type' => 'nullable|string|max:80',
+            'budget'       => 'nullable|string|max:60',
+            'timeline'     => 'nullable|string|max:60',
+            'source'       => 'nullable|string|max:60',
+            'nda_required' => 'nullable',
+        ], [
+            'email.email' => 'Please enter a valid email address.',
         ]);
 
         try {
-            // Send email
+            $clean = static fn ($v) => trim(preg_replace('/[\r\n<>"\(\)\[\]]/u', '', (string) $v));
+
+            $details = [
+                'name'         => $clean($validated['name']),
+                'email'        => $validated['email'],
+                'subject'      => $clean($validated['subject']),
+                'message'      => $validated['message'],
+                'phone'        => $clean($request->input('phone', '')),
+                'company'      => $clean($request->input('company', '')),
+                'project_type' => $clean($request->input('project_type', '')),
+                'budget'       => $clean($request->input('budget', '')),
+                'timeline'     => $clean($request->input('timeline', '')),
+                'source'       => $clean($request->input('source', '')),
+                'nda_required' => $request->boolean('nda_required'),
+                'submitted_at' => now()->toDateTimeString(),
+                'ip'           => $request->ip(),
+                'user_agent'   => substr((string) $request->userAgent(), 0, 200),
+            ];
+
             Mail::to('khaledahmedhaggagy@gmail.com')->send(
                 new ContactMail(
-                    $request->name,
-                    $request->email,
-                    $request->subject,
-                    $request->message
+                    $details['name'],
+                    $details['email'],
+                    $details['subject'],
+                    $details['message'],
+                    $details
                 )
             );
 
-            return redirect()->route('contact')->with('success', 'Thank you for your message! I will get back to you soon.');
+            return redirect()->route('contact')->with('success', 'Thank you! Your project brief was received. I will reply within 24 hours.');
         } catch (Exception $e) {
-            // Log the error for debugging
-            Log::error('Email sending failed: ' . $e->getMessage());
-            Log::error('Email error trace: ' . $e->getTraceAsString());
-            
-            return redirect()->route('contact')->with('error', 'Sorry, there was an error sending your message. Please check your email configuration. Error: ' . $e->getMessage());
+            Log::error('Contact form mail failed', [
+                'error' => $e->getMessage(),
+                'email' => $request->input('email'),
+            ]);
+
+            return redirect()
+                ->route('contact')
+                ->withInput()
+                ->with('error', 'Sorry, there was an error sending your message. Please email me directly at khaledahmedhaggagy@gmail.com or call +20 120 459 3124.');
         }
     }
 
@@ -105,12 +145,17 @@ class PageController extends Controller
 
     public function portfolios()
     {
-        return view('pages.portfolios');
+        $projects = PortfolioService::all();
+        $categories = PortfolioService::categories();
+        return view('pages.portfolios', compact('projects', 'categories'));
     }
 
     public function portfolioCategory($category)
     {
-        return view('pages.portfolios', compact('category'));
+        $allProjects = PortfolioService::all();
+        $projects = array_values(array_filter($allProjects, fn ($p) => strtolower($p['category']) === strtolower(str_replace('-', ' ', $category))));
+        $categories = PortfolioService::categories();
+        return view('pages.portfolios', compact('projects', 'categories', 'category'));
     }
 
     public function portfolioShow($slug)

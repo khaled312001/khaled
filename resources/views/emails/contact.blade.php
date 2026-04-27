@@ -3,95 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Contact Form Message</title>
+    <title>New Project Brief — {{ $subject }}</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        .email-container {
-            background-color: #ffffff;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .header {
-            border-bottom: 3px solid #e00606;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-        .header h1 {
-            color: #e00606;
-            margin: 0;
-            font-size: 24px;
-        }
-        .info-section {
-            margin-bottom: 25px;
-        }
-        .info-section label {
-            font-weight: bold;
-            color: #555;
-            display: inline-block;
-            min-width: 100px;
-        }
-        .info-section p {
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-left: 4px solid #e00606;
-        }
-        .message-section {
-            margin-top: 30px;
-        }
-        .message-section h2 {
-            color: #e00606;
-            font-size: 18px;
-            margin-bottom: 15px;
-        }
-        .message-content {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 5px;
-            border-left: 4px solid #e00606;
-            white-space: pre-wrap;
-        }
-        .footer {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-            font-size: 12px;
-            color: #777;
-            text-align: center;
-        }
+        body { font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height: 1.6; color: #1e293b; max-width: 680px; margin: 0 auto; padding: 20px; background-color: #f1f5f9; }
+        .email-container { background-color: #ffffff; border-radius: 12px; padding: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.06); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%); color: #fff; padding: 28px 32px; }
+        .header h1 { margin: 0 0 4px; font-size: 22px; }
+        .header p { margin: 0; opacity: 0.9; font-size: 14px; }
+        .body-content { padding: 28px 32px; }
+        .field-grid { display: table; width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .field-row { display: table-row; }
+        .field-label { display: table-cell; padding: 10px 12px; font-size: 12px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; width: 35%; vertical-align: top; border-bottom: 1px solid #f1f5f9; }
+        .field-value { display: table-cell; padding: 10px 12px; font-size: 14px; color: #0f172a; vertical-align: top; border-bottom: 1px solid #f1f5f9; }
+        .field-value a { color: #2563eb; text-decoration: none; }
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; background: #dbeafe; color: #1e40af; }
+        .badge.warn { background: #fef3c7; color: #92400e; }
+        .message-block { background: #f8fafc; border-left: 4px solid #2563eb; border-radius: 6px; padding: 16px 18px; margin-top: 8px; white-space: pre-wrap; word-wrap: break-word; font-size: 14.5px; line-height: 1.7; color: #0f172a; }
+        h2 { font-size: 15px; color: #1e293b; margin: 24px 0 8px; padding-bottom: 6px; border-bottom: 1px solid #e2e8f0; }
+        .actions { margin-top: 24px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+        .actions a { display: inline-block; padding: 10px 18px; background: #2563eb; color: #fff !important; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 14px; margin-right: 8px; }
+        .actions a.secondary { background: #25d366; }
+        .footer { padding: 18px 32px; font-size: 12px; color: #94a3b8; text-align: center; background: #f8fafc; border-top: 1px solid #e2e8f0; }
+        .meta { margin-top: 16px; font-size: 11.5px; color: #94a3b8; }
+        .meta span { margin-right: 14px; }
     </style>
 </head>
 <body>
     <div class="email-container">
         <div class="header">
-            <h1>New Contact Form Message</h1>
+            <h1>📬 New Project Brief</h1>
+            <p>Subject: {{ $subject }}</p>
         </div>
 
-        <div class="info-section">
-            <p><label>Name:</label> {{ $name }}</p>
-            <p><label>Email:</label> <a href="mailto:{{ $email }}">{{ $email }}</a></p>
-            <p><label>Subject:</label> {{ $subject }}</p>
-        </div>
+        <div class="body-content">
+            <h2>Contact Information</h2>
+            <div class="field-grid">
+                <div class="field-row">
+                    <div class="field-label">Name</div>
+                    <div class="field-value"><strong>{{ $name }}</strong></div>
+                </div>
+                <div class="field-row">
+                    <div class="field-label">Email</div>
+                    <div class="field-value"><a href="mailto:{{ $email }}">{{ $email }}</a></div>
+                </div>
+                @if(!empty($details['phone']))
+                <div class="field-row">
+                    <div class="field-label">Phone / WhatsApp</div>
+                    <div class="field-value">
+                        <a href="tel:{{ $details['phone'] }}">{{ $details['phone'] }}</a>
+                        &nbsp;·&nbsp;
+                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $details['phone']) }}" target="_blank">WhatsApp</a>
+                    </div>
+                </div>
+                @endif
+                @if(!empty($details['company']))
+                <div class="field-row">
+                    <div class="field-label">Company</div>
+                    <div class="field-value">{{ $details['company'] }}</div>
+                </div>
+                @endif
+            </div>
 
-        <div class="message-section">
-            <h2>Message:</h2>
-            <div class="message-content">{{ $body  }}</div>
+            @if(!empty($details['project_type']) || !empty($details['budget']) || !empty($details['timeline']))
+            <h2>Project Details</h2>
+            <div class="field-grid">
+                @if(!empty($details['project_type']))
+                <div class="field-row">
+                    <div class="field-label">Project Type</div>
+                    <div class="field-value"><span class="badge">{{ $details['project_type'] }}</span></div>
+                </div>
+                @endif
+                @if(!empty($details['budget']))
+                <div class="field-row">
+                    <div class="field-label">Budget</div>
+                    <div class="field-value"><strong>{{ $details['budget'] }}</strong></div>
+                </div>
+                @endif
+                @if(!empty($details['timeline']))
+                <div class="field-row">
+                    <div class="field-label">Timeline</div>
+                    <div class="field-value">{{ $details['timeline'] }}</div>
+                </div>
+                @endif
+                @if(!empty($details['nda_required']))
+                <div class="field-row">
+                    <div class="field-label">NDA</div>
+                    <div class="field-value"><span class="badge warn">⚠ NDA requested before details</span></div>
+                </div>
+                @endif
+            </div>
+            @endif
+
+            <h2>Message</h2>
+            <div class="message-block">{{ $body }}</div>
+
+            <div class="actions">
+                <a href="mailto:{{ $email }}?subject=Re: {{ $subject }}">Reply to {{ $name }}</a>
+                @if(!empty($details['phone']))
+                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $details['phone']) }}" class="secondary">WhatsApp</a>
+                @endif
+            </div>
+
+            <div class="meta">
+                @if(!empty($details['source']))<span>📡 Source: <strong>{{ $details['source'] }}</strong></span>@endif
+                @if(!empty($details['submitted_at']))<span>🕒 {{ $details['submitted_at'] }}</span>@endif
+                @if(!empty($details['ip']))<span>🌐 IP: {{ $details['ip'] }}</span>@endif
+            </div>
         </div>
 
         <div class="footer">
-            <p>This email was sent from the contact form on khaledahmed.net</p>
-            <p>You can reply directly to this email to respond to {{ $name }}</p>
+            Sent from the contact form on <a href="https://khaledahmed.net" style="color:#64748b">khaledahmed.net</a>
         </div>
     </div>
 </body>
 </html>
-

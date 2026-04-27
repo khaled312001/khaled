@@ -4,12 +4,12 @@
             <div class="row">
                 <div class="col-md-6 col-lg-3 footer-widget-resp">
                     <div class="footer-widget">
-                        <h6 class="footer-title">About Me</h6>
+                        <h6 class="footer-title">{{ __('site.about_me') }}</h6>
                         <a href="{{ route('home') }}" aria-label="Khaled Ahmed Home">
-                            <img src="{{ asset('images/logo.png') }}" alt="Khaled Ahmed - Full Stack Web Developer" class="img-fluid footer-logo" style="max-height: 60px;" loading="lazy" width="120" height="60">
+                            <img src="{{ asset('images/logo.png') }}" alt="Khaled Ahmed - Full Stack Web Developer" class="img-fluid footer-logo" loading="lazy" width="180" height="73">
                         </a>
                         <p class="footer-desc">
-                            Senior Full Stack Web Developer with 5+ years of experience and 25+ production projects shipped across 7 countries. Founder of Barmagly software startup. Specialized in Laravel, React, and Node.js.
+                            {{ __('site.about_footer_desc') }}
                         </p>
                         <div class="footer-social-links">
                             <a href="https://github.com/khaled312001" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
@@ -21,21 +21,21 @@
                 </div>
                 <div class="col-md-6 col-lg-3 footer-widget-resp">
                     <div class="footer-widget footer-widget-pl">
-                        <h6 class="footer-title">Quick Links</h6>
+                        <h6 class="footer-title">{{ __('site.quick_links') }}</h6>
                         <ul class="footer-links">
-                            <li><a href="{{ route('home') }}">Home</a></li>
-                            <li><a href="{{ route('about') }}">About Me</a></li>
-                            <li><a href="{{ route('services') }}">Services</a></li>
-                            <li><a href="{{ route('portfolios') }}">Portfolio</a></li>
-                            <li><a href="{{ route('blogs') }}">Blog</a></li>
-                            <li><a href="{{ route('faqs') }}">FAQs</a></li>
-                            <li><a href="{{ route('contact') }}">Contact</a></li>
+                            <li><a href="{{ route('home') }}">{{ __('site.home') }}</a></li>
+                            <li><a href="{{ route('about') }}">{{ __('site.about') }}</a></li>
+                            <li><a href="{{ route('services') }}">{{ __('site.services') }}</a></li>
+                            <li><a href="{{ route('portfolios') }}">{{ __('site.portfolio') }}</a></li>
+                            <li><a href="{{ route('blogs') }}">{{ __('site.blog') }}</a></li>
+                            <li><a href="{{ route('faqs') }}">{{ __('site.faqs') }}</a></li>
+                            <li><a href="{{ route('contact') }}">{{ __('site.contact') }}</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 footer-widget-resp">
                     <div class="footer-widget">
-                        <h6 class="footer-title">Popular Articles</h6>
+                        <h6 class="footer-title">{{ __('site.popular_articles') }}</h6>
                         <ul class="footer-links">
                             <li><a href="{{ route('blog.show', 'hire-full-stack-web-developer-egypt') }}">Hire a Full Stack Developer</a></li>
                             <li><a href="{{ route('blog.show', 'laravel-vs-nodejs-2026') }}">Laravel vs Node.js 2026</a></li>
@@ -48,32 +48,32 @@
                 </div>
                 <div class="col-md-6 col-lg-3 footer-widget-resp">
                     <div class="footer-widget">
-                        <h6 class="footer-title">Contact Info</h6>
+                        <h6 class="footer-title">{{ __('site.contact_info') }}</h6>
                         <div class="footer-contact-info-wrap">
                             <ul class="footer-contact-info-list">
                                 <li>
-                                    <p>Senior Full Stack Web Developer · Founder of Barmagly</p>
+                                    <h6><i class="far fa-map custom-color-orange"></i> {{ __('site.location') }}</h6>
+                                    <p>{{ __('site.location_value') }}</p>
                                 </li>
                                 <li>
-                                    <h6><i class="far fa-map custom-color-orange"></i> Location</h6>
-                                    <p>Cairo, Egypt — serving worldwide</p>
-                                </li>
-                                <li>
-                                    <h6><i class="far fa-envelope custom-color-orange"></i> Email</h6>
+                                    <h6><i class="far fa-envelope custom-color-orange"></i> {{ __('site.email') }}</h6>
                                     <div class="text">
                                         <p><a class="text-white" href="mailto:khaledahmedhaggagy@gmail.com">khaledahmedhaggagy@gmail.com</a></p>
                                     </div>
                                 </li>
                                 <li>
-                                    <h6><i class="fas fa-phone custom-color-orange"></i> Phone / WhatsApp</h6>
+                                    <h6><i class="fas fa-phone custom-color-orange"></i> {{ __('site.phone_whatsapp') }}</h6>
                                     <div class="text">
-                                        <p><a class="text-white" href="tel:+201204593124">+20 120 459 3124</a></p>
+                                        <p>
+                                            <a class="text-white" href="tel:+201204593124">+20 120 459 3124</a><br>
+                                            <a class="text-white" href="tel:+201010254819">+20 101 025 4819</a>
+                                        </p>
                                     </div>
                                 </li>
                                 <li>
-                                    <h6><i class="fas fa-clock custom-color-orange"></i> Response Time</h6>
+                                    <h6><i class="fas fa-clock custom-color-orange"></i> {{ __('site.response_time_label') }}</h6>
                                     <div class="text">
-                                        <p>Within 24 hours, every business day</p>
+                                        <p>{{ __('site.response_time_value') }}</p>
                                     </div>
                                 </li>
                             </ul>
@@ -85,7 +85,7 @@
     </div>
     <div class="copyright">
         <div class="container">
-            <p class="copyright-text">© Copyright {{ date('Y') }}. Khaled Ahmed — Senior Full Stack Web Developer. All rights reserved. <a href="{{ route('blogs') }}" class="text-white">Blog</a> · <a href="{{ route('faqs') }}" class="text-white">FAQs</a> · <a href="/sitemap.xml" class="text-white">Sitemap</a></p>
+            <p class="copyright-text">© {{ date('Y') }} Khaled Ahmed. {{ __('site.all_rights') }} <a href="{{ route('blogs') }}" class="text-white">{{ __('site.blog') }}</a> · <a href="{{ route('faqs') }}" class="text-white">{{ __('site.faqs') }}</a> · <a href="/sitemap.xml" class="text-white">{{ __('site.sitemap') }}</a></p>
         </div>
     </div>
 </footer>

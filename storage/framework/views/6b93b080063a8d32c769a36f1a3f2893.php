@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en" itemscope itemtype="https://schema.org/WebSite">
+<?php $locale = app()->getLocale(); $isRtl = $locale === 'ar'; ?>
+<html dir="<?php echo e($isRtl ? 'rtl' : 'ltr'); ?>" lang="<?php echo e($locale); ?>" itemscope itemtype="https://schema.org/WebSite">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,6 +27,7 @@
 
     <link rel="canonical" href="<?php echo $__env->yieldContent('canonical', url()->current()); ?>">
     <link rel="alternate" hreflang="en" href="<?php echo $__env->yieldContent('canonical', url()->current()); ?>">
+    <link rel="alternate" hreflang="ar" href="<?php echo $__env->yieldContent('canonical', url()->current()); ?>">
     <link rel="alternate" hreflang="x-default" href="<?php echo $__env->yieldContent('canonical', url()->current()); ?>">
 
     <meta property="og:type" content="<?php echo $__env->yieldContent('og_type', 'website'); ?>">
@@ -55,15 +57,17 @@
 
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-    <link href="<?php echo e(asset('images/favicon.png')); ?>" sizes="32x32" rel="icon" type="image/png">
-    <link href="<?php echo e(asset('images/favicon.png')); ?>" sizes="192x192" rel="apple-touch-icon">
-    <link href="<?php echo e(asset('images/favicon.png')); ?>" rel="shortcut icon" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo e(asset('images/favicon.png')); ?>">
+    <link rel="icon" type="image/png" sizes="192x192" href="<?php echo e(asset('images/favicon-192.png')); ?>">
+    <link rel="icon" type="image/png" sizes="512x512" href="<?php echo e(asset('images/favicon-512.png')); ?>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo e(asset('images/apple-touch-icon.png')); ?>">
+    <link rel="shortcut icon" href="<?php echo e(asset('images/favicon.png')); ?>">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="<?php echo e(asset('css/bootstrap.min.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/magnific.popup.min.css')); ?>">
@@ -102,13 +106,520 @@
             .btn-whatsapp-pulse-border { bottom: 140px !important; }
             .btn-whatsapp-pulse-border-2 { bottom: 200px !important; }
         }
+        /* Mobile bottom bar */
         .mobile-widget-container { position: fixed; bottom: 0; left: 0; right: 0; z-index: 999; background: #fff; padding: 8px; box-shadow: 0 -2px 10px rgba(0,0,0,0.08); display: none; gap: 8px; }
-        .mobile-widget-container .btn-icon { flex: 1; padding: 12px; border-radius: 8px; font-weight: 600; text-align: center; text-decoration: none; }
+        .mobile-widget-container .btn-icon { flex: 1; padding: 12px; border-radius: 8px; font-weight: 600; text-align: center; text-decoration: none; font-size: 14px; }
         .mobile-widget-container .btn-icon:first-child { background: #2563eb; color: #fff; }
         .mobile-widget-container .btn-icon:last-child { background: #25d366; color: #fff; }
         @media (max-width: 768px) {
             body { padding-bottom: 70px; }
+            .mobile-widget-container { display: flex; }
         }
+
+        /* Single clean floating WhatsApp (desktop) — replaces the cluttered side stack */
+        .floating-whatsapp {
+            position: fixed; bottom: 28px; right: 28px; z-index: 998;
+            width: 58px; height: 58px; border-radius: 50%;
+            background: #25d366; color: #fff !important;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px; text-decoration: none;
+            box-shadow: 0 6px 20px rgba(37,211,102,0.45);
+            transition: transform .2s, box-shadow .2s;
+        }
+        .floating-whatsapp:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 24px rgba(37,211,102,0.6);
+            color: #fff !important;
+        }
+        .floating-whatsapp::before {
+            content: ''; position: absolute; inset: -4px;
+            border-radius: 50%; border: 2px solid #25d366;
+            opacity: 0.5; animation: wa-pulse 2s ease-out infinite;
+        }
+        @keyframes wa-pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+
+        /* Hide noisy hero side widgets (vertical email + social column) */
+        .hero-banner .hero-social-list,
+        .hero-banner .hero-email-link { display: none !important; }
+
+        /* Cleaner scroll-to-top button */
+        .scroll-top-btn {
+            width: 44px !important; height: 44px !important;
+            border-radius: 10px !important;
+            background: var(--main-color) !important; color: #fff !important;
+            box-shadow: 0 4px 12px rgba(37,99,235,0.3) !important;
+            border: none !important;
+        }
+
+        /* ====================================================================
+           MODERN DESIGN SYSTEM — applied site-wide
+           ==================================================================== */
+
+        /* Gradient text utility */
+        .gradient-text {
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #ec4899 100%);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent; color: transparent;
+        }
+
+        /* Section heading polish */
+        .section-heading-left h2,
+        .section-heading h2,
+        .about-inner h2 {
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .section-heading-left span,
+        .section-heading span,
+        .about-inner h6 {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--main-color);
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 36px;
+        }
+        .section-heading-left span::before,
+        .section-heading span::before,
+        .about-inner h6::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 50%;
+            width: 28px; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--main-color));
+        }
+
+        /* Buttons — modern, refined */
+        .primary-btn,
+        .white-btn {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px !important;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .primary-btn::after,
+        .white-btn::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%);
+            transform: translateX(-120%);
+            transition: transform 0.6s ease;
+        }
+        .primary-btn:hover,
+        .white-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 30px rgba(37,99,235,0.28);
+        }
+        .primary-btn:hover::after,
+        .white-btn:hover::after {
+            transform: translateX(120%);
+        }
+
+        /* Cards — subtle modern lift */
+        .service-card,
+        .blog-item,
+        .blog-card,
+        .testimonial-card,
+        .related-card,
+        .why-card,
+        .portfolio-item,
+        .team-member,
+        .pricing-table {
+            transition: transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s ease, border-color 0.25s ease;
+            will-change: transform;
+        }
+        .service-card:hover,
+        .blog-item:hover,
+        .blog-card:hover,
+        .testimonial-card:hover,
+        .related-card:hover,
+        .portfolio-item:hover,
+        .team-member:hover,
+        .pricing-table:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.10);
+        }
+
+        /* Image zoom on hover for cards */
+        .blog-img img,
+        .blog-card .blog-img img,
+        .related-card img,
+        .portfolio-img img {
+            transition: transform 0.6s cubic-bezier(.2,.8,.2,1);
+        }
+        .blog-item:hover .blog-img img,
+        .blog-card:hover .blog-img img,
+        .related-card:hover img,
+        .portfolio-item:hover .portfolio-img img {
+            transform: scale(1.06);
+        }
+
+        /* Header — glass effect on scroll */
+        .header.fixed-top {
+            transition: background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
+        }
+        .header.fixed-top.scrolled,
+        .header.fixed-top.sticky {
+            background: rgba(255, 255, 255, 0.85) !important;
+            backdrop-filter: saturate(180%) blur(14px);
+            -webkit-backdrop-filter: saturate(180%) blur(14px);
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        }
+
+        /* Nav link underline animation */
+        .nav-link.menu-link {
+            position: relative;
+            transition: color 0.2s ease;
+        }
+        .nav-link.menu-link::after {
+            content: '';
+            position: absolute;
+            left: 12px; right: 12px; bottom: 6px;
+            height: 2px;
+            background: var(--main-color);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        .nav-link.menu-link:hover::after,
+        .nav-link.menu-link.active::after {
+            transform: scaleX(1);
+        }
+
+        /* Reveal-on-scroll animation (replaces wow.js look) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(.2,.8,.2,1);
+        }
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal.delay-1 { transition-delay: 0.1s; }
+        .reveal.delay-2 { transition-delay: 0.2s; }
+        .reveal.delay-3 { transition-delay: 0.3s; }
+        .reveal.delay-4 { transition-delay: 0.4s; }
+
+        /* Subtle floating animation for hero stats */
+        @keyframes floatSubtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .hero-stats .stat:nth-child(1) { animation: floatSubtle 4.5s ease-in-out infinite; }
+        .hero-stats .stat:nth-child(2) { animation: floatSubtle 4.5s ease-in-out 0.4s infinite; }
+        .hero-stats .stat:nth-child(3) { animation: floatSubtle 4.5s ease-in-out 0.8s infinite; }
+        .hero-stats .stat:nth-child(4) { animation: floatSubtle 4.5s ease-in-out 1.2s infinite; }
+
+        /* Animated gradient background for hero — clean, no overlay */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .hero-banner {
+            position: relative;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 25%, #1e40af 50%, #312e81 75%, #0f172a 100%) !important;
+            background-size: 200% 200% !important;
+            animation: gradientShift 18s ease infinite;
+            overflow: hidden;
+        }
+
+        /* Kill the legacy ::before/::after overlays from theme/style.css
+           that put a black 0.3 alpha layer (and a moving dot grid) on top.
+           Important: also disable the keyframe animation that dims them. */
+        .hero-banner::before,
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            top: auto; left: auto; right: auto; bottom: auto;
+            width: auto; height: auto;
+            background: none !important;
+            background-image: none !important;
+            opacity: 1 !important;
+            animation: none !important;
+            mix-blend-mode: normal !important;
+            transform: none !important;
+            pointer-events: none;
+        }
+        /* Decorative orbs (don't dim the hero) */
+        .hero-banner::before {
+            top: -120px; right: -120px;
+            width: 380px; height: 380px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(96,165,250,0.20), transparent 70%) !important;
+            z-index: 0;
+        }
+        .hero-banner::after {
+            bottom: -160px; left: -100px;
+            width: 460px; height: 460px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(124,58,237,0.20), transparent 70%) !important;
+            z-index: 0;
+        }
+        .hero-banner > .container { position: relative; z-index: 2; }
+        .hero-banner h1 { color: #fff !important; }
+        .hero-banner h2 { color: #cbd5e1 !important; }
+
+        /* Glow ring around hero stats numbers */
+        .hero-stats .stat .num {
+            position: relative;
+            display: inline-block;
+        }
+        .hero-stats .stat .num::after {
+            content: '';
+            position: absolute;
+            inset: -8px -10px;
+            background: radial-gradient(circle, rgba(96,165,250,0.20), transparent 70%);
+            z-index: -1;
+        }
+
+        /* Service-card icon: animated gradient */
+        .service-card .icon {
+            background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
+            position: relative;
+            transition: transform 0.4s cubic-bezier(.2,.8,.2,1);
+        }
+        .service-card:hover .icon {
+            transform: rotate(-6deg) scale(1.08);
+        }
+        .service-card .icon::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(135deg, transparent, rgba(255,255,255,0.35));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .service-card:hover .icon::after { opacity: 1; }
+
+        /* Timeline / numbered cards (why-card) */
+        .why-card .num {
+            position: relative;
+            background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
+            box-shadow: 0 8px 20px rgba(37,99,235,0.30);
+            transition: transform 0.3s ease;
+        }
+        .why-card:hover .num { transform: scale(1.08) rotate(-4deg); }
+
+        /* Stack pills with hover */
+        .stack-pill {
+            transition: all 0.25s ease;
+            cursor: default;
+        }
+        .stack-pill:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(37,99,235,0.18);
+            background: var(--main-color) !important;
+            color: #fff !important;
+        }
+
+        /* Blog filter pills polish */
+        .blog-filter-bar a {
+            transition: all 0.25s ease;
+        }
+        .blog-filter-bar a:hover { transform: translateY(-2px); }
+
+        /* Testimonials: glass card */
+        .testimonial-card {
+            backdrop-filter: blur(0);
+            border: 1px solid rgba(15, 23, 42, 0.04);
+        }
+        .testimonial-card .stars {
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+
+        /* CTA blocks: more dimension */
+        .blog-cta,
+        .article-cta,
+        .faq-cta,
+        .final-cta {
+            position: relative;
+            overflow: hidden;
+        }
+        .blog-cta::before,
+        .article-cta::before,
+        .faq-cta::before,
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: -50%; right: -20%;
+            width: 480px; height: 480px;
+            background: radial-gradient(circle, rgba(255,255,255,0.10), transparent 60%);
+            pointer-events: none;
+        }
+
+        /* Footer polish */
+        .footer { background: linear-gradient(180deg, #0f172a 0%, #020617 100%) !important; }
+        .footer-title {
+            position: relative;
+            padding-bottom: 12px;
+            margin-bottom: 18px !important;
+        }
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 36px; height: 2px;
+            background: linear-gradient(90deg, var(--main-color), transparent);
+        }
+        .footer-links li a {
+            transition: color 0.2s ease, padding-left 0.2s ease;
+        }
+        .footer-links li a:hover {
+            color: #60a5fa !important;
+            padding-left: 6px;
+        }
+        .footer-social-links a {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            color: #cbd5e1;
+            margin-right: 8px;
+            transition: all 0.25s ease;
+        }
+        .footer-social-links a:hover {
+            background: var(--main-color);
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        /* Breadcrumb section polish */
+        .breadcrumb-section {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%) !important;
+            position: relative; overflow: hidden;
+        }
+        .breadcrumb-section::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.6;
+        }
+        .breadcrumb-section h1,
+        .breadcrumb-section .breadcrumb-links a,
+        .breadcrumb-section .breadcrumb-links li {
+            color: #fff !important;
+        }
+        .breadcrumb-section .breadcrumb-links {
+            display: inline-flex;
+            list-style: none; padding: 0;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
+            border-radius: 999px;
+            padding: 8px 18px;
+            gap: 14px;
+        }
+
+        /* Site logo sizing — clean, sharp, retina-ready */
+        .navbar-brand.site-logo img {
+            height: 46px;
+            width: auto;
+            max-height: 46px;
+            object-fit: contain;
+            transition: opacity 0.2s ease;
+        }
+        .navbar-brand.site-logo:hover img {
+            opacity: 0.85;
+        }
+        @media (max-width: 768px) {
+            .navbar-brand.site-logo img { height: 38px; max-height: 38px; }
+        }
+
+        /* Footer logo (uses logo-light.png on dark background) */
+        .footer-logo {
+            max-height: 56px !important;
+            width: auto;
+            filter: brightness(0) invert(1);
+            opacity: 0.95;
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ====================================================================
+           RTL / Arabic support
+           ==================================================================== */
+        html[dir="rtl"] body {
+            font-family: 'Cairo', 'Roboto', sans-serif;
+        }
+        html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3,
+        html[dir="rtl"] h4, html[dir="rtl"] h5, html[dir="rtl"] h6 {
+            font-family: 'Cairo', 'Poppins', sans-serif;
+            letter-spacing: 0;
+        }
+        html[dir="rtl"] .floating-whatsapp {
+            right: auto;
+            left: 28px;
+        }
+        html[dir="rtl"] .scroll-top-btn {
+            right: auto !important;
+            left: 28px !important;
+        }
+        html[dir="rtl"] .section-heading-left span,
+        html[dir="rtl"] .section-heading span,
+        html[dir="rtl"] .about-inner h6 {
+            padding-left: 0;
+            padding-right: 36px;
+        }
+        html[dir="rtl"] .section-heading-left span::before,
+        html[dir="rtl"] .section-heading span::before,
+        html[dir="rtl"] .about-inner h6::before {
+            left: auto; right: 0;
+            background: linear-gradient(270deg, transparent, var(--main-color));
+        }
+        html[dir="rtl"] .footer-title::after {
+            left: auto;
+            right: 0;
+            background: linear-gradient(270deg, var(--main-color), transparent);
+        }
+        html[dir="rtl"] .footer-links li a:hover {
+            padding-left: 0;
+            padding-right: 6px;
+        }
+        html[dir="rtl"] .blog-card .read-more i,
+        html[dir="rtl"] .article-content .lead { transform: scaleX(-1); }
+        html[dir="rtl"] .fa-arrow-right::before { content: "\f060"; /* FA arrow-left */ }
+        html[dir="rtl"] .me-3, html[dir="rtl"] .me-2 { margin-right: 0 !important; margin-left: 0.75rem !important; }
+        html[dir="rtl"] .ms-2 { margin-left: 0 !important; margin-right: 0.5rem !important; }
+
+        /* Language switcher button */
+        .lang-switch {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: rgba(37,99,235,0.08);
+            color: var(--main-color);
+            font-weight: 700;
+            font-size: 13px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(37,99,235,0.15);
+        }
+        .lang-switch:hover {
+            background: var(--main-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(37,99,235,0.25);
+        }
+        .lang-switch i { font-size: 12px; }
     </style>
 
     <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
@@ -133,7 +644,7 @@
             "https://github.com/khaled312001"
         ],
         "email": "khaledahmedhaggagy@gmail.com",
-        "telephone": "+20-1204593124",
+        "telephone": ["+20-1204593124", "+20-1010254819"],
         "address": {
             "@type": "PostalAddress",
             "addressLocality": "Cairo",
@@ -182,7 +693,7 @@
         "image": "<?php echo e(asset('images/logo.png')); ?>",
         "@id": "https://khaledahmed.net",
         "url": "https://khaledahmed.net",
-        "telephone": "+20-1204593124",
+        "telephone": ["+20-1204593124", "+20-1010254819"],
         "priceRange": "$$",
         "address": {
             "@type": "PostalAddress",
@@ -262,6 +773,7 @@
 
 </div>
 
+<!-- Mobile bottom bar (phones only) -->
 <div class="mobile-widget-container">
     <a href="tel:+201204593124" class="btn-icon" aria-label="Call Khaled Ahmed">
         <i class="fas fa-phone-alt"></i> Call
@@ -271,16 +783,12 @@
     </a>
 </div>
 
-<a href="tel:+201204593124" class="btn-whatsapp-pulse custom-color-black" aria-label="Call Khaled Ahmed">
-    <i class="fas fa-phone"></i>
-</a>
-
-<a href="https://wa.me/201204593124?text=Hi%20Khaled%2C%20I%27d%20like%20to%20discuss%20a%20web%20development%20project" class="btn-whatsapp-pulse btn-whatsapp-pulse-border" aria-label="WhatsApp Khaled Ahmed">
+<!-- Single floating WhatsApp button (desktop only, mobile uses bottom bar) -->
+<a href="https://wa.me/201204593124?text=Hi%20Khaled%2C%20I%27d%20like%20to%20discuss%20a%20web%20development%20project"
+   target="_blank" rel="noopener"
+   class="floating-whatsapp d-none d-md-flex"
+   aria-label="WhatsApp Khaled Ahmed">
     <i class="fab fa-whatsapp"></i>
-</a>
-
-<a href="https://linkedin.com/in/khaled-ahmed-82368819b" target="_blank" rel="noopener" class="btn-whatsapp-pulse btn-whatsapp-pulse-border-2 custom-color-blue" aria-label="LinkedIn">
-    <i class="fab fa-linkedin"></i>
 </a>
 
 <script src="<?php echo e(asset('js/jquery.min.js')); ?>"></script>

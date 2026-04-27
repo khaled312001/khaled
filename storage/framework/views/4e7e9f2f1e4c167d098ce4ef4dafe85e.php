@@ -98,49 +98,43 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-9">
-                <h1>Hire a Senior <span>Full Stack Web Developer</span> Who Ships</h1>
-                <h2>I am Khaled Ahmed — 5+ years building production web apps, 25+ projects shipped across 7 countries. Laravel, React, Node.js, and modern web technologies. Free 30-minute consultation. 24-hour response time.</h2>
+                <h1><?php echo e(__('site.hero_title_1')); ?> <span><?php echo e(__('site.hero_title_2')); ?></span> <?php echo e(__('site.hero_title_3')); ?></h1>
+                <h2><?php echo e(__('site.hero_subtitle')); ?></h2>
 
                 <div class="hero-stats">
-                    <div class="stat"><div class="num">25+</div><div class="lbl">Projects Shipped</div></div>
-                    <div class="stat"><div class="num">7</div><div class="lbl">Countries Served</div></div>
-                    <div class="stat"><div class="num">5+</div><div class="lbl">Years Experience</div></div>
-                    <div class="stat"><div class="num">24h</div><div class="lbl">Response Time</div></div>
+                    <div class="stat"><div class="num">25+</div><div class="lbl"><?php echo e(__('site.projects_shipped')); ?></div></div>
+                    <div class="stat"><div class="num">7</div><div class="lbl"><?php echo e(__('site.countries_served')); ?></div></div>
+                    <div class="stat"><div class="num">5+</div><div class="lbl"><?php echo e(__('site.years_experience')); ?></div></div>
+                    <div class="stat"><div class="num">24h</div><div class="lbl"><?php echo e(__('site.response_time')); ?></div></div>
                 </div>
 
                 <div class="hero-cta-row">
                     <a href="<?php echo e(route('contact')); ?>" class="btn-primary-cta">
-                        Get Free Consultation <i class="fa fa-arrow-right"></i>
+                        <?php echo e(__('site.get_free_consultation')); ?> <i class="fa fa-arrow-right"></i>
                     </a>
                     <a href="<?php echo e(route('portfolios')); ?>" class="btn-secondary-cta">
-                        View My Work <i class="fa fa-arrow-right"></i>
+                        <?php echo e(__('site.view_my_work')); ?> <i class="fa fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
         </div>
     </div>
-    <ul class="hero-social-list">
-        <li><a href="https://github.com/khaled312001" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a></li>
-        <li><a href="https://linkedin.com/in/khaled-ahmed-82368819b" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a></li>
-        <li><a href="https://wa.me/201204593124" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
-    </ul>
-    <a href="mailto:khaledahmedhaggagy@gmail.com" class="hero-email-link">khaledahmedhaggagy@gmail.com</a>
 </section>
 
 <section class="trust-bar">
     <div class="container">
         <div class="row align-items-center text-center text-md-start">
             <div class="col-md-4">
-                <div class="label">Trusted Across</div>
-                <div class="countries">Egypt, USA, UK, Saudi Arabia, UAE, Germany, Canada</div>
+                <div class="label"><?php echo e(__('site.trust_label_1')); ?></div>
+                <div class="countries"><?php echo e(__('site.trust_value_1')); ?></div>
             </div>
             <div class="col-md-4 text-md-center">
-                <div class="label">Specialization</div>
-                <div class="countries">Full Stack Web Apps · SaaS · E-commerce</div>
+                <div class="label"><?php echo e(__('site.trust_label_2')); ?></div>
+                <div class="countries"><?php echo e(__('site.trust_value_2')); ?></div>
             </div>
             <div class="col-md-4 text-md-end">
-                <div class="label">Available For</div>
-                <div class="countries">New projects starting in 2–4 weeks</div>
+                <div class="label"><?php echo e(__('site.trust_label_3')); ?></div>
+                <div class="countries"><?php echo e(__('site.trust_value_3')); ?></div>
             </div>
         </div>
     </div>
@@ -151,36 +145,32 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="about-inner wow fadeInUp">
-                    <h6>About Me</h6>
-                    <h2>Senior Full Stack Web Developer & Founder of Barmagly</h2>
-                    <p style="font-size: 16.5px; line-height: 1.75;">
-                        I am a results-driven full stack web developer with a Bachelor's in Information Technology from Luxor University, an ITI Diploma in Full Stack Development (PHP/Laravel), and 5+ years of hands-on experience building scalable web applications. I have shipped 25+ production projects across 7 countries, working with startups and established businesses on custom web apps, SaaS platforms, e-commerce systems, and enterprise integrations.
-                    </p>
-                    <p style="font-size: 16.5px; line-height: 1.75;">
-                        Proficient in modern frontend (React.js, Vue.js, Next.js), backend (PHP/Laravel, Node.js, Express), and database (MySQL, PostgreSQL, MongoDB) technologies. Experienced in deployment, DevOps, server configuration, and CI/CD pipelines. Founder of <strong>Barmagly</strong> software startup — combining entrepreneurial vision with strong technical execution.
-                    </p>
+                    <h6><?php echo e(__('site.about_me')); ?></h6>
+                    <h2><?php echo e(__('site.about_h2')); ?></h2>
+                    <p style="font-size: 16.5px; line-height: 1.75;"><?php echo e(__('site.about_p1')); ?></p>
+                    <p style="font-size: 16.5px; line-height: 1.75;"><?php echo __('site.about_p2'); ?></p>
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
                             <ul class="mb-resp-15">
-                                <li><div class="text"><h5>Name :</h5><p>Khaled Ahmed</p></div></li>
-                                <li><div class="text"><h5>Location :</h5><p>Cairo, Egypt (Remote Worldwide)</p></div></li>
-                                <li><div class="text"><h5>Freelance :</h5><p>Available — 2–4 week lead time</p></div></li>
+                                <li><div class="text"><h5><?php echo e(__('site.name_label')); ?></h5><p><?php echo e(__('site.name_value')); ?></p></div></li>
+                                <li><div class="text"><h5><?php echo e(__('site.location_label')); ?></h5><p><?php echo e(__('site.location_value')); ?></p></div></li>
+                                <li><div class="text"><h5><?php echo e(__('site.freelance_label')); ?></h5><p><?php echo e(__('site.freelance_value')); ?></p></div></li>
                             </ul>
                         </div>
                         <div class="col-md-6 col-sm-6">
                             <ul>
-                                <li><div class="text"><h5>Education :</h5><p>Luxor University — IT, ITI Full Stack Diploma</p></div></li>
-                                <li><div class="text"><h5>Languages :</h5><p>English (Fluent), Arabic (Native)</p></div></li>
-                                <li><div class="text"><h5>Phone :</h5><p>+20 120 459 3124</p></div></li>
+                                <li><div class="text"><h5><?php echo e(__('site.education_label')); ?></h5><p><?php echo e(__('site.education_value')); ?></p></div></li>
+                                <li><div class="text"><h5><?php echo e(__('site.languages_label')); ?></h5><p><?php echo e(__('site.languages_value')); ?></p></div></li>
+                                <li><div class="text"><h5><?php echo e(__('site.phone_label')); ?></h5><p><a href="tel:+201204593124" class="text-decoration-none text-dark">+20 120 459 3124</a> · <a href="tel:+201010254819" class="text-decoration-none text-dark">+20 101 025 4819</a></p></div></li>
                             </ul>
                         </div>
                     </div>
                     <a href="<?php echo e(route('contact')); ?>" class="primary-btn me-3 mb-3">
-                        <span class="text">Hire Me</span>
+                        <span class="text"><?php echo e(__('site.hire_me')); ?></span>
                         <span class="icon"><i class="fa fa-arrow-right"></i></span>
                     </a>
                     <a href="/Khaled_Ahmed.pdf" class="primary-btn" download rel="nofollow">
-                        <span class="text">Download CV</span>
+                        <span class="text"><?php echo e(__('site.download_cv')); ?></span>
                         <span class="icon"><i class="fa fa-download"></i></span>
                     </a>
                 </div>
@@ -192,142 +182,44 @@
 <section class="services-grid">
     <div class="container">
         <div class="text-center mb-5">
-            <h6 style="color: var(--main-color); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">What I Build</h6>
-            <h2 style="font-size: 32px; font-weight: 800; color: #0f172a;">Web Development Services</h2>
-            <p style="color: #64748b; max-width: 640px; margin: 0 auto;">From a simple landing page to a multi-tenant SaaS platform, I deliver production-ready web applications that scale.</p>
+            <h6 style="color: var(--main-color); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;"><?php echo e(__('site.what_i_build')); ?></h6>
+            <h2 style="font-size: 32px; font-weight: 800; color: #0f172a;"><?php echo e(__('site.web_dev_services')); ?></h2>
+            <p style="color: #64748b; max-width: 640px; margin: 0 auto;"><?php echo e(__('site.web_dev_subtitle')); ?></p>
         </div>
 
+        <?php
+        $services = [
+            ['fas fa-code', 'srv_custom_title', 'srv_custom_desc', ['srv_custom_f1','srv_custom_f2','srv_custom_f3','srv_custom_f4']],
+            ['fas fa-shopping-cart', 'srv_ecom_title', 'srv_ecom_desc', ['srv_ecom_f1','srv_ecom_f2','srv_ecom_f3','srv_ecom_f4']],
+            ['fas fa-rocket', 'srv_saas_title', 'srv_saas_desc', ['srv_saas_f1','srv_saas_f2','srv_saas_f3','srv_saas_f4']],
+            ['fab fa-laravel', 'srv_laravel_title', 'srv_laravel_desc', ['srv_laravel_f1','srv_laravel_f2','srv_laravel_f3','srv_laravel_f4']],
+            ['fab fa-react', 'srv_react_title', 'srv_react_desc', ['srv_react_f1','srv_react_f2','srv_react_f3','srv_react_f4']],
+            ['fas fa-search', 'srv_seo_title', 'srv_seo_desc', ['srv_seo_f1','srv_seo_f2','srv_seo_f3','srv_seo_f4']],
+            ['fas fa-mobile-alt', 'srv_pwa_title', 'srv_pwa_desc', ['srv_pwa_f1','srv_pwa_f2','srv_pwa_f3','srv_pwa_f4']],
+            ['fas fa-server', 'srv_devops_title', 'srv_devops_desc', ['srv_devops_f1','srv_devops_f2','srv_devops_f3','srv_devops_f4']],
+            ['fas fa-graduation-cap', 'srv_training_title', 'srv_training_desc', ['srv_training_f1','srv_training_f2','srv_training_f3','srv_training_f4']],
+        ];
+        ?>
         <div class="row g-4">
+            <?php $__currentLoopData = $services; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $svc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="col-lg-4 col-md-6">
                 <div class="service-card">
-                    <div class="icon"><i class="fas fa-code"></i></div>
-                    <h3>Custom Web Applications</h3>
-                    <p>Tailored web apps built on Laravel + React or Node.js + Next.js. Multi-tenant, scalable, and secure from day one.</p>
+                    <div class="icon"><i class="<?php echo e($svc[0]); ?>"></i></div>
+                    <h3><?php echo e(__('site.' . $svc[1])); ?></h3>
+                    <p><?php echo e(__('site.' . $svc[2])); ?></p>
                     <ul class="features">
-                        <li>Authentication, roles, permissions</li>
-                        <li>Database design and optimization</li>
-                        <li>REST and GraphQL APIs</li>
-                        <li>Background jobs and queues</li>
+                        <?php $__currentLoopData = $svc[3]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $featKey): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <li><?php echo e(__('site.' . $featKey)); ?></li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
                 </div>
             </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="service-card">
-                    <div class="icon"><i class="fas fa-shopping-cart"></i></div>
-                    <h3>E-commerce Development</h3>
-                    <p>Custom Laravel and WooCommerce stores, headless Shopify storefronts in Next.js, and full marketplace platforms.</p>
-                    <ul class="features">
-                        <li>Stripe, PayPal, Paymob integration</li>
-                        <li>Inventory and order management</li>
-                        <li>Multi-vendor marketplaces</li>
-                        <li>Subscription billing</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="service-card">
-                    <div class="icon"><i class="fas fa-rocket"></i></div>
-                    <h3>SaaS Platform Development</h3>
-                    <p>Full SaaS platforms with billing, multi-tenancy, admin panels, and observability. From MVP to enterprise scale.</p>
-                    <ul class="features">
-                        <li>Stripe Billing integration</li>
-                        <li>Multi-tenant architecture</li>
-                        <li>Admin dashboards (Filament)</li>
-                        <li>API + webhook system</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="service-card">
-                    <div class="icon"><i class="fab fa-laravel"></i></div>
-                    <h3>Laravel Development</h3>
-                    <p>Senior Laravel expertise — Eloquent, Sanctum, Inertia, Livewire, Filament. From small APIs to enterprise systems.</p>
-                    <ul class="features">
-                        <li>API + admin in one codebase</li>
-                        <li>Eloquent optimization</li>
-                        <li>Queue and scheduling</li>
-                        <li>Laravel Forge deployment</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="service-card">
-                    <div class="icon"><i class="fab fa-react"></i></div>
-                    <h3>React & Next.js Development</h3>
-                    <p>Modern React 19 and Next.js apps. SSR, SSG, server components, App Router. Pixel-perfect, fast, accessible.</p>
-                    <ul class="features">
-                        <li>Next.js App Router</li>
-                        <li>TypeScript end-to-end</li>
-                        <li>Tailwind, shadcn/ui</li>
-                        <li>Lighthouse 95+ scores</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="service-card">
-                    <div class="icon"><i class="fas fa-search"></i></div>
-                    <h3>Technical SEO &amp; Performance</h3>
-                    <p>Get your existing site to Google's first page. Technical SEO audit, Core Web Vitals optimization, and schema markup.</p>
-                    <ul class="features">
-                        <li>Schema markup (JSON-LD)</li>
-                        <li>Core Web Vitals optimization</li>
-                        <li>Sitemap and robots.txt</li>
-                        <li>Mobile-first audits</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="service-card">
-                    <div class="icon"><i class="fas fa-mobile-alt"></i></div>
-                    <h3>Progressive Web Apps (PWA)</h3>
-                    <p>Installable web apps with offline support, push notifications, and native-like UX — without the app store.</p>
-                    <ul class="features">
-                        <li>Service workers + offline mode</li>
-                        <li>Push notifications</li>
-                        <li>Add-to-home-screen</li>
-                        <li>Cross-platform delivery</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="service-card">
-                    <div class="icon"><i class="fas fa-server"></i></div>
-                    <h3>DevOps &amp; Hosting</h3>
-                    <p>VPS setup, deployment automation, SSL, CI/CD, monitoring. Server hardening for Laravel and Node.js.</p>
-                    <ul class="features">
-                        <li>DigitalOcean, AWS, Hostinger</li>
-                        <li>Nginx, PHP-FPM, Redis</li>
-                        <li>GitHub Actions CI/CD</li>
-                        <li>Sentry monitoring</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="service-card">
-                    <div class="icon"><i class="fas fa-graduation-cap"></i></div>
-                    <h3>Programming Instruction</h3>
-                    <p>Certified instructor delivering training on Laravel, React, full stack development. 1-on-1 and team workshops.</p>
-                    <ul class="features">
-                        <li>Custom curriculum design</li>
-                        <li>Hands-on, project-based</li>
-                        <li>Code review and mentorship</li>
-                        <li>Team workshops available</li>
-                    </ul>
-                </div>
-            </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
 
         <div class="text-center mt-5">
             <a href="<?php echo e(route('services')); ?>" class="primary-btn">
-                <span class="text">View All Services</span>
+                <span class="text"><?php echo e(__('site.view_all_services')); ?></span>
                 <span class="icon"><i class="fa fa-arrow-right"></i></span>
             </a>
         </div>
@@ -337,52 +229,19 @@
 <section class="why-section">
     <div class="container">
         <div class="text-center mb-5">
-            <h6 style="color: var(--main-color); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">Why Choose Me</h6>
-            <h2 style="font-size: 32px; font-weight: 800; color: #0f172a;">Why Clients Hire Me Again</h2>
+            <h6 style="color: var(--main-color); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;"><?php echo e(__('site.why_choose_me')); ?></h6>
+            <h2 style="font-size: 32px; font-weight: 800; color: #0f172a;"><?php echo e(__('site.why_clients_hire')); ?></h2>
         </div>
         <div class="row g-4">
+            <?php for($i = 1; $i <= 6; $i++): ?>
             <div class="col-lg-4 col-md-6">
                 <div class="why-card">
-                    <div class="num">1</div>
-                    <h3>Senior, Not Junior With a Title</h3>
-                    <p>5+ years of real production work, 25+ projects in 7 countries. I have shipped under pressure, debugged at 2am, and know which corners are safe to cut.</p>
+                    <div class="num"><?php echo e($i); ?></div>
+                    <h3><?php echo e(__('site.why_' . $i . '_title')); ?></h3>
+                    <p><?php echo e(__('site.why_' . $i . '_desc')); ?></p>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="why-card">
-                    <div class="num">2</div>
-                    <h3>Honest Scope, Fixed Pricing</h3>
-                    <p>Written proposal with milestones before any work starts. No surprise bills, no scope creep. If I cannot do it, I will refer someone better.</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="why-card">
-                    <div class="num">3</div>
-                    <h3>You Own Everything</h3>
-                    <p>Code in your GitHub. Hosting on your accounts. Domains in your name. No vendor lock-in, no proprietary tools holding you hostage.</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="why-card">
-                    <div class="num">4</div>
-                    <h3>Fast Communication</h3>
-                    <p>24-hour response time. Weekly demos on a staging URL. Same-day fixes for maintenance clients.</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="why-card">
-                    <div class="num">5</div>
-                    <h3>Production-Quality Code</h3>
-                    <p>Tested, type-safe, secure. OWASP Top 10 covered, dependencies updated, observability built in. Code your future devs will thank me for.</p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="why-card">
-                    <div class="num">6</div>
-                    <h3>End-to-End Ownership</h3>
-                    <p>Frontend, backend, database, deployment, DevOps, SEO. One person, one accountability, one calendar — no agency overhead, no PM telephone game.</p>
-                </div>
-            </div>
+            <?php endfor; ?>
         </div>
     </div>
 </section>
@@ -390,12 +249,12 @@
 <section class="stack-section">
     <div class="container">
         <div class="text-center mb-5">
-            <h6 style="color: var(--main-color); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">My Stack</h6>
-            <h2 style="font-size: 32px; font-weight: 800; color: #0f172a;">Technologies I Work With</h2>
+            <h6 style="color: var(--main-color); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;"><?php echo e(__('site.my_stack')); ?></h6>
+            <h2 style="font-size: 32px; font-weight: 800; color: #0f172a;"><?php echo e(__('site.technologies_i_use')); ?></h2>
         </div>
         <div class="row">
             <div class="col-lg-4 mb-4">
-                <h3 style="font-size: 19px; font-weight: 700; margin-bottom: 14px;">Backend</h3>
+                <h3 style="font-size: 19px; font-weight: 700; margin-bottom: 14px;"><?php echo e(__('site.stack_backend')); ?></h3>
                 <span class="stack-pill primary">Laravel 11</span>
                 <span class="stack-pill primary">PHP 8.3</span>
                 <span class="stack-pill primary">Node.js</span>
@@ -406,7 +265,7 @@
                 <span class="stack-pill">tRPC</span>
             </div>
             <div class="col-lg-4 mb-4">
-                <h3 style="font-size: 19px; font-weight: 700; margin-bottom: 14px;">Frontend</h3>
+                <h3 style="font-size: 19px; font-weight: 700; margin-bottom: 14px;"><?php echo e(__('site.stack_frontend')); ?></h3>
                 <span class="stack-pill primary">React 19</span>
                 <span class="stack-pill primary">Next.js</span>
                 <span class="stack-pill">Vue 3</span>
@@ -417,7 +276,7 @@
                 <span class="stack-pill">Livewire</span>
             </div>
             <div class="col-lg-4 mb-4">
-                <h3 style="font-size: 19px; font-weight: 700; margin-bottom: 14px;">Database & DevOps</h3>
+                <h3 style="font-size: 19px; font-weight: 700; margin-bottom: 14px;"><?php echo e(__('site.stack_db_devops')); ?></h3>
                 <span class="stack-pill primary">MySQL</span>
                 <span class="stack-pill primary">PostgreSQL</span>
                 <span class="stack-pill">MongoDB</span>
@@ -435,47 +294,34 @@
 <section class="testimonial-section">
     <div class="container">
         <div class="text-center mb-5">
-            <h6 style="color: var(--main-color); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">Testimonials</h6>
-            <h2 style="font-size: 32px; font-weight: 800; color: #0f172a;">What Clients Say</h2>
+            <h6 style="color: var(--main-color); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;"><?php echo e(__('site.testimonials')); ?></h6>
+            <h2 style="font-size: 32px; font-weight: 800; color: #0f172a;"><?php echo e(__('site.what_clients_say')); ?></h2>
         </div>
         <div class="row g-4">
+            <?php for($i = 1; $i <= 3; $i++): ?>
             <div class="col-lg-4 col-md-6">
                 <div class="testimonial-card">
                     <div class="stars">★★★★★</div>
-                    <p>"Khaled delivered our SaaS MVP on schedule and under budget. Communication was excellent — weekly demos, same-day responses. Hired again for v2."</p>
-                    <div class="author">Sarah M.</div>
-                    <div class="role">Founder, US-based SaaS startup</div>
+                    <p><?php echo e(__('site.testi_' . $i)); ?></p>
+                    <div class="author"><?php echo e(__('site.testi_' . $i . '_author')); ?></div>
+                    <div class="role"><?php echo e(__('site.testi_' . $i . '_role')); ?></div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"Senior-level work at a fair price. Khaled took over a messy Laravel project from a previous agency and shipped clean, tested code. Game-changer."</p>
-                    <div class="author">Ahmed K.</div>
-                    <div class="role">CTO, e-commerce platform (UAE)</div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p>"From design to launch in 6 weeks. Mobile-first, SEO-optimized, and we ranked on Google's first page within 3 months. Highly recommend."</p>
-                    <div class="author">Marcus L.</div>
-                    <div class="role">Marketing Director (Germany)</div>
-                </div>
-            </div>
+            <?php endfor; ?>
         </div>
     </div>
 </section>
 
 <section class="final-cta">
     <div class="container">
-        <h2>Ready to Build Something Great?</h2>
-        <p>Get a free 30-minute consultation and an honest recommendation for your project. No sales pitch, no pressure — just an experienced developer giving you straight answers.</p>
-        <a href="<?php echo e(route('contact')); ?>" class="btn-cta">Book Your Free Consultation <i class="fa fa-arrow-right ms-2"></i></a>
+        <h2><?php echo e(__('site.ready_to_build')); ?></h2>
+        <p><?php echo e(__('site.ready_subtitle')); ?></p>
+        <a href="<?php echo e(route('contact')); ?>" class="btn-cta"><?php echo e(__('site.book_consultation')); ?> <i class="fa fa-arrow-right ms-2"></i></a>
         <div style="margin-top: 18px; color: #94a3b8; font-size: 14px;">
-            <i class="far fa-clock"></i> 24-hour response &nbsp; · &nbsp;
-            <i class="fas fa-globe"></i> Worldwide remote &nbsp; · &nbsp;
-            <i class="fas fa-shield-alt"></i> NDA on request
+            <i class="far fa-clock"></i> <?php echo e(__('site.reply_24h_chip')); ?> &nbsp; · &nbsp;
+            <i class="fas fa-globe"></i> <?php echo e(__('site.worldwide_remote_chip')); ?> &nbsp; · &nbsp;
+            <i class="fas fa-shield-alt"></i> <?php echo e(__('site.nda_on_request_chip')); ?>
+
         </div>
     </div>
 </section>

@@ -41,3 +41,8 @@ Route::get('/search', function () {
 
 // Legacy redirects to fix old /test page if indexed
 Route::permanentRedirect('/test', '/');
+
+// Language switcher
+Route::get('/lang/{locale}', [App\Http\Controllers\LocaleController::class, 'switch'])
+    ->where('locale', 'en|ar')
+    ->name('lang.switch');
