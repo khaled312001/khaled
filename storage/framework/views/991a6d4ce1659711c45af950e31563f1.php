@@ -1,5 +1,7 @@
-<?php $__env->startSection('title', isset($category) ? ucfirst($category) . ' Projects | Khaled Ahmed Portfolio' : 'Portfolio — 27 Real Projects Shipped Across 7 Countries | Khaled Ahmed'); ?>
-<?php $__env->startSection('description', isset($category) ? 'See ' . strtolower($category) . ' web development projects shipped by Khaled Ahmed — senior full stack developer.' : '27 real production projects shipped across 7 countries — Laravel, React, Node.js. SaaS, e-commerce, restaurants, hotels, healthcare, education and more.'); ?>
+
+
+<?php $__env->startSection('title', isset($category) ? ucfirst($category) . ' Projects | Khaled Ahmed Portfolio' : 'Portfolio — 32 Real Projects Shipped Across 7 Countries | Khaled Ahmed'); ?>
+<?php $__env->startSection('description', isset($category) ? 'See ' . strtolower($category) . ' web development projects shipped by Khaled Ahmed — senior full stack developer.' : '32 real production projects shipped across 7 countries — Laravel, React, Node.js. SaaS, e-commerce, restaurants, hotels, healthcare, education and more.'); ?>
 <?php $__env->startSection('keywords', 'web developer portfolio, Laravel projects, React projects, full stack developer Egypt, hire web developer, custom web application portfolio, Khaled Ahmed projects'); ?>
 <?php $__env->startSection('canonical', isset($category) ? url('/portfolio/category/' . $category) : url('/portfolios')); ?>
 
@@ -259,7 +261,7 @@
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "name": "Khaled Ahmed — Web Development Portfolio",
-    "description": "27 real production projects shipped across 7 countries.",
+    "description": "32 real production projects shipped across 7 countries.",
     "url": "<?php echo e(url('/portfolios')); ?>",
     "isPartOf": {"@type":"WebSite","name":"Khaled Ahmed","url":"https://khaledahmed.net"},
     "mainEntity": {
@@ -304,9 +306,9 @@
             <p>Real production work in <strong><?php echo e(strtolower(str_replace('-', ' ', $category))); ?></strong> — built and shipped by Khaled Ahmed.</p>
         <?php else: ?>
             <h1><?php echo e(app()->getLocale() === 'ar' ? 'سابقة الأعمال — مشاريع حقيقيه، نتائج حقيقيه' : 'Portfolio — Real Projects, Real Results'); ?></h1>
-            <p><?php echo e(app()->getLocale() === 'ar' ? '27 مشروع إنتاجي تم تسليمها في 7 دول. اضغط على أي بطاقه لتشوف الموقع المباشر — كلها أعمال حقيقيه تخدم عملاء حقيقيين دلوقتي.' : '27 production projects shipped across 7 countries. Click any card to see the live site — these are real businesses serving real customers right now.'); ?></p>
+            <p><?php echo e(app()->getLocale() === 'ar' ? '32 مشروع إنتاجي تم تسليمها في 7 دول. اضغط على أي بطاقه لتشوف الموقع المباشر — كلها أعمال حقيقيه تخدم عملاء حقيقيين دلوقتي.' : '32 production projects shipped across 7 countries. Click any card to see the live site — these are real businesses serving real customers right now.'); ?></p>
             <div class="portfolio-stats">
-                <div class="stat"><div class="num">27</div><div class="lbl"><?php echo e(app()->getLocale() === 'ar' ? 'مشروع مباشر' : 'Live Projects'); ?></div></div>
+                <div class="stat"><div class="num">32</div><div class="lbl"><?php echo e(app()->getLocale() === 'ar' ? 'مشروع مباشر' : 'Live Projects'); ?></div></div>
                 <div class="stat"><div class="num">7</div><div class="lbl"><?php echo e(app()->getLocale() === 'ar' ? 'دول' : 'Countries'); ?></div></div>
                 <div class="stat"><div class="num"><?php echo e(count($categories)); ?></div><div class="lbl"><?php echo e(app()->getLocale() === 'ar' ? 'صناعات' : 'Industries'); ?></div></div>
                 <div class="stat"><div class="num">5+</div><div class="lbl"><?php echo e(app()->getLocale() === 'ar' ? 'سنوات' : 'Years'); ?></div></div>
@@ -374,7 +376,7 @@
         <?php endif; ?>
 
         <div class="portfolio-cta">
-            <h2><?php echo e(app()->getLocale() === 'ar' ? 'تحب تكون المشروع رقم #28؟' : 'Want to Be Project #28?'); ?></h2>
+            <h2><?php echo e(app()->getLocale() === 'ar' ? 'تحب تكون المشروع رقم #33؟' : 'Want to Be Project #33?'); ?></h2>
             <p><?php echo e(app()->getLocale() === 'ar' ? 'باقبل 2–3 عملاء جدد كل ربع سنه. لو عندك مشروع جاد، خلينا نتكلم — استشاره مجانيه 30 دقيقه، رد خلال 24 ساعه.' : 'I take 2–3 new clients per quarter. If you have a serious project, let\'s talk — free 30-minute consultation, 24-hour response.'); ?></p>
             <a href="<?php echo e(route('contact')); ?>" class="btn-cta"><?php echo e(__('site.start_your_project')); ?> <i class="fa fa-arrow-right ms-2"></i></a>
         </div>
