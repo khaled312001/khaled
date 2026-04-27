@@ -319,12 +319,11 @@
 
 <div class="portfolio-filter">
     <div class="container">
-        <a href="<?php echo e(route('portfolios')); ?>" class="<?php echo e(!isset($category) ? 'active' : ''); ?>">All</a>
-        <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $catName => $count): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <?php $slug = strtolower(str_replace([' ', '/'], ['-', ''], $catName)); ?>
+        <a href="<?php echo e(route('portfolios')); ?>" class="<?php echo e(!isset($category) ? 'active' : ''); ?>"><?php echo e(app()->getLocale() === 'ar' ? 'الكل' : 'All'); ?> (<?php echo e(count(\App\Services\PortfolioService::all())); ?>)</a>
+        <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slug => $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <a href="<?php echo e(route('portfolios.category', $slug)); ?>"
-               class="<?php echo e(isset($category) && strtolower(str_replace('-', ' ', $category)) === strtolower($catName) ? 'active' : ''); ?>">
-                <?php echo e($catName); ?> (<?php echo e($count); ?>)
+               class="<?php echo e((isset($categorySlug) && $categorySlug === $slug) ? 'active' : ''); ?>">
+                <?php echo e($cat['name']); ?> (<?php echo e($cat['count']); ?>)
             </a>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>

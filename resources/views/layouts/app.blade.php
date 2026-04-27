@@ -726,6 +726,55 @@
         }
 
         /* ====================================================================
+           HEADER — solid white so the logo is always visible
+           ==================================================================== */
+        .header.fixed-top,
+        #nav-menu-wrap {
+            background: #ffffff !important;
+            box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.04);
+        }
+        .header.fixed-top.scrolled,
+        .header.fixed-top.sticky {
+            background: rgba(255, 255, 255, 0.96) !important;
+            backdrop-filter: saturate(180%) blur(14px);
+            -webkit-backdrop-filter: saturate(180%) blur(14px);
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+        }
+        .header .nav-link.menu-link {
+            color: #1e293b !important;
+            font-weight: 600 !important;
+            font-size: 14.5px !important;
+            padding: 8px 14px !important;
+        }
+        .header .nav-link.menu-link:hover,
+        .header .nav-link.menu-link.active {
+            color: #2563eb !important;
+        }
+
+        /* Center the 5 nav links (Home, About, Services, Portfolio, Blog) */
+        .header .navbar { position: relative; }
+        .header .navbar-collapse.main-menu { justify-content: center !important; }
+        .header .navbar-nav {
+            margin: 0 auto !important;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        /* Pin the language switcher + Contact Me button to the end */
+        .header .navbar-nav .nav-item.navbar-btn-resp {
+            margin-left: auto !important;
+        }
+        html[dir="rtl"] .header .navbar-nav .nav-item.navbar-btn-resp {
+            margin-left: 0 !important;
+            margin-right: auto !important;
+        }
+        @media (max-width: 991px) {
+            .header .navbar-collapse.main-menu { justify-content: flex-start !important; }
+            .header .navbar-nav .nav-item.navbar-btn-resp { margin-left: 0 !important; margin-right: 0 !important; }
+        }
+
+        /* ====================================================================
            BUTTONS — kill legacy circular icon + white border (style.css line 1900s)
            Must be after style.css to win.
            ==================================================================== */
@@ -818,6 +867,348 @@
             text-transform: none !important;
             font-weight: 600 !important;
         }
+
+        /* Outline variant — used for "Download CV" and similar secondary actions.
+           Visible against white backgrounds with brand-color border + text. */
+        .primary-btn.primary-btn--outline {
+            background: #fff !important;
+            color: #2563eb !important;
+            border: 2px solid #2563eb !important;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.10) !important;
+        }
+        .primary-btn.primary-btn--outline:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%) !important;
+            color: #fff !important;
+            border-color: #2563eb !important;
+            box-shadow: 0 10px 22px rgba(37, 99, 235, 0.35) !important;
+        }
+        .primary-btn.primary-btn--outline .text,
+        .primary-btn.primary-btn--outline .icon i {
+            color: inherit !important;
+        }
+
+        /* ====================================================================
+           PHONE NUMBERS — always LTR + ltr-isolation, even in Arabic mode
+           ==================================================================== */
+        .phone-ltr,
+        a[href^="tel:"],
+        .ai-value a[href^="tel:"] {
+            direction: ltr !important;
+            unicode-bidi: isolate !important;
+            display: inline-block;
+        }
+        html[dir="rtl"] a[href^="tel:"],
+        html[dir="rtl"] .ai-value a[href^="tel:"] {
+            direction: ltr !important;
+            unicode-bidi: isolate !important;
+            text-align: left;
+        }
+
+        /* ====================================================================
+           NEW MOBILE DRAWER (kh-drawer) — completely fresh, no Bootstrap.
+           Uses its own classes, sits outside the navbar, opens via JS.
+           ==================================================================== */
+        @media (max-width: 991px) {
+            /* Hide the old navbar-collapse menu on mobile (we use a separate drawer instead) */
+            .header .navbar-collapse.main-menu {
+                display: none !important;
+            }
+        }
+        /* On desktop the drawer is hidden; on mobile its hamburger trigger is shown */
+        .kh-drawer-trigger { display: none; }
+        @media (max-width: 991px) {
+            .kh-drawer-trigger {
+                display: inline-flex !important;
+                align-items: center;
+                justify-content: center;
+                width: 44px;
+                height: 44px;
+                border-radius: 10px;
+                background: linear-gradient(135deg, #2563eb, #1e40af);
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                font-size: 18px;
+                box-shadow: 0 6px 14px rgba(37,99,235,0.30);
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+            .kh-drawer-trigger:hover { transform: translateY(-2px); }
+            .kh-drawer-trigger:focus { outline: 2px solid #93c5fd; outline-offset: 2px; }
+        }
+
+        /* ====================================================================
+           DRAWER PANEL
+           ==================================================================== */
+        .kh-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 320px;
+            max-width: 88vw;
+            height: 100dvh;
+            background: linear-gradient(160deg, #ffffff 0%, #f8fafc 100%);
+            box-shadow: -16px 0 40px rgba(15, 23, 42, 0.18);
+            z-index: 9999;
+            transform: translateX(105%);
+            transition: transform 0.35s cubic-bezier(.2,.8,.2,1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            visibility: hidden;
+        }
+        html[dir="rtl"] .kh-drawer {
+            right: auto;
+            left: 0;
+            transform: translateX(-105%);
+            box-shadow: 16px 0 40px rgba(15, 23, 42, 0.18);
+        }
+        .kh-drawer.is-active {
+            transform: translateX(0) !important;
+            visibility: visible !important;
+        }
+
+        /* Top brand strip with gradient + close button */
+        .kh-drawer__brand {
+            flex: 0 0 auto;
+            padding: 22px 22px;
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #7c3aed 100%);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+        .kh-drawer__brand::after {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -30%;
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .kh-drawer__brand-text {
+            position: relative;
+            z-index: 1;
+        }
+        .kh-drawer__brand-text .small {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            opacity: 0.85;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .kh-drawer__brand-text .name {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 0.2px;
+        }
+        .kh-drawer__close {
+            position: relative;
+            z-index: 1;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.30);
+            color: #fff;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        .kh-drawer__close:hover {
+            background: rgba(255, 255, 255, 0.30);
+            transform: rotate(90deg);
+        }
+
+        /* Scrollable middle area with menu items */
+        .kh-drawer__menu {
+            flex: 1 1 auto;
+            overflow-y: auto;
+            padding: 16px 14px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(15,23,42,0.20) transparent;
+        }
+        .kh-drawer__menu::-webkit-scrollbar { width: 4px; }
+        .kh-drawer__menu::-webkit-scrollbar-thumb {
+            background: rgba(15,23,42,0.18);
+            border-radius: 4px;
+        }
+        .kh-drawer__menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .kh-drawer__menu a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 13px 14px;
+            border-radius: 12px;
+            color: #1e293b;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+            position: relative;
+        }
+        .kh-drawer__menu a:hover {
+            background: rgba(37, 99, 235, 0.08);
+            color: #2563eb;
+        }
+        .kh-drawer__menu a.is-current {
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+        }
+        .kh-drawer__menu a .ico {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(37, 99, 235, 0.10);
+            color: #2563eb;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+            transition: background 0.18s ease, color 0.18s ease;
+        }
+        .kh-drawer__menu a:hover .ico { background: rgba(37, 99, 235, 0.18); }
+        .kh-drawer__menu a.is-current .ico {
+            background: rgba(255, 255, 255, 0.22);
+            color: #fff;
+        }
+        .kh-drawer__menu a .label { flex: 1; }
+        .kh-drawer__menu a .arrow {
+            font-size: 11px;
+            opacity: 0.45;
+            transition: transform 0.18s ease, opacity 0.18s ease;
+        }
+        .kh-drawer__menu a:hover .arrow {
+            opacity: 1;
+            transform: translateX(3px);
+        }
+        html[dir="rtl"] .kh-drawer__menu a .arrow { transform: scaleX(-1); }
+        html[dir="rtl"] .kh-drawer__menu a:hover .arrow { transform: scaleX(-1) translateX(3px); }
+        .kh-drawer__menu a.is-current .arrow { opacity: 1; }
+
+        /* Section divider in menu */
+        .kh-drawer__divider {
+            margin: 14px 14px 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #94a3b8;
+        }
+
+        /* Bottom region with CTAs and social */
+        .kh-drawer__foot {
+            flex: 0 0 auto;
+            padding: 18px 18px 22px;
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+        }
+        .kh-drawer__cta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .kh-drawer__cta a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 11px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 13px;
+            text-decoration: none;
+            color: #fff;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+        .kh-drawer__cta a:hover { transform: translateY(-2px); }
+        .kh-drawer__cta .call {
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+        }
+        .kh-drawer__cta .wa {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
+        }
+        .kh-drawer__lang {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 10px;
+            background: rgba(37, 99, 235, 0.08);
+            color: #2563eb;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 13px;
+            text-decoration: none;
+            margin-bottom: 12px;
+            transition: background 0.18s ease;
+        }
+        .kh-drawer__lang:hover {
+            background: rgba(37, 99, 235, 0.15);
+            color: #1e40af;
+        }
+        .kh-drawer__social {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .kh-drawer__social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            color: #475569;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+        }
+        .kh-drawer__social a:hover {
+            background: #2563eb;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Backdrop */
+        .kh-drawer-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.50);
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+            cursor: pointer;
+        }
+        .kh-drawer-backdrop.is-active {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s ease;
+        }
+        body.kh-drawer-open { overflow: hidden; }
 
         /* The mobile bottom bar — translate Call/WhatsApp labels via aria/text;
            also clean up its spacing */
@@ -1446,6 +1837,86 @@
 
     </main>
 
+    @php $khLocale = app()->getLocale(); $khOther = $khLocale === 'ar' ? 'en' : 'ar'; @endphp
+
+    {{-- ============================================================
+         New mobile drawer (kh-drawer) — fresh, independent of Bootstrap
+         ============================================================ --}}
+    <div class="kh-drawer-backdrop" id="khDrawerBackdrop" aria-hidden="true"></div>
+    <aside class="kh-drawer" id="khDrawer" role="dialog" aria-modal="true" aria-label="Mobile menu">
+        <header class="kh-drawer__brand">
+            <div class="kh-drawer__brand-text">
+                <span class="small">Khaled Ahmed</span>
+                <span class="name">{{ $khLocale === 'ar' ? 'القائمه' : 'Menu' }}</span>
+            </div>
+            <button type="button" class="kh-drawer__close" data-kh-drawer-close aria-label="Close menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </header>
+
+        <nav class="kh-drawer__menu">
+            <ul>
+                <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'is-current' : '' }}">
+                    <span class="ico"><i class="fas fa-home"></i></span>
+                    <span class="label">{{ __('site.home') }}</span>
+                    <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                </a></li>
+                <li><a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'is-current' : '' }}">
+                    <span class="ico"><i class="fas fa-user"></i></span>
+                    <span class="label">{{ __('site.about') }}</span>
+                    <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                </a></li>
+                <li><a href="{{ route('services') }}" class="{{ request()->routeIs('services') ? 'is-current' : '' }}">
+                    <span class="ico"><i class="fas fa-bolt"></i></span>
+                    <span class="label">{{ __('site.services') }}</span>
+                    <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                </a></li>
+                <li><a href="{{ route('portfolios') }}" class="{{ request()->routeIs('portfolios') || request()->routeIs('portfolios.category') ? 'is-current' : '' }}">
+                    <span class="ico"><i class="fas fa-briefcase"></i></span>
+                    <span class="label">{{ __('site.portfolio') }}</span>
+                    <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                </a></li>
+                <li><a href="{{ route('blogs') }}" class="{{ request()->routeIs('blogs') || request()->routeIs('blog.show') || request()->routeIs('blog.category') ? 'is-current' : '' }}">
+                    <span class="ico"><i class="fas fa-book-open"></i></span>
+                    <span class="label">{{ __('site.blog') }}</span>
+                    <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                </a></li>
+                <li><a href="{{ route('faqs') }}" class="{{ request()->routeIs('faqs') ? 'is-current' : '' }}">
+                    <span class="ico"><i class="fas fa-question-circle"></i></span>
+                    <span class="label">{{ __('site.faqs') }}</span>
+                    <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                </a></li>
+                <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'is-current' : '' }}">
+                    <span class="ico"><i class="fas fa-envelope"></i></span>
+                    <span class="label">{{ __('site.contact') }}</span>
+                    <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+                </a></li>
+            </ul>
+        </nav>
+
+        <footer class="kh-drawer__foot">
+            <a href="{{ route('lang.switch', $khOther) }}" class="kh-drawer__lang">
+                <i class="fas fa-globe"></i>
+                {{ $khOther === 'ar' ? 'العربية' : 'English' }}
+            </a>
+            <div class="kh-drawer__cta">
+                <a href="tel:+201204593124" class="call">
+                    <i class="fas fa-phone-alt"></i>
+                    {{ $khLocale === 'ar' ? 'اتصل' : 'Call' }}
+                </a>
+                <a href="https://wa.me/201204593124" target="_blank" rel="noopener" class="wa">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp
+                </a>
+            </div>
+            <div class="kh-drawer__social">
+                <a href="https://github.com/khaled312001" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/khaled-ahmed-82368819b" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:khaledahmedhaggagy@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </footer>
+    </aside>
+
     <a href="#" class="scroll-top-btn" data-scroll-goto="1" aria-label="Scroll to top">
         <i class="fa fa-arrow-up"></i>
     </a>
@@ -1493,6 +1964,59 @@
 <script src="{{ asset('js/vegas.slider.min.js') }}" defer></script>
 <script src="{{ asset('js/jquery.mb-ytb.min.js') }}" defer></script>
 <script src="{{ asset('js/main.js') }}" defer></script>
+
+{{-- kh-drawer: brand-new mobile drawer (no Bootstrap dependency) --}}
+<script>
+(function () {
+    function init() {
+        var drawer = document.getElementById('khDrawer');
+        var backdrop = document.getElementById('khDrawerBackdrop');
+        if (!drawer || !backdrop) return;
+
+        var triggers = document.querySelectorAll('[data-kh-drawer-open]');
+        var closers  = document.querySelectorAll('[data-kh-drawer-close]');
+
+        function open(e) {
+            if (e) e.preventDefault();
+            drawer.classList.add('is-active');
+            backdrop.classList.add('is-active');
+            document.body.classList.add('kh-drawer-open');
+            triggers.forEach(function (t) { t.setAttribute('aria-expanded', 'true'); });
+        }
+        function close(e) {
+            if (e) e.preventDefault();
+            drawer.classList.remove('is-active');
+            backdrop.classList.remove('is-active');
+            document.body.classList.remove('kh-drawer-open');
+            triggers.forEach(function (t) { t.setAttribute('aria-expanded', 'false'); });
+        }
+
+        triggers.forEach(function (t) { t.addEventListener('click', open); });
+        closers.forEach(function (c)  { c.addEventListener('click', close); });
+        backdrop.addEventListener('click', close);
+
+        // Close on any anchor click inside the drawer (lets navigation continue)
+        drawer.querySelectorAll('a').forEach(function (a) {
+            a.addEventListener('click', function () { setTimeout(close, 80); });
+        });
+
+        // Esc closes
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && drawer.classList.contains('is-active')) close();
+        });
+
+        // Reset on resize to desktop
+        window.addEventListener('resize', function () {
+            if (window.innerWidth >= 992 && drawer.classList.contains('is-active')) close();
+        });
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+</script>
 
 @stack('scripts')
 

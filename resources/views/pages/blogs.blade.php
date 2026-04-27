@@ -13,10 +13,12 @@
     .blog-filter-bar { padding: 16px 0; border-bottom: 1px solid #e5e7eb; margin-bottom: 30px; }
     .blog-filter-bar a { display: inline-block; padding: 6px 14px; margin: 4px 4px; border-radius: 999px; background: #f1f5f9; color: #1e293b; text-decoration: none; font-size: 14px; font-weight: 500; transition: all 0.2s; }
     .blog-filter-bar a:hover, .blog-filter-bar a.active { background: var(--main-color); color: #fff; }
-    .blog-card { border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; transition: all 0.3s; height: 100%; display: flex; flex-direction: column; background: #fff; }
-    .blog-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.08); border-color: var(--main-color); }
-    .blog-card .blog-img img { width: 100%; height: 220px; object-fit: cover; }
-    .blog-card .blog-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .blog-card { border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden; transition: all 0.3s; height: 100%; display: flex; flex-direction: column; background: #fff; position: relative; }
+    .blog-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #2563eb, #7c3aed); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+    .blog-card:hover::before { transform: scaleX(1); }
+    .blog-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(15,23,42,0.10); border-color: rgba(37,99,235,0.30); }
+    .blog-card .blog-body { padding: 26px 24px; flex: 1; display: flex; flex-direction: column; }
+    .blog-card .cat-pill { display: inline-block; align-self: flex-start; padding: 5px 12px; border-radius: 999px; background: linear-gradient(135deg, rgba(37,99,235,0.10), rgba(124,58,237,0.10)); color: #2563eb; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; border: 1px solid rgba(37,99,235,0.18); }
     .blog-card .meta { font-size: 13px; color: #64748b; margin-bottom: 10px; }
     .blog-card .meta .cat { color: var(--main-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
     .blog-card h3 { font-size: 19px; line-height: 1.4; margin-bottom: 10px; font-weight: 600; }
@@ -34,7 +36,6 @@
     @media (max-width: 768px) {
         .blog-hero { padding: 60px 0 30px; }
         .blog-hero h1 { font-size: 26px; }
-        .blog-card .blog-img img { height: 180px; }
         .blog-cta { padding: 32px 20px; }
         .blog-cta h2 { font-size: 22px; }
     }
@@ -122,23 +123,20 @@
             @foreach($posts as $post)
             <div class="col-lg-4 col-md-6">
                 <article class="blog-card" itemscope itemtype="https://schema.org/BlogPosting">
-                    <a href="{{ route('blog.show', $post['slug']) }}" class="blog-img">
-                        <img src="{{ asset('images/' . $post['image']) }}"
-                             alt="{{ $post['title'] }}"
-                             loading="lazy" width="400" height="220" itemprop="image">
-                    </a>
                     <div class="blog-body">
-                        <div class="meta">
-                            <span class="cat">{{ $post['category'] }}</span>
-                            &bull; <time datetime="{{ $post['date'] }}" itemprop="datePublished">{{ \Carbon\Carbon::parse($post['date'])->format('M d, Y') }}</time>
-                            &bull; {{ $post['read_time'] }}
-                        </div>
+                        <span class="cat-pill" itemprop="articleSection">{{ $post['category'] }}</span>
                         <h3 itemprop="headline">
                             <a href="{{ route('blog.show', $post['slug']) }}" itemprop="url">{{ $post['title'] }}</a>
                         </h3>
+                        <div class="meta">
+                            <i class="far fa-calendar"></i>
+                            <time datetime="{{ $post['date'] }}" itemprop="datePublished">{{ \Carbon\Carbon::parse($post['date'])->locale(app()->getLocale())->translatedFormat(app()->getLocale() === 'ar' ? 'd F Y' : 'M d, Y') }}</time>
+                            &nbsp;&bull;&nbsp;
+                            <i class="far fa-clock"></i> {{ $post['read_time'] }}
+                        </div>
                         <p itemprop="description">{{ $post['excerpt'] }}</p>
                         <a href="{{ route('blog.show', $post['slug']) }}" class="read-more">
-                            Read full article <i class="fa fa-arrow-right"></i>
+                            {{ __('site.read_full_article') }} <i class="fa fa-arrow-right"></i>
                         </a>
                     </div>
                 </article>

@@ -9,16 +9,75 @@ class PortfolioService
         return array_map([self::class, 'localize'], self::projects());
     }
 
+    /**
+     * Filter projects by stable English category slug, then localize.
+     * Use this from controllers — it works regardless of current locale.
+     */
+    public static function byCategorySlug(string $slug): array
+    {
+        $slug = strtolower($slug);
+        $filtered = array_filter(
+            self::projects(),
+            fn ($p) => self::categorySlug($p['category']) === $slug
+        );
+        return array_values(array_map([self::class, 'localize'], $filtered));
+    }
+
     public static function categories(): array
     {
         $isAr = function_exists('app') && app()->getLocale() === 'ar';
         $cats = [];
         foreach (self::projects() as $p) {
+            $slug = self::categorySlug($p['category']);
             $name = $isAr ? self::categoryToAr($p['category']) : $p['category'];
-            $cats[$name] = ($cats[$name] ?? 0) + 1;
+            if (!isset($cats[$slug])) {
+                $cats[$slug] = ['name' => $name, 'count' => 0, 'en' => $p['category']];
+            }
+            $cats[$slug]['count']++;
         }
         ksort($cats);
         return $cats;
+    }
+
+    /**
+     * Stable slug for a category — locale-independent.
+     * URLs use these slugs so the filter works in any language.
+     */
+    public static function categorySlug(string $enCategory): string
+    {
+        return [
+            'Tech / SaaS' => 'tech',
+            'Law Firm' => 'law',
+            'Education' => 'education',
+            'E-commerce' => 'ecommerce',
+            'Marketing' => 'marketing',
+            'Restaurant' => 'restaurant',
+            'Construction' => 'construction',
+            'Healthcare' => 'healthcare',
+            'Hotel / Events' => 'events',
+            'Religious / Quran' => 'religious',
+        ][$enCategory] ?? strtolower(preg_replace('/[^a-z0-9]+/i', '-', $enCategory));
+    }
+
+    /**
+     * Reverse lookup: slug -> English category name.
+     * Used by the controller to filter projects when given a URL slug.
+     */
+    public static function categoryFromSlug(string $slug): ?string
+    {
+        $map = [
+            'tech' => 'Tech / SaaS',
+            'law' => 'Law Firm',
+            'education' => 'Education',
+            'ecommerce' => 'E-commerce',
+            'marketing' => 'Marketing',
+            'restaurant' => 'Restaurant',
+            'construction' => 'Construction',
+            'healthcare' => 'Healthcare',
+            'events' => 'Hotel / Events',
+            'religious' => 'Religious / Quran',
+        ];
+        return $map[$slug] ?? null;
     }
 
     public static function find(string $slug): ?array

@@ -123,9 +123,165 @@
     }
 
     /* Other site-wide CSS continues below — kept identical */
-    .trust-bar { background: #f8fafc; padding: 24px 0; border-bottom: 1px solid #e5e7eb; }
-    .trust-bar .label { color: #64748b; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-    .trust-bar .countries { color: #0f172a; font-weight: 600; font-size: 16px; }
+    /* === Trust bar — modern card-based === */
+    .trust-bar {
+        background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+        padding: 36px 0;
+        border-bottom: 1px solid #e0e7ff;
+        position: relative;
+    }
+    .trust-bar .trust-card {
+        background: #fff;
+        border-radius: 14px;
+        padding: 22px 24px;
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+        border: 1px solid rgba(37, 99, 235, 0.08);
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        height: 100%;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .trust-bar .trust-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.10);
+    }
+    .trust-bar .trust-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #2563eb, #7c3aed);
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+    .trust-bar .trust-card:nth-child(2) .trust-icon { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+    .trust-bar .trust-card:nth-child(3) .trust-icon { background: linear-gradient(135deg, #10b981, #059669); }
+    .trust-bar .trust-body { flex: 1; min-width: 0; }
+    .trust-bar .label {
+        color: #64748b;
+        font-size: 11.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        margin-bottom: 4px;
+    }
+    .trust-bar .countries {
+        color: #0f172a;
+        font-weight: 600;
+        font-size: 14.5px;
+        line-height: 1.4;
+    }
+    @media (max-width: 768px) {
+        .trust-bar { padding: 24px 0; }
+        .trust-bar .trust-card { padding: 16px 18px; gap: 12px; }
+        .trust-bar .trust-icon { width: 40px; height: 40px; font-size: 16px; }
+        .trust-bar .countries { font-size: 13.5px; }
+    }
+
+    /* === About section — modernized === */
+    #about { padding: 80px 0 !important; background: #fff; }
+    .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.6fr;
+        gap: 60px;
+        align-items: center;
+    }
+    @media (max-width: 991px) {
+        .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+    .about-photo-wrap {
+        position: relative;
+        text-align: center;
+    }
+    .about-photo-wrap::before {
+        content: '';
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 90%; aspect-ratio: 1;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, rgba(37,99,235,0.10), rgba(124,58,237,0.10));
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        animation: blobMorph 12s ease-in-out infinite;
+        z-index: 0;
+    }
+    @keyframes blobMorph {
+        0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        50% { border-radius: 70% 30% 50% 50% / 50% 70% 30% 50%; }
+    }
+    .about-photo {
+        position: relative;
+        z-index: 1;
+        max-width: 100%;
+        max-height: 480px;
+        width: auto;
+        filter: drop-shadow(0 24px 40px rgba(15, 23, 42, 0.20));
+    }
+    .about-content h2.section-title-h2 {
+        font-size: 32px !important;
+        margin-bottom: 18px;
+    }
+    .about-content p { font-size: 16px; line-height: 1.8; color: #475569; margin-bottom: 16px; }
+    .about-info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin: 24px 0 28px;
+    }
+    @media (max-width: 576px) {
+        .about-info-grid { grid-template-columns: 1fr; }
+    }
+    .about-info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 16px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .about-info-item:hover {
+        border-color: #2563eb;
+        background: #fff;
+        box-shadow: 0 6px 14px rgba(37, 99, 235, 0.06);
+    }
+    .about-info-item .ai-icon {
+        width: 38px; height: 38px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        flex-shrink: 0;
+    }
+    .about-info-item:nth-child(2) .ai-icon { background: linear-gradient(135deg, #7c3aed, #5b21b6); }
+    .about-info-item:nth-child(3) .ai-icon { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+    .about-info-item:nth-child(4) .ai-icon { background: linear-gradient(135deg, #10b981, #059669); }
+    .about-info-item:nth-child(5) .ai-icon { background: linear-gradient(135deg, #f97316, #ea580c); }
+    .about-info-item:nth-child(6) .ai-icon { background: linear-gradient(135deg, #ec4899, #db2777); }
+    .about-info-item .ai-body { min-width: 0; flex: 1; }
+    .about-info-item .ai-label {
+        font-size: 11.5px;
+        color: #64748b;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 2px;
+    }
+    .about-info-item .ai-value {
+        font-size: 14px;
+        color: #0f172a;
+        font-weight: 600;
+        line-height: 1.4;
+    }
+    .about-info-item .ai-value a { color: inherit; text-decoration: none; }
+    .about-info-item .ai-value a:hover { color: #2563eb; }
     .services-grid { padding: 70px 0; }
     .service-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 28px; transition: all 0.3s; height: 100%; }
     .service-card:hover { border-color: var(--main-color); transform: translateY(-4px); box-shadow: 0 12px 30px rgba(37,99,235,0.08); }
@@ -244,53 +400,106 @@
 
 <section class="trust-bar">
     <div class="container">
-        <div class="row align-items-center text-center text-md-start">
+        <div class="row g-3">
             <div class="col-md-4">
-                <div class="label"><?php echo e(__('site.trust_label_1')); ?></div>
-                <div class="countries"><?php echo e(__('site.trust_value_1')); ?></div>
+                <div class="trust-card">
+                    <div class="trust-icon"><i class="fas fa-globe-americas"></i></div>
+                    <div class="trust-body">
+                        <div class="label"><?php echo e(__('site.trust_label_1')); ?></div>
+                        <div class="countries"><?php echo e(__('site.trust_value_1')); ?></div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4 text-md-center">
-                <div class="label"><?php echo e(__('site.trust_label_2')); ?></div>
-                <div class="countries"><?php echo e(__('site.trust_value_2')); ?></div>
+            <div class="col-md-4">
+                <div class="trust-card">
+                    <div class="trust-icon"><i class="fas fa-bullseye"></i></div>
+                    <div class="trust-body">
+                        <div class="label"><?php echo e(__('site.trust_label_2')); ?></div>
+                        <div class="countries"><?php echo e(__('site.trust_value_2')); ?></div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4 text-md-end">
-                <div class="label"><?php echo e(__('site.trust_label_3')); ?></div>
-                <div class="countries"><?php echo e(__('site.trust_value_3')); ?></div>
+            <div class="col-md-4">
+                <div class="trust-card">
+                    <div class="trust-icon"><i class="fas fa-calendar-check"></i></div>
+                    <div class="trust-body">
+                        <div class="label"><?php echo e(__('site.trust_label_3')); ?></div>
+                        <div class="countries"><?php echo e(__('site.trust_value_3')); ?></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section" id="about">
+<section id="about">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="about-inner wow fadeInUp">
-                    <span class="section-badge"><i class="fas fa-user-tie"></i> <?php echo e(__('site.about_me')); ?></span>
-                    <h2 class="section-title-h2"><?php echo e(__('site.about_h2')); ?></h2>
-                    <p style="font-size: 16.5px; line-height: 1.75;"><?php echo e(__('site.about_p1')); ?></p>
-                    <p style="font-size: 16.5px; line-height: 1.75;"><?php echo __('site.about_p2'); ?></p>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <ul class="mb-resp-15">
-                                <li><div class="text"><h5><?php echo e(__('site.name_label')); ?></h5><p><?php echo e(__('site.name_value')); ?></p></div></li>
-                                <li><div class="text"><h5><?php echo e(__('site.location_label')); ?></h5><p><?php echo e(__('site.location_value')); ?></p></div></li>
-                                <li><div class="text"><h5><?php echo e(__('site.freelance_label')); ?></h5><p><?php echo e(__('site.freelance_value')); ?></p></div></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <ul>
-                                <li><div class="text"><h5><?php echo e(__('site.education_label')); ?></h5><p><?php echo e(__('site.education_value')); ?></p></div></li>
-                                <li><div class="text"><h5><?php echo e(__('site.languages_label')); ?></h5><p><?php echo e(__('site.languages_value')); ?></p></div></li>
-                                <li><div class="text"><h5><?php echo e(__('site.phone_label')); ?></h5><p><a href="tel:+201204593124" class="text-decoration-none text-dark">+20 120 459 3124</a> · <a href="tel:+201010254819" class="text-decoration-none text-dark">+20 101 025 4819</a></p></div></li>
-                            </ul>
+        <div class="about-grid">
+            <div class="about-photo-wrap">
+                <img src="<?php echo e(asset('images/khaled-hero.png')); ?>"
+                     alt="<?php echo e(__('site.about_h2')); ?>"
+                     class="about-photo"
+                     loading="lazy" decoding="async">
+            </div>
+            <div class="about-content">
+                <span class="section-badge"><i class="fas fa-user-tie"></i> <?php echo e(__('site.about_me')); ?></span>
+                <h2 class="section-title-h2"><?php echo e(__('site.about_h2')); ?></h2>
+                <p><?php echo e(__('site.about_p1')); ?></p>
+                <p><?php echo __('site.about_p2'); ?></p>
+
+                <div class="about-info-grid">
+                    <div class="about-info-item">
+                        <div class="ai-icon"><i class="fas fa-user"></i></div>
+                        <div class="ai-body">
+                            <div class="ai-label"><?php echo e(__('site.name_label')); ?></div>
+                            <div class="ai-value"><?php echo e(__('site.name_value')); ?></div>
                         </div>
                     </div>
-                    <a href="<?php echo e(route('contact')); ?>" class="primary-btn me-3 mb-3">
+                    <div class="about-info-item">
+                        <div class="ai-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="ai-body">
+                            <div class="ai-label"><?php echo e(__('site.location_label')); ?></div>
+                            <div class="ai-value"><?php echo e(__('site.location_value')); ?></div>
+                        </div>
+                    </div>
+                    <div class="about-info-item">
+                        <div class="ai-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <div class="ai-body">
+                            <div class="ai-label"><?php echo e(__('site.education_label')); ?></div>
+                            <div class="ai-value"><?php echo e(__('site.education_value')); ?></div>
+                        </div>
+                    </div>
+                    <div class="about-info-item">
+                        <div class="ai-icon"><i class="fas fa-language"></i></div>
+                        <div class="ai-body">
+                            <div class="ai-label"><?php echo e(__('site.languages_label')); ?></div>
+                            <div class="ai-value"><?php echo e(__('site.languages_value')); ?></div>
+                        </div>
+                    </div>
+                    <div class="about-info-item">
+                        <div class="ai-icon"><i class="fas fa-briefcase"></i></div>
+                        <div class="ai-body">
+                            <div class="ai-label"><?php echo e(__('site.freelance_label')); ?></div>
+                            <div class="ai-value"><?php echo e(__('site.freelance_value')); ?></div>
+                        </div>
+                    </div>
+                    <div class="about-info-item">
+                        <div class="ai-icon"><i class="fas fa-phone"></i></div>
+                        <div class="ai-body">
+                            <div class="ai-label"><?php echo e(__('site.phone_label')); ?></div>
+                            <div class="ai-value">
+                                <a href="tel:+201204593124">+20 120 459 3124</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="<?php echo e(route('contact')); ?>" class="primary-btn">
                         <span class="text"><?php echo e(__('site.hire_me')); ?></span>
                         <span class="icon"><i class="fa fa-arrow-right"></i></span>
                     </a>
-                    <a href="/Khaled_Ahmed.pdf" class="primary-btn" download rel="nofollow">
+                    <a href="/Khaled_Ahmed.pdf" class="primary-btn primary-btn--outline" download rel="nofollow">
                         <span class="text"><?php echo e(__('site.download_cv')); ?></span>
                         <span class="icon"><i class="fa fa-download"></i></span>
                     </a>

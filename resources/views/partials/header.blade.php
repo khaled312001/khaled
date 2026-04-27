@@ -10,14 +10,13 @@
                          class="img-fluid"
                          loading="eager" decoding="async">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#fixedNavbar" aria-controls="fixedNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="togler-icon-inner">
-                        <span class="line-1"></span>
-                        <span class="line-2"></span>
-                        <span class="line-3"></span>
-                    </span>
+
+                {{-- Hamburger trigger for the kh-drawer (mobile only) --}}
+                <button type="button" class="kh-drawer-trigger" data-kh-drawer-open aria-controls="khDrawer" aria-expanded="false" aria-label="Open menu">
+                    <i class="fas fa-bars"></i>
                 </button>
-                <div class="collapse navbar-collapse main-menu justify-content-end" id="fixedNavbar">
+
+                <div class="collapse navbar-collapse main-menu" id="fixedNavbar">
                     <ul class="navbar-nav align-items-lg-center">
                         <li class="nav-item">
                             <a class="nav-link menu-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">{{ __('site.home') }}</a>
@@ -33,17 +32,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link menu-link {{ request()->routeIs('blogs') || request()->routeIs('blog.show') || request()->routeIs('blog.category') ? 'active' : '' }}" href="{{ route('blogs') }}">{{ __('site.blog') }}</a>
-                        </li>
-                        <li class="nav-item d-lg-none">
-                            <a class="nav-link menu-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">
-                                <i class="fas fa-envelope me-2"></i>{{ __('site.contact_me') }}
-                            </a>
-                        </li>
-                        <li class="nav-item d-lg-none">
-                            <a class="nav-link menu-link" href="{{ route('lang.switch', $otherLocale) }}">
-                                <i class="fas fa-globe me-2"></i>
-                                {{ $otherLocale === 'ar' ? 'العربية' : 'English' }}
-                            </a>
                         </li>
                         <li class="nav-item navbar-btn-resp d-none d-lg-flex align-items-center" style="gap: 10px;">
                             <a href="{{ route('lang.switch', $otherLocale) }}" class="lang-switch" title="{{ __('site.language') }}">

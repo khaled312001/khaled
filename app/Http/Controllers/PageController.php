@@ -152,10 +152,17 @@ class PageController extends Controller
 
     public function portfolioCategory($category)
     {
-        $allProjects = PortfolioService::all();
-        $projects = array_values(array_filter($allProjects, fn ($p) => strtolower($p['category']) === strtolower(str_replace('-', ' ', $category))));
+        // $category is a stable slug like "tech", "ecommerce", "religious"
+        $categorySlug = strtolower($category);
+        $projects = PortfolioService::byCategorySlug($categorySlug);
+
+        // 404 if the slug doesn't match any category
+        if (empty($projects)) {
+            abort(404);
+        }
+
         $categories = PortfolioService::categories();
-        return view('pages.portfolios', compact('projects', 'categories', 'category'));
+        return view('pages.portfolios', compact('projects', 'categories', 'category', 'categorySlug'));
     }
 
     public function portfolioShow($slug)

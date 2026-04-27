@@ -10,14 +10,13 @@
                          class="img-fluid"
                          loading="eager" decoding="async">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#fixedNavbar" aria-controls="fixedNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="togler-icon-inner">
-                        <span class="line-1"></span>
-                        <span class="line-2"></span>
-                        <span class="line-3"></span>
-                    </span>
+
+                
+                <button type="button" class="kh-drawer-trigger" data-kh-drawer-open aria-controls="khDrawer" aria-expanded="false" aria-label="Open menu">
+                    <i class="fas fa-bars"></i>
                 </button>
-                <div class="collapse navbar-collapse main-menu justify-content-end" id="fixedNavbar">
+
+                <div class="collapse navbar-collapse main-menu" id="fixedNavbar">
                     <ul class="navbar-nav align-items-lg-center">
                         <li class="nav-item">
                             <a class="nav-link menu-link <?php echo e(request()->routeIs('home') ? 'active' : ''); ?>" href="<?php echo e(route('home')); ?>"><?php echo e(__('site.home')); ?></a>
@@ -33,19 +32,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link menu-link <?php echo e(request()->routeIs('blogs') || request()->routeIs('blog.show') || request()->routeIs('blog.category') ? 'active' : ''); ?>" href="<?php echo e(route('blogs')); ?>"><?php echo e(__('site.blog')); ?></a>
-                        </li>
-                        <li class="nav-item d-lg-none">
-                            <a class="nav-link menu-link <?php echo e(request()->routeIs('contact') ? 'active' : ''); ?>" href="<?php echo e(route('contact')); ?>">
-                                <i class="fas fa-envelope me-2"></i><?php echo e(__('site.contact_me')); ?>
-
-                            </a>
-                        </li>
-                        <li class="nav-item d-lg-none">
-                            <a class="nav-link menu-link" href="<?php echo e(route('lang.switch', $otherLocale)); ?>">
-                                <i class="fas fa-globe me-2"></i>
-                                <?php echo e($otherLocale === 'ar' ? 'العربية' : 'English'); ?>
-
-                            </a>
                         </li>
                         <li class="nav-item navbar-btn-resp d-none d-lg-flex align-items-center" style="gap: 10px;">
                             <a href="<?php echo e(route('lang.switch', $otherLocale)); ?>" class="lang-switch" title="<?php echo e(__('site.language')); ?>">

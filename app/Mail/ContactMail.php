@@ -13,18 +13,26 @@ class ContactMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public string $name;
-    public string $email;
-    public string $subject;
-    public string $body;
-    public array $details;
+    /** @var string */
+    public $name;
+    /** @var string */
+    public $email;
+    /**
+     * NOTE: Mailable already declares $subject without a type. We must NOT
+     * redeclare it with a typed property (PHP 8.4 fatal error).
+     */
+    public $subject;
+    /** @var string */
+    public $body;
+    /** @var array */
+    public $details = [];
 
-    public function __construct(string $name, string $email, string $subject, string $message, array $details = [])
+    public function __construct($name, $email, $subject, $message, array $details = [])
     {
-        $this->name    = $name;
-        $this->email   = $email;
-        $this->subject = $subject;
-        $this->body    = $message;
+        $this->name    = (string) $name;
+        $this->email   = (string) $email;
+        $this->subject = (string) $subject;
+        $this->body    = (string) $message;
         $this->details = $details;
     }
 

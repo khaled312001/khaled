@@ -319,12 +319,11 @@
 
 <div class="portfolio-filter">
     <div class="container">
-        <a href="{{ route('portfolios') }}" class="{{ !isset($category) ? 'active' : '' }}">All</a>
-        @foreach($categories as $catName => $count)
-            @php $slug = strtolower(str_replace([' ', '/'], ['-', ''], $catName)); @endphp
+        <a href="{{ route('portfolios') }}" class="{{ !isset($category) ? 'active' : '' }}">{{ app()->getLocale() === 'ar' ? 'الكل' : 'All' }} ({{ count(\App\Services\PortfolioService::all()) }})</a>
+        @foreach($categories as $slug => $cat)
             <a href="{{ route('portfolios.category', $slug) }}"
-               class="{{ isset($category) && strtolower(str_replace('-', ' ', $category)) === strtolower($catName) ? 'active' : '' }}">
-                {{ $catName }} ({{ $count }})
+               class="{{ (isset($categorySlug) && $categorySlug === $slug) ? 'active' : '' }}">
+                {{ $cat['name'] }} ({{ $cat['count'] }})
             </a>
         @endforeach
     </div>

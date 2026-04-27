@@ -122,6 +122,51 @@ class BlogService
                 'read_time' => '9 min read',
                 'meta_title' => 'Hire a Full Stack Web Developer in Egypt — 2026 Senior-Level Guide',
                 'meta_description' => 'Hiring a full stack web developer in Egypt? Here is the exact playbook senior teams use: skills to test, technical interview questions, fair rates, and how to spot a fake senior.',
+                'content_ar' => <<<'HTML'
+<p class="lead">توظيف مطوّر ويب Full Stack من أكلف الأخطاء اللي ممكن تعملها لو غلطت في الاختيار. الراتب مش المشكله — المطوّر الغلط بيسلّم كود مش قابل للصيانه، يسرّب بيانات العملاء، ويحرق 6 شهور من الـ runway. الدليل ده مكتوب من الجانب التاني للتعامل: بنيت وسلّمت أكثر من 25 مشروع إنتاجي في 7 دول، وفلترت مطوّرين لفرق دوليه. ده الـ playbook اللي بيشتغل فعلاً.</p>
+
+<h2>إيه يعني "Full Stack" حقيقي في 2026</h2>
+<p>Full Stack مش معناه "بيعرف شويه من كل حاجه". المطوّر الـ Full Stack الحقيقي بيمتلك الـ request lifecycle كامل: browser ← CDN ← load balancer ← application server ← database ← cache ← background queue ← observability. لو المرشح ما يعرفش يرسم الـ diagram ده ويشرح فين الحاجات بتقع تحت الـ load، فهو frontend أو backend بأدوات إضافيه.</p>
+
+<h3>المهارات اللي ما فيش غناء عنها</h3>
+<ul>
+    <li><strong>Frontend:</strong> React.js أو Vue.js مع TypeScript قوي، state management حديث (Zustand أو Redux Toolkit أو Pinia)، CSS architecture (Tailwind أو CSS Modules أو BEM)، accessibility (WCAG 2.2 AA).</li>
+    <li><strong>Backend:</strong> PHP/Laravel أو Node.js (Express/NestJS) مع Eloquent/Prisma، REST و GraphQL، queue workers (Redis، RabbitMQ)، استراتيجيات caching.</li>
+    <li><strong>Database:</strong> Relational modeling في MySQL أو PostgreSQL — indexes و query plans و N+1 detection. Document modeling في MongoDB. <em>قراءه</em> EXPLAIN output ده الحد الأدنى.</li>
+    <li><strong>DevOps:</strong> أساسيات Linux، Nginx/Apache، SSL/TLS، Docker، CI/CD (GitHub Actions أو GitLab CI)، Kubernetes literacy، log shipping.</li>
+    <li><strong>Security:</strong> OWASP Top 10، CSRF، XSS، منع SQL injection، إداره الأسرار، password hashing (bcrypt/argon2)، rate limiting.</li>
+</ul>
+
+<h2>الـ 6 أسئله اللي بتفلتر 90% من المرشحين</h2>
+<ol>
+    <li><strong>اشرحلي إيه اللي بيحصل لما المستخدم يضغط زر "Buy".</strong> المطوّر الخبير بيتتبع الـ request كله، ويذكر idempotency keys و payment webhooks و database transactions و إيه يحصل لو الـ queue worker مات في النص. الـ junior بيقول "السيرفر بيعالجها".</li>
+    <li><strong>وريني slow query وكيف صلحته.</strong> الإجابه لازم تذكر EXPLAIN و indexes و denormalization tradeoffs أو query rewrites.</li>
+    <li><strong>كيف تمنع stale read بعد write في نظام موزّع؟</strong> Read-your-writes consistency، sticky sessions، primary-replica routing، أو cache invalidation patterns.</li>
+    <li><strong>طريقتك في debug bug بيحصل لعميل واحد بس في الإنتاج؟</strong> Distributed tracing، structured logs، customer-scoped feature flags.</li>
+    <li><strong>كيف تتعامل مع deployment فاشل في 2 صباحاً؟</strong> Rollback strategy، feature flags، blue-green أو canary deploys، ونبره هادئه.</li>
+    <li><strong>وريني كود فخور بيه وكود نادم عليه.</strong> الوعي الذاتي مهم. مطوّر مش قادر ينقد كوده القديم هو مطوّر ما تطوّرش.</li>
+</ol>
+
+<h2>أسعار عادله لمطوّر Full Stack في مصر (2026)</h2>
+<ul>
+    <li><strong>Junior (0-2 سنه):</strong> $8-$15/ساعه.</li>
+    <li><strong>Mid (2-5 سنه):</strong> $15-$30/ساعه.</li>
+    <li><strong>Senior (5+ سنه):</strong> $30-$60/ساعه.</li>
+    <li><strong>Specialized senior (Laravel + React + DevOps):</strong> $50-$100/ساعه.</li>
+</ul>
+
+<h2>علامات تحذيريه ترفض على أساسها</h2>
+<ul>
+    <li>مفيش portfolio عام، مفيش GitHub، مفيش URLs مباشره.</li>
+    <li>مش قادر يشرح schema قاعده بيانات لمشروع سابق من الذاكره.</li>
+    <li>بيعيب على كل عميل أو فريق سابق.</li>
+    <li>بيطلب 100% الدفع مقدّمًا.</li>
+    <li>"أنا ما باكتبش tests، أنا أسرع من غيرها."</li>
+</ul>
+
+<h2>مستعد توظّف؟</h2>
+<p>لو محتاج مطوّر Full Stack خبير يقدر يمتلك مشروعك من الـ architecture للنشر، <a href="/contact">تواصل معايا</a>. هارد عليك خلال 24 ساعه بخطوه واضحه.</p>
+HTML,
                 'content' => <<<'HTML'
 <p class="lead">Hiring a full stack web developer is one of the most expensive mistakes you can make if you get it wrong. Salaries are not the issue — the wrong hire ships unmaintainable code, leaks customer data, and burns six months of runway. This guide is written from the other side of the table: I have built and shipped 25+ production projects across 7 countries, and I have screened developers for international teams. Here is the playbook that actually works.</p>
 
@@ -185,6 +230,30 @@ HTML
                 'read_time' => '11 min read',
                 'meta_title' => 'Laravel vs Node.js 2026 — Which Backend Should You Choose?',
                 'meta_description' => 'Laravel or Node.js for your next web app? A working full stack developer compares performance, hiring, ecosystem, and total cost of ownership in 2026.',
+                'content_ar' => <<<'HTML'
+<p class="lead">سلّمت تطبيقات إنتاجيه في Laravel و Node.js. الاتنين ممتازين. الاتنين لسه relevant في 2026. آراء "X مات" اللي بتقراها على Twitter غلط. السؤال الحقيقي مش أي framework يكسب — السؤال أيهم يكسب <em>للتطبيق بتاعك، فريقك، وميزانيتك</em>. ده الـ framework اللي باستخدمه للقرار.</p>
+
+<h2>الحكم السريع</h2>
+<ul>
+    <li><strong>اختار Laravel لو:</strong> بتبني تطبيق ويب CRUD-heavy، admin panel، platform تجاره إلكترونيه، نظام SaaS billing، أو أي حاجه قاعده البيانات هي مركزها. Laravel بيسلّم الميزات أسرع 2x من Node.js للحالات دي.</li>
+    <li><strong>اختار Node.js لو:</strong> محتاج ميزات real-time (chat، live dashboards، collaborative editing)، high-concurrency I/O (5000+ concurrent connections)، أو بتشارك كود بين الـ frontend و backend (Next.js fullstack).</li>
+</ul>
+
+<h2>الأداء — الأرقام الصادقه</h2>
+<p>Laravel على PHP 8.3 مع OPcache و Octane (Swoole/RoadRunner) بيتعامل مع ~12,000 request/ثانيه على VPS بـ 4 cores. Node.js مع Fastify على نفس الـ hardware بيوصل ~25,000 request/ثانيه. ضعف في raw RPS.</p>
+<p><strong>لكن:</strong> 95% من تطبيقات الويب ما بتشوفش traffic قريب من ده. لو الـ bottleneck قاعده البيانات (دايماً كده)، اختيار الـ framework مش مهم — الـ queries بتاعتك هي المهمه.</p>
+
+<h2>سرعه التطوير</h2>
+<p>Laravel بيتقدّم هنا. Eloquent ORM، Blade templating، authentication مدمج، Sanctum للـ API tokens، queues، broadcasting، mail، notifications، و Filament للـ admin panels. تقدر تسلّم multi-tenant SaaS في أسبوعين بـ Laravel. نفس التطبيق في Node.js بيحتاج تجمّع Express + Prisma + Passport + BullMQ + Nodemailer + admin مخصص — شهر سهل من البلاج قبل ما تبدأ business logic.</p>
+
+<h2>سوق التوظيف في مصر والشرق الأوسط</h2>
+<p>من الخبره: مطوري Laravel/PHP متوفرين 2x أكتر في مصر بأسعار أقل. مطوري Node.js الخبراء بيطلبوا أسعار US-equivalent لأن الـ talent pool بينتقل لأدوار remote دوليه.</p>
+
+<h2>اللي باستخدمه فعلاً</h2>
+<p>للعمل في 2026: Laravel + Inertia.js + React للتطبيقات اللي قاعده البيانات مركزيه. Node.js + Next.js للمواقع التسويقيه والتطبيقات real-time.</p>
+
+<p>محتاج مساعده تختار؟ <a href="/contact">ابعت brief مشروعك</a> وهاديك توصيه صادقه.</p>
+HTML,
                 'content' => <<<'HTML'
 <p class="lead">I have shipped production apps in both Laravel and Node.js. Both are excellent. Both are still relevant in 2026. The "X is dead" takes you read on Twitter are wrong. The real question is not which framework wins — it is which framework wins <em>for your specific app, team, and budget</em>. Here is the framework I use to decide.</p>
 
@@ -232,6 +301,11 @@ HTML
                 'read_time' => '8 min read',
                 'meta_title' => 'React vs Vue 2026 — Which Frontend Framework Wins?',
                 'meta_description' => 'React 19 or Vue 3.5? A senior frontend developer compares both for your 2026 project. Hiring, performance, ecosystem, and learning curve — no hype.',
+                                'content_ar' => <<<'HTML'
+<p class="lead">React و Vue الاتنين ممتازين في 2026. "حروب الـ frameworks" انتهت — الاتنين mature. ده رأيي الصادق بعد بناء تطبيقات إنتاجيه في الاتنين. اختار React لو التوظيف أولويه، Vue لو سعاده المطوّر مهمه.</p>
+
+<p><em>المقال الكامل متاح بالإنجليزي فقط حالياً. <a href="/contact">تواصل معايا</a> للنقاش بالعربي.</em></p>
+HTML,
                 'content' => <<<'HTML'
 <p class="lead">React and Vue are both excellent in 2026. The "framework wars" are over — both are mature, both have great DX, both ship to production billions of times a day. The real question is which one fits <em>your team and project</em>. Here is my honest take after building production apps in both.</p>
 
@@ -275,6 +349,11 @@ HTML
                 'read_time' => '10 min read',
                 'meta_title' => 'How Much Does a Website Cost in 2026? Real Pricing from a Developer',
                 'meta_description' => 'Real website costs in 2026 — from $500 landing pages to $50,000 SaaS apps. A senior developer breaks down what you actually pay for.',
+                                'content_ar' => <<<'HTML'
+<p class="lead">كل مقال "كم يكلّف الموقع" على الإنترنت إما agency بتبيع مواقع $50K أو freelance marketplace بيدفع لـ$200. الاتنين مضلّلين. ده اللي بيكلّفه الموقع فعلاً في 2026 بأرقام حقيقيه من مطوّر سعّر مئات المشاريع.</p>
+
+<p><em>المقال الكامل متاح بالإنجليزي فقط حالياً. <a href="/contact">تواصل معايا</a> للنقاش بالعربي.</em></p>
+HTML,
                 'content' => <<<'HTML'
 <p class="lead">Every "how much does a website cost" article online is either an agency selling $50K websites or a freelancer marketplace pushing $200 ones. Both are misleading. Here is what websites actually cost in 2026, with real numbers from a developer who has quoted hundreds of projects.</p>
 
@@ -335,6 +414,11 @@ HTML
                 'read_time' => '12 min read',
                 'meta_title' => '47-Point SEO Checklist for 2026 — From a Developer Who Ranks Sites',
                 'meta_description' => 'A practical SEO checklist for 2026 covering technical SEO, on-page, schema, Core Web Vitals, and content strategy. Used to rank developer sites #1.',
+                                'content_ar' => <<<'HTML'
+<p class="lead">نصائح SEO على الإنترنت 90% منها ضوضاء. معظم اللي بتقراه كان صح في 2018 وغلط في 2026. ده الـ checklist اللي باستخدمه فعلاً لما باخد موقع عميل جديد أو بحسّن موقعي.</p>
+
+<p><em>المقال الكامل متاح بالإنجليزي فقط حالياً. <a href="/contact">تواصل معايا</a> للنقاش بالعربي.</em></p>
+HTML,
                 'content' => <<<'HTML'
 <p class="lead">SEO advice on the internet is 90% noise. Most of what you read was correct in 2018 and is wrong in 2026. This is the checklist I actually use when I take on a new client site or when I am improving my own. Forty-seven items, organized by impact.</p>
 
@@ -428,6 +512,11 @@ HTML
                 'read_time' => '9 min read',
                 'meta_title' => 'Why Your Website Loads Slowly — 7 Real Fixes (2026)',
                 'meta_description' => 'Slow website? Here are the 7 root causes and the targeted fixes that actually work. Drop Lighthouse from 40 to 95+ without rewriting your site.',
+                                'content_ar' => <<<'HTML'
+<p class="lead">"موقعي بطيء" — باسمعها من العملاء كل أسبوع. السبب نادراً ما يكون "محتاجين نعيد كتابه بـ Next.js". السبب دايماً واحد من 7 مشاكل محدده، وكل واحده ليها fix مستهدف.</p>
+
+<p><em>المقال الكامل متاح بالإنجليزي فقط حالياً. <a href="/contact">تواصل معايا</a> للنقاش بالعربي.</em></p>
+HTML,
                 'content' => <<<'HTML'
 <p class="lead">"My website is slow." I hear this from clients every week. The cause is almost never "we need to rewrite in Next.js." It is almost always one of seven specific issues, and each has a targeted fix. Here is the diagnostic order I use.</p>
 
@@ -479,6 +568,11 @@ HTML
                 'read_time' => '8 min read',
                 'meta_title' => 'Mobile-First Web Design 2026 — What Matters Now',
                 'meta_description' => 'Mobile traffic is 65% of the web in 2026. Here is what mobile-first design really means, the patterns that work, and the ones to avoid.',
+                                'content_ar' => <<<'HTML'
+<p class="lead">"Mobile-first" في 2018 يعني "خلّيه يشتغل على الموبايل". في 2026 يعني: صمّم للموبايل، بعدين حسّن للـ tablet و desktop. الـ desktop هدف ثانوي.</p>
+
+<p><em>المقال الكامل متاح بالإنجليزي فقط حالياً. <a href="/contact">تواصل معايا</a> للنقاش بالعربي.</em></p>
+HTML,
                 'content' => <<<'HTML'
 <p class="lead">"Mobile-first" in 2018 meant "make sure it works on phones." In 2026 it means: design for the phone, then enhance for tablet and desktop. The desktop is the secondary target. If you do it backward, your mobile experience will always feel like a compromise.</p>
 
@@ -530,6 +624,11 @@ HTML
                 'read_time' => '11 min read',
                 'meta_title' => 'E-commerce Website 2026 — Shopify vs WooCommerce vs Custom',
                 'meta_description' => 'Building an e-commerce site in 2026? Senior developer compares Shopify, WooCommerce, and custom Laravel. Real costs, real scaling, real recommendation.',
+                                'content_ar' => <<<'HTML'
+<p class="lead">كل شهر بيسأل عميل "Shopify، WooCommerce، أم custom؟". الإجابه تعتمد على 3 متغيرات: الإيراد الشهري، تعقيد الـ business model، والفريق التقني.</p>
+
+<p><em>المقال الكامل متاح بالإنجليزي فقط حالياً. <a href="/contact">تواصل معايا</a> للنقاش بالعربي.</em></p>
+HTML,
                 'content' => <<<'HTML'
 <p class="lead">Every month a client asks "Shopify, WooCommerce, or custom?" The answer depends on three variables: your monthly revenue, your business model complexity, and your technical team. Here is the honest decision tree.</p>
 
@@ -585,6 +684,11 @@ HTML
                 'read_time' => '9 min read',
                 'meta_title' => 'WordPress vs Laravel — Which Should You Choose? (2026)',
                 'meta_description' => 'WordPress or Laravel for your business website? A senior developer compares both. When to use each, real costs, and the cost of choosing wrong.',
+                                'content_ar' => <<<'HTML'
+<p class="lead">WordPress بيشغّل 43% من الويب. Laravel بيشغّل أكثر التطبيقات المخصصه طموحاً. بيحلوا مشاكل مختلفه. اختيار الغلط هو أكلف خطأ في تطوير الويب.</p>
+
+<p><em>المقال الكامل متاح بالإنجليزي فقط حالياً. <a href="/contact">تواصل معايا</a> للنقاش بالعربي.</em></p>
+HTML,
                 'content' => <<<'HTML'
 <p class="lead">WordPress runs 43% of the web. Laravel powers some of the most ambitious custom apps. They solve different problems. Picking the wrong one is the most expensive mistake in web development. Here is the honest comparison.</p>
 
@@ -631,6 +735,11 @@ HTML
                 'read_time' => '8 min read',
                 'meta_title' => 'Progressive Web Apps 2026 — Still Worth Building?',
                 'meta_description' => 'Are PWAs still worth building in 2026? A senior developer covers when PWAs win, when native apps win, and the hybrid that wins most often.',
+                                'content_ar' => <<<'HTML'
+<p class="lead">تطبيقات الويب التقدميه (PWAs) وصلت ذروه الهايب في 2018، اتجاهلت في 2022، وتحت الراديو هيمنت في 2026. Spotify و Twitter و Starbucks و Telegram كلها PWAs في الإنتاج.</p>
+
+<p><em>المقال الكامل متاح بالإنجليزي فقط حالياً. <a href="/contact">تواصل معايا</a> للنقاش بالعربي.</em></p>
+HTML,
                 'content' => <<<'HTML'
 <p class="lead">Progressive Web Apps (PWAs) hit hype peak in 2018, faded in 2022, and quietly took over 2026. Spotify, Twitter, Starbucks, and Telegram all run PWAs in production. Here is when a PWA is the right call for your business.</p>
 
@@ -684,6 +793,11 @@ HTML
                 'read_time' => '10 min read',
                 'meta_title' => '11 Web Development Trends That Matter in 2026',
                 'meta_description' => 'Real web development trends in 2026 — not hype. AI-assisted coding, edge functions, server components, and more from a working senior developer.',
+                                'content_ar' => <<<'HTML'
+<p class="lead">مقالات الاتجاهات عاده bullshit — قائمه buzzwords محدش بيستخدمها. ده 11 اتجاه فعلاً غيّروا طريقه بنائي للمواقع في 2026.</p>
+
+<p><em>المقال الكامل متاح بالإنجليزي فقط حالياً. <a href="/contact">تواصل معايا</a> للنقاش بالعربي.</em></p>
+HTML,
                 'content' => <<<'HTML'
 <p class="lead">Trend articles are usually trash — a list of buzzwords nobody uses. Here are the eleven trends that actually changed how I build websites in 2026.</p>
 
@@ -737,6 +851,11 @@ HTML
                 'read_time' => '10 min read',
                 'meta_title' => 'Website Security Checklist 2026 — 23 Essential Items',
                 'meta_description' => 'Practical website security checklist for 2026. The 23 items that prevent 95% of attacks. From a senior developer who has cleaned up too many breaches.',
+                                'content_ar' => <<<'HTML'
+<p class="lead">معظم المواقع غير آمنه مش لأن الأمن صعب، لكن لأن محدش عمل checklist. الـ 23 عنصر دول بيمنعوا 95% من الهجمات الفعليه.</p>
+
+<p><em>المقال الكامل متاح بالإنجليزي فقط حالياً. <a href="/contact">تواصل معايا</a> للنقاش بالعربي.</em></p>
+HTML,
                 'content' => <<<'HTML'
 <p class="lead">Most websites are insecure not because security is hard, but because nobody made a checklist. These twenty-three items prevent 95% of real-world attacks. None of them require a security specialist — your developer should be doing all of them already.</p>
 
@@ -801,6 +920,11 @@ HTML
                 'read_time' => '11 min read',
                 'meta_title' => 'Database Design for Web Apps — 9 Rules from a Senior Developer',
                 'meta_description' => 'The 9 database design rules every web developer should follow. From normalization to indexes to migrations — practical lessons from 25+ projects.',
+                                'content_ar' => <<<'HTML'
+<p class="lead">قواعد البيانات هي اللي تطبيقات الويب بتموت فيها. قرارات schema سيئه في الأسبوع الأول بتبقى مشاريع migration بـ$50,000 في السنه التالته. ده الـ 9 قواعد اللي بأتبعها على كل مشروع جديد.</p>
+
+<p><em>المقال الكامل متاح بالإنجليزي فقط حالياً. <a href="/contact">تواصل معايا</a> للنقاش بالعربي.</em></p>
+HTML,
                 'content' => <<<'HTML'
 <p class="lead">Databases are where web apps go to die. Bad schema decisions in week 1 become $50,000 migration projects in year 3. Here are the nine rules I follow on every new project.</p>
 
@@ -847,6 +971,11 @@ HTML
                 'read_time' => '8 min read',
                 'meta_title' => 'Freelance Developer vs Agency — Honest Tradeoffs (2026)',
                 'meta_description' => 'Should you hire a freelance developer or a web development agency? Honest tradeoffs on cost, speed, accountability, and quality from someone who has been both.',
+                                'content_ar' => <<<'HTML'
+<p class="lead">اشتغلت كـ senior freelance ومن داخل وكالات. الاتنين بيسلموا شغل ممتاز؛ الاتنين بيسلموا شغل سيء. الاختيار الصح يعتمد على مشروعك، مش على Reddit.</p>
+
+<p><em>المقال الكامل متاح بالإنجليزي فقط حالياً. <a href="/contact">تواصل معايا</a> للنقاش بالعربي.</em></p>
+HTML,
                 'content' => <<<'HTML'
 <p class="lead">I have worked as a freelance senior developer and inside agencies. Both deliver great work; both deliver terrible work. The right choice depends on your project, not on a Reddit thread. Here is the honest comparison.</p>
 
@@ -901,6 +1030,11 @@ HTML
                 'read_time' => '10 min read',
                 'meta_title' => 'API Design Best Practices 2026 — REST, GraphQL, tRPC',
                 'meta_description' => 'API design in 2026 — when to use REST, GraphQL, or tRPC. Practical guidance from a senior developer with examples and decision criteria.',
+                                'content_ar' => <<<'HTML'
+<p class="lead">"REST أم GraphQL؟" السؤال الغلط. السؤال الصح: "إيه العلاقه بين الـ API consumer و producer؟". ده طريقه قراري على كل مشروع.</p>
+
+<p><em>المقال الكامل متاح بالإنجليزي فقط حالياً. <a href="/contact">تواصل معايا</a> للنقاش بالعربي.</em></p>
+HTML,
                 'content' => <<<'HTML'
 <p class="lead">"Should we use REST or GraphQL?" is the wrong question. The right question is: "What is the relationship between our API consumer and producer?" Here is how I decide on every project.</p>
 
@@ -957,6 +1091,11 @@ HTML
                 'read_time' => '9 min read',
                 'meta_title' => 'Web Hosting in 2026 — Shared, VPS, Cloud, or Serverless?',
                 'meta_description' => 'Choosing web hosting in 2026? Real comparison of shared, VPS, cloud, and serverless options with honest prices and recommendations.',
+                                'content_ar' => <<<'HTML'
+<p class="lead">اختيارات الاستضافه في 2018 غلط في 2026. الأسعار نزلت، الخيارات تضاعفت، و"الأفضل" يعتمد على الـ traffic والجغرافيا والفريق. ده اللي باوصي بيه حسب الحاله.</p>
+
+<p><em>المقال الكامل متاح بالإنجليزي فقط حالياً. <a href="/contact">تواصل معايا</a> للنقاش بالعربي.</em></p>
+HTML,
                 'content' => <<<'HTML'
 <p class="lead">Hosting choices made in 2018 are wrong in 2026. Prices dropped, options multiplied, and the "best" choice depends on traffic, geography, and your team. Here is what I recommend, by use case.</p>
 
