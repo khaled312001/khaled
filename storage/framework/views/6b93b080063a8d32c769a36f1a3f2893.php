@@ -625,10 +625,532 @@
     <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/helper-style.css')); ?>">
 
+    
     <style>
         #counters {
             background-image: url(<?php echo e(asset('images/counter-bg.png')); ?>);
         }
+
+        /* Kill legacy hero overlay (rgba(0,0,0,0.3) and animated dot grid) */
+        .hero-banner {
+            position: relative !important;
+            overflow: hidden !important;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 25%, #1e40af 50%, #312e81 75%, #0f172a 100%) !important;
+            background-size: 200% 200% !important;
+            animation: gradientShift 18s ease infinite !important;
+        }
+        .hero-banner::before,
+        .hero-banner::after {
+            content: '' !important;
+            position: absolute !important;
+            top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+            width: auto !important; height: auto !important;
+            background: none !important;
+            background-image: none !important;
+            background-color: transparent !important;
+            opacity: 1 !important;
+            animation: none !important;
+            mix-blend-mode: normal !important;
+            transform: none !important;
+            pointer-events: none !important;
+            filter: none !important;
+        }
+        /* Decorative orbs (no dimming) */
+        .hero-banner::before {
+            top: -120px !important;
+            right: -120px !important;
+            width: 380px !important;
+            height: 380px !important;
+            border-radius: 50% !important;
+            background: radial-gradient(circle, rgba(96,165,250,0.22), transparent 70%) !important;
+            z-index: 0 !important;
+        }
+        .hero-banner::after {
+            bottom: -160px !important;
+            left: -100px !important;
+            width: 460px !important;
+            height: 460px !important;
+            border-radius: 50% !important;
+            background: radial-gradient(circle, rgba(124,58,237,0.22), transparent 70%) !important;
+            z-index: 0 !important;
+        }
+        .hero-banner > .container { position: relative; z-index: 2; }
+        .hero-banner h1 { color: #fff !important; }
+        .hero-banner h2 { color: #cbd5e1 !important; }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ====================================================================
+           SECTION POLISH — modern badges, icons, brand-color treatments
+           ==================================================================== */
+
+        /* Section badge above each H2 (replaces small all-caps spans) */
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 16px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(37,99,235,0.10), rgba(124,58,237,0.10));
+            border: 1px solid rgba(37,99,235,0.18);
+            color: #2563eb;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 16px;
+        }
+        .section-badge i { font-size: 12px; color: #7c3aed; }
+
+        /* Heading after badge */
+        .section-title-h2 {
+            font-size: 36px !important;
+            font-weight: 800 !important;
+            color: #0f172a;
+            letter-spacing: -0.025em;
+            margin-bottom: 14px;
+            line-height: 1.2;
+        }
+        .section-title-h2 .accent {
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-subtitle {
+            color: #64748b;
+            max-width: 640px;
+            margin: 0 auto 50px;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+        @media (max-width: 768px) {
+            .section-title-h2 { font-size: 26px !important; }
+            .section-subtitle { font-size: 15px; margin-bottom: 30px; }
+        }
+
+        /* Brand-color icon variants for service-card icons (cycle through) */
+        .service-card:nth-child(7n+1) .icon { background: linear-gradient(135deg, #2563eb, #1e40af) !important; }
+        .service-card:nth-child(7n+2) .icon { background: linear-gradient(135deg, #7c3aed, #5b21b6) !important; }
+        .service-card:nth-child(7n+3) .icon { background: linear-gradient(135deg, #06b6d4, #0891b2) !important; }
+        .service-card:nth-child(7n+4) .icon { background: linear-gradient(135deg, #f97316, #ea580c) !important; }
+        .service-card:nth-child(7n+5) .icon { background: linear-gradient(135deg, #10b981, #059669) !important; }
+        .service-card:nth-child(7n+6) .icon { background: linear-gradient(135deg, #ec4899, #db2777) !important; }
+        .service-card:nth-child(7n+7) .icon { background: linear-gradient(135deg, #fbbf24, #f59e0b) !important; }
+
+        /* Why-card numbers — color cycle */
+        .why-card:nth-child(6n+1) .num { background: linear-gradient(135deg, #2563eb, #1e40af) !important; box-shadow: 0 8px 20px rgba(37,99,235,0.30); }
+        .why-card:nth-child(6n+2) .num { background: linear-gradient(135deg, #7c3aed, #5b21b6) !important; box-shadow: 0 8px 20px rgba(124,58,237,0.30); }
+        .why-card:nth-child(6n+3) .num { background: linear-gradient(135deg, #06b6d4, #0891b2) !important; box-shadow: 0 8px 20px rgba(6,182,212,0.30); }
+        .why-card:nth-child(6n+4) .num { background: linear-gradient(135deg, #10b981, #059669) !important; box-shadow: 0 8px 20px rgba(16,185,129,0.30); }
+        .why-card:nth-child(6n+5) .num { background: linear-gradient(135deg, #f97316, #ea580c) !important; box-shadow: 0 8px 20px rgba(249,115,22,0.30); }
+        .why-card:nth-child(6n+6) .num { background: linear-gradient(135deg, #ec4899, #db2777) !important; box-shadow: 0 8px 20px rgba(236,72,153,0.30); }
+
+        /* Section background variants — alternate for visual rhythm */
+        .section-light { background: #fff; }
+        .section-soft  { background: #f8fafc; position: relative; }
+        .section-soft::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+        }
+        .section-soft::after {
+            content: '';
+            position: absolute; bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+        }
+
+        /* ====================================================================
+           BUTTONS — clean, modern, no ugly circular icon container
+           ==================================================================== */
+        .primary-btn,
+        .btn-primary-cta {
+            display: inline-flex !important;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 30px !important;
+            border-radius: 10px !important;
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%) !important;
+            color: #fff !important;
+            font-weight: 600 !important;
+            font-size: 14.5px !important;
+            letter-spacing: 0.3px;
+            line-height: 1.2 !important;
+            text-decoration: none !important;
+            border: none !important;
+            box-shadow: 0 8px 20px rgba(37,99,235,0.30);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+        }
+        .primary-btn::before,
+        .btn-primary-cta::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.22) 50%, transparent 100%);
+            transform: translateX(-120%);
+            transition: transform 0.6s ease;
+            pointer-events: none;
+        }
+        .primary-btn:hover,
+        .btn-primary-cta:hover {
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a5f 100%) !important;
+            color: #fff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(37,99,235,0.40);
+        }
+        .primary-btn:hover::before,
+        .btn-primary-cta:hover::before { transform: translateX(120%); }
+        .primary-btn .text,
+        .btn-primary-cta .text { position: relative; z-index: 1; }
+
+        /* The circular icon container — KILLED. Just show the icon itself. */
+        .primary-btn .icon,
+        .btn-primary-cta .icon {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: auto !important;
+            height: auto !important;
+            background: transparent !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            position: relative;
+            z-index: 1;
+            font-size: 13px;
+            transition: transform 0.25s ease;
+        }
+        .primary-btn .icon i,
+        .btn-primary-cta .icon i { font-size: 13px; }
+        .primary-btn:hover .icon { transform: translateX(4px); }
+        html[dir="rtl"] .primary-btn .icon i { transform: scaleX(-1); }
+        html[dir="rtl"] .primary-btn:hover .icon { transform: translateX(-4px); }
+
+        /* White button (used inside dark sections) */
+        .white-btn {
+            display: inline-flex !important;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 30px !important;
+            border-radius: 10px !important;
+            background: #fff !important;
+            color: #1e40af !important;
+            font-weight: 700 !important;
+            font-size: 14.5px !important;
+            line-height: 1.2 !important;
+            text-decoration: none !important;
+            border: none !important;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .white-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.28);
+            background: #f8fafc !important;
+            color: #1e3a5f !important;
+        }
+        .white-btn .icon,
+        .white-btn .text { position: relative; z-index: 1; }
+        .white-btn .icon {
+            background: transparent !important;
+            width: auto !important; height: auto !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Outline / secondary button */
+        .btn-secondary-cta {
+            display: inline-flex !important;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 28px !important;
+            border-radius: 10px !important;
+            background: rgba(255,255,255,0.05) !important;
+            color: #fff !important;
+            border: 2px solid rgba(255,255,255,0.30) !important;
+            font-weight: 600 !important;
+            font-size: 14.5px !important;
+            line-height: 1.2 !important;
+            text-decoration: none !important;
+            backdrop-filter: blur(8px);
+            transition: all 0.25s ease;
+        }
+        .btn-secondary-cta:hover {
+            border-color: #fff !important;
+            background: rgba(255,255,255,0.12) !important;
+            color: #fff !important;
+            transform: translateY(-2px);
+        }
+        .btn-secondary-cta i { font-size: 12px; }
+        html[dir="rtl"] .btn-secondary-cta i { transform: scaleX(-1); }
+
+        /* ====================================================================
+           CARDS — depth, refined hover
+           ==================================================================== */
+        .service-card,
+        .why-card,
+        .testimonial-card {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px !important;
+            padding: 32px 28px !important;
+            transition: transform 0.4s cubic-bezier(.2,.8,.2,1), box-shadow 0.4s ease, border-color 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2563eb, #7c3aed);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        .service-card:hover::before { transform: scaleX(1); }
+        .service-card:hover,
+        .why-card:hover,
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 48px rgba(15,23,42,0.12), 0 4px 12px rgba(15,23,42,0.06);
+            border-color: rgba(37,99,235,0.30);
+        }
+
+        /* Service card icon — bigger, brand-glow */
+        .service-card .icon {
+            width: 64px !important;
+            height: 64px !important;
+            border-radius: 14px !important;
+            display: inline-flex;
+            align-items: center; justify-content: center;
+            font-size: 26px !important;
+            color: #fff !important;
+            margin-bottom: 22px !important;
+            box-shadow: 0 10px 22px rgba(37,99,235,0.25);
+            position: relative;
+        }
+        .service-card .icon::after {
+            content: '';
+            position: absolute; inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(135deg, transparent, rgba(255,255,255,0.30));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .service-card:hover .icon::after { opacity: 1; }
+        .service-card:hover .icon { transform: rotate(-6deg) scale(1.08); }
+        .service-card h3 { font-size: 20px !important; font-weight: 700 !important; margin-bottom: 12px !important; }
+        .service-card p { font-size: 14.5px !important; line-height: 1.7 !important; color: #475569 !important; }
+        .service-card .features li {
+            font-size: 13.5px;
+            color: #334155;
+            padding: 5px 0 5px 26px;
+            position: relative;
+        }
+        .service-card .features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0; top: 5px;
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center; justify-content: center;
+        }
+        html[dir="rtl"] .service-card .features li {
+            padding-left: 0;
+            padding-right: 26px;
+        }
+        html[dir="rtl"] .service-card .features li::before {
+            left: auto; right: 0;
+        }
+
+        /* Why-card numbers — bigger, prominent */
+        .why-card .num {
+            width: 56px !important;
+            height: 56px !important;
+            border-radius: 16px !important;
+            font-size: 22px !important;
+            font-weight: 800 !important;
+            margin-bottom: 18px !important;
+        }
+        .why-card h3 { font-size: 19px !important; font-weight: 700 !important; margin-bottom: 12px !important; }
+        .why-card p { font-size: 14.5px !important; line-height: 1.7 !important; color: #475569 !important; }
+
+        /* Testimonial cards — quote-mark accent */
+        .testimonial-card { padding: 36px 30px !important; }
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 8px; right: 26px;
+            font-size: 100px;
+            font-family: Georgia, serif;
+            line-height: 1;
+            color: rgba(37,99,235,0.10);
+            font-weight: 700;
+        }
+        html[dir="rtl"] .testimonial-card::before { right: auto; left: 26px; }
+        .testimonial-card .stars {
+            font-size: 18px !important;
+            letter-spacing: 2px;
+            margin-bottom: 14px !important;
+        }
+        .testimonial-card p {
+            font-size: 15px !important;
+            line-height: 1.75 !important;
+            color: #334155 !important;
+            font-style: italic;
+            position: relative;
+            margin-bottom: 18px !important;
+        }
+        .testimonial-card .author {
+            font-weight: 700 !important;
+            color: #0f172a !important;
+            font-size: 15px !important;
+        }
+        .testimonial-card .role {
+            font-size: 13px !important;
+            color: #64748b !important;
+        }
+
+        /* Hero buttons — make them bigger for the home page */
+        .hero-cta-row .btn-primary-cta {
+            background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%) !important;
+            color: #fff !important;
+            font-size: 16px !important;
+            padding: 17px 38px !important;
+            box-shadow: 0 14px 30px rgba(37,99,235,0.40);
+        }
+        .hero-cta-row .btn-primary-cta:hover {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%) !important;
+            color: #fff !important;
+        }
+
+        /* Hero stats — more prominent */
+        .hero-stats { gap: 50px !important; }
+        .hero-stats .stat .num {
+            font-size: 40px !important;
+            font-weight: 800 !important;
+            background: linear-gradient(135deg, #93c5fd, #60a5fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-stats .stat .lbl {
+            font-size: 13px !important;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: #94a3b8 !important;
+            margin-top: 6px !important;
+        }
+
+        /* Section spacing */
+        section.section,
+        section.services-grid,
+        section.why-section,
+        section.stack-section,
+        section.testimonial-section { padding: 90px 0 !important; }
+
+        /* Stack pills — more refined */
+        .stack-pill {
+            display: inline-flex !important;
+            align-items: center;
+            padding: 9px 18px !important;
+            border-radius: 999px !important;
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            margin: 5px 5px !important;
+            transition: all 0.25s ease;
+            cursor: default;
+        }
+        .stack-pill:not(.primary) {
+            background: #fff !important;
+            color: #334155 !important;
+            border: 1.5px solid #e2e8f0;
+        }
+        .stack-pill.primary {
+            background: linear-gradient(135deg, #2563eb, #1e40af) !important;
+            color: #fff !important;
+            border: none;
+            box-shadow: 0 6px 14px rgba(37,99,235,0.25);
+        }
+        .stack-pill:hover {
+            transform: translateY(-3px);
+        }
+        .stack-pill:not(.primary):hover {
+            background: #f8fafc !important;
+            border-color: #2563eb;
+            color: #2563eb !important;
+        }
+
+        /* Trust bar polish */
+        .trust-bar {
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%) !important;
+            border-bottom: 1px solid #e0e7ff;
+        }
+        .trust-bar .label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .trust-bar .label::before {
+            content: '';
+            display: inline-block;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+        }
+
+        /* Stack pills — colored variants */
+        .stack-pill {
+            background: #f1f5f9;
+            color: #1e293b;
+            border: 1px solid transparent;
+        }
+        .stack-pill.primary {
+            background: linear-gradient(135deg, rgba(37,99,235,0.10), rgba(124,58,237,0.10)) !important;
+            color: #2563eb !important;
+            border: 1px solid rgba(37,99,235,0.20);
+        }
+
+        /* Final CTA polish */
+        .final-cta {
+            background: linear-gradient(135deg, #1e40af 0%, #312e81 50%, #0f172a 100%) !important;
+            position: relative;
+            overflow: hidden;
+        }
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: -50%; right: -10%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(124,58,237,0.25), transparent 60%);
+            pointer-events: none;
+        }
+        .final-cta::after {
+            content: '';
+            position: absolute;
+            bottom: -50%; left: -10%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(96,165,250,0.20), transparent 60%);
+            pointer-events: none;
+        }
+        .final-cta .container { position: relative; z-index: 1; }
     </style>
 
     <script type="application/ld+json">

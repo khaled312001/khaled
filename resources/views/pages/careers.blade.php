@@ -9,13 +9,13 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="breadcrumb-inner text-center">
-                    <h1>Careers</h1>
+                    <h1>{{ __('site.page_careers_h1') }}</h1>
                     <ul class="breadcrumb-links">
                         <li>
-                            <a href="{{ route('home') }}">Home</a>
+                            <a href="{{ route('home') }}">{{ __('site.home') }}</a>
                         </li>
                         <li class="active">
-                            Careers
+                            {{ __('site.page_careers_h1') }}
                         </li>
                     </ul>
                 </div>

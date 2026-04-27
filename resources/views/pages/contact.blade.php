@@ -72,13 +72,13 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="breadcrumb-inner">
-                    <h1>Contact Me</h1>
+                    <h1>{{ __('site.page_contact_h1') }}</h1>
                     <ul class="breadcrumb-links">
                         <li>
-                            <a href="{{ route('home') }}">Home</a>
+                            <a href="{{ route('home') }}">{{ __('site.home') }}</a>
                         </li>
                         <li class="active">
-                            Contact Me
+                            {{ __('site.page_contact_h1') }}
                         </li>
                     </ul>
                 </div>

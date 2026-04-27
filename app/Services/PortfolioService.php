@@ -6,14 +6,16 @@ class PortfolioService
 {
     public static function all(): array
     {
-        return self::projects();
+        return array_map([self::class, 'localize'], self::projects());
     }
 
     public static function categories(): array
     {
+        $isAr = function_exists('app') && app()->getLocale() === 'ar';
         $cats = [];
         foreach (self::projects() as $p) {
-            $cats[$p['category']] = ($cats[$p['category']] ?? 0) + 1;
+            $name = $isAr ? self::categoryToAr($p['category']) : $p['category'];
+            $cats[$name] = ($cats[$name] ?? 0) + 1;
         }
         ksort($cats);
         return $cats;
@@ -23,10 +25,47 @@ class PortfolioService
     {
         foreach (self::projects() as $p) {
             if ($p['slug'] === $slug) {
-                return $p;
+                return self::localize($p);
             }
         }
         return null;
+    }
+
+    private static function localize(array $p): array
+    {
+        $isAr = function_exists('app') && app()->getLocale() === 'ar';
+        if (!$isAr) return $p;
+        if (!empty($p['title_ar'])) $p['title'] = $p['title_ar'];
+        if (!empty($p['summary_ar'])) $p['summary'] = $p['summary_ar'];
+        $p['category'] = self::categoryToAr($p['category']);
+        $p['role'] = self::roleToAr($p['role']);
+        return $p;
+    }
+
+    private static function categoryToAr(string $en): string
+    {
+        return [
+            'Tech / SaaS' => 'تقنيه / SaaS',
+            'Law Firm' => 'مكتب محاماه',
+            'Education' => 'تعليم',
+            'E-commerce' => 'تجاره إلكترونيه',
+            'Marketing' => 'تسويق',
+            'Restaurant' => 'مطعم',
+            'Construction' => 'مقاولات',
+            'Healthcare' => 'الرعايه الصحيه',
+            'Hotel / Events' => 'فندقه / فعاليات',
+            'Religious / Quran' => 'إسلامي / قرآني',
+        ][$en] ?? $en;
+    }
+
+    private static function roleToAr(string $en): string
+    {
+        return [
+            'Founder, Architect, Lead Developer' => 'مؤسس ومهندس ومطوّر رئيسي',
+            'Lead Developer' => 'مطوّر رئيسي',
+            'Full Stack Developer' => 'مطوّر فُل ستاك',
+            'Solo Developer' => 'مطوّر منفرد',
+        ][$en] ?? $en;
     }
 
     /**
@@ -40,6 +79,8 @@ class PortfolioService
                 'slug' => 'barmagly-tech',
                 'title' => 'Barmagly — Swiss-Licensed Software House',
                 'summary' => 'Founder & lead developer. Enterprise web, mobile, POS and business automation systems delivered to clients across Europe and the Middle East.',
+                'title_ar' => 'برمجلي — شركه برمجيات سويسريه',
+                'summary_ar' => 'مؤسس ومطوّر رئيسي. أنظمه مؤسسيه للويب والموبايل و POS وأتمته الأعمال لعملاء في أوروبا والشرق الأوسط.',
                 'category' => 'Tech / SaaS',
                 'tech' => ['Laravel', 'Next.js', 'Node.js', 'TypeScript', 'PostgreSQL'],
                 'url' => 'https://barmagly.tech',
@@ -52,6 +93,8 @@ class PortfolioService
                 'slug' => 'barmagly-pos',
                 'title' => 'Barmagly POS — Cloud Multi-Tenant Cash System',
                 'summary' => 'Cloud-based, multi-tenant point-of-sale system for restaurants, cafés and retail. Built for the German and Swiss markets.',
+                'title_ar' => 'برمجلي POS — كاشير سحابي متعدد المستأجرين',
+                'summary_ar' => 'نظام نقاط بيع سحابي متعدد المستأجرين للمطاعم والكافيهات والتجزئه. مبني للسوق الألماني والسويسري.',
                 'category' => 'Tech / SaaS',
                 'tech' => ['Laravel', 'Vue.js', 'MySQL', 'Redis', 'Stripe'],
                 'url' => 'https://pos.barmagly.tech',
@@ -64,6 +107,8 @@ class PortfolioService
                 'slug' => 'barmagly-salon',
                 'title' => 'Barmagly Salon — AI-Powered Salon Management',
                 'summary' => 'SaaS platform for salons: bookings, POS, inventory, staff scheduling, AI hair-makeover previews and analytics — all in one platform.',
+                'title_ar' => 'برمجلي صالون — منصه إداره صالونات بالذكاء الاصطناعي',
+                'summary_ar' => 'منصه SaaS للصالونات: حجوزات، POS، مخزون، جدوله موظفين، معاينات تسريحات بالذكاء الاصطناعي وتحليلات — كله في منصه واحده.',
                 'category' => 'Tech / SaaS',
                 'tech' => ['Laravel', 'React', 'AI/OpenAI', 'PostgreSQL'],
                 'url' => 'https://barber.barmagly.tech',
@@ -76,6 +121,8 @@ class PortfolioService
                 'slug' => 'amanlaw',
                 'title' => 'Aman Law — Swiss-Managed Legal Platform',
                 'summary' => 'Swiss-managed legal platform connecting Syrian and Swiss lawyers with international clients across multiple practice areas.',
+                'title_ar' => 'Aman Law — منصه قانونيه سويسريه',
+                'summary_ar' => 'منصه قانونيه تُدار من سويسرا تربط محامين سوريين وسويسريين بعملاء دوليين في تخصصات قانونيه متعدده.',
                 'category' => 'Law Firm',
                 'tech' => ['Laravel', 'Inertia.js', 'React', 'MySQL'],
                 'url' => 'https://amanlaw.ch',
@@ -87,6 +134,8 @@ class PortfolioService
                 'slug' => 'swissbridge-academy',
                 'title' => 'Swiss Bridge Academy — E-Learning Platform',
                 'summary' => 'Swiss-managed e-learning academy teaching programming, AI, design, marketing and sales — full LMS with student dashboards.',
+                'title_ar' => 'Swiss Bridge Academy — منصه تعليم إلكتروني',
+                'summary_ar' => 'أكاديميه تعليم إلكتروني تُدار من سويسرا تدرّس البرمجه والذكاء الاصطناعي والتصميم والتسويق والمبيعات — LMS كامل بلوحات تحكّم للطلاب.',
                 'category' => 'Education',
                 'tech' => ['Laravel', 'Livewire', 'Tailwind', 'MySQL'],
                 'url' => 'https://swissbridgeacademy.com',
@@ -98,6 +147,8 @@ class PortfolioService
                 'slug' => 'mossodor',
                 'title' => 'Mossodor — UK Premium Lighting Store',
                 'summary' => 'UK e-commerce retailer specializing in premium chandeliers, pendant lighting and wall sconces with free delivery.',
+                'title_ar' => 'Mossodor — متجر إضاءه فاخر بريطاني',
+                'summary_ar' => 'متجر إلكتروني بريطاني متخصص في الثريات الفاخره والمصابيح المعلّقه والجداريه مع توصيل مجاني.',
                 'category' => 'E-commerce',
                 'tech' => ['Shopify', 'Liquid', 'Custom Theme'],
                 'url' => 'https://mossodor.com',
@@ -106,20 +157,11 @@ class PortfolioService
                 'language' => 'en',
             ],
             [
-                'slug' => 'shoppex-silverback',
-                'title' => 'SilverBack by Shoppex — Orthopedic E-Store',
-                'summary' => 'Direct-to-consumer e-commerce brand selling orthopedic seat and footrest cushions for back pain relief.',
-                'category' => 'E-commerce',
-                'tech' => ['Shopify', 'JavaScript', 'Custom CSS'],
-                'url' => 'https://shoppex.xappee.com',
-                'image' => 'projects/shoppex-silverback.jpg',
-                'role' => 'Full Stack Developer',
-                'language' => 'en',
-            ],
-            [
                 'slug' => 'xappee',
                 'title' => 'Xappee — E-Commerce Fulfillment Platform',
                 'summary' => 'E-commerce fulfillment, sourcing, digital marketing and virtual assistant services for online sellers worldwide.',
+                'title_ar' => 'Xappee — منصه تشغيل التجاره الإلكترونيه',
+                'summary_ar' => 'تشغيل التجاره الإلكترونيه، التوريد، التسويق الرقمي، وخدمات المساعدين الافتراضيين للبائعين عبر الإنترنت حول العالم.',
                 'category' => 'Tech / SaaS',
                 'tech' => ['WordPress', 'WooCommerce', 'Custom Plugins'],
                 'url' => 'https://xappee.com',
@@ -131,6 +173,8 @@ class PortfolioService
                 'slug' => 'ant-assist',
                 'title' => 'Ant Assist — UK Virtual Assistant Agency',
                 'summary' => 'UK virtual assistant agency providing offshore admin and marketing support staff to UK businesses and entrepreneurs.',
+                'title_ar' => 'Ant Assist — وكاله مساعدين افتراضيين بريطانيه',
+                'summary_ar' => 'وكاله مساعدين افتراضيين بريطانيه بتوفّر دعم إداري وتسويقي للشركات البريطانيه ورواد الأعمال.',
                 'category' => 'Marketing',
                 'tech' => ['WordPress', 'Custom Theme', 'PHP'],
                 'url' => 'https://ant-assist.com',
@@ -142,6 +186,8 @@ class PortfolioService
                 'slug' => 'rasa-lichfield',
                 'title' => 'Rasa Lichfield — Halal Pan-Asian Restaurant',
                 'summary' => 'UK halal Pan-Asian restaurant inside the historic Corn Exchange, blending modern Asian cooking with reservations and online ordering.',
+                'title_ar' => 'Rasa Lichfield — مطعم آسيوي حلال',
+                'summary_ar' => 'مطعم بريطاني حلال للمأكولات الآسيويه داخل Corn Exchange التاريخي، بيدمج الطبخ الآسيوي العصري مع نظام الحجز والطلب أونلاين.',
                 'category' => 'Restaurant',
                 'tech' => ['WordPress', 'WooCommerce', 'Custom Theme'],
                 'url' => 'https://rasalichfield.co.uk',
@@ -153,6 +199,8 @@ class PortfolioService
                 'slug' => 'kingkebab',
                 'title' => 'King Kebab Le Pouzin — French Restaurant Site',
                 'summary' => 'Authentic halal kebab restaurant in Le Pouzin, France — serving tacos, burgers and online delivery to local clientele.',
+                'title_ar' => 'King Kebab Le Pouzin — موقع مطعم فرنسي',
+                'summary_ar' => 'مطعم كباب حلال أصيل في Le Pouzin بفرنسا — يقدّم تاكو وبرغر وتوصيل أونلاين للعملاء المحليين.',
                 'category' => 'Restaurant',
                 'tech' => ['Laravel', 'Tailwind', 'MySQL'],
                 'url' => 'https://kingkebablepouzin.fr',
@@ -164,6 +212,8 @@ class PortfolioService
                 'slug' => 'bnbatiment',
                 'title' => 'BN Bâtiment — French Roofing Company',
                 'summary' => 'Professional roofing company in Lyon, Saint-Étienne and Valence offering installation, repair and 24/7 emergency service.',
+                'title_ar' => 'BN Bâtiment — شركه تسقيف فرنسيه',
+                'summary_ar' => 'شركه تسقيف احترافيه في Lyon و Saint-Étienne و Valence تقدّم خدمات التركيب والإصلاح والطوارئ 24 ساعه.',
                 'category' => 'Construction',
                 'tech' => ['Laravel', 'Inertia.js', 'React', 'MySQL'],
                 'url' => 'https://bnbatiment.com',
@@ -176,6 +226,8 @@ class PortfolioService
                 'slug' => 'drcembaysal',
                 'title' => 'Dr. Cem Baysal — Istanbul Dental Clinic',
                 'summary' => 'Istanbul dental clinic specializing in implants, veneers and cosmetic dentistry — booking system and multilingual patient pages.',
+                'title_ar' => 'د. جم بيسال — عياده أسنان في إسطنبول',
+                'summary_ar' => 'عياده أسنان في إسطنبول متخصصه في الزرع والقشور وطب الأسنان التجميلي — نظام حجز وصفحات مرضى متعدده اللغات.',
                 'category' => 'Healthcare',
                 'tech' => ['WordPress', 'Elementor', 'Custom CSS'],
                 'url' => 'https://drcembaysal.com',
@@ -187,6 +239,8 @@ class PortfolioService
                 'slug' => 'grandbotanicalsuite',
                 'title' => 'Grand Botanical Suite — Birmingham Wedding Venue',
                 'summary' => 'Premium Birmingham wedding venue offering customizable halls, catering and full event planning with online inquiry system.',
+                'title_ar' => 'Grand Botanical Suite — قاعه أفراح في برمنغهام',
+                'summary_ar' => 'قاعه أفراح فاخره في برمنغهام تقدّم قاعات قابله للتخصيص وتموين وتخطيط فعاليات كامل مع نظام استفسار أونلاين.',
                 'category' => 'Hotel / Events',
                 'tech' => ['WordPress', 'Custom Theme', 'WP Forms'],
                 'url' => 'https://grandbotanicalsuite.com',
@@ -198,6 +252,8 @@ class PortfolioService
                 'slug' => 'jovero',
                 'title' => 'JOVERO — Premier Marketing & Digital Growth Agency',
                 'summary' => 'Engineering enterprise-grade marketing and software solutions — full agency site with case studies and lead-gen funnels.',
+                'title_ar' => 'JOVERO — وكاله تسويق رقمي رائده',
+                'summary_ar' => 'هندسه حلول تسويق وبرمجيات بمستوى مؤسسي — موقع وكاله كامل بدراسات حالات وقمع جذب عملاء.',
                 'category' => 'Marketing',
                 'tech' => ['Laravel', 'Tailwind', 'Alpine.js'],
                 'url' => 'https://jovero.net',
@@ -209,6 +265,8 @@ class PortfolioService
                 'slug' => 'qinawy',
                 'title' => 'Qinawy — Comprehensive Qena Local Directory',
                 'summary' => 'Comprehensive local-business and services directory for Qena governorate, Egypt — hospitals, doctors, hotels, restaurants and more.',
+                'title_ar' => 'قناوي — دليل قنا الشامل',
+                'summary_ar' => 'دليل شامل للأعمال والخدمات المحليه في محافظه قنا، مصر — مستشفيات وأطباء وفنادق ومطاعم والمزيد.',
                 'category' => 'Marketing',
                 'tech' => ['Laravel', 'Filament', 'MySQL', 'Redis'],
                 'url' => 'https://qinawy.com',
@@ -220,6 +278,8 @@ class PortfolioService
                 'slug' => 'hotel-timestay',
                 'title' => 'TimeStay — Hourly Hotel Booking',
                 'summary' => 'Hourly hotel-room booking platform offering short-term stays from 2–12 hours with real-time availability and payment integration.',
+                'title_ar' => 'TimeStay — حجز غرف فندقيه بالساعه',
+                'summary_ar' => 'منصه حجز غرف فندقيه بالساعه لإقامات قصيره من 2-12 ساعه مع توفّر وقت حقيقي وتكامل دفع.',
                 'category' => 'Hotel / Events',
                 'tech' => ['Laravel', 'Vue.js', 'MySQL', 'Stripe'],
                 'url' => 'https://hotel.khaledahmed.net',
@@ -232,6 +292,8 @@ class PortfolioService
                 'slug' => 'syanatech',
                 'title' => 'SyanaTech — Home Maintenance Marketplace',
                 'summary' => 'Platform connecting clients with trusted licensed technicians for home maintenance — bookings, ratings, dispatch.',
+                'title_ar' => 'SyanaTech — سوق صيانه منزليه',
+                'summary_ar' => 'منصه بتربط العملاء بفنيين موثوقين مرخصين لخدمات الصيانه المنزليه — حجوزات، تقييمات، إرسال.',
                 'category' => 'Tech / SaaS',
                 'tech' => ['Laravel', 'Livewire', 'MySQL', 'Pusher'],
                 'url' => 'https://syanatech.khaledahmed.net',
@@ -243,6 +305,8 @@ class PortfolioService
                 'slug' => 'salesman-marketing',
                 'title' => 'Sales Man — STC Business Communication',
                 'summary' => 'STC enterprise communication and connectivity solutions for Saudi businesses — service catalog, lead capture and CRM integration.',
+                'title_ar' => 'سيلز مان — اتصالات أعمال STC',
+                'summary_ar' => 'حلول الاتصالات والربط للأعمال السعوديه من STC — كتالوج خدمات والتقاط عملاء وتكامل CRM.',
                 'category' => 'Marketing',
                 'tech' => ['Laravel', 'Inertia.js', 'React', 'MySQL'],
                 'url' => 'https://salesman.marketing',
@@ -254,6 +318,8 @@ class PortfolioService
                 'slug' => 'wasiila',
                 'title' => 'Wasiila — Mecca Pilgrim Services Platform',
                 'summary' => 'Platform serving Mecca pilgrims with water distribution and mosque-care supplies — multi-vendor marketplace.',
+                'title_ar' => 'وسيله — منصه خدمات حجاج مكه',
+                'summary_ar' => 'منصه بتخدم حجاج بيت الله الحرام بتوزيع المياه ومستلزمات العنايه بالمساجد — سوق متعدد البائعين.',
                 'category' => 'Religious / Quran',
                 'tech' => ['Laravel', 'Livewire', 'Tailwind', 'MySQL'],
                 'url' => 'https://wasiila.com',
@@ -265,6 +331,8 @@ class PortfolioService
                 'slug' => 'hadiah-umrah',
                 'title' => 'Hadiah — Digital Umrah Service App',
                 'summary' => 'Digital Umrah service app connecting pilgrims with sharia-qualified service providers — booking, payments and verification.',
+                'title_ar' => 'هديه — تطبيق خدمات عمره رقمي',
+                'summary_ar' => 'تطبيق خدمات عمره رقمي بيربط الحجاج بمزودي خدمات شرعيين مؤهلين — حجز ودفع وتحقّق.',
                 'category' => 'Religious / Quran',
                 'tech' => ['Laravel', 'Vue.js', 'MySQL', 'Stripe'],
                 'url' => 'https://hadiah.wasiila.com',
@@ -276,6 +344,8 @@ class PortfolioService
                 'slug' => 'quran-platform',
                 'title' => 'Quran Reader — Free, Ad-Free Quran Platform',
                 'summary' => 'Free, ad-free and tracker-free online Quran reading and recitation platform — privacy-first design.',
+                'title_ar' => 'قارئ القرآن — منصه قرآن مجانيه بدون إعلانات',
+                'summary_ar' => 'منصه قراءه وتلاوه القرآن مجانيه بدون إعلانات وبدون تتبّع — تصميم يحترم الخصوصيه أولًا.',
                 'category' => 'Religious / Quran',
                 'tech' => ['Laravel', 'Alpine.js', 'Tailwind'],
                 'url' => 'https://quran.khaledahmed.net',
@@ -287,6 +357,8 @@ class PortfolioService
                 'slug' => 'infinitywearsa',
                 'title' => 'Infinity Wear — Professional Sportswear Brand',
                 'summary' => 'Saudi manufacturer of professional sportswear and uniforms for sports teams, schools and corporations — bulk-order workflows.',
+                'title_ar' => 'Infinity Wear — علامه ملابس رياضيه احترافيه',
+                'summary_ar' => 'مصنع سعودي للملابس الرياضيه الاحترافيه والزي الموحد للفرق الرياضيه والمدارس والشركات — تدفقات طلبات بالجمله.',
                 'category' => 'E-commerce',
                 'tech' => ['WordPress', 'WooCommerce', 'Custom Theme'],
                 'url' => 'https://infinitywearsa.com',
@@ -298,6 +370,8 @@ class PortfolioService
                 'slug' => 'standupstraight',
                 'title' => 'Stand Up Straight — UK Posture Brand',
                 'summary' => 'UK posture and back-care wellness brand — direct-to-consumer e-commerce with educational content and testimonials.',
+                'title_ar' => 'Stand Up Straight — علامه عنايه بالظهر بريطانيه',
+                'summary_ar' => 'علامه بريطانيه للوقفه السليمه والعنايه بالظهر — متجر مباشر للمستهلكين بمحتوى تعليمي وشهادات.',
                 'category' => 'E-commerce',
                 'tech' => ['Shopify', 'Liquid', 'Custom Theme'],
                 'url' => 'https://standupstraight.co.uk',
@@ -309,6 +383,8 @@ class PortfolioService
                 'slug' => 'gamestreet-q8',
                 'title' => 'Game Street Kuwait — Gaming E-Commerce',
                 'summary' => 'Kuwaiti retailer of video games, gaming consoles, accessories and PC peripherals — bilingual store with local payments.',
+                'title_ar' => 'Game Street Kuwait — متجر ألعاب',
+                'summary_ar' => 'متجر كويتي لألعاب الفيديو والكونسولات والإكسسوارات وأجهزه الكمبيوتر — متجر ثنائي اللغه بمدفوعات محليه.',
                 'category' => 'E-commerce',
                 'tech' => ['WordPress', 'WooCommerce', 'Arabic Localization'],
                 'url' => 'https://gamestreetq8.com',
@@ -320,6 +396,8 @@ class PortfolioService
                 'slug' => 'bankelarb',
                 'title' => 'Bank El Arab — Arabic Financial Aid Guide',
                 'summary' => 'Arabic guide to instant financial-aid programs and charitable services across Arab countries — content directory.',
+                'title_ar' => 'بنك العرب — دليل مساعدات ماليه عربي',
+                'summary_ar' => 'دليل عربي لبرامج المساعدات الماليه الفوريه والخدمات الخيريه عبر الدول العربيه — دليل محتوى.',
                 'category' => 'Marketing',
                 'tech' => ['WordPress', 'Custom Theme', 'Arabic SEO'],
                 'url' => 'https://bankelarb.net',
@@ -331,6 +409,8 @@ class PortfolioService
                 'slug' => 'services-researcher',
                 'title' => 'Services Researcher — Academic Consultation',
                 'summary' => 'Academic research, translation and statistical analysis services for graduate students — order workflow and consultation booking.',
+                'title_ar' => 'مركز الباحث — استشارات أكاديميه',
+                'summary_ar' => 'خدمات بحث أكاديمي وترجمه وتحليل إحصائي لطلاب الدراسات العليا — تدفق طلبات وحجز استشارات.',
                 'category' => 'Education',
                 'tech' => ['WordPress', 'Custom Theme', 'WP Forms'],
                 'url' => 'https://servicesresearcher.com',
@@ -342,6 +422,8 @@ class PortfolioService
                 'slug' => 'marketing-agency-demo',
                 'title' => 'Marketing Agency — Digital Marketing Site',
                 'summary' => 'Digital marketing and IT solutions agency demo for startups and enterprises — service catalog with case studies.',
+                'title_ar' => 'Marketing Agency — موقع تسويق رقمي',
+                'summary_ar' => 'وكاله تسويق رقمي وحلول IT للشركات الناشئه والمؤسسات — كتالوج خدمات بدراسات حالات.',
                 'category' => 'Marketing',
                 'tech' => ['Laravel', 'Tailwind', 'Alpine.js'],
                 'url' => 'https://marketing.khaledahmed.net',

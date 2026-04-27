@@ -21,10 +21,10 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="breadcrumb-inner">
-                    <h1>About Me</h1>
+                    <h1>{{ __('site.page_about_h1') }}</h1>
                     <ul class="breadcrumb-links">
-                        <li><a href="{{ route('home') }}">Home</a></li>
-                        <li class="active">About Me</li>
+                        <li><a href="{{ route('home') }}">{{ __('site.home') }}</a></li>
+                        <li class="active">{{ __('site.page_about_h1') }}</li>
                     </ul>
                 </div>
             </div>
@@ -39,11 +39,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="about-inner wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.1s">
-                    <h6>About Me</h6>
-                    <h2>Full Stack Developer & Founder of Barmagly</h2>
-                    <p>
-                        Results-driven Full Stack Web Developer with a Bachelor's degree in Information Technology from Luxor University, an ITI Diploma in Full Stack Development (PHP/Laravel), and 5+ years of hands-on experience building scalable web applications and teaching software development. Proficient in modern frontend and backend technologies including React.js, Node.js, PHP/Laravel, and databases (MySQL, MongoDB). Experienced in web hosting, server configuration, domain management, and deployment pipelines. Proven track record of delivering pixel-perfect, responsive websites and leading cross-functional teams across international organizations. Founder of Barmagly software startup, combining entrepreneurial vision with strong technical execution.
-                    </p>
+                    <span class="section-badge"><i class="fas fa-user-tie"></i> {{ __('site.about_me') }}</span>
+                    <h2 class="section-title-h2">{{ __('site.about_h2') }}</h2>
+                    <p style="font-size: 16.5px; line-height: 1.75;">{{ __('site.about_p1') }}</p>
+                    <p style="font-size: 16.5px; line-height: 1.75;">{!! __('site.about_p2') !!}</p>
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
                             <ul class="mb-resp-15">

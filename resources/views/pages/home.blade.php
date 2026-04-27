@@ -147,8 +147,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="about-inner wow fadeInUp">
-                    <h6>{{ __('site.about_me') }}</h6>
-                    <h2>{{ __('site.about_h2') }}</h2>
+                    <span class="section-badge"><i class="fas fa-user-tie"></i> {{ __('site.about_me') }}</span>
+                    <h2 class="section-title-h2">{{ __('site.about_h2') }}</h2>
                     <p style="font-size: 16.5px; line-height: 1.75;">{{ __('site.about_p1') }}</p>
                     <p style="font-size: 16.5px; line-height: 1.75;">{!! __('site.about_p2') !!}</p>
                     <div class="row">
@@ -184,9 +184,9 @@
 <section class="services-grid">
     <div class="container">
         <div class="text-center mb-5">
-            <h6 style="color: var(--main-color); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">{{ __('site.what_i_build') }}</h6>
-            <h2 style="font-size: 32px; font-weight: 800; color: #0f172a;">{{ __('site.web_dev_services') }}</h2>
-            <p style="color: #64748b; max-width: 640px; margin: 0 auto;">{{ __('site.web_dev_subtitle') }}</p>
+            <span class="section-badge"><i class="fas fa-bolt"></i> {{ __('site.what_i_build') }}</span>
+            <h2 class="section-title-h2">{{ __('site.web_dev_services') }}</h2>
+            <p class="section-subtitle">{{ __('site.web_dev_subtitle') }}</p>
         </div>
 
         @php
@@ -231,8 +231,8 @@
 <section class="why-section">
     <div class="container">
         <div class="text-center mb-5">
-            <h6 style="color: var(--main-color); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">{{ __('site.why_choose_me') }}</h6>
-            <h2 style="font-size: 32px; font-weight: 800; color: #0f172a;">{{ __('site.why_clients_hire') }}</h2>
+            <span class="section-badge"><i class="fas fa-award"></i> {{ __('site.why_choose_me') }}</span>
+            <h2 class="section-title-h2">{{ __('site.why_clients_hire') }}</h2>
         </div>
         <div class="row g-4">
             @for($i = 1; $i <= 6; $i++)
@@ -251,8 +251,8 @@
 <section class="stack-section">
     <div class="container">
         <div class="text-center mb-5">
-            <h6 style="color: var(--main-color); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">{{ __('site.my_stack') }}</h6>
-            <h2 style="font-size: 32px; font-weight: 800; color: #0f172a;">{{ __('site.technologies_i_use') }}</h2>
+            <span class="section-badge"><i class="fas fa-layer-group"></i> {{ __('site.my_stack') }}</span>
+            <h2 class="section-title-h2">{{ __('site.technologies_i_use') }}</h2>
         </div>
         <div class="row">
             <div class="col-lg-4 mb-4">
@@ -296,8 +296,8 @@
 <section class="testimonial-section">
     <div class="container">
         <div class="text-center mb-5">
-            <h6 style="color: var(--main-color); text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">{{ __('site.testimonials') }}</h6>
-            <h2 style="font-size: 32px; font-weight: 800; color: #0f172a;">{{ __('site.what_clients_say') }}</h2>
+            <span class="section-badge"><i class="fas fa-star"></i> {{ __('site.testimonials') }}</span>
+            <h2 class="section-title-h2">{{ __('site.what_clients_say') }}</h2>
         </div>
         <div class="row g-4">
             @for($i = 1; $i <= 3; $i++)

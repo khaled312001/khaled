@@ -9,13 +9,14 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="breadcrumb-inner text-center">
-                    <h1>Plans</h1>
+                    <h1><?php echo e(__('site.page_plans_h1')); ?></h1>
                     <ul class="breadcrumb-links">
                         <li>
-                            <a href="<?php echo e(route('home')); ?>">Home</a>
+                            <a href="<?php echo e(route('home')); ?>"><?php echo e(__('site.home')); ?></a>
                         </li>
                         <li class="active">
-                            Plans
+                            <?php echo e(__('site.page_plans_h1')); ?>
+
                         </li>
                     </ul>
                 </div>

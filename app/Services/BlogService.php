@@ -6,17 +6,56 @@ class BlogService
 {
     public static function all(): array
     {
-        return self::posts();
+        return array_map([self::class, 'localize'], self::posts());
     }
 
     public static function find(string $slug): ?array
     {
         foreach (self::posts() as $post) {
             if ($post['slug'] === $slug) {
-                return $post;
+                return self::localize($post);
             }
         }
         return null;
+    }
+
+    /**
+     * Pick locale-specific fields when current locale is Arabic.
+     * Falls back to the English originals for any missing translations.
+     */
+    private static function localize(array $post): array
+    {
+        $isAr = function_exists('app') && app()->getLocale() === 'ar';
+        if (!$isAr) return $post;
+        $map = [
+            'title' => 'title_ar', 'excerpt' => 'excerpt_ar',
+            'category' => 'category_ar', 'meta_title' => 'meta_title_ar',
+            'meta_description' => 'meta_description_ar', 'content' => 'content_ar',
+        ];
+        foreach ($map as $en => $ar) {
+            if (!empty($post[$ar])) $post[$en] = $post[$ar];
+        }
+        return $post;
+    }
+
+    private static function categoryToAr(string $en): string
+    {
+        return [
+            'Hiring' => 'التوظيف',
+            'Backend' => 'الخلفيه',
+            'Frontend' => 'الواجهه',
+            'Pricing' => 'الأسعار',
+            'SEO' => 'تحسين محركات البحث',
+            'Performance' => 'الأداء',
+            'Design' => 'التصميم',
+            'E-commerce' => 'تجاره إلكترونيه',
+            'CMS' => 'أنظمه إداره المحتوى',
+            'Mobile' => 'تطبيقات موبايل',
+            'Trends' => 'الاتجاهات',
+            'Security' => 'الأمن',
+            'Database' => 'قواعد البيانات',
+            'DevOps' => 'DevOps',
+        ][$en] ?? $en;
     }
 
     public static function related(string $slug, int $limit = 3): array
@@ -46,9 +85,11 @@ class BlogService
 
     public static function categories(): array
     {
+        $isAr = function_exists('app') && app()->getLocale() === 'ar';
         $cats = [];
         foreach (self::posts() as $post) {
-            $cats[$post['category']] = ($cats[$post['category']] ?? 0) + 1;
+            $name = $isAr ? self::categoryToAr($post['category']) : $post['category'];
+            $cats[$name] = ($cats[$name] ?? 0) + 1;
         }
         return $cats;
     }
@@ -72,6 +113,8 @@ class BlogService
                 'slug' => 'hire-full-stack-web-developer-egypt',
                 'title' => 'How to Hire the Best Full Stack Web Developer in Egypt (2026 Guide)',
                 'excerpt' => 'A practical, no-fluff guide to hiring a senior full stack web developer in Egypt. Skills to test, red flags to avoid, hourly rates, and the questions that actually reveal seniority.',
+                'title_ar' => 'كيف توظّف أفضل مطوّر ويب فُل ستاك في مصر (دليل 2026)',
+                'excerpt_ar' => 'دليل عملي بدون كلام كثير لتوظيف مطوّر ويب فُل ستاك خبير في مصر. مهارات تختبرها، علامات تحذيريه، أسعار الساعه، والأسئله اللي بتكشف الخبره الحقيقيه.',
                 'category' => 'Hiring',
                 'tags' => ['hire web developer', 'full stack developer', 'Egypt', 'freelance'],
                 'image' => '1710768229-blog-img-1.jpg',
@@ -133,6 +176,8 @@ HTML
                 'slug' => 'laravel-vs-nodejs-2026',
                 'title' => 'Laravel vs Node.js in 2026: Which Backend Wins for Your Web App?',
                 'excerpt' => 'A senior developer who ships in both stacks compares Laravel and Node.js across speed, ecosystem, hiring market, and total cost of ownership. No fanboy takes — just numbers.',
+                'title_ar' => 'Laravel أم Node.js في 2026: أي backend أفضل لتطبيقك؟',
+                'excerpt_ar' => 'مطوّر خبير يبني بالاتنين بيقارن Laravel و Node.js في السرعه والمنظومه وسوق العمل والتكلفه الإجماليه. مفيش كلام جماهيري — أرقام بس.',
                 'category' => 'Backend',
                 'tags' => ['Laravel', 'Node.js', 'PHP', 'JavaScript', 'backend'],
                 'image' => '1710768653-blog-img-2.jpg',
@@ -178,6 +223,8 @@ HTML
                 'slug' => 'react-vs-vue-2026',
                 'title' => 'React vs Vue in 2026: Which Frontend Framework Should You Bet On?',
                 'excerpt' => 'A working developer who ships in both compares React 19 and Vue 3.5 across hiring, performance, learning curve, and ecosystem. The honest answer for new projects.',
+                'title_ar' => 'React أم Vue في 2026: أي frontend framework تختاره؟',
+                'excerpt_ar' => 'مطوّر شغّال بالاتنين يقارن React 19 و Vue 3.5 في التوظيف والأداء ومنحنى التعلّم والمنظومه. الإجابه الصريحه للمشاريع الجديده.',
                 'category' => 'Frontend',
                 'tags' => ['React', 'Vue', 'frontend', 'JavaScript'],
                 'image' => '1710768783-blog-img-3.jpg',
@@ -219,6 +266,8 @@ HTML
                 'slug' => 'how-much-does-website-cost-2026',
                 'title' => 'How Much Does a Website Really Cost in 2026? (No Marketing BS)',
                 'excerpt' => 'The real numbers behind website pricing — landing pages, e-commerce, custom web apps, and SaaS. From a developer who has quoted hundreds of projects.',
+                'title_ar' => 'كم يكلّف الموقع فعلاً في 2026؟ (بدون كلام تسويقي)',
+                'excerpt_ar' => 'الأرقام الحقيقيه وراء أسعار المواقع — landing pages، متاجر إلكترونيه، تطبيقات ويب مخصصه و SaaS. من مطوّر قدّم مئات العروض.',
                 'category' => 'Pricing',
                 'tags' => ['website cost', 'pricing', 'web development', 'budget'],
                 'image' => '1710766541-portfolio-grid-img-1.jpg',
@@ -277,6 +326,8 @@ HTML
                 'slug' => 'website-seo-checklist-2026',
                 'title' => 'The 47-Point SEO Checklist That Got My Site to #1 (2026 Edition)',
                 'excerpt' => 'The exact technical and on-page SEO checklist I use to rank client sites on Google in 2026. Skip the bloat — these are the items that move the needle.',
+                'title_ar' => 'قائمه تحقّق SEO من 47 نقطه وصّلتني للمركز الأول (إصدار 2026)',
+                'excerpt_ar' => 'قائمه التحقق التقنيه على الصفحه اللي باستخدمها لأرفّع مواقع العملاء على Google في 2026. سيب الكلام الكثير — دي العناصر اللي بتفرق فعلاً.',
                 'category' => 'SEO',
                 'tags' => ['SEO', 'Google', 'web development', 'rankings'],
                 'image' => '1710763075-services-bg-img-1.jpg',
@@ -368,6 +419,8 @@ HTML
                 'slug' => 'why-your-website-loads-slowly',
                 'title' => 'Why Your Website Loads Slowly (And the 7 Fixes That Actually Work)',
                 'excerpt' => 'A senior web developer breaks down the real reasons websites are slow — and the targeted fixes that drop your Lighthouse score from 40 to 95+ without rewriting anything.',
+                'title_ar' => 'ليه موقعك بطيء (و 7 حلول حقيقيه بتشتغل)',
+                'excerpt_ar' => 'مطوّر ويب خبير يشرح الأسباب الحقيقيه لبطء المواقع — والإصلاحات المستهدفه اللي بترفّع نتيجه Lighthouse من 40 لـ 95+ بدون إعاده كتابه أي حاجه.',
                 'category' => 'Performance',
                 'tags' => ['performance', 'Core Web Vitals', 'optimization', 'page speed'],
                 'image' => '1710763115-services-bg-img-2.jpg',
@@ -417,6 +470,8 @@ HTML
                 'slug' => 'mobile-first-web-design-2026',
                 'title' => 'Mobile-First Web Design in 2026: What Actually Matters',
                 'excerpt' => 'Mobile traffic is now 65% of the web. Here is what mobile-first really means in 2026, the design patterns that work, and the ones that frustrate users.',
+                'title_ar' => 'تصميم Mobile-First في 2026: ما اللي يهم فعلاً',
+                'excerpt_ar' => 'حركه الموبايل دلوقتي 65% من الويب. ده شرح إيه يعني mobile-first في 2026، أنماط التصميم اللي بتشتغل، واللي بتزعّل المستخدمين.',
                 'category' => 'Design',
                 'tags' => ['mobile-first', 'responsive design', 'UX', 'web design'],
                 'image' => '1710763151-services-bg-img-3.jpg',
@@ -466,6 +521,8 @@ HTML
                 'slug' => 'ecommerce-website-development-guide',
                 'title' => 'Building an E-commerce Website in 2026: Shopify vs WooCommerce vs Custom',
                 'excerpt' => 'A senior developer compares the three real e-commerce options in 2026 — Shopify, WooCommerce, and custom Laravel/Node.js. Pricing, scaling, and which to pick.',
+                'title_ar' => 'بناء متجر إلكتروني في 2026: Shopify ضد WooCommerce ضد Custom',
+                'excerpt_ar' => 'مطوّر خبير يقارن الخيارات الـ 3 الحقيقيه للتجاره الإلكترونيه في 2026 — Shopify و WooCommerce و Laravel/Node.js مخصص. الأسعار، التوسّع، أيهم تختار.',
                 'category' => 'E-commerce',
                 'tags' => ['e-commerce', 'Shopify', 'WooCommerce', 'Laravel'],
                 'image' => '1710763190-services-bg-img-4.jpg',
@@ -519,6 +576,8 @@ HTML
                 'slug' => 'wordpress-vs-laravel-which-to-choose',
                 'title' => 'WordPress vs Laravel: Which Should You Choose for Your Business Website?',
                 'excerpt' => 'A practical comparison of WordPress and Laravel for business websites in 2026. When to use each, and the cost of choosing wrong.',
+                'title_ar' => 'WordPress أم Laravel: أيهم تختار لموقع شركتك؟',
+                'excerpt_ar' => 'مقارنه عمليه بين WordPress و Laravel لمواقع الشركات في 2026. متى تستخدم كل منهما، وتكلفه الاختيار الخاطئ.',
                 'category' => 'CMS',
                 'tags' => ['WordPress', 'Laravel', 'CMS', 'web development'],
                 'image' => '1710763232-services-bg-img-5.jpg',
@@ -563,6 +622,8 @@ HTML
                 'slug' => 'progressive-web-apps-2026',
                 'title' => 'Progressive Web Apps in 2026: Worth Building or Dead Trend?',
                 'excerpt' => 'PWAs were hyped in 2018, ignored in 2022, and are quietly dominant in 2026. When to build a PWA, when to build a native app, and when both is the right call.',
+                'title_ar' => 'تطبيقات الويب التقدميه (PWA) في 2026: تستحق البناء أم اتجاه ميت؟',
+                'excerpt_ar' => 'الـ PWA كان hyped في 2018، اتجاهل في 2022، وصار مهيمن بهدوء في 2026. متى تبني PWA، متى تبني native، ومتى الاتنين هما الحل.',
                 'category' => 'Mobile',
                 'tags' => ['PWA', 'mobile', 'web apps', 'JavaScript'],
                 'image' => '1710763272-services-bg-img-6.jpg',
@@ -614,6 +675,8 @@ HTML
                 'slug' => 'web-development-trends-2026',
                 'title' => '11 Web Development Trends That Actually Matter in 2026',
                 'excerpt' => 'Skip the hype list. These are the 11 web development trends that are genuinely changing how senior developers ship in 2026 — and what you should adopt.',
+                'title_ar' => '11 اتجاه في تطوير الويب يهم فعلاً في 2026',
+                'excerpt_ar' => 'سيب الـ buzzwords. دي الـ 11 اتجاه اللي غيّرت طريقه شغل المطورين الخبراء في 2026 — وما اللي يجب أن تتبناه.',
                 'category' => 'Trends',
                 'tags' => ['trends', 'web development', '2026', 'technology'],
                 'image' => '1710766541-portfolio-grid-img-1.jpg',
@@ -727,6 +790,10 @@ HTML
                 'slug' => 'database-design-for-web-apps',
                 'title' => 'Database Design for Web Apps: The 9 Rules I Wish I Knew Earlier',
                 'excerpt' => 'After 5+ years and 25+ production projects, here are the database design rules that separate apps that scale from apps that crash at 10,000 users.',
+                'title_ar' => 'تصميم قواعد البيانات لتطبيقات الويب: 9 قواعد ندمت إني ما عرفتهاش بدري',
+                'excerpt_ar' => 'بعد 5+ سنوات و 25+ مشروع إنتاجي، دي قواعد تصميم قواعد البيانات اللي بتفرق بين تطبيقات بتتوسّع وتطبيقات بتنهار عند 10,000 مستخدم.',
+                'title_ar' => 'قائمه تحقّق أمن الموقع لكل شركه في 2026',
+                'excerpt_ar' => 'قائمه أمنيه عمليه من مطوّر فُل ستاك خبير. الـ 23 عنصر اللي بتمنع 95% من هجمات المواقع — لمواقع من أي حجم.',
                 'category' => 'Database',
                 'tags' => ['MySQL', 'PostgreSQL', 'database', 'web development'],
                 'image' => '1710763115-services-bg-img-2.jpg',
@@ -771,6 +838,8 @@ HTML
                 'slug' => 'freelance-developer-vs-agency',
                 'title' => 'Freelance Developer vs Agency: Which Is Right for Your Project?',
                 'excerpt' => 'Honest tradeoffs between hiring a freelance senior developer and a web development agency. Cost, accountability, speed, and the right fit for each.',
+                'title_ar' => 'مطوّر مستقل أم وكاله: أيهم مناسب لمشروعك؟',
+                'excerpt_ar' => 'مقارنه صريحه بين توظيف مطوّر خبير مستقل وبين وكاله تطوير ويب. التكلفه، المساءله، السرعه، والاختيار الصحيح لكل حاله.',
                 'category' => 'Hiring',
                 'tags' => ['freelance', 'agency', 'hiring', 'web development'],
                 'image' => '1710766541-portfolio-grid-img-1.jpg',
@@ -823,6 +892,8 @@ HTML
                 'slug' => 'api-design-best-practices-2026',
                 'title' => 'API Design Best Practices in 2026: REST, GraphQL, and tRPC',
                 'excerpt' => 'A working developer\'s guide to API design in 2026. When REST is right, when GraphQL wins, when tRPC changes the game — with code examples.',
+                'title_ar' => 'أفضل ممارسات تصميم الـ APIs في 2026: REST و GraphQL و tRPC',
+                'excerpt_ar' => 'دليل مطوّر شغّال لتصميم الـ APIs في 2026. متى REST يكون مناسب، متى GraphQL يفوز، متى tRPC يغيّر اللعبه — مع أمثله بالكود.',
                 'category' => 'Backend',
                 'tags' => ['API', 'REST', 'GraphQL', 'tRPC', 'backend'],
                 'image' => '1710763151-services-bg-img-3.jpg',
@@ -877,6 +948,8 @@ HTML
                 'slug' => 'choosing-web-hosting-2026',
                 'title' => 'Choosing Web Hosting in 2026: Shared, VPS, Cloud, or Serverless?',
                 'excerpt' => 'A senior developer\'s honest guide to web hosting in 2026. Real prices, real performance, and which option fits your business.',
+                'title_ar' => 'اختيار استضافه ويب في 2026: مشتركه، VPS، سحابه، أم Serverless؟',
+                'excerpt_ar' => 'دليل مطوّر خبير صريح لاستضافه الويب في 2026. أسعار حقيقيه، أداء حقيقي، وأي خيار مناسب لشركتك.',
                 'category' => 'DevOps',
                 'tags' => ['hosting', 'VPS', 'cloud', 'serverless'],
                 'image' => '1710763190-services-bg-img-4.jpg',

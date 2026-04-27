@@ -20,10 +20,10 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="breadcrumb-inner">
-                    <h1>Services</h1>
+                    <h1><?php echo e(__('site.page_services_h1')); ?></h1>
                     <ul class="breadcrumb-links">
-                        <li><a href="<?php echo e(route('home')); ?>">Home</a></li>
-                        <li class="active">Services</li>
+                        <li><a href="<?php echo e(route('home')); ?>"><?php echo e(__('site.home')); ?></a></li>
+                        <li class="active"><?php echo e(__('site.page_services_h1')); ?></li>
                     </ul>
                 </div>
             </div>
@@ -37,9 +37,9 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6">
-                <div class="section-heading">
-                    <span>Services</span>
-                    <h2>What I Offer</h2>
+                <div class="section-heading text-center">
+                    <span class="section-badge"><i class="fas fa-bolt"></i> <?php echo e(__('site.page_services_h1')); ?></span>
+                    <h2 class="section-title-h2"><?php echo e(__('site.services_what_offer')); ?></h2>
                 </div>
             </div>
         </div>

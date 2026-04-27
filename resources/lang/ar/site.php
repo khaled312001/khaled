@@ -244,6 +244,31 @@ return [
     'src_blog' => 'مقاله في المدونه',
     'src_other' => 'أخرى',
 
+    // Breadcrumbs / page titles
+    'page_about_h1' => 'عني',
+    'page_services_h1' => 'الخدمات',
+    'page_portfolio_h1' => 'سابقة الأعمال',
+    'page_blog_h1' => 'المدونه',
+    'page_faqs_h1' => 'الأسئلة الشائعة',
+    'page_contact_h1' => 'تواصل معي',
+    'page_plans_h1' => 'الباقات والأسعار',
+    'page_teams_h1' => 'الفريق',
+    'page_gallery_h1' => 'معرض الأعمال',
+    'page_careers_h1' => 'الوظائف',
+
+    // Generic services page
+    'services_what_offer' => 'ما الذي أقدّمه',
+    'services_full_stack' => 'تطوير ويب فُل ستاك',
+    'services_full_stack_desc' => 'تطوير تطبيقات ويب من الألف للياء — من الواجهات الأماميه حتى الـ APIs وقواعد البيانات. حلول إنتاجيه قابله للتوسّع بأحدث التقنيات.',
+    'services_frontend' => 'تطوير الواجهات الأماميه',
+    'services_frontend_desc' => 'واجهات بكسل-perfect responsive باستخدام React.js و HTML5 و CSS3 و JavaScript و Bootstrap. تحويل تصاميم Figma/Adobe XD لكود إنتاجي.',
+    'services_backend' => 'تطوير الواجهات الخلفيه',
+    'services_backend_desc' => 'تطوير سيرفر متين بـ PHP/Laravel و Node.js و Express. تصميم REST APIs، إداره قواعد البيانات (MySQL، MongoDB)، وأنظمه المصادقه.',
+
+    // About page
+    'about_hero_title' => 'تعرّف عليّ',
+    'about_hero_subtitle' => 'مطوّر ويب فُل ستاك خبير، 5+ سنوات خبره، 25+ مشروعًا حقيقيًا.',
+
     // Misc
     'language' => 'اللغه',
     'switch_to_arabic' => 'العربية',

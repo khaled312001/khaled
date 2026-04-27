@@ -242,6 +242,31 @@ return [
     'src_blog' => 'Blog article',
     'src_other' => 'Other',
 
+    // Breadcrumbs / page titles
+    'page_about_h1' => 'About Me',
+    'page_services_h1' => 'Services',
+    'page_portfolio_h1' => 'Portfolio',
+    'page_blog_h1' => 'Blog',
+    'page_faqs_h1' => 'FAQs',
+    'page_contact_h1' => 'Contact Me',
+    'page_plans_h1' => 'Plans & Pricing',
+    'page_teams_h1' => 'Team',
+    'page_gallery_h1' => 'Gallery',
+    'page_careers_h1' => 'Careers',
+
+    // Generic services page
+    'services_what_offer' => 'What I Offer',
+    'services_full_stack' => 'Full Stack Web Development',
+    'services_full_stack_desc' => 'End-to-end web application development from frontend interfaces to backend APIs and database design. Building scalable, production-ready solutions using modern technologies.',
+    'services_frontend' => 'Frontend Development',
+    'services_frontend_desc' => 'Pixel-perfect, responsive UI implementation using React.js, HTML5, CSS3, JavaScript (ES6+), and Bootstrap. Converting Figma/Adobe XD designs into production code.',
+    'services_backend' => 'Backend Development',
+    'services_backend_desc' => 'Robust server-side development using PHP/Laravel, Node.js, and Express.js. RESTful API design, database management (MySQL, MongoDB), and authentication systems.',
+
+    // About page
+    'about_hero_title' => 'Get to Know Me',
+    'about_hero_subtitle' => 'Senior Full Stack Web Developer with 5+ years of experience and 25+ real projects.',
+
     // Misc
     'language' => 'Language',
     'switch_to_arabic' => 'العربية',
