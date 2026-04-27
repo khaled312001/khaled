@@ -1,11 +1,9 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Web Development FAQs — Pricing, Timelines, Process | Khaled Ahmed'); ?>
+<?php $__env->startSection('description', 'Honest answers to the most common questions about hiring a full stack web developer. Pricing, timelines, technologies, support, and process — from a senior developer with 25+ shipped projects.'); ?>
+<?php $__env->startSection('keywords', 'web developer FAQ, hire web developer, web development cost, Laravel developer FAQ, React developer FAQ, web developer Egypt, freelance web developer, Khaled Ahmed'); ?>
+<?php $__env->startSection('canonical', url('/faqs')); ?>
 
-@section('title', 'Web Development FAQs — Pricing, Timelines, Process | Khaled Ahmed')
-@section('description', 'Honest answers to the most common questions about hiring a full stack web developer. Pricing, timelines, technologies, support, and process — from a senior developer with 25+ shipped projects.')
-@section('keywords', 'web developer FAQ, hire web developer, web development cost, Laravel developer FAQ, React developer FAQ, web developer Egypt, freelance web developer, Khaled Ahmed')
-@section('canonical', url('/faqs'))
-
-@push('styles')
+<?php $__env->startPush('styles'); ?>
 <style>
     .faq-hero { padding: 90px 0 40px; background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%); color: #fff; text-align: center; }
     .faq-hero h1 { color: #fff; font-weight: 700; margin-bottom: 14px; }
@@ -37,9 +35,9 @@
         .faq-cta h2 { font-size: 21px; }
     }
 </style>
-@endpush
+<?php $__env->stopPush(); ?>
 
-@php
+<?php
 $faqGroups = [
     'Pricing & Budget' => [
         ['How much does a custom website cost in 2026?', 'Custom website costs in 2026 range from $1,500 for a designed marketing site to $50,000+ for a full SaaS platform. The fair price for a small-business website is $3,000–$8,000, an e-commerce site $5,000–$25,000, a custom web application $8,000–$35,000. The variables that move the price are scope clarity, integration complexity, and timeline. I send a written proposal with milestones and fixed deliverables before any work starts.'],
@@ -85,29 +83,29 @@ $faqGroups = [
         ['What is your guarantee?', 'I deliver on the written scope, on the agreed timeline, at the agreed price. Bugs in delivered features get fixed for free during the 30-day post-launch period. If I do not deliver, I do not get paid the final milestone — that is the whole guarantee.'],
     ],
 ];
-@endphp
+?>
 
-@section('structured_data')
+<?php $__env->startSection('structured_data'); ?>
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-        @php $first = true; @endphp
-        @foreach($faqGroups as $group => $items)
-            @foreach($items as $item)
-                @if(!$first),@endif
+        <?php $first = true; ?>
+        <?php $__currentLoopData = $faqGroups; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $group => $items): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php if(!$first): ?>,<?php endif; ?>
                 {
                     "@type": "Question",
-                    "name": @json($item[0]),
+                    "name": <?php echo json_encode($item[0], 15, 512) ?>,
                     "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": @json(strip_tags($item[1]))
+                        "text": <?php echo json_encode(strip_tags($item[1]), 15, 512) ?>
                     }
                 }
-                @php $first = false; @endphp
-            @endforeach
-        @endforeach
+                <?php $first = false; ?>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     ]
 }
 </script>
@@ -116,14 +114,14 @@ $faqGroups = [
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-        {"@type":"ListItem","position":1,"name":"Home","item":"{{ url('/') }}"},
-        {"@type":"ListItem","position":2,"name":"FAQs","item":"{{ url('/faqs') }}"}
+        {"@type":"ListItem","position":1,"name":"Home","item":"<?php echo e(url('/')); ?>"},
+        {"@type":"ListItem","position":2,"name":"FAQs","item":"<?php echo e(url('/faqs')); ?>"}
     ]
 }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <section class="faq-hero">
     <div class="container">
         <div class="row justify-content-center">
@@ -139,25 +137,27 @@ $faqGroups = [
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-9">
-                @foreach($faqGroups as $group => $items)
-                    <h2>{{ $group }}</h2>
-                    @foreach($items as $i => $item)
-                        <details class="faq-item" @if($loop->parent->first && $i === 0) open @endif>
-                            <summary>{{ $item[0] }}</summary>
+                <?php $__currentLoopData = $faqGroups; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $group => $items): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <h2><?php echo e($group); ?></h2>
+                    <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <details class="faq-item" <?php if($loop->parent->first && $i === 0): ?> open <?php endif; ?>>
+                            <summary><?php echo e($item[0]); ?></summary>
                             <div class="answer">
-                                <p>{!! $item[1] !!}</p>
+                                <p><?php echo $item[1]; ?></p>
                             </div>
                         </details>
-                    @endforeach
-                @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                 <div class="faq-cta">
                     <h2>Still Have Questions?</h2>
                     <p>The fastest way to get an answer is a 30-minute discovery call. No sales pitch — just an honest conversation about your project.</p>
-                    <a href="{{ route('contact') }}" class="btn-cta">Book a Free Call <i class="fa fa-arrow-right ms-2"></i></a>
+                    <a href="<?php echo e(route('contact')); ?>" class="btn-cta">Book a Free Call <i class="fa fa-arrow-right ms-2"></i></a>
                 </div>
             </div>
         </div>
     </div>
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH F:\Certificates\khaled\resources\views\pages\faqs.blade.php ENDPATH**/ ?>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#1e40af">
-    <meta name="robots" content="@yield('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1')">
+    <meta name="robots" content="<?php echo $__env->yieldContent('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'); ?>">
     <meta name="googlebot" content="index, follow">
     <meta name="bingbot" content="index, follow">
     <meta name="language" content="English">
@@ -19,45 +19,45 @@
     <meta name="geo.position" content="30.0444;31.2357">
     <meta name="ICBM" content="30.0444, 31.2357">
 
-    <title>@yield('title', 'Khaled Ahmed — Senior Full Stack Web Developer | Laravel, React, Node.js')</title>
-    <meta name="title" content="@yield('title', 'Khaled Ahmed — Senior Full Stack Web Developer | Laravel, React, Node.js')">
-    <meta name="description" content="@yield('description', 'Senior full stack web developer with 5+ years experience and 25+ shipped projects across 7 countries. Hire an expert Laravel, React, and Node.js developer for your next web app, e-commerce site, or SaaS platform.')">
-    <meta name="keywords" content="@yield('keywords', 'web developer, full stack developer, hire web developer, Laravel developer, React developer, Node.js developer, web development services, freelance web developer Egypt, Khaled Ahmed, custom web application, e-commerce developer, SaaS developer')">
+    <title><?php echo $__env->yieldContent('title', 'Khaled Ahmed — Senior Full Stack Web Developer | Laravel, React, Node.js'); ?></title>
+    <meta name="title" content="<?php echo $__env->yieldContent('title', 'Khaled Ahmed — Senior Full Stack Web Developer | Laravel, React, Node.js'); ?>">
+    <meta name="description" content="<?php echo $__env->yieldContent('description', 'Senior full stack web developer with 5+ years experience and 25+ shipped projects across 7 countries. Hire an expert Laravel, React, and Node.js developer for your next web app, e-commerce site, or SaaS platform.'); ?>">
+    <meta name="keywords" content="<?php echo $__env->yieldContent('keywords', 'web developer, full stack developer, hire web developer, Laravel developer, React developer, Node.js developer, web development services, freelance web developer Egypt, Khaled Ahmed, custom web application, e-commerce developer, SaaS developer'); ?>">
 
-    <link rel="canonical" href="@yield('canonical', url()->current())">
-    <link rel="alternate" hreflang="en" href="@yield('canonical', url()->current())">
-    <link rel="alternate" hreflang="x-default" href="@yield('canonical', url()->current())">
+    <link rel="canonical" href="<?php echo $__env->yieldContent('canonical', url()->current()); ?>">
+    <link rel="alternate" hreflang="en" href="<?php echo $__env->yieldContent('canonical', url()->current()); ?>">
+    <link rel="alternate" hreflang="x-default" href="<?php echo $__env->yieldContent('canonical', url()->current()); ?>">
 
-    <meta property="og:type" content="@yield('og_type', 'website')">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="@yield('og_title', 'Khaled Ahmed — Senior Full Stack Web Developer')">
-    <meta property="og:description" content="@yield('og_description', 'Hire a senior full stack web developer with 5+ years and 25+ shipped projects. Laravel, React, Node.js, and modern web technologies.')">
-    <meta property="og:image" content="@yield('og_image', asset('images/logo.png'))">
+    <meta property="og:type" content="<?php echo $__env->yieldContent('og_type', 'website'); ?>">
+    <meta property="og:url" content="<?php echo e(url()->current()); ?>">
+    <meta property="og:title" content="<?php echo $__env->yieldContent('og_title', 'Khaled Ahmed — Senior Full Stack Web Developer'); ?>">
+    <meta property="og:description" content="<?php echo $__env->yieldContent('og_description', 'Hire a senior full stack web developer with 5+ years and 25+ shipped projects. Laravel, React, Node.js, and modern web technologies.'); ?>">
+    <meta property="og:image" content="<?php echo $__env->yieldContent('og_image', asset('images/logo.png')); ?>">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="@yield('og_image_alt', 'Khaled Ahmed - Full-Stack Developer')">
+    <meta property="og:image:alt" content="<?php echo $__env->yieldContent('og_image_alt', 'Khaled Ahmed - Full-Stack Developer'); ?>">
     <meta property="og:site_name" content="Khaled Ahmed">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="ar_EG">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="{{ url()->current() }}">
-    <meta name="twitter:title" content="@yield('twitter_title', 'Khaled Ahmed — Senior Full Stack Web Developer')">
-    <meta name="twitter:description" content="@yield('twitter_description', 'Hire a senior full stack web developer. Laravel, React, Node.js, and modern web technologies. 5+ years, 25+ projects, 7 countries.')">
-    <meta name="twitter:image" content="@yield('twitter_image', asset('images/logo.png'))">
-    <meta name="twitter:image:alt" content="@yield('twitter_image_alt', 'Khaled Ahmed - Full-Stack Developer')">
+    <meta name="twitter:url" content="<?php echo e(url()->current()); ?>">
+    <meta name="twitter:title" content="<?php echo $__env->yieldContent('twitter_title', 'Khaled Ahmed — Senior Full Stack Web Developer'); ?>">
+    <meta name="twitter:description" content="<?php echo $__env->yieldContent('twitter_description', 'Hire a senior full stack web developer. Laravel, React, Node.js, and modern web technologies. 5+ years, 25+ projects, 7 countries.'); ?>">
+    <meta name="twitter:image" content="<?php echo $__env->yieldContent('twitter_image', asset('images/logo.png')); ?>">
+    <meta name="twitter:image:alt" content="<?php echo $__env->yieldContent('twitter_image_alt', 'Khaled Ahmed - Full-Stack Developer'); ?>">
     <meta name="twitter:creator" content="@khaledahmed">
     <meta name="twitter:site" content="@khaledahmed">
 
-    <meta itemprop="name" content="@yield('title', 'Khaled Ahmed — Senior Full Stack Web Developer')">
-    <meta itemprop="description" content="@yield('description', 'Senior full stack web developer with 5+ years experience.')">
-    <meta itemprop="image" content="@yield('og_image', asset('images/logo.png'))">
+    <meta itemprop="name" content="<?php echo $__env->yieldContent('title', 'Khaled Ahmed — Senior Full Stack Web Developer'); ?>">
+    <meta itemprop="description" content="<?php echo $__env->yieldContent('description', 'Senior full stack web developer with 5+ years experience.'); ?>">
+    <meta itemprop="image" content="<?php echo $__env->yieldContent('og_image', asset('images/logo.png')); ?>">
 
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-    <link href="{{ asset('images/favicon.png') }}" sizes="32x32" rel="icon" type="image/png">
-    <link href="{{ asset('images/favicon.png') }}" sizes="192x192" rel="apple-touch-icon">
-    <link href="{{ asset('images/favicon.png') }}" rel="shortcut icon" type="image/x-icon">
+    <link href="<?php echo e(asset('images/favicon.png')); ?>" sizes="32x32" rel="icon" type="image/png">
+    <link href="<?php echo e(asset('images/favicon.png')); ?>" sizes="192x192" rel="apple-touch-icon">
+    <link href="<?php echo e(asset('images/favicon.png')); ?>" rel="shortcut icon" type="image/x-icon">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,14 +65,14 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/magnific.popup.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/animate.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/vegas.slider.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/owl.carousel.default.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/all.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/flaticon.css') }}">
+    <link rel="stylesheet" href="<?php echo e(asset('css/bootstrap.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/magnific.popup.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/animate.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/vegas.slider.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/owl.carousel.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/owl.carousel.default.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/all.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/flaticon.css')); ?>">
 
     <style>
         :root {
@@ -111,12 +111,12 @@
         }
     </style>
 
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/helper-style.css') }}">
+    <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/helper-style.css')); ?>">
 
     <style>
         #counters {
-            background-image: url({{ asset('images/counter-bg.png') }});
+            background-image: url(<?php echo e(asset('images/counter-bg.png')); ?>);
         }
     </style>
 
@@ -140,7 +140,7 @@
             "addressRegion": "Cairo",
             "addressCountry": "EG"
         },
-        "image": "{{ asset('images/logo.png') }}",
+        "image": "<?php echo e(asset('images/logo.png')); ?>",
         "description": "Senior full stack web developer with 5+ years of professional experience delivering 25+ production projects across 7 countries. Founder of Barmagly software startup.",
         "knowsAbout": [
             "Web Development",
@@ -179,7 +179,7 @@
         "@context": "https://schema.org",
         "@type": "ProfessionalService",
         "name": "Khaled Ahmed — Web Development Services",
-        "image": "{{ asset('images/logo.png') }}",
+        "image": "<?php echo e(asset('images/logo.png')); ?>",
         "@id": "https://khaledahmed.net",
         "url": "https://khaledahmed.net",
         "telephone": "+20-1204593124",
@@ -232,9 +232,9 @@
     }
     </script>
 
-    @yield('structured_data')
+    <?php echo $__env->yieldContent('structured_data'); ?>
 
-    @stack('styles')
+    <?php echo $__env->yieldPushContent('styles'); ?>
 </head>
 <body data-bs-spy="scroll" data-bs-target="#fixedNavbar">
 
@@ -242,11 +242,11 @@
 
     <main class="main-area">
 
-        @include('partials.header')
+        <?php echo $__env->make('partials.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-        @yield('content')
+        <?php echo $__env->yieldContent('content'); ?>
 
-        @include('partials.footer')
+        <?php echo $__env->make('partials.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
     </main>
 
@@ -283,25 +283,26 @@
     <i class="fab fa-linkedin"></i>
 </a>
 
-<script src="{{ asset('js/jquery.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.min.js') }}" defer></script>
-<script src="{{ asset('js/images.loaded.min.js') }}" defer></script>
-<script src="{{ asset('js/wow.min.js') }}" defer></script>
-<script src="{{ asset('js/magnific.popup.min.js') }}" defer></script>
-<script src="{{ asset('js/waypoint.min.js') }}" defer></script>
-<script src="{{ asset('js/counter.up.min.js') }}" defer></script>
-<script src="{{ asset('js/jquery.easing.min.js') }}" defer></script>
-<script src="{{ asset('js/owl.carousel.min.js') }}" defer></script>
-<script src="{{ asset('js/validate.min.js') }}" defer></script>
-<script src="{{ asset('js/custom.select.plugin.js') }}" defer></script>
-<script src="{{ asset('js/scrollit.min.js') }}" defer></script>
-<script src="{{ asset('js/isotope.min.js') }}" defer></script>
-<script src="{{ asset('js/zepto.min.js') }}" defer></script>
-<script src="{{ asset('js/vegas.slider.min.js') }}" defer></script>
-<script src="{{ asset('js/jquery.mb-ytb.min.js') }}" defer></script>
-<script src="{{ asset('js/main.js') }}" defer></script>
+<script src="<?php echo e(asset('js/jquery.min.js')); ?>"></script>
+<script src="<?php echo e(asset('js/bootstrap.min.js')); ?>" defer></script>
+<script src="<?php echo e(asset('js/images.loaded.min.js')); ?>" defer></script>
+<script src="<?php echo e(asset('js/wow.min.js')); ?>" defer></script>
+<script src="<?php echo e(asset('js/magnific.popup.min.js')); ?>" defer></script>
+<script src="<?php echo e(asset('js/waypoint.min.js')); ?>" defer></script>
+<script src="<?php echo e(asset('js/counter.up.min.js')); ?>" defer></script>
+<script src="<?php echo e(asset('js/jquery.easing.min.js')); ?>" defer></script>
+<script src="<?php echo e(asset('js/owl.carousel.min.js')); ?>" defer></script>
+<script src="<?php echo e(asset('js/validate.min.js')); ?>" defer></script>
+<script src="<?php echo e(asset('js/custom.select.plugin.js')); ?>" defer></script>
+<script src="<?php echo e(asset('js/scrollit.min.js')); ?>" defer></script>
+<script src="<?php echo e(asset('js/isotope.min.js')); ?>" defer></script>
+<script src="<?php echo e(asset('js/zepto.min.js')); ?>" defer></script>
+<script src="<?php echo e(asset('js/vegas.slider.min.js')); ?>" defer></script>
+<script src="<?php echo e(asset('js/jquery.mb-ytb.min.js')); ?>" defer></script>
+<script src="<?php echo e(asset('js/main.js')); ?>" defer></script>
 
-@stack('scripts')
+<?php echo $__env->yieldPushContent('scripts'); ?>
 
 </body>
 </html>
+<?php /**PATH F:\Certificates\khaled\resources\views/layouts/app.blade.php ENDPATH**/ ?>

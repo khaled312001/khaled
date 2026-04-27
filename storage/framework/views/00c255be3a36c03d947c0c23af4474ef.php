@@ -1,6 +1,44 @@
 
 
-<?php $__env->startSection('title', 'Contact Us'); ?>
+<?php $__env->startSection('title', 'Contact Khaled Ahmed — Free 30-Min Consultation | Web Developer'); ?>
+<?php $__env->startSection('description', 'Hire Khaled Ahmed — senior full stack web developer. Free 30-minute consultation, 24-hour response. Email khaledahmedhaggagy@gmail.com or call +20 120 459 3124. Based in Cairo, working worldwide.'); ?>
+<?php $__env->startSection('keywords', 'contact web developer, hire full stack developer, web developer consultation, Khaled Ahmed contact, Laravel developer hire, freelance web developer Egypt, web development quote'); ?>
+<?php $__env->startSection('canonical', 'https://khaledahmed.net/contact'); ?>
+<?php $__env->startSection('og_image', asset('images/logo.png')); ?>
+<?php $__env->startSection('og_image_alt', 'Contact Khaled Ahmed - Full-Stack Developer'); ?>
+
+<?php $__env->startSection('structured_data'); ?>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "url": "<?php echo e(url('/contact')); ?>",
+    "name": "Contact Khaled Ahmed — Senior Full Stack Web Developer",
+    "mainEntity": {
+        "@type": "Person",
+        "name": "Khaled Ahmed",
+        "telephone": "+20-1204593124",
+        "email": "khaledahmedhaggagy@gmail.com",
+        "url": "https://khaledahmed.net",
+        "address": {"@type":"PostalAddress","addressLocality":"Cairo","addressCountry":"EG"},
+        "sameAs": [
+            "https://linkedin.com/in/khaled-ahmed-82368819b",
+            "https://github.com/khaled312001"
+        ]
+    }
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Home","item":"<?php echo e(url('/')); ?>"},
+        {"@type":"ListItem","position":2,"name":"Contact","item":"<?php echo e(url('/contact')); ?>"}
+    ]
+}
+</script>
+<?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
 <!--// Breadcrumb Section Start //-->
@@ -9,13 +47,13 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="breadcrumb-inner">
-                    <h1>Contact Us</h1>
+                    <h1>Contact Me</h1>
                     <ul class="breadcrumb-links">
                         <li>
                             <a href="<?php echo e(route('home')); ?>">Home</a>
                         </li>
                         <li class="active">
-                            Contact Us
+                            Contact Me
                         </li>
                     </ul>
                 </div>
@@ -42,7 +80,7 @@
                         </div>
                         <div class="body">
                             <h5>Address</h5>
-                            <p>Qena, Egypt</p>
+                            <p>Cairo, Egypt</p>
                         </div>
                     </div>
                     <div class="contact-info-item wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.3s">
@@ -80,7 +118,36 @@
             <div class="col-lg-6">
                 <div class="contact-form-enhanced wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.2s">
                     <h4 class="form-title">Send a Message</h4>
-                    <form action="#" method="POST" class="contact-form-modern">
+                    
+                    <?php if(session('success')): ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="fas fa-check-circle me-2"></i><?php echo e(session('success')); ?>
+
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if(session('error')): ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i><?php echo e(session('error')); ?>
+
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if($errors->any()): ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            <ul class="mb-0">
+                                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <li><?php echo e($error); ?></li>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    <?php endif; ?>
+
+                    <form action="<?php echo e(route('contact.submit')); ?>" method="POST" class="contact-form-modern">
                         <?php echo csrf_field(); ?>
                         <div class="row">
                             <div class="col-md-6">
@@ -124,4 +191,4 @@
 <?php $__env->stopSection(); ?>
 
 
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\AIA\Downloads\khaled\resources\views/pages/contact.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH F:\Certificates\khaled\resources\views\pages\contact.blade.php ENDPATH**/ ?>

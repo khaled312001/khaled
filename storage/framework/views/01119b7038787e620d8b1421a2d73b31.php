@@ -5,8 +5,8 @@
                 <div class="col-md-6 col-lg-3 footer-widget-resp">
                     <div class="footer-widget">
                         <h6 class="footer-title">About Me</h6>
-                        <a href="{{ route('home') }}" aria-label="Khaled Ahmed Home">
-                            <img src="{{ asset('images/logo.png') }}" alt="Khaled Ahmed - Full Stack Web Developer" class="img-fluid footer-logo" style="max-height: 60px;" loading="lazy" width="120" height="60">
+                        <a href="<?php echo e(route('home')); ?>" aria-label="Khaled Ahmed Home">
+                            <img src="<?php echo e(asset('images/logo.png')); ?>" alt="Khaled Ahmed - Full Stack Web Developer" class="img-fluid footer-logo" style="max-height: 60px;" loading="lazy" width="120" height="60">
                         </a>
                         <p class="footer-desc">
                             Senior Full Stack Web Developer with 5+ years of experience and 25+ production projects shipped across 7 countries. Founder of Barmagly software startup. Specialized in Laravel, React, and Node.js.
@@ -23,13 +23,13 @@
                     <div class="footer-widget footer-widget-pl">
                         <h6 class="footer-title">Quick Links</h6>
                         <ul class="footer-links">
-                            <li><a href="{{ route('home') }}">Home</a></li>
-                            <li><a href="{{ route('about') }}">About Me</a></li>
-                            <li><a href="{{ route('services') }}">Services</a></li>
-                            <li><a href="{{ route('portfolios') }}">Portfolio</a></li>
-                            <li><a href="{{ route('blogs') }}">Blog</a></li>
-                            <li><a href="{{ route('faqs') }}">FAQs</a></li>
-                            <li><a href="{{ route('contact') }}">Contact</a></li>
+                            <li><a href="<?php echo e(route('home')); ?>">Home</a></li>
+                            <li><a href="<?php echo e(route('about')); ?>">About Me</a></li>
+                            <li><a href="<?php echo e(route('services')); ?>">Services</a></li>
+                            <li><a href="<?php echo e(route('portfolios')); ?>">Portfolio</a></li>
+                            <li><a href="<?php echo e(route('blogs')); ?>">Blog</a></li>
+                            <li><a href="<?php echo e(route('faqs')); ?>">FAQs</a></li>
+                            <li><a href="<?php echo e(route('contact')); ?>">Contact</a></li>
                         </ul>
                     </div>
                 </div>
@@ -37,12 +37,12 @@
                     <div class="footer-widget">
                         <h6 class="footer-title">Popular Articles</h6>
                         <ul class="footer-links">
-                            <li><a href="{{ route('blog.show', 'hire-full-stack-web-developer-egypt') }}">Hire a Full Stack Developer</a></li>
-                            <li><a href="{{ route('blog.show', 'laravel-vs-nodejs-2026') }}">Laravel vs Node.js 2026</a></li>
-                            <li><a href="{{ route('blog.show', 'react-vs-vue-2026') }}">React vs Vue 2026</a></li>
-                            <li><a href="{{ route('blog.show', 'how-much-does-website-cost-2026') }}">Real Website Costs</a></li>
-                            <li><a href="{{ route('blog.show', 'website-seo-checklist-2026') }}">47-Point SEO Checklist</a></li>
-                            <li><a href="{{ route('blog.show', 'why-your-website-loads-slowly') }}">Why Sites Load Slowly</a></li>
+                            <li><a href="<?php echo e(route('blog.show', 'hire-full-stack-web-developer-egypt')); ?>">Hire a Full Stack Developer</a></li>
+                            <li><a href="<?php echo e(route('blog.show', 'laravel-vs-nodejs-2026')); ?>">Laravel vs Node.js 2026</a></li>
+                            <li><a href="<?php echo e(route('blog.show', 'react-vs-vue-2026')); ?>">React vs Vue 2026</a></li>
+                            <li><a href="<?php echo e(route('blog.show', 'how-much-does-website-cost-2026')); ?>">Real Website Costs</a></li>
+                            <li><a href="<?php echo e(route('blog.show', 'website-seo-checklist-2026')); ?>">47-Point SEO Checklist</a></li>
+                            <li><a href="<?php echo e(route('blog.show', 'why-your-website-loads-slowly')); ?>">Why Sites Load Slowly</a></li>
                         </ul>
                     </div>
                 </div>
@@ -85,7 +85,8 @@
     </div>
     <div class="copyright">
         <div class="container">
-            <p class="copyright-text">© Copyright {{ date('Y') }}. Khaled Ahmed — Senior Full Stack Web Developer. All rights reserved. <a href="{{ route('blogs') }}" class="text-white">Blog</a> · <a href="{{ route('faqs') }}" class="text-white">FAQs</a> · <a href="/sitemap.xml" class="text-white">Sitemap</a></p>
+            <p class="copyright-text">© Copyright <?php echo e(date('Y')); ?>. Khaled Ahmed — Senior Full Stack Web Developer. All rights reserved. <a href="<?php echo e(route('blogs')); ?>" class="text-white">Blog</a> · <a href="<?php echo e(route('faqs')); ?>" class="text-white">FAQs</a> · <a href="/sitemap.xml" class="text-white">Sitemap</a></p>
         </div>
     </div>
 </footer>
+<?php /**PATH F:\Certificates\khaled\resources\views\partials\footer.blade.php ENDPATH**/ ?>

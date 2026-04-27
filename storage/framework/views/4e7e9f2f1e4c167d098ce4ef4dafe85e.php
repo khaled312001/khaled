@@ -1,13 +1,11 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Hire a Senior Full Stack Web Developer | Laravel, React, Node.js — Khaled Ahmed'); ?>
+<?php $__env->startSection('description', 'Hire Khaled Ahmed — Senior Full Stack Web Developer with 5+ years and 25+ shipped projects across 7 countries. Expert in Laravel, React.js, Node.js, Vue.js, and modern web technologies. Free consultation, 24-hour response.'); ?>
+<?php $__env->startSection('keywords', 'hire full stack developer, web developer for hire, senior web developer, Laravel developer, React developer, Node.js developer, freelance web developer, web development services, custom web application, e-commerce developer, SaaS developer, web developer Egypt, Cairo developer, Khaled Ahmed, Barmagly'); ?>
+<?php $__env->startSection('canonical', 'https://khaledahmed.net'); ?>
+<?php $__env->startSection('og_image', asset('images/logo.png')); ?>
+<?php $__env->startSection('og_image_alt', 'Khaled Ahmed — Senior Full Stack Web Developer'); ?>
 
-@section('title', 'Hire a Senior Full Stack Web Developer | Laravel, React, Node.js — Khaled Ahmed')
-@section('description', 'Hire Khaled Ahmed — Senior Full Stack Web Developer with 5+ years and 25+ shipped projects across 7 countries. Expert in Laravel, React.js, Node.js, Vue.js, and modern web technologies. Free consultation, 24-hour response.')
-@section('keywords', 'hire full stack developer, web developer for hire, senior web developer, Laravel developer, React developer, Node.js developer, freelance web developer, web development services, custom web application, e-commerce developer, SaaS developer, web developer Egypt, Cairo developer, Khaled Ahmed, Barmagly')
-@section('canonical', 'https://khaledahmed.net')
-@section('og_image', asset('images/logo.png'))
-@section('og_image_alt', 'Khaled Ahmed — Senior Full Stack Web Developer')
-
-@push('styles')
+<?php $__env->startPush('styles'); ?>
 <style>
     .hero-banner { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%); padding: 130px 0 80px; }
     .hero-banner h1 { color: #fff; font-size: 48px; line-height: 1.2; font-weight: 800; margin-bottom: 18px; }
@@ -63,9 +61,9 @@
         .final-cta p { font-size: 15px; }
     }
 </style>
-@endpush
+<?php $__env->stopPush(); ?>
 
-@section('structured_data')
+<?php $__env->startSection('structured_data'); ?>
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -93,9 +91,9 @@
     }
 }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <section class="hero-banner" data-scroll-index="1">
     <div class="container">
         <div class="row">
@@ -111,10 +109,10 @@
                 </div>
 
                 <div class="hero-cta-row">
-                    <a href="{{ route('contact') }}" class="btn-primary-cta">
+                    <a href="<?php echo e(route('contact')); ?>" class="btn-primary-cta">
                         Get Free Consultation <i class="fa fa-arrow-right"></i>
                     </a>
-                    <a href="{{ route('portfolios') }}" class="btn-secondary-cta">
+                    <a href="<?php echo e(route('portfolios')); ?>" class="btn-secondary-cta">
                         View My Work <i class="fa fa-arrow-right"></i>
                     </a>
                 </div>
@@ -177,7 +175,7 @@
                             </ul>
                         </div>
                     </div>
-                    <a href="{{ route('contact') }}" class="primary-btn me-3 mb-3">
+                    <a href="<?php echo e(route('contact')); ?>" class="primary-btn me-3 mb-3">
                         <span class="text">Hire Me</span>
                         <span class="icon"><i class="fa fa-arrow-right"></i></span>
                     </a>
@@ -328,7 +326,7 @@
         </div>
 
         <div class="text-center mt-5">
-            <a href="{{ route('services') }}" class="primary-btn">
+            <a href="<?php echo e(route('services')); ?>" class="primary-btn">
                 <span class="text">View All Services</span>
                 <span class="icon"><i class="fa fa-arrow-right"></i></span>
             </a>
@@ -473,7 +471,7 @@
     <div class="container">
         <h2>Ready to Build Something Great?</h2>
         <p>Get a free 30-minute consultation and an honest recommendation for your project. No sales pitch, no pressure — just an experienced developer giving you straight answers.</p>
-        <a href="{{ route('contact') }}" class="btn-cta">Book Your Free Consultation <i class="fa fa-arrow-right ms-2"></i></a>
+        <a href="<?php echo e(route('contact')); ?>" class="btn-cta">Book Your Free Consultation <i class="fa fa-arrow-right ms-2"></i></a>
         <div style="margin-top: 18px; color: #94a3b8; font-size: 14px;">
             <i class="far fa-clock"></i> 24-hour response &nbsp; · &nbsp;
             <i class="fas fa-globe"></i> Worldwide remote &nbsp; · &nbsp;
@@ -481,4 +479,6 @@
         </div>
     </div>
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH F:\Certificates\khaled\resources\views\pages\home.blade.php ENDPATH**/ ?>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactMail;
+use App\Services\BlogService;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 use Exception;
@@ -23,7 +24,32 @@ class PageController extends Controller
 
     public function blogs()
     {
-        return view('pages.blogs');
+        $posts = BlogService::all();
+        $categories = BlogService::categories();
+        $tags = BlogService::tags();
+        return view('pages.blogs', compact('posts', 'categories', 'tags'));
+    }
+
+    public function blogShow($slug)
+    {
+        $post = BlogService::find($slug);
+        if (!$post) {
+            abort(404);
+        }
+        $related = BlogService::related($slug, 3);
+        return view('pages.blog-detail', compact('post', 'related'));
+    }
+
+    public function blogCategory($category)
+    {
+        $allPosts = BlogService::all();
+        $posts = array_values(array_filter($allPosts, fn($p) => strtolower($p['category']) === strtolower($category)));
+        if (empty($posts)) {
+            abort(404);
+        }
+        $categories = BlogService::categories();
+        $tags = BlogService::tags();
+        return view('pages.blogs', compact('posts', 'categories', 'tags', 'category'));
     }
 
     public function contact()
@@ -169,65 +195,97 @@ class PageController extends Controller
 
     public function sitemap()
     {
-        $sitemap = '<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-    
-    <url>
-        <loc>https://khaledahmed.net</loc>
-        <lastmod>' . date('Y-m-d') . '</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.0</priority>
-    </url>
-    
-    <url>
-        <loc>https://khaledahmed.net/about</loc>
-        <lastmod>' . date('Y-m-d') . '</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
-        <loc>https://khaledahmed.net/services</loc>
-        <lastmod>' . date('Y-m-d') . '</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    
-    <url>
-        <loc>https://khaledahmed.net/portfolios</loc>
-        <lastmod>' . date('Y-m-d') . '</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    
-    <url>
-        <loc>https://khaledahmed.net/contact</loc>
-        <lastmod>' . date('Y-m-d') . '</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    
-    <url>
-        <loc>https://khaledahmed.net/blogs</loc>
-        <lastmod>' . date('Y-m-d') . '</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
-        <loc>https://khaledahmed.net/faqs</loc>
-        <lastmod>' . date('Y-m-d') . '</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    
-</urlset>';
+        $base = 'https://khaledahmed.net';
+        $today = date('Y-m-d');
 
-        return response($sitemap, 200)
-            ->header('Content-Type', 'application/xml');
+        $staticPages = [
+            ['/', 'daily', '1.0'],
+            ['/about', 'monthly', '0.8'],
+            ['/services', 'weekly', '0.9'],
+            ['/portfolios', 'weekly', '0.9'],
+            ['/contact', 'monthly', '0.9'],
+            ['/blogs', 'daily', '0.9'],
+            ['/faqs', 'weekly', '0.7'],
+            ['/plans', 'monthly', '0.7'],
+            ['/teams', 'monthly', '0.5'],
+            ['/gallery', 'monthly', '0.5'],
+            ['/careers', 'monthly', '0.5'],
+        ];
+
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
+
+        foreach ($staticPages as [$path, $freq, $priority]) {
+            $loc = $base . ($path === '/' ? '' : $path);
+            $xml .= "  <url>\n";
+            $xml .= "    <loc>{$loc}</loc>\n";
+            $xml .= "    <lastmod>{$today}</lastmod>\n";
+            $xml .= "    <changefreq>{$freq}</changefreq>\n";
+            $xml .= "    <priority>{$priority}</priority>\n";
+            $xml .= "  </url>\n";
+        }
+
+        foreach (BlogService::all() as $post) {
+            $loc = $base . '/blog/' . $post['slug'];
+            $lastmod = $post['date'];
+            $xml .= "  <url>\n";
+            $xml .= "    <loc>{$loc}</loc>\n";
+            $xml .= "    <lastmod>{$lastmod}</lastmod>\n";
+            $xml .= "    <changefreq>monthly</changefreq>\n";
+            $xml .= "    <priority>0.8</priority>\n";
+            $xml .= "  </url>\n";
+        }
+
+        foreach (array_keys(BlogService::categories()) as $cat) {
+            $slug = strtolower(str_replace(' ', '-', $cat));
+            $loc = $base . '/blog/category/' . $slug;
+            $xml .= "  <url>\n";
+            $xml .= "    <loc>{$loc}</loc>\n";
+            $xml .= "    <lastmod>{$today}</lastmod>\n";
+            $xml .= "    <changefreq>weekly</changefreq>\n";
+            $xml .= "    <priority>0.6</priority>\n";
+            $xml .= "  </url>\n";
+        }
+
+        $xml .= '</urlset>';
+
+        return response($xml, 200)
+            ->header('Content-Type', 'application/xml; charset=utf-8')
+            ->header('X-Robots-Tag', 'noindex');
+    }
+
+    public function robots()
+    {
+        $content = "# robots.txt — khaledahmed.net\n";
+        $content .= "User-agent: *\n";
+        $content .= "Allow: /\n\n";
+        $content .= "# Disallow private / framework paths\n";
+        $content .= "Disallow: /admin/\n";
+        $content .= "Disallow: /storage/\n";
+        $content .= "Disallow: /vendor/\n";
+        $content .= "Disallow: /bootstrap/\n";
+        $content .= "Disallow: /config/\n";
+        $content .= "Disallow: /database/\n";
+        $content .= "Disallow: /resources/\n";
+        $content .= "Disallow: /routes/\n";
+        $content .= "Disallow: /app/\n";
+        $content .= "Disallow: /.env\n";
+        $content .= "Disallow: /composer.json\n";
+        $content .= "Disallow: /composer.lock\n";
+        $content .= "Disallow: /artisan\n";
+        $content .= "Disallow: /test-email\n";
+        $content .= "Disallow: /test\n";
+        $content .= "Disallow: /search\n\n";
+        $content .= "# Block PDF indexing — fixes Duplicate-without-canonical for /Khaled_Ahmed.pdf\n";
+        $content .= "Disallow: /*.pdf$\n\n";
+        $content .= "# Allow critical asset folders for rendering\n";
+        $content .= "Allow: /css/\n";
+        $content .= "Allow: /js/\n";
+        $content .= "Allow: /images/\n";
+        $content .= "Allow: /fonts/\n\n";
+        $content .= "# Sitemap\n";
+        $content .= "Sitemap: https://khaledahmed.net/sitemap.xml\n";
+        return response($content, 200)->header('Content-Type', 'text/plain; charset=utf-8');
     }
 
     public function testEmail()

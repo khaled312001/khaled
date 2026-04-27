@@ -1,11 +1,44 @@
 @extends('layouts.app')
 
-@section('title', 'Contact Me - Get In Touch | Khaled Ahmed')
-@section('description', 'Contact Khaled Ahmed for web development services, programming courses, or collaboration opportunities. Located in Cairo, Egypt. Email: khaledahmedhaggagy@gmail.com | Phone: +20 120 459 3124')
-@section('keywords', 'Contact Khaled Ahmed, Web Developer Contact, Programming Instructor Contact, Hire Web Developer, Web Development Services Contact, Egypt Developer Contact')
+@section('title', 'Contact Khaled Ahmed — Free 30-Min Consultation | Web Developer')
+@section('description', 'Hire Khaled Ahmed — senior full stack web developer. Free 30-minute consultation, 24-hour response. Email khaledahmedhaggagy@gmail.com or call +20 120 459 3124. Based in Cairo, working worldwide.')
+@section('keywords', 'contact web developer, hire full stack developer, web developer consultation, Khaled Ahmed contact, Laravel developer hire, freelance web developer Egypt, web development quote')
 @section('canonical', 'https://khaledahmed.net/contact')
 @section('og_image', asset('images/logo.png'))
 @section('og_image_alt', 'Contact Khaled Ahmed - Full-Stack Developer')
+
+@section('structured_data')
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "url": "{{ url('/contact') }}",
+    "name": "Contact Khaled Ahmed — Senior Full Stack Web Developer",
+    "mainEntity": {
+        "@type": "Person",
+        "name": "Khaled Ahmed",
+        "telephone": "+20-1204593124",
+        "email": "khaledahmedhaggagy@gmail.com",
+        "url": "https://khaledahmed.net",
+        "address": {"@type":"PostalAddress","addressLocality":"Cairo","addressCountry":"EG"},
+        "sameAs": [
+            "https://linkedin.com/in/khaled-ahmed-82368819b",
+            "https://github.com/khaled312001"
+        ]
+    }
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Home","item":"{{ url('/') }}"},
+        {"@type":"ListItem","position":2,"name":"Contact","item":"{{ url('/contact') }}"}
+    ]
+}
+</script>
+@endsection
 
 @section('content')
 <!--// Breadcrumb Section Start //-->

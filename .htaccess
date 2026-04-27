@@ -1,0 +1,17 @@
+# Root .htaccess — forwards everything into /public (the Laravel front controller)
+# Use this only if your hosting cannot point the document root to /public.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Force HTTPS
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+    # Force non-www
+    RewriteCond %{HTTP_HOST} ^www\.khaledahmed\.net$ [NC]
+    RewriteRule ^ https://khaledahmed.net%{REQUEST_URI} [R=301,L]
+
+    # Forward into /public
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

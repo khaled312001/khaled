@@ -1,11 +1,9 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', isset($category) ? ucfirst($category) . ' Articles | Khaled Ahmed Blog' : 'Web Development Blog — Laravel, React, SEO & Performance | Khaled Ahmed'); ?>
+<?php $__env->startSection('description', isset($category) ? 'Read in-depth ' . strtolower($category) . ' articles by Khaled Ahmed — senior full stack web developer. Practical guides on Laravel, React, Node.js, and modern web technologies.' : 'In-depth web development articles from a senior full stack developer. Laravel, React, Node.js, SEO, performance, hiring, and pricing — written for builders, not beginners.'); ?>
+<?php $__env->startSection('keywords', 'web development blog, full stack developer blog, Laravel tutorials, React tutorials, web developer Egypt, hire web developer, SEO guide, web performance, Khaled Ahmed'); ?>
+<?php $__env->startSection('canonical', isset($category) ? url('/blog/category/' . strtolower($category)) : url('/blogs')); ?>
 
-@section('title', isset($category) ? ucfirst($category) . ' Articles | Khaled Ahmed Blog' : 'Web Development Blog — Laravel, React, SEO & Performance | Khaled Ahmed')
-@section('description', isset($category) ? 'Read in-depth ' . strtolower($category) . ' articles by Khaled Ahmed — senior full stack web developer. Practical guides on Laravel, React, Node.js, and modern web technologies.' : 'In-depth web development articles from a senior full stack developer. Laravel, React, Node.js, SEO, performance, hiring, and pricing — written for builders, not beginners.')
-@section('keywords', 'web development blog, full stack developer blog, Laravel tutorials, React tutorials, web developer Egypt, hire web developer, SEO guide, web performance, Khaled Ahmed')
-@section('canonical', isset($category) ? url('/blog/category/' . strtolower($category)) : url('/blogs'))
-
-@push('styles')
+<?php $__env->startPush('styles'); ?>
 <style>
     .blog-hero { padding: 80px 0 40px; background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%); color: #fff; }
     .blog-hero h1 { color: #fff; font-weight: 700; margin-bottom: 12px; }
@@ -39,15 +37,15 @@
         .blog-cta h2 { font-size: 22px; }
     }
 </style>
-@endpush
+<?php $__env->stopPush(); ?>
 
-@section('structured_data')
+<?php $__env->startSection('structured_data'); ?>
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
     "@type": "Blog",
     "name": "Khaled Ahmed — Web Development Blog",
-    "url": "{{ url('/blogs') }}",
+    "url": "<?php echo e(url('/blogs')); ?>",
     "description": "In-depth web development articles by senior full stack developer Khaled Ahmed.",
     "author": {
         "@type": "Person",
@@ -60,17 +58,17 @@
         ]
     },
     "blogPost": [
-        @foreach($posts as $i => $post)
+        <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         {
             "@type": "BlogPosting",
-            "headline": @json($post['title']),
-            "description": @json($post['excerpt']),
-            "url": "{{ url('/blog/' . $post['slug']) }}",
-            "datePublished": "{{ $post['date'] }}",
-            "image": "{{ asset('images/' . $post['image']) }}",
+            "headline": <?php echo json_encode($post['title'], 15, 512) ?>,
+            "description": <?php echo json_encode($post['excerpt'], 15, 512) ?>,
+            "url": "<?php echo e(url('/blog/' . $post['slug'])); ?>",
+            "datePublished": "<?php echo e($post['date']); ?>",
+            "image": "<?php echo e(asset('images/' . $post['image'])); ?>",
             "author": { "@type": "Person", "name": "Khaled Ahmed" }
-        }@if(!$loop->last),@endif
-        @endforeach
+        }<?php if(!$loop->last): ?>,<?php endif; ?>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     ]
 }
 </script>
@@ -79,28 +77,28 @@
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-        {"@type":"ListItem","position":1,"name":"Home","item":"{{ url('/') }}"},
-        {"@type":"ListItem","position":2,"name":"Blog","item":"{{ url('/blogs') }}"}
-        @if(isset($category))
-        ,{"@type":"ListItem","position":3,"name":"{{ ucfirst($category) }}","item":"{{ url('/blog/category/' . strtolower($category)) }}"}
-        @endif
+        {"@type":"ListItem","position":1,"name":"Home","item":"<?php echo e(url('/')); ?>"},
+        {"@type":"ListItem","position":2,"name":"Blog","item":"<?php echo e(url('/blogs')); ?>"}
+        <?php if(isset($category)): ?>
+        ,{"@type":"ListItem","position":3,"name":"<?php echo e(ucfirst($category)); ?>","item":"<?php echo e(url('/blog/category/' . strtolower($category))); ?>"}
+        <?php endif; ?>
     ]
 }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <section class="blog-hero">
     <div class="container">
         <div class="row justify-content-center text-center">
             <div class="col-lg-10">
-                @if(isset($category))
-                    <h1>{{ ucfirst($category) }} Articles</h1>
-                    <p>Deep, practical articles on {{ strtolower($category) }} from a working senior full stack web developer with 5+ years of experience and 25+ shipped projects.</p>
-                @else
+                <?php if(isset($category)): ?>
+                    <h1><?php echo e(ucfirst($category)); ?> Articles</h1>
+                    <p>Deep, practical articles on <?php echo e(strtolower($category)); ?> from a working senior full stack web developer with 5+ years of experience and 25+ shipped projects.</p>
+                <?php else: ?>
                     <h1>Web Development Blog</h1>
                     <p>Practical, no-fluff articles on Laravel, React, Node.js, SEO, performance, and hiring — written by a senior full stack developer who ships in production every week.</p>
-                @endif
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -109,48 +107,51 @@
 <section class="section pt-4">
     <div class="container">
         <div class="blog-filter-bar text-center">
-            <a href="{{ route('blogs') }}" class="{{ !isset($category) ? 'active' : '' }}">All Posts</a>
-            @foreach($categories as $catName => $count)
-                <a href="{{ route('blog.category', strtolower($catName)) }}"
-                   class="{{ isset($category) && strtolower($category) === strtolower($catName) ? 'active' : '' }}">
-                   {{ $catName }} ({{ $count }})
+            <a href="<?php echo e(route('blogs')); ?>" class="<?php echo e(!isset($category) ? 'active' : ''); ?>">All Posts</a>
+            <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $catName => $count): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <a href="<?php echo e(route('blog.category', strtolower($catName))); ?>"
+                   class="<?php echo e(isset($category) && strtolower($category) === strtolower($catName) ? 'active' : ''); ?>">
+                   <?php echo e($catName); ?> (<?php echo e($count); ?>)
                 </a>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
 
         <div class="row g-4">
-            @foreach($posts as $post)
+            <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="col-lg-4 col-md-6">
                 <article class="blog-card" itemscope itemtype="https://schema.org/BlogPosting">
-                    <a href="{{ route('blog.show', $post['slug']) }}" class="blog-img">
-                        <img src="{{ asset('images/' . $post['image']) }}"
-                             alt="{{ $post['title'] }}"
+                    <a href="<?php echo e(route('blog.show', $post['slug'])); ?>" class="blog-img">
+                        <img src="<?php echo e(asset('images/' . $post['image'])); ?>"
+                             alt="<?php echo e($post['title']); ?>"
                              loading="lazy" width="400" height="220" itemprop="image">
                     </a>
                     <div class="blog-body">
                         <div class="meta">
-                            <span class="cat">{{ $post['category'] }}</span>
-                            &bull; <time datetime="{{ $post['date'] }}" itemprop="datePublished">{{ \Carbon\Carbon::parse($post['date'])->format('M d, Y') }}</time>
-                            &bull; {{ $post['read_time'] }}
+                            <span class="cat"><?php echo e($post['category']); ?></span>
+                            &bull; <time datetime="<?php echo e($post['date']); ?>" itemprop="datePublished"><?php echo e(\Carbon\Carbon::parse($post['date'])->format('M d, Y')); ?></time>
+                            &bull; <?php echo e($post['read_time']); ?>
+
                         </div>
                         <h3 itemprop="headline">
-                            <a href="{{ route('blog.show', $post['slug']) }}" itemprop="url">{{ $post['title'] }}</a>
+                            <a href="<?php echo e(route('blog.show', $post['slug'])); ?>" itemprop="url"><?php echo e($post['title']); ?></a>
                         </h3>
-                        <p itemprop="description">{{ $post['excerpt'] }}</p>
-                        <a href="{{ route('blog.show', $post['slug']) }}" class="read-more">
+                        <p itemprop="description"><?php echo e($post['excerpt']); ?></p>
+                        <a href="<?php echo e(route('blog.show', $post['slug'])); ?>" class="read-more">
                             Read full article <i class="fa fa-arrow-right"></i>
                         </a>
                     </div>
                 </article>
             </div>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
 
         <div class="blog-cta">
             <h2>Need a Senior Full Stack Developer for Your Project?</h2>
             <p>I help businesses build fast, secure, and scalable web applications. Let's discuss your project — I respond within 24 hours with an honest recommendation.</p>
-            <a href="{{ route('contact') }}" class="btn-cta">Get a Free Consultation <i class="fa fa-arrow-right ms-2"></i></a>
+            <a href="<?php echo e(route('contact')); ?>" class="btn-cta">Get a Free Consultation <i class="fa fa-arrow-right ms-2"></i></a>
         </div>
     </div>
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH F:\Certificates\khaled\resources\views/pages/blogs.blade.php ENDPATH**/ ?>
