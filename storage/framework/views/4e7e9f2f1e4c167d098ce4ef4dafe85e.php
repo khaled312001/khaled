@@ -7,19 +7,122 @@
 
 <?php $__env->startPush('styles'); ?>
 <style>
-    .hero-banner { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%); padding: 130px 0 80px; }
+    /* === HERO with personal photo + creative animations === */
+    .hero-banner {
+        background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%);
+        padding: 110px 0 60px;
+        min-height: 720px;
+        display: flex;
+        align-items: center;
+    }
     .hero-banner h1 { color: #fff; font-size: 48px; line-height: 1.2; font-weight: 800; margin-bottom: 18px; }
     .hero-banner h1 span { color: #60a5fa; }
-    .hero-banner h2 { color: #cbd5e1; font-size: 19px; line-height: 1.6; font-weight: 400; margin-bottom: 30px; max-width: 720px; }
-    .hero-stats { display: flex; gap: 40px; margin: 30px 0; flex-wrap: wrap; }
+    .hero-banner h2 { color: #cbd5e1; font-size: 18px; line-height: 1.6; font-weight: 400; margin-bottom: 30px; max-width: 640px; }
+    .hero-stats { display: flex; gap: 36px; margin: 24px 0; flex-wrap: wrap; }
     .hero-stats .stat { color: #fff; }
-    .hero-stats .stat .num { font-size: 32px; font-weight: 800; color: #60a5fa; line-height: 1; }
-    .hero-stats .stat .lbl { font-size: 14px; color: #cbd5e1; margin-top: 4px; }
-    .hero-cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 24px; }
-    .hero-cta-row .btn-primary-cta { background: #60a5fa; color: #0f172a; padding: 14px 28px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
-    .hero-cta-row .btn-primary-cta:hover { background: #93c5fd; transform: translateY(-2px); }
-    .hero-cta-row .btn-secondary-cta { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.3); padding: 12px 28px; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
-    .hero-cta-row .btn-secondary-cta:hover { border-color: #fff; }
+    .hero-stats .stat .num { font-size: 34px; font-weight: 800; color: #60a5fa; line-height: 1; }
+    .hero-stats .stat .lbl { font-size: 13px; color: #cbd5e1; margin-top: 4px; }
+    .hero-cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 26px; }
+    .hero-cta-row .btn-primary-cta { background: linear-gradient(135deg, #60a5fa, #2563eb) !important; color: #fff !important; padding: 14px 28px; border-radius: 10px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+    .hero-cta-row .btn-primary-cta:hover { background: linear-gradient(135deg, #3b82f6, #1e40af) !important; transform: translateY(-2px); box-shadow: 0 12px 28px rgba(96,165,250,0.4); }
+    .hero-cta-row .btn-secondary-cta { background: rgba(255,255,255,0.05); color: #fff; border: 2px solid rgba(255,255,255,0.30); padding: 12px 28px; border-radius: 10px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+    .hero-cta-row .btn-secondary-cta:hover { border-color: #fff; background: rgba(255,255,255,0.12); }
+
+    /* === Photo column === */
+    .hero-photo-wrap {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        height: 100%;
+        min-height: 540px;
+    }
+    /* Animated multi-layer ring */
+    .hero-photo-ring {
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 460px; height: 460px;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background:
+            conic-gradient(from 0deg, #60a5fa, #7c3aed, #ec4899, #60a5fa);
+        animation: ringSpin 18s linear infinite;
+        opacity: 0.55;
+        filter: blur(2px);
+    }
+    .hero-photo-ring::after {
+        content: '';
+        position: absolute;
+        inset: 8px;
+        background: radial-gradient(circle, #1e3a5f 0%, #0f172a 70%);
+        border-radius: 50%;
+    }
+    .hero-photo-ring-2 {
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 510px; height: 510px;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        border: 1.5px dashed rgba(96,165,250,0.40);
+        animation: ringSpin 28s linear infinite reverse;
+    }
+    @keyframes ringSpin {
+        from { transform: translate(-50%, -50%) rotate(0deg); }
+        to   { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* The actual photo */
+    .hero-photo {
+        position: relative;
+        z-index: 2;
+        max-height: 580px;
+        width: auto;
+        filter: drop-shadow(0 30px 50px rgba(0,0,0,0.45));
+        animation: heroFloat 6s ease-in-out infinite;
+    }
+    @keyframes heroFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-14px); }
+    }
+
+    /* Floating tech-stack pills around the photo */
+    .float-pill {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.95);
+        color: #1e293b;
+        padding: 9px 16px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 700;
+        box-shadow: 0 14px 30px rgba(15,23,42,0.35);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 3;
+        backdrop-filter: blur(6px);
+        animation: pillFloat 6s ease-in-out infinite;
+    }
+    .float-pill i { font-size: 16px; }
+    .float-pill.fp-laravel { top: 8%; left: -10%; animation-delay: 0s; color: #f55247; }
+    .float-pill.fp-react   { top: 22%; right: -8%; animation-delay: 1.2s; color: #61dafb; }
+    .float-pill.fp-node    { bottom: 30%; left: -12%; animation-delay: 2.4s; color: #5fa04e; }
+    .float-pill.fp-mysql   { bottom: 12%; right: -6%; animation-delay: 3.6s; color: #00758f; }
+    @keyframes pillFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    /* Hero text intro animation */
+    .hero-fadeup { opacity: 0; transform: translateY(28px); animation: heroFadeUp 0.9s cubic-bezier(.2,.8,.2,1) forwards; }
+    .hero-fadeup.d1 { animation-delay: 0.05s; }
+    .hero-fadeup.d2 { animation-delay: 0.20s; }
+    .hero-fadeup.d3 { animation-delay: 0.35s; }
+    .hero-fadeup.d4 { animation-delay: 0.50s; }
+    @keyframes heroFadeUp {
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Other site-wide CSS continues below — kept identical */
     .trust-bar { background: #f8fafc; padding: 24px 0; border-bottom: 1px solid #e5e7eb; }
     .trust-bar .label { color: #64748b; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
     .trust-bar .countries { color: #0f172a; font-weight: 600; font-size: 16px; }
@@ -51,9 +154,12 @@
     .final-cta p { color: #cbd5e1; font-size: 18px; max-width: 640px; margin: 0 auto 30px; }
     .final-cta .btn-cta { background: #60a5fa; color: #0f172a; padding: 16px 36px; border-radius: 8px; font-weight: 700; font-size: 17px; text-decoration: none; display: inline-block; transition: all 0.2s; }
     .final-cta .btn-cta:hover { background: #93c5fd; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(96,165,250,0.4); }
+    @media (max-width: 991px) {
+        .hero-banner { min-height: auto !important; padding: 100px 0 50px; }
+        .hero-photo-wrap { display: none !important; }
+    }
     @media (max-width: 768px) {
-        .hero-banner { padding: 100px 0 50px; }
-        .hero-banner h1 { font-size: 32px; }
+        .hero-banner h1 { font-size: 30px; }
         .hero-banner h2 { font-size: 16px; }
         .hero-stats { gap: 24px; }
         .hero-stats .stat .num { font-size: 26px; }
@@ -96,25 +202,40 @@
 <?php $__env->startSection('content'); ?>
 <section class="hero-banner" data-scroll-index="1">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-9">
-                <h1><?php echo e(__('site.hero_title_1')); ?> <span><?php echo e(__('site.hero_title_2')); ?></span> <?php echo e(__('site.hero_title_3')); ?></h1>
-                <h2><?php echo e(__('site.hero_subtitle')); ?></h2>
+        <div class="row align-items-center">
+            <div class="col-lg-7 col-md-12">
+                <h1 class="hero-fadeup d1"><?php echo e(__('site.hero_title_1')); ?> <span><?php echo e(__('site.hero_title_2')); ?></span> <?php echo e(__('site.hero_title_3')); ?></h1>
+                <h2 class="hero-fadeup d2"><?php echo e(__('site.hero_subtitle')); ?></h2>
 
-                <div class="hero-stats">
+                <div class="hero-stats hero-fadeup d3">
                     <div class="stat"><div class="num">25+</div><div class="lbl"><?php echo e(__('site.projects_shipped')); ?></div></div>
                     <div class="stat"><div class="num">7</div><div class="lbl"><?php echo e(__('site.countries_served')); ?></div></div>
                     <div class="stat"><div class="num">5+</div><div class="lbl"><?php echo e(__('site.years_experience')); ?></div></div>
                     <div class="stat"><div class="num">24h</div><div class="lbl"><?php echo e(__('site.response_time')); ?></div></div>
                 </div>
 
-                <div class="hero-cta-row">
+                <div class="hero-cta-row hero-fadeup d4">
                     <a href="<?php echo e(route('contact')); ?>" class="btn-primary-cta">
                         <?php echo e(__('site.get_free_consultation')); ?> <i class="fa fa-arrow-right"></i>
                     </a>
                     <a href="<?php echo e(route('portfolios')); ?>" class="btn-secondary-cta">
                         <?php echo e(__('site.view_my_work')); ?> <i class="fa fa-arrow-right"></i>
                     </a>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block">
+                <div class="hero-photo-wrap">
+                    <div class="hero-photo-ring-2"></div>
+                    <div class="hero-photo-ring"></div>
+                    <span class="float-pill fp-laravel"><i class="fab fa-laravel"></i> Laravel</span>
+                    <span class="float-pill fp-react"><i class="fab fa-react"></i> React</span>
+                    <span class="float-pill fp-node"><i class="fab fa-node-js"></i> Node.js</span>
+                    <span class="float-pill fp-mysql"><i class="fas fa-database"></i> MySQL</span>
+                    <img src="<?php echo e(asset('images/khaled-hero.png')); ?>"
+                         alt="Khaled Ahmed — Senior Full Stack Web Developer"
+                         class="hero-photo"
+                         width="490" height="1000"
+                         loading="eager" decoding="async">
                 </div>
             </div>
         </div>

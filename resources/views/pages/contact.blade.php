@@ -94,9 +94,9 @@
         <div class="row">
             <div class="col-lg-6 mb-5 mb-lg-0">
                 <div class="section-heading-left wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.1s">
-                    <span>Contact</span>
-                    <h2>Get In Touch</h2>
-                    <p class="mt-3">Feel free to reach out to me for any inquiries, collaborations, or just to say hello. I'm always open to discussing new projects and opportunities.</p>
+                    <span class="section-badge"><i class="fas fa-comments"></i> {{ __('site.contact') }}</span>
+                    <h2 class="section-title-h2">{{ __('site.contact_h2') }}</h2>
+                    <p class="mt-3">{{ __('site.contact_subtitle') }}</p>
                 </div>
                 <div class="contact-info-enhanced">
                     <div class="contact-info-item wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.2s">
@@ -104,8 +104,8 @@
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div class="body">
-                            <h5>Address</h5>
-                            <p>Cairo, Egypt</p>
+                            <h5>{{ __('site.location') }}</h5>
+                            <p>{{ __('site.location_value') }}</p>
                         </div>
                     </div>
                     <div class="contact-info-item wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.3s">
@@ -113,7 +113,7 @@
                             <i class="fas fa-envelope"></i>
                         </div>
                         <div class="body">
-                            <h5>Email</h5>
+                            <h5>{{ __('site.email') }}</h5>
                             <p><a href="mailto:khaledahmedhaggagy@gmail.com">khaledahmedhaggagy@gmail.com</a></p>
                         </div>
                     </div>
@@ -122,27 +122,27 @@
                             <i class="fas fa-phone"></i>
                         </div>
                         <div class="body">
-                            <h5>Phone</h5>
+                            <h5>{{ __('site.phone_whatsapp') }}</h5>
                             <p>
-                                <a href="tel:+201204593124">+20 1204593124</a> / 
-                                <a href="tel:+201010254819">+20 1010254819</a>
+                                <a href="tel:+201204593124">+20 120 459 3124</a> /
+                                <a href="tel:+201010254819">+20 101 025 4819</a>
                             </p>
                         </div>
                     </div>
                     <div class="contact-info-item wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.5s">
                         <div class="icon">
-                            <i class="fas fa-globe"></i>
+                            <i class="fas fa-clock"></i>
                         </div>
                         <div class="body">
-                            <h5>Website</h5>
-                            <p><a href="https://khaledahmed.net" target="_blank">https://khaledahmed.net</a></p>
+                            <h5>{{ __('site.response_time_label') }}</h5>
+                            <p>{{ __('site.response_time_value') }}</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="contact-form-enhanced wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.2s">
-                    <h4 class="form-title">Send a Message</h4>
+                    <h4 class="form-title">{{ app()->getLocale() === 'ar' ? 'أرسل رسالة' : 'Send a Message' }}</h4>
                     
                     @if(session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">

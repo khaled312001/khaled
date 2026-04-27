@@ -724,6 +724,128 @@
         }
 
         /* ====================================================================
+           BUTTONS — kill legacy circular icon + white border (style.css line 1900s)
+           Must be after style.css to win.
+           ==================================================================== */
+        .primary-btn,
+        .white-btn,
+        .btn-primary-cta {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            padding: 12px 26px !important;
+            border-radius: 10px !important;
+            line-height: 1.2 !important;
+            min-height: 0 !important;
+            height: auto !important;
+            font-size: 14.5px !important;
+            font-weight: 600 !important;
+            border: none !important;
+            text-decoration: none !important;
+            white-space: nowrap;
+        }
+        .primary-btn,
+        .btn-primary-cta {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%) !important;
+            color: #fff !important;
+            box-shadow: 0 6px 16px rgba(37,99,235,0.28);
+        }
+        .primary-btn:hover,
+        .btn-primary-cta:hover {
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a5f 100%) !important;
+            color: #fff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(37,99,235,0.40);
+        }
+        .white-btn {
+            background: #fff !important;
+            color: #1e40af !important;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+        }
+        .white-btn:hover {
+            background: #f8fafc !important;
+            color: #1e3a5f !important;
+            transform: translateY(-2px);
+        }
+
+        /* KILL the legacy white-circle icon container */
+        .primary-btn .icon,
+        .white-btn .icon,
+        .btn-primary-cta .icon {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: auto !important;
+            height: auto !important;
+            background: transparent !important;
+            border: none !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            transition: transform 0.25s ease;
+        }
+        .primary-btn .icon i,
+        .white-btn .icon i,
+        .btn-primary-cta .icon i {
+            width: auto !important;
+            height: auto !important;
+            line-height: 1 !important;
+            background: transparent !important;
+            border: none !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+            font-size: 12px !important;
+            color: inherit !important;
+            transform: none !important;
+        }
+        .primary-btn:hover .icon,
+        .btn-primary-cta:hover .icon { transform: translateX(4px); }
+        html[dir="rtl"] .primary-btn .icon i,
+        html[dir="rtl"] .white-btn .icon i,
+        html[dir="rtl"] .btn-primary-cta .icon i {
+            transform: scaleX(-1) !important;
+        }
+        html[dir="rtl"] .primary-btn:hover .icon,
+        html[dir="rtl"] .btn-primary-cta:hover .icon {
+            transform: translateX(-4px);
+        }
+        .primary-btn .text,
+        .white-btn .text,
+        .btn-primary-cta .text {
+            padding: 0 !important;
+            text-transform: none !important;
+            font-weight: 600 !important;
+        }
+
+        /* The mobile bottom bar — translate Call/WhatsApp labels via aria/text;
+           also clean up its spacing */
+        .mobile-widget-container .btn-icon {
+            font-size: 14px !important;
+            padding: 11px 8px !important;
+            line-height: 1.2 !important;
+        }
+
+        /* The repeated scroll-top buttons in the screenshot are the JS adding
+           .active class on every section. Force only one visible at a time. */
+        .scroll-top-btn {
+            position: fixed !important;
+            bottom: 28px !important;
+            right: 28px !important;
+            width: 44px !important;
+            height: 44px !important;
+            margin: 0 !important;
+        }
+        .scroll-top-btn:not(.active) {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+        html[dir="rtl"] .scroll-top-btn {
+            right: auto !important;
+            left: 28px !important;
+        }
+
+        /* ====================================================================
            SECTION POLISH — modern badges, icons, brand-color treatments
            ==================================================================== */
 
@@ -1336,11 +1458,13 @@
 
 <!-- Mobile bottom bar (phones only) -->
 <div class="mobile-widget-container">
-    <a href="tel:+201204593124" class="btn-icon" aria-label="Call Khaled Ahmed">
-        <i class="fas fa-phone-alt"></i> Call
+    <a href="tel:+201204593124" class="btn-icon" aria-label="<?php echo e(__('site.phone_whatsapp')); ?>">
+        <i class="fas fa-phone-alt"></i> <?php echo e(app()->getLocale() === 'ar' ? 'اتصل' : 'Call'); ?>
+
     </a>
-    <a href="https://wa.me/201204593124?text=Hi%20Khaled%2C%20I%27d%20like%20to%20discuss%20a%20web%20development%20project" class="btn-icon" aria-label="WhatsApp Khaled Ahmed">
-        <i class="fab fa-whatsapp"></i> WhatsApp
+    <a href="https://wa.me/201204593124?text=<?php echo e(urlencode(app()->getLocale() === 'ar' ? 'أهلاً خالد، أحب أناقش مشروع تطوير ويب' : 'Hi Khaled, I would like to discuss a web development project')); ?>" class="btn-icon" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i> <?php echo e(app()->getLocale() === 'ar' ? 'واتساب' : 'WhatsApp'); ?>
+
     </a>
 </div>
 
