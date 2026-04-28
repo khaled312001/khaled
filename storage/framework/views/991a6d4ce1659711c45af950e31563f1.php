@@ -29,14 +29,14 @@
     .portfolio-stats .stat .num { font-size: 28px; font-weight: 800; color: #60a5fa; line-height: 1; }
     .portfolio-stats .stat .lbl { font-size: 13px; color: #cbd5e1; margin-top: 2px; }
 
-    .portfolio-filter {
+    .portfolio-cat-nav {
         padding: 24px 0;
         border-bottom: 1px solid #e5e7eb;
         text-align: center;
         background: rgba(255,255,255,0.94);
         backdrop-filter: blur(12px);
     }
-    .portfolio-filter a {
+    .portfolio-cat-nav a {
         display: inline-block; margin: 4px;
         padding: 8px 18px;
         border-radius: 999px;
@@ -45,8 +45,8 @@
         font-size: 14px; font-weight: 500;
         transition: all 0.2s ease;
     }
-    .portfolio-filter a:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(15,23,42,0.08); }
-    .portfolio-filter a.active { background: var(--main-color); color: #fff; box-shadow: 0 6px 16px rgba(37,99,235,0.30); }
+    .portfolio-cat-nav a:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(15,23,42,0.08); }
+    .portfolio-cat-nav a.active { background: var(--main-color); color: #fff; box-shadow: 0 6px 16px rgba(37,99,235,0.30); }
 
     .project-card {
         position: relative;
@@ -317,7 +317,7 @@
     </div>
 </section>
 
-<div class="portfolio-filter">
+<div class="portfolio-cat-nav">
     <div class="container">
         <a href="<?php echo e(route('portfolios')); ?>" class="<?php echo e(!isset($category) ? 'active' : ''); ?>"><?php echo e(app()->getLocale() === 'ar' ? 'الكل' : 'All'); ?> (<?php echo e(count(\App\Services\PortfolioService::all())); ?>)</a>
         <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slug => $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
