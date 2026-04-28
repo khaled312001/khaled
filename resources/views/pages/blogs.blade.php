@@ -100,7 +100,7 @@
                     <p>Deep, practical articles on {{ strtolower($category) }} from a working senior full stack web developer with 5+ years of experience and 25+ shipped projects.</p>
                 @else
                     <h1>{{ app()->getLocale() === 'ar' ? 'مدوّنه تطوير الويب' : 'Web Development Blog' }}</h1>
-                    <p>{{ app()->getLocale() === 'ar' ? 'مقالات عمليه بدون كلام كثير عن Laravel و React و Node.js و SEO والأداء والتوظيف — مكتوبه بقلم مطوّر فُل ستاك خبير ينشر إنتاجي كل أسبوع.' : 'Practical, no-fluff articles on Laravel, React, Node.js, SEO, performance, and hiring — written by a senior full stack developer who ships in production every week.' }}</p>
+                    <p>{{ app()->getLocale() === 'ar' ? 'مقالات عمليه بدون كلام كثير عن Laravel و React و Node.js و SEO والأداء والتوظيف — مكتوبه بقلم مطور ويب متكامل خبير ينشر إنتاجي كل أسبوع.' : 'Practical, no-fluff articles on Laravel, React, Node.js, SEO, performance, and hiring — written by a senior full stack developer who ships in production every week.' }}</p>
                 @endif
             </div>
         </div>

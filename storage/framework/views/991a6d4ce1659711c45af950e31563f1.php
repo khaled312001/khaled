@@ -142,17 +142,44 @@
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(3px); }
     }
-    .project-card .lang-badge {
-        position: absolute; top: 14px; left: 14px;
-        background: rgba(255,255,255,0.92);
+    /* Country badge — flag + name, top-left of preview */
+    .project-card .country-badge {
+        position: absolute;
+        top: 38px;
+        left: 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(8px);
-        padding: 4px 10px;
+        -webkit-backdrop-filter: blur(8px);
+        padding: 5px 12px 5px 8px;
         border-radius: 999px;
-        font-size: 11px; font-weight: 700;
+        font-size: 12px;
+        font-weight: 700;
         color: #1e293b;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        z-index: 2;
+        z-index: 5;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+        border: 1px solid rgba(15, 23, 42, 0.06);
+        white-space: nowrap;
+    }
+    .project-card .country-badge .flag {
+        font-size: 16px;
+        line-height: 1;
+        filter: drop-shadow(0 1px 1px rgba(0,0,0,0.10));
+    }
+    .project-card .country-badge .cb-name {
+        font-size: 11.5px;
+        letter-spacing: 0.2px;
+    }
+    html[dir="rtl"] .project-card .country-badge {
+        left: auto;
+        right: 12px;
+        padding: 5px 8px 5px 12px;
+    }
+    html[dir="rtl"] .project-card .featured-badge {
+        right: auto;
+        left: 14px;
     }
     .project-card .featured-badge {
         position: absolute; top: 14px; right: 14px;
@@ -341,9 +368,14 @@
                              alt="<?php echo e($project['title']); ?> — full-page screenshot"
                              loading="lazy" decoding="async">
                         <span class="preview-mask"></span>
-                        <span class="lang-badge"><?php echo e(strtoupper($project['language'])); ?></span>
+                        <?php if(!empty($project['country'])): ?>
+                            <span class="country-badge" title="<?php echo e($project['country']); ?>">
+                                <span class="flag"><?php echo e($project['country_flag'] ?? ''); ?></span>
+                                <span class="cb-name"><?php echo e($project['country']); ?></span>
+                            </span>
+                        <?php endif; ?>
                         <?php if(!empty($project['featured'])): ?>
-                            <span class="featured-badge">★ Featured</span>
+                            <span class="featured-badge">★ <?php echo e(app()->getLocale() === 'ar' ? 'مميّز' : 'Featured'); ?></span>
                         <?php endif; ?>
                         <span class="scroll-hint"><i class="fas fa-arrow-down"></i> <?php echo e(app()->getLocale() === 'ar' ? 'مرّر لتصفّح' : 'Hover to scroll'); ?></span>
                     </a>
@@ -358,7 +390,7 @@
                         </div>
                         <div class="actions">
                             <a href="<?php echo e($project['url']); ?>" target="_blank" rel="noopener" class="visit">
-                                Visit Live Site <i class="fa fa-external-link-alt" style="font-size:11px;"></i>
+                                <?php echo e(app()->getLocale() === 'ar' ? 'زر الموقع المباشر' : 'Visit Live Site'); ?> <i class="fa fa-external-link-alt" style="font-size:11px;"></i>
                             </a>
                             <span class="role"><?php echo e($project['role']); ?></span>
                         </div>

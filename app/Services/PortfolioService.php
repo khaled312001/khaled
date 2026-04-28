@@ -96,6 +96,7 @@ class PortfolioService
         if (!$isAr) return $p;
         if (!empty($p['title_ar'])) $p['title'] = $p['title_ar'];
         if (!empty($p['summary_ar'])) $p['summary'] = $p['summary_ar'];
+        if (!empty($p['country_ar'])) $p['country'] = $p['country_ar'];
         $p['category'] = self::categoryToAr($p['category']);
         $p['role'] = self::roleToAr($p['role']);
         return $p;
@@ -122,7 +123,7 @@ class PortfolioService
         return [
             'Founder, Architect, Lead Developer' => 'مؤسس ومهندس ومطوّر رئيسي',
             'Lead Developer' => 'مطوّر رئيسي',
-            'Full Stack Developer' => 'مطوّر فُل ستاك',
+            'Full Stack Developer' => 'مطور ويب متكامل',
             'Solo Developer' => 'مطوّر منفرد',
         ][$en] ?? $en;
     }
@@ -146,6 +147,10 @@ class PortfolioService
                 'image' => 'projects/united-aviators.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'en',
+                'country' => 'United Kingdom',
+                'country_ar' => 'المملكه المتحده',
+                'country_flag' => '🇬🇧',
+                'country_code' => 'gb',
                 'featured' => true,
             ],
             [
@@ -160,6 +165,10 @@ class PortfolioService
                 'image' => 'projects/skyteam-aviation.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'en',
+                'country' => 'United Kingdom',
+                'country_ar' => 'المملكه المتحده',
+                'country_flag' => '🇬🇧',
+                'country_code' => 'gb',
             ],
             [
                 'slug' => 'egysims',
@@ -173,6 +182,10 @@ class PortfolioService
                 'image' => 'projects/egysims.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'en',
+                'country' => 'Egypt',
+                'country_ar' => 'مصر',
+                'country_flag' => '🇪🇬',
+                'country_code' => 'eg',
             ],
             [
                 'slug' => 'dr-mohamed-dental',
@@ -186,6 +199,10 @@ class PortfolioService
                 'image' => 'projects/dr-mohamed-dental.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'ar',
+                'country' => 'Egypt',
+                'country_ar' => 'مصر',
+                'country_flag' => '🇪🇬',
+                'country_code' => 'eg',
             ],
             [
                 'slug' => 'pharmacy-app',
@@ -199,6 +216,10 @@ class PortfolioService
                 'image' => 'projects/pharmacy-app.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'en',
+                'country' => 'Egypt',
+                'country_ar' => 'مصر',
+                'country_flag' => '🇪🇬',
+                'country_code' => 'eg',
             ],
             [
                 'slug' => 'barmagly-tech',
@@ -212,6 +233,10 @@ class PortfolioService
                 'image' => 'projects/barmagly-tech.jpg',
                 'role' => 'Founder, Architect, Lead Developer',
                 'language' => 'en',
+                'country' => 'Switzerland',
+                'country_ar' => 'سويسرا',
+                'country_flag' => '🇨🇭',
+                'country_code' => 'ch',
                 'featured' => true,
             ],
             [
@@ -226,6 +251,10 @@ class PortfolioService
                 'image' => 'projects/barmagly-pos.jpg',
                 'role' => 'Lead Developer',
                 'language' => 'de',
+                'country' => 'Germany',
+                'country_ar' => 'ألمانيا',
+                'country_flag' => '🇩🇪',
+                'country_code' => 'de',
                 'featured' => true,
             ],
             [
@@ -240,6 +269,10 @@ class PortfolioService
                 'image' => 'projects/barmagly-salon.jpg',
                 'role' => 'Lead Developer',
                 'language' => 'en',
+                'country' => 'Switzerland',
+                'country_ar' => 'سويسرا',
+                'country_flag' => '🇨🇭',
+                'country_code' => 'ch',
                 'featured' => true,
             ],
             [
@@ -254,6 +287,10 @@ class PortfolioService
                 'image' => 'projects/amanlaw.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'ar',
+                'country' => 'Switzerland',
+                'country_ar' => 'سويسرا',
+                'country_flag' => '🇨🇭',
+                'country_code' => 'ch',
             ],
             [
                 'slug' => 'swissbridge-academy',
@@ -267,6 +304,10 @@ class PortfolioService
                 'image' => 'projects/swissbridge-academy.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'ar',
+                'country' => 'Switzerland',
+                'country_ar' => 'سويسرا',
+                'country_flag' => '🇨🇭',
+                'country_code' => 'ch',
             ],
             [
                 'slug' => 'mossodor',
@@ -280,6 +321,10 @@ class PortfolioService
                 'image' => 'projects/mossodor.jpg',
                 'role' => 'Lead Developer',
                 'language' => 'en',
+                'country' => 'United Kingdom',
+                'country_ar' => 'المملكه المتحده',
+                'country_flag' => '🇬🇧',
+                'country_code' => 'gb',
             ],
             [
                 'slug' => 'xappee',
@@ -293,6 +338,10 @@ class PortfolioService
                 'image' => 'projects/xappee.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'en',
+                'country' => 'United Kingdom',
+                'country_ar' => 'المملكه المتحده',
+                'country_flag' => '🇬🇧',
+                'country_code' => 'gb',
             ],
             [
                 'slug' => 'ant-assist',
@@ -306,6 +355,10 @@ class PortfolioService
                 'image' => 'projects/ant-assist.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'en',
+                'country' => 'United Kingdom',
+                'country_ar' => 'المملكه المتحده',
+                'country_flag' => '🇬🇧',
+                'country_code' => 'gb',
             ],
             [
                 'slug' => 'rasa-lichfield',
@@ -319,6 +372,10 @@ class PortfolioService
                 'image' => 'projects/rasa-lichfield.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'en',
+                'country' => 'United Kingdom',
+                'country_ar' => 'المملكه المتحده',
+                'country_flag' => '🇬🇧',
+                'country_code' => 'gb',
             ],
             [
                 'slug' => 'kingkebab',
@@ -332,6 +389,10 @@ class PortfolioService
                 'image' => 'projects/kingkebab.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'fr',
+                'country' => 'France',
+                'country_ar' => 'فرنسا',
+                'country_flag' => '🇫🇷',
+                'country_code' => 'fr',
             ],
             [
                 'slug' => 'bnbatiment',
@@ -345,6 +406,10 @@ class PortfolioService
                 'image' => 'projects/bnbatiment.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'fr',
+                'country' => 'France',
+                'country_ar' => 'فرنسا',
+                'country_flag' => '🇫🇷',
+                'country_code' => 'fr',
                 'featured' => true,
             ],
             [
@@ -359,6 +424,10 @@ class PortfolioService
                 'image' => 'projects/drcembaysal.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'en',
+                'country' => 'Turkey',
+                'country_ar' => 'تركيا',
+                'country_flag' => '🇹🇷',
+                'country_code' => 'tr',
             ],
             [
                 'slug' => 'grandbotanicalsuite',
@@ -372,6 +441,10 @@ class PortfolioService
                 'image' => 'projects/grandbotanicalsuite.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'en',
+                'country' => 'United Kingdom',
+                'country_ar' => 'المملكه المتحده',
+                'country_flag' => '🇬🇧',
+                'country_code' => 'gb',
             ],
             [
                 'slug' => 'jovero',
@@ -385,6 +458,10 @@ class PortfolioService
                 'image' => 'projects/jovero.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'en',
+                'country' => 'Egypt',
+                'country_ar' => 'مصر',
+                'country_flag' => '🇪🇬',
+                'country_code' => 'eg',
             ],
             [
                 'slug' => 'qinawy',
@@ -398,6 +475,10 @@ class PortfolioService
                 'image' => 'projects/qinawy.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'ar',
+                'country' => 'Egypt',
+                'country_ar' => 'مصر',
+                'country_flag' => '🇪🇬',
+                'country_code' => 'eg',
             ],
             [
                 'slug' => 'hotel-timestay',
@@ -411,6 +492,10 @@ class PortfolioService
                 'image' => 'projects/hotel-timestay.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'ar',
+                'country' => 'Saudi Arabia',
+                'country_ar' => 'السعوديه',
+                'country_flag' => '🇸🇦',
+                'country_code' => 'sa',
                 'featured' => true,
             ],
             [
@@ -425,6 +510,10 @@ class PortfolioService
                 'image' => 'projects/syanatech.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'ar',
+                'country' => 'Saudi Arabia',
+                'country_ar' => 'السعوديه',
+                'country_flag' => '🇸🇦',
+                'country_code' => 'sa',
             ],
             [
                 'slug' => 'salesman-marketing',
@@ -438,6 +527,10 @@ class PortfolioService
                 'image' => 'projects/salesman-marketing.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'ar',
+                'country' => 'Saudi Arabia',
+                'country_ar' => 'السعوديه',
+                'country_flag' => '🇸🇦',
+                'country_code' => 'sa',
             ],
             [
                 'slug' => 'wasiila',
@@ -451,6 +544,10 @@ class PortfolioService
                 'image' => 'projects/wasiila.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'ar',
+                'country' => 'Saudi Arabia',
+                'country_ar' => 'السعوديه',
+                'country_flag' => '🇸🇦',
+                'country_code' => 'sa',
             ],
             [
                 'slug' => 'hadiah-umrah',
@@ -464,6 +561,10 @@ class PortfolioService
                 'image' => 'projects/hadiah-umrah.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'ar',
+                'country' => 'Saudi Arabia',
+                'country_ar' => 'السعوديه',
+                'country_flag' => '🇸🇦',
+                'country_code' => 'sa',
             ],
             [
                 'slug' => 'quran-platform',
@@ -477,6 +578,10 @@ class PortfolioService
                 'image' => 'projects/quran-platform.jpg',
                 'role' => 'Solo Developer',
                 'language' => 'ar',
+                'country' => 'Egypt',
+                'country_ar' => 'مصر',
+                'country_flag' => '🇪🇬',
+                'country_code' => 'eg',
             ],
             [
                 'slug' => 'infinitywearsa',
@@ -490,6 +595,10 @@ class PortfolioService
                 'image' => 'projects/infinitywearsa.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'ar',
+                'country' => 'Saudi Arabia',
+                'country_ar' => 'السعوديه',
+                'country_flag' => '🇸🇦',
+                'country_code' => 'sa',
             ],
             [
                 'slug' => 'standupstraight',
@@ -503,6 +612,10 @@ class PortfolioService
                 'image' => 'projects/standupstraight.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'en',
+                'country' => 'United Kingdom',
+                'country_ar' => 'المملكه المتحده',
+                'country_flag' => '🇬🇧',
+                'country_code' => 'gb',
             ],
             [
                 'slug' => 'gamestreet-q8',
@@ -516,6 +629,10 @@ class PortfolioService
                 'image' => 'projects/gamestreet-q8.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'ar',
+                'country' => 'Kuwait',
+                'country_ar' => 'الكويت',
+                'country_flag' => '🇰🇼',
+                'country_code' => 'kw',
             ],
             [
                 'slug' => 'bankelarb',
@@ -529,6 +646,10 @@ class PortfolioService
                 'image' => 'projects/bankelarb.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'ar',
+                'country' => 'Egypt',
+                'country_ar' => 'مصر',
+                'country_flag' => '🇪🇬',
+                'country_code' => 'eg',
             ],
             [
                 'slug' => 'services-researcher',
@@ -542,6 +663,10 @@ class PortfolioService
                 'image' => 'projects/services-researcher.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'ar',
+                'country' => 'Egypt',
+                'country_ar' => 'مصر',
+                'country_flag' => '🇪🇬',
+                'country_code' => 'eg',
             ],
             [
                 'slug' => 'marketing-agency-demo',
@@ -555,6 +680,10 @@ class PortfolioService
                 'image' => 'projects/marketing-agency-demo.jpg',
                 'role' => 'Full Stack Developer',
                 'language' => 'en',
+                'country' => 'Egypt',
+                'country_ar' => 'مصر',
+                'country_flag' => '🇪🇬',
+                'country_code' => 'eg',
             ],
         ];
     }
