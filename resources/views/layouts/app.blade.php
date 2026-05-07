@@ -1,5 +1,13 @@
 <!DOCTYPE html>
-@php $locale = app()->getLocale(); $isRtl = $locale === 'ar'; @endphp
+@php
+    $locale = app()->getLocale();
+    $isRtl = $locale === 'ar';
+    // Build an absolute, normalized canonical: always https://khaledahmed.net{path}
+    // — independent of how the request arrived (www, http, proxy, etc.).
+    $canonicalPath = '/' . ltrim(request()->path() === '/' ? '' : request()->path(), '/');
+    $canonicalQuery = '';
+    $absoluteCanonical = 'https://khaledahmed.net' . ($canonicalPath === '/' ? '' : $canonicalPath);
+@endphp
 <html dir="{{ $isRtl ? 'rtl' : 'ltr' }}" lang="{{ $locale }}" itemscope itemtype="https://schema.org/WebSite">
 <head>
     <meta charset="utf-8">
@@ -25,13 +33,13 @@
     <meta name="description" content="@yield('description', 'Senior full stack web developer with 5+ years experience and 25+ shipped projects across 7 countries. Hire an expert Laravel, React, and Node.js developer for your next web app, e-commerce site, or SaaS platform.')">
     <meta name="keywords" content="@yield('keywords', 'web developer, full stack developer, hire web developer, Laravel developer, React developer, Node.js developer, web development services, freelance web developer Egypt, Khaled Ahmed, custom web application, e-commerce developer, SaaS developer')">
 
-    <link rel="canonical" href="@yield('canonical', url()->current())">
-    <link rel="alternate" hreflang="en" href="@yield('canonical', url()->current())">
-    <link rel="alternate" hreflang="ar" href="@yield('canonical', url()->current())">
-    <link rel="alternate" hreflang="x-default" href="@yield('canonical', url()->current())">
+    <link rel="canonical" href="@yield('canonical', $absoluteCanonical)">
+    <link rel="alternate" hreflang="en" href="@yield('canonical', $absoluteCanonical)">
+    <link rel="alternate" hreflang="ar" href="@yield('canonical', $absoluteCanonical)">
+    <link rel="alternate" hreflang="x-default" href="@yield('canonical', $absoluteCanonical)">
 
     <meta property="og:type" content="@yield('og_type', 'website')">
-    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:url" content="@yield('canonical', $absoluteCanonical)">
     <meta property="og:title" content="@yield('og_title', 'Khaled Ahmed — Senior Full Stack Web Developer')">
     <meta property="og:description" content="@yield('og_description', 'Hire a senior full stack web developer with 5+ years and 25+ shipped projects. Laravel, React, Node.js, and modern web technologies.')">
     <meta property="og:image" content="@yield('og_image', asset('images/logo.png'))">
@@ -43,7 +51,7 @@
     <meta property="og:locale:alternate" content="ar_EG">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="{{ url()->current() }}">
+    <meta name="twitter:url" content="@yield('canonical', $absoluteCanonical)">
     <meta name="twitter:title" content="@yield('twitter_title', 'Khaled Ahmed — Senior Full Stack Web Developer')">
     <meta name="twitter:description" content="@yield('twitter_description', 'Hire a senior full stack web developer. Laravel, React, Node.js, and modern web technologies. 5+ years, 25+ projects, 7 countries.')">
     <meta name="twitter:image" content="@yield('twitter_image', asset('images/logo.png'))">
@@ -1711,53 +1719,82 @@
     {
         "@context": "https://schema.org",
         "@type": "Person",
+        "@id": "https://khaledahmed.net/#person",
         "name": "Khaled Ahmed",
-        "alternateName": ["Khaled Ahmed Haggagy", "خالد أحمد"],
+        "givenName": "Khaled",
+        "familyName": "Ahmed",
+        "alternateName": ["Khaled Ahmed Haggagy", "خالد أحمد", "Khaled Haggagy", "Khaled Ahmed Egypt"],
         "jobTitle": "Senior Full Stack Web Developer",
         "url": "https://khaledahmed.net",
+        "mainEntityOfPage": "https://khaledahmed.net",
+        "disambiguatingDescription": "Egyptian senior full stack web developer (Laravel / React / Node.js). Not to be confused with the Pakistani journalist Khaled Ahmed.",
         "sameAs": [
-            "https://linkedin.com/in/khaled-ahmed-82368819b",
-            "https://github.com/khaled312001"
+            "https://www.linkedin.com/in/khaled-ahmed-82368819b",
+            "https://github.com/khaled312001",
+            "https://en.wikipedia.org/w/index.php?title=Khaled_Ahmed&oldid=1352803089"
         ],
-        "email": "khaledahmedhaggagy@gmail.com",
+        "email": "mailto:khaledahmedhaggagy@gmail.com",
         "telephone": ["+20-1204593124", "+20-1010254819"],
         "address": {
             "@type": "PostalAddress",
             "addressLocality": "Cairo",
             "addressRegion": "Cairo",
+            "postalCode": "11511",
             "addressCountry": "EG"
         },
-        "image": "{{ asset('images/logo.png') }}",
-        "description": "Senior full stack web developer with 5+ years of professional experience delivering 25+ production projects across 7 countries. Founder of Barmagly software startup.",
+        "nationality": {"@type":"Country","name":"Egypt"},
+        "image": {
+            "@type": "ImageObject",
+            "url": "{{ asset('images/logo.png') }}",
+            "width": 1200,
+            "height": 1200
+        },
+        "description": "Senior full stack web developer with 5+ years of professional experience delivering 25+ production projects across 7 countries (Egypt, Saudi Arabia, UAE, Kuwait, Qatar, US, UK). Specializes in Laravel, React, Node.js, e-commerce platforms, and SaaS architecture. Founder of Barmagly software studio.",
         "knowsAbout": [
-            "Web Development",
-            "Full Stack Development",
-            "Laravel",
-            "React.js",
-            "Vue.js",
-            "Node.js",
-            "PHP",
-            "JavaScript",
-            "TypeScript",
-            "MySQL",
-            "MongoDB",
-            "REST API",
-            "GraphQL",
-            "DevOps",
-            "Docker",
-            "AWS",
-            "Programming Instruction"
+            "Web Development","Full Stack Development","Software Engineering","Web Application Architecture",
+            "Laravel","Laravel Livewire","Laravel Filament","React.js","Next.js","Vue.js","Nuxt.js",
+            "Node.js","Express.js","NestJS","TypeScript","JavaScript","ES6+","HTML5","CSS3","Tailwind CSS","Bootstrap",
+            "PHP","PHP 8","Composer","MySQL","PostgreSQL","MongoDB","Redis","Elasticsearch",
+            "REST API Design","GraphQL","tRPC","WebSockets","OAuth 2.0","JWT Authentication",
+            "DevOps","Docker","Kubernetes","AWS","DigitalOcean","Linux Server Administration","cPanel","VPS Configuration",
+            "CI/CD","GitHub Actions","Git","Performance Optimization","Web Performance","Core Web Vitals",
+            "Search Engine Optimization","Technical SEO","Schema.org","Web Security","OWASP Top 10",
+            "E-commerce Development","SaaS Development","Multi-tenant Architecture","Payment Gateway Integration",
+            "Stripe","PayPal","Paymob","Programming Instruction","Code Mentorship"
         ],
-        "knowsLanguage": ["en", "ar"],
+        "knowsLanguage": [
+            {"@type":"Language","name":"English","alternateName":"en"},
+            {"@type":"Language","name":"Arabic","alternateName":"ar"}
+        ],
         "alumniOf": {
             "@type": "EducationalOrganization",
-            "name": "Luxor University"
+            "name": "Luxor University",
+            "address": {"@type":"PostalAddress","addressLocality":"Luxor","addressCountry":"EG"}
         },
         "worksFor": {
             "@type": "Organization",
             "name": "Barmagly",
-            "url": "https://khaledahmed.net"
-        }
+            "url": "https://khaledahmed.net",
+            "founder": {"@id": "https://khaledahmed.net/#person"}
+        },
+        "hasOccupation": {
+            "@type": "Occupation",
+            "name": "Senior Full Stack Web Developer",
+            "occupationLocation": {"@type":"City","name":"Cairo"},
+            "skills": "Laravel, React, Node.js, MySQL, PostgreSQL, AWS, Docker, REST APIs, GraphQL, technical SEO, web performance",
+            "estimatedSalary": {
+                "@type": "MonetaryAmountDistribution",
+                "name": "base",
+                "currency": "USD",
+                "duration": "P1H",
+                "median": 60
+            }
+        },
+        "award": [
+            "5+ years shipping production web applications",
+            "25+ production projects delivered across 7 countries",
+            "Founder of Barmagly — independent web development studio"
+        ]
     }
     </script>
 

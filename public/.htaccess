@@ -6,17 +6,15 @@
     RewriteEngine On
 
     # ---------------------------------------------------------------
-    # Force HTTPS (fixes "Page with redirect" for http://khaledahmed.net)
+    # Single-hop canonical redirect.
+    # Any of (http|https) × (www|non-www) that is NOT
+    # https://khaledahmed.net is rewritten to it in ONE 301.
+    # Avoids redirect chains (Google's "Page with redirect — Validation
+    # Failed" flag was caused by 2-hop chains: http→https, then www→non-www).
     # ---------------------------------------------------------------
+    RewriteCond %{HTTP_HOST} !^khaledahmed\.net$ [NC,OR]
     RewriteCond %{HTTPS} !=on
     RewriteCond %{HTTP:X-Forwarded-Proto} !=https
-    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-
-    # ---------------------------------------------------------------
-    # Force non-www (fixes "Alternate page with proper canonical" warnings
-    # — Google sees www.khaledahmed.net and we want everyone on the canonical)
-    # ---------------------------------------------------------------
-    RewriteCond %{HTTP_HOST} ^www\.khaledahmed\.net$ [NC]
     RewriteRule ^ https://khaledahmed.net%{REQUEST_URI} [R=301,L]
 
     # ---------------------------------------------------------------

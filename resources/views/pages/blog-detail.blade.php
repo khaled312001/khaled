@@ -3,7 +3,7 @@
 @section('title', $post['meta_title'] ?? $post['title'])
 @section('description', $post['meta_description'] ?? $post['excerpt'])
 @section('keywords', implode(', ', $post['tags']) . ', Khaled Ahmed, web developer, full stack')
-@section('canonical', url('/blog/' . $post['slug']))
+@section('canonical', 'https://khaledahmed.net/blog/' . $post['slug'])
 @section('og_type', 'article')
 @section('og_title', $post['title'])
 @section('og_description', $post['excerpt'])
@@ -85,12 +85,14 @@
     "dateModified": "{{ $post['date'] }}",
     "author": {
         "@type": "Person",
+        "@id": "https://khaledahmed.net/#person",
         "name": "Khaled Ahmed",
         "url": "https://khaledahmed.net",
         "jobTitle": "Senior Full Stack Web Developer",
         "sameAs": [
-            "https://linkedin.com/in/khaled-ahmed-82368819b",
-            "https://github.com/khaled312001"
+            "https://www.linkedin.com/in/khaled-ahmed-82368819b",
+            "https://github.com/khaled312001",
+            "https://en.wikipedia.org/w/index.php?title=Khaled_Ahmed&oldid=1352803089"
         ]
     },
     "publisher": {
@@ -161,15 +163,16 @@
                         @endforeach
                     </div>
 
-                    <div class="author-box">
-                        <img src="{{ asset('images/logo.png') }}" alt="Khaled Ahmed" loading="lazy" width="80" height="80">
+                    <div class="author-box" itemscope itemtype="https://schema.org/Person" itemprop="author">
+                        <img src="{{ asset('images/logo.png') }}" alt="Khaled Ahmed - Senior Full Stack Web Developer" loading="lazy" width="80" height="80" itemprop="image">
                         <div>
-                            <h4>About Khaled Ahmed</h4>
-                            <p>Senior Full Stack Web Developer based in Egypt with 5+ years of experience and 25+ shipped projects across 7 countries. Founder of Barmagly. Specialized in Laravel, React, Node.js, and modern web technologies.</p>
-                            <div class="author-cta">
+                            <h4 itemprop="name">About <a href="https://khaledahmed.net" itemprop="url" style="color:inherit;text-decoration:none;">Khaled Ahmed</a></h4>
+                            <p itemprop="description">Senior Full Stack Web Developer based in Cairo, Egypt with 5+ years of experience and 25+ shipped projects across 7 countries. Founder of Barmagly. Specialized in Laravel, React, Node.js, and modern web technologies. Not to be confused with the <a href="https://en.wikipedia.org/w/index.php?title=Khaled_Ahmed&amp;oldid=1352803089" rel="nofollow noopener" target="_blank">Pakistani journalist of the same name</a>.</p>
+                            <div class="author-cta" style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:12px;">
                                 <a href="{{ route('contact') }}">Hire Khaled <i class="fa fa-arrow-right"></i></a>
-                                &nbsp;&nbsp;
                                 <a href="{{ route('services') }}">View Services <i class="fa fa-arrow-right"></i></a>
+                                <a href="https://www.linkedin.com/in/khaled-ahmed-82368819b" rel="me noopener" target="_blank" itemprop="sameAs" aria-label="Khaled Ahmed on LinkedIn"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                                <a href="https://github.com/khaled312001" rel="me noopener" target="_blank" itemprop="sameAs" aria-label="Khaled Ahmed on GitHub"><i class="fab fa-github"></i> GitHub</a>
                             </div>
                         </div>
                     </div>

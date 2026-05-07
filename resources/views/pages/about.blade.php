@@ -67,6 +67,31 @@
                         <span class="text">Download CV</span>
                         <span class="icon"><i class="fa fa-download"></i></span>
                     </a>
+
+                    {{-- Verified profiles — visible, crawlable backlinks --}}
+                    <div style="margin-top:32px;padding:20px 24px;background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;">
+                        <h5 style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--main-color);margin-bottom:12px;">Verified Profiles</h5>
+                        <div style="display:flex;flex-wrap:wrap;gap:14px;">
+                            <a href="https://www.linkedin.com/in/khaled-ahmed-82368819b" rel="me noopener" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;color:#0077b5;font-weight:600;text-decoration:none;">
+                                <i class="fab fa-linkedin"></i> LinkedIn
+                            </a>
+                            <a href="https://github.com/khaled312001" rel="me noopener" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;color:#0f172a;font-weight:600;text-decoration:none;">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                            <a href="https://wa.me/201204593124" rel="noopener" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;color:#25d366;font-weight:600;text-decoration:none;">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                            <a href="mailto:khaledahmedhaggagy@gmail.com" style="display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;color:#1e40af;font-weight:600;text-decoration:none;">
+                                <i class="fas fa-envelope"></i> Email
+                            </a>
+                        </div>
+                    </div>
+
+                    {{-- Disambiguation note (helps Google's Knowledge Graph distinguish the two entities) --}}
+                    <p style="margin-top:18px;font-size:13px;color:#64748b;font-style:italic;">
+                        Note: this is the personal site of <strong>Khaled Ahmed</strong>, the Egyptian senior full stack web developer. Not to be confused with the
+                        <a href="https://en.wikipedia.org/w/index.php?title=Khaled_Ahmed&amp;oldid=1352803089" rel="nofollow noopener" target="_blank">Pakistani journalist of the same name</a>.
+                    </p>
                 </div>
             </div>
         </div>

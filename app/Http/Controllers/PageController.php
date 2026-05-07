@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactMail;
 use App\Services\BlogService;
 use App\Services\PortfolioService;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 use Exception;
 
@@ -170,7 +169,7 @@ class PageController extends Controller
         // Portfolio data
         $portfolios = [
             'business-card' => [
-                'title' => 'Business Card',
+                'title' => 'Business Card Design — ElseColor',
                 'category' => 'UI/UX',
                 'slug' => 'business-card',
                 'date' => '18 March 2024',
@@ -178,7 +177,7 @@ class PageController extends Controller
                 'customer' => 'ElseColor',
                 'created_date' => '20 December 2024',
                 'end_date' => '28 December 2024',
-                'description' => '<p><span style="color:rgb(109,112,119);font-family:Roboto, sans-serif;font-size:16px;">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</span><br></p>',
+                'description' => '<p>A complete business card identity for ElseColor — clean typography, balanced negative space, and print-ready CMYK files. Delivered in PSD, AI, and PDF formats with a 3 mm bleed, ready for both digital sharing and physical printing on 350 gsm matte stock.</p><p>The brief: a card that reads as professional at a first glance but reveals brand personality on closer inspection. The final design uses a two-tone palette grounded in the ElseColor brand guide, a subtle spot-UV accent on the logo, and a back-side QR code linking to the company contact page. Turnaround was 8 days from kickoff to print-ready files.</p>',
                 'images' => ['1710766686-portfolio_single_01.jpg', '1710766690-portfolio_single_02.jpg'],
             ],
             'paper-design' => [

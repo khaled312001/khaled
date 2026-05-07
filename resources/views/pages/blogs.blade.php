@@ -3,7 +3,7 @@
 @section('title', isset($category) ? ucfirst($category) . ' Articles | Khaled Ahmed Blog' : 'Web Development Blog — Laravel, React, SEO & Performance | Khaled Ahmed')
 @section('description', isset($category) ? 'Read in-depth ' . strtolower($category) . ' articles by Khaled Ahmed — senior full stack web developer. Practical guides on Laravel, React, Node.js, and modern web technologies.' : 'In-depth web development articles from a senior full stack developer. Laravel, React, Node.js, SEO, performance, hiring, and pricing — written for builders, not beginners.')
 @section('keywords', 'web development blog, full stack developer blog, Laravel tutorials, React tutorials, web developer Egypt, hire web developer, SEO guide, web performance, Khaled Ahmed')
-@section('canonical', isset($category) ? url('/blog/category/' . strtolower($category)) : url('/blogs'))
+@section('canonical', isset($category) ? 'https://khaledahmed.net/blog/category/' . strtolower($category) : 'https://khaledahmed.net/blogs')
 
 @push('styles')
 <style>

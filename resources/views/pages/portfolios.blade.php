@@ -3,7 +3,7 @@
 @section('title', isset($category) ? ucfirst($category) . ' Projects | Khaled Ahmed Portfolio' : 'Portfolio — 32 Real Projects Shipped Across 7 Countries | Khaled Ahmed')
 @section('description', isset($category) ? 'See ' . strtolower($category) . ' web development projects shipped by Khaled Ahmed — senior full stack developer.' : '32 real production projects shipped across 7 countries — Laravel, React, Node.js. SaaS, e-commerce, restaurants, hotels, healthcare, education and more.')
 @section('keywords', 'web developer portfolio, Laravel projects, React projects, full stack developer Egypt, hire web developer, custom web application portfolio, Khaled Ahmed projects')
-@section('canonical', isset($category) ? url('/portfolio/category/' . $category) : url('/portfolios'))
+@section('canonical', isset($category) ? 'https://khaledahmed.net/portfolio/category/' . $category : 'https://khaledahmed.net/portfolios')
 
 @push('styles')
 <style>
