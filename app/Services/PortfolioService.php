@@ -129,7 +129,7 @@ class PortfolioService
     }
 
     /**
-     * 28 real production projects shipped by Khaled Ahmed.
+     * 34 real production projects shipped by Khaled Ahmed.
      * Curated from live deployments — duplicates removed.
      */
     private static function projects(): array
@@ -684,6 +684,40 @@ class PortfolioService
                 'country_ar' => 'مصر',
                 'country_flag' => '🇪🇬',
                 'country_code' => 'eg',
+            ],
+            [
+                'slug' => 'lotus-sharm',
+                'title' => 'Lotus Sharm — Sharm El-Sheikh Tourism Platform',
+                'summary' => 'Tourism and hotel-booking platform for Sharm El-Sheikh — tour packages, transfers, hotel bookings and itinerary management with separate API backend.',
+                'title_ar' => 'Lotus Sharm — منصه سياحه وحجوزات شرم الشيخ',
+                'summary_ar' => 'منصه سياحه وحجوزات فنادق في شرم الشيخ — باقات سياحيه ونقل وحجز فنادق وإداره برامج رحلات مع API منفصل.',
+                'category' => 'Hotel / Events',
+                'tech' => ['Next.js', 'TypeScript', 'Node.js', 'Express', 'MongoDB'],
+                'url' => 'https://lotussharm.com',
+                'image' => 'projects/lotus-sharm.jpg',
+                'role' => 'Full Stack Developer',
+                'language' => 'ar',
+                'country' => 'Egypt',
+                'country_ar' => 'مصر',
+                'country_flag' => '🇪🇬',
+                'country_code' => 'eg',
+            ],
+            [
+                'slug' => 'daamny',
+                'title' => 'Da3many — Arabic Aid & Grants Portal',
+                'summary' => 'Arabic content portal covering financial aid, grants and social support programs across Gulf and Arab countries — SEO-focused information hub.',
+                'title_ar' => 'دعمى — بوابه الدعم والمنح الماليه',
+                'summary_ar' => 'بوابه محتوى عربيه عن المنح والمساعدات الماليه والدعم الاجتماعي في دول الخليج والوطن العربي — مركز معلومات مُحسّن لمحركات البحث.',
+                'category' => 'Marketing',
+                'tech' => ['WordPress', 'Custom Theme', 'Arabic SEO'],
+                'url' => 'https://d3mnakdi.com',
+                'image' => 'projects/daamny.jpg',
+                'role' => 'Full Stack Developer',
+                'language' => 'ar',
+                'country' => 'Saudi Arabia',
+                'country_ar' => 'السعوديه',
+                'country_flag' => '🇸🇦',
+                'country_code' => 'sa',
             ],
         ];
     }
