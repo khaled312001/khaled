@@ -2059,4 +2059,4 @@
 
 </body>
 </html>
-<?php /**PATH F:\Certificates\khaled\resources\views\layouts\app.blade.php ENDPATH**/ ?>
+<?php /**PATH F:\Certificates\khaled\resources\views/layouts/app.blade.php ENDPATH**/ ?>
