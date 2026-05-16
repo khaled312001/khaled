@@ -159,7 +159,7 @@
                     <div class="article-tags">
                         <strong>Tags:</strong>
                         @foreach($post['tags'] as $tag)
-                            <a href="{{ route('blogs') }}?tag={{ urlencode($tag) }}" class="tag" rel="tag">{{ $tag }}</a>
+                            <span class="tag">{{ $tag }}</span>
                         @endforeach
                     </div>
 

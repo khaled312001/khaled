@@ -22,8 +22,14 @@ class PageController extends Controller
         return view('pages.services');
     }
 
-    public function blogs()
+    public function blogs(Request $request)
     {
+        // Legacy /blogs?tag=... URLs (linked from old blog-detail markup) duplicated
+        // /blogs in Google's index — consolidate to the canonical with a 301.
+        if ($request->query('tag') !== null) {
+            return redirect()->route('blogs', [], 301);
+        }
+
         $posts = BlogService::all();
         $categories = BlogService::categories();
         $tags = BlogService::tags();
