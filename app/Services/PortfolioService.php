@@ -10,6 +10,61 @@ class PortfolioService
     }
 
     /**
+     * Projects grouped by country, with countries ordered by importance
+     * (international/European markets first, local markets last) and
+     * featured projects bubbled to the top within each country group.
+     */
+    public static function byCountry(): array
+    {
+        $priority = self::countryPriority();
+        $projects = self::projects();
+
+        usort($projects, function ($a, $b) use ($priority) {
+            $cmp = ($priority[$a['country']] ?? 99) - ($priority[$b['country']] ?? 99);
+            if ($cmp !== 0) return $cmp;
+            $fa = !empty($a['featured']) ? 0 : 1;
+            $fb = !empty($b['featured']) ? 0 : 1;
+            return $fa - $fb;
+        });
+
+        $isAr = function_exists('app') && app()->getLocale() === 'ar';
+        $groups = [];
+        foreach ($projects as $p) {
+            $key = $p['country'];
+            if (!isset($groups[$key])) {
+                $groups[$key] = [
+                    'country'    => $isAr && !empty($p['country_ar']) ? $p['country_ar'] : $p['country'],
+                    'country_en' => $p['country'],
+                    'flag'       => $p['country_flag'] ?? '',
+                    'code'       => $p['country_code'] ?? '',
+                    'projects'   => [],
+                ];
+            }
+            $groups[$key]['projects'][] = self::localize($p);
+        }
+        return array_values($groups);
+    }
+
+    public static function countryCount(): int
+    {
+        return count(array_unique(array_column(self::projects(), 'country')));
+    }
+
+    private static function countryPriority(): array
+    {
+        return [
+            'Switzerland'    => 1,
+            'United Kingdom' => 2,
+            'Germany'        => 3,
+            'France'         => 4,
+            'Turkey'         => 5,
+            'Kuwait'         => 6,
+            'Saudi Arabia'   => 7,
+            'Egypt'          => 8,
+        ];
+    }
+
+    /**
      * Filter projects by stable English category slug, then localize.
      * Use this from controllers — it works regardless of current locale.
      */
@@ -129,7 +184,7 @@ class PortfolioService
     }
 
     /**
-     * 34 real production projects shipped by Khaled Ahmed.
+     * 35 real production projects shipped by Khaled Ahmed.
      * Curated from live deployments — duplicates removed.
      */
     private static function projects(): array
@@ -669,23 +724,6 @@ class PortfolioService
                 'country_code' => 'eg',
             ],
             [
-                'slug' => 'marketing-agency-demo',
-                'title' => 'Marketing Agency — Digital Marketing Site',
-                'summary' => 'Digital marketing and IT solutions agency demo for startups and enterprises — service catalog with case studies.',
-                'title_ar' => 'Marketing Agency — موقع تسويق رقمي',
-                'summary_ar' => 'وكاله تسويق رقمي وحلول IT للشركات الناشئه والمؤسسات — كتالوج خدمات بدراسات حالات.',
-                'category' => 'Marketing',
-                'tech' => ['Laravel', 'Tailwind', 'Alpine.js'],
-                'url' => 'https://marketing.khaledahmed.net',
-                'image' => 'projects/marketing-agency-demo.jpg',
-                'role' => 'Full Stack Developer',
-                'language' => 'en',
-                'country' => 'Egypt',
-                'country_ar' => 'مصر',
-                'country_flag' => '🇪🇬',
-                'country_code' => 'eg',
-            ],
-            [
                 'slug' => 'lotus-sharm',
                 'title' => 'Lotus Sharm — Sharm El-Sheikh Tourism Platform',
                 'summary' => 'Tourism and hotel-booking platform for Sharm El-Sheikh — tour packages, transfers, hotel bookings and itinerary management with separate API backend.',
@@ -694,13 +732,47 @@ class PortfolioService
                 'category' => 'Hotel / Events',
                 'tech' => ['Next.js', 'TypeScript', 'Node.js', 'Express', 'MongoDB'],
                 'url' => 'https://lotussharm.com',
-                'image' => 'projects/lotus-sharm.jpg',
+                'image' => 'projects/lotus-sharm.svg',
                 'role' => 'Full Stack Developer',
                 'language' => 'ar',
                 'country' => 'Egypt',
                 'country_ar' => 'مصر',
                 'country_flag' => '🇪🇬',
                 'country_code' => 'eg',
+            ],
+            [
+                'slug' => 'masaary',
+                'title' => 'Masaary — AI Career Skills Platform',
+                'summary' => 'AI-powered platform that analyzes career skill gaps against the actual hiring requirements of Saudi enterprises (Aramco, SABIC, Al Rajhi, Neom) and generates personalized upskilling paths.',
+                'title_ar' => 'مساري — منصه تحليل المهارات الوظيفيه بالذكاء الاصطناعي',
+                'summary_ar' => 'منصه ذكاء اصطناعي بتقارن مهاراتك بمتطلّبات وظائف الشركات السعوديه الكبرى (أرامكو، سابك، الراجحي، نيوم) وبتولّد مسار تعلّم شخصي يسدّ الفجوه.',
+                'category' => 'Tech / SaaS',
+                'tech' => ['Next.js', 'TypeScript', 'Node.js', 'AI / OpenAI', 'PostgreSQL'],
+                'url' => 'https://masaary.com',
+                'image' => 'projects/masaary.png',
+                'role' => 'Full Stack Developer',
+                'language' => 'ar',
+                'country' => 'Saudi Arabia',
+                'country_ar' => 'السعوديه',
+                'country_flag' => '🇸🇦',
+                'country_code' => 'sa',
+            ],
+            [
+                'slug' => 'ogs-academy',
+                'title' => 'OGS Academy — Certified Industrial Training',
+                'summary' => 'B2B training academy delivering TVTC-certified programs to oil, gas and heavy-industry companies in Saudi Arabia — corporate training catalog with partnerships including Umm Al-Qura University.',
+                'title_ar' => 'أكاديميه OGS — التدريب الصناعي المعتمد للشركات',
+                'summary_ar' => 'أكاديميه تدريب صناعي معتمده من المؤسسه العامه للتدريب التقني (TVTC) للشركات في قطاعات النفط والغاز والصناعات الثقيله بالسعوديه — كتالوج تدريب مؤسسي وشراكات مع جامعه أم القرى.',
+                'category' => 'Education',
+                'tech' => ['Laravel', 'Blade', 'Filament', 'MySQL'],
+                'url' => 'https://ogs-academy.com',
+                'image' => 'projects/ogs-academy.svg',
+                'role' => 'Full Stack Developer',
+                'language' => 'ar',
+                'country' => 'Saudi Arabia',
+                'country_ar' => 'السعوديه',
+                'country_flag' => '🇸🇦',
+                'country_code' => 'sa',
             ],
             [
                 'slug' => 'daamny',
@@ -711,7 +783,7 @@ class PortfolioService
                 'category' => 'Marketing',
                 'tech' => ['WordPress', 'Custom Theme', 'Arabic SEO'],
                 'url' => 'https://d3mnakdi.com',
-                'image' => 'projects/daamny.jpg',
+                'image' => 'projects/daamny.svg',
                 'role' => 'Full Stack Developer',
                 'language' => 'ar',
                 'country' => 'Saudi Arabia',

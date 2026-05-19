@@ -151,8 +151,10 @@ class PageController extends Controller
     public function portfolios()
     {
         $projects = PortfolioService::all();
+        $projectsByCountry = PortfolioService::byCountry();
         $categories = PortfolioService::categories();
-        return view('pages.portfolios', compact('projects', 'categories'));
+        $countryCount = PortfolioService::countryCount();
+        return view('pages.portfolios', compact('projects', 'projectsByCountry', 'categories', 'countryCount'));
     }
 
     public function portfolioCategory($category)
@@ -167,7 +169,8 @@ class PageController extends Controller
         }
 
         $categories = PortfolioService::categories();
-        return view('pages.portfolios', compact('projects', 'categories', 'category', 'categorySlug'));
+        $countryCount = PortfolioService::countryCount();
+        return view('pages.portfolios', compact('projects', 'categories', 'category', 'categorySlug', 'countryCount'));
     }
 
     public function portfolioShow($slug)

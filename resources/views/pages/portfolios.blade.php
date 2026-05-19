@@ -1,77 +1,304 @@
 @extends('layouts.app')
 
-@section('title', isset($category) ? ucfirst($category) . ' Projects | Khaled Ahmed Portfolio' : 'Portfolio — 32 Real Projects Shipped Across 7 Countries | Khaled Ahmed')
-@section('description', isset($category) ? 'See ' . strtolower($category) . ' web development projects shipped by Khaled Ahmed — senior full stack developer.' : '32 real production projects shipped across 7 countries — Laravel, React, Node.js. SaaS, e-commerce, restaurants, hotels, healthcare, education and more.')
+@php
+    $projectCount = count(\App\Services\PortfolioService::all());
+    $countryCount = $countryCount ?? \App\Services\PortfolioService::countryCount();
+@endphp
+
+@section('title', isset($category) ? ucfirst($category) . ' Projects | Khaled Ahmed Portfolio' : $projectCount . ' Real Projects Shipped Across ' . $countryCount . ' Countries | Khaled Ahmed Portfolio')
+@section('description', isset($category) ? 'See ' . strtolower($category) . ' web development projects shipped by Khaled Ahmed — senior full stack developer.' : $projectCount . ' real production projects shipped across ' . $countryCount . ' countries — Laravel, React, Node.js. SaaS, e-commerce, restaurants, hotels, healthcare, education and more.')
 @section('keywords', 'web developer portfolio, Laravel projects, React projects, full stack developer Egypt, hire web developer, custom web application portfolio, Khaled Ahmed projects')
 @section('canonical', isset($category) ? 'https://khaledahmed.net/portfolio/category/' . $category : 'https://khaledahmed.net/portfolios')
 
 @push('styles')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css">
 <style>
+    /* ─────────── Hero ─────────── */
     .portfolio-hero {
-        padding: 110px 0 50px;
-        background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%);
+        padding: 120px 0 60px;
+        background: linear-gradient(135deg, #0a1428 0%, #1e3a5f 45%, #2563eb 100%);
         color: #fff;
         text-align: center;
         position: relative;
         overflow: hidden;
     }
+    .portfolio-hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(circle at 20% 30%, rgba(96,165,250,0.15) 0%, transparent 40%),
+            radial-gradient(circle at 80% 70%, rgba(124,58,237,0.18) 0%, transparent 40%);
+        pointer-events: none;
+    }
     .portfolio-hero::after {
         content: '';
         position: absolute;
         inset: 0;
-        background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
-        background-size: 26px 26px;
+        background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+        background-size: 28px 28px;
+        opacity: 0.6;
+        pointer-events: none;
     }
-    .portfolio-hero h1 { color: #fff; font-weight: 800; margin-bottom: 14px; font-size: 40px; position: relative; z-index: 1; letter-spacing: -0.02em; }
-    .portfolio-hero p { color: #cbd5e1; max-width: 700px; margin: 0 auto; font-size: 17px; position: relative; z-index: 1; }
-    .portfolio-stats { display: inline-flex; gap: 36px; margin-top: 24px; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; }
-    .portfolio-stats .stat { color: #fff; }
-    .portfolio-stats .stat .num { font-size: 28px; font-weight: 800; color: #60a5fa; line-height: 1; }
-    .portfolio-stats .stat .lbl { font-size: 13px; color: #cbd5e1; margin-top: 2px; }
+    .portfolio-hero > .container { position: relative; z-index: 2; }
+    .portfolio-hero .eyebrow {
+        display: inline-block;
+        padding: 6px 16px;
+        background: rgba(96,165,250,0.15);
+        border: 1px solid rgba(96,165,250,0.30);
+        color: #93c5fd;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        border-radius: 999px;
+        margin-bottom: 18px;
+        opacity: 0;
+        animation: fadeUp 0.6s ease 0.05s forwards;
+    }
+    .portfolio-hero h1 {
+        color: #fff;
+        font-weight: 800;
+        margin-bottom: 16px;
+        font-size: 44px;
+        letter-spacing: -0.025em;
+        line-height: 1.15;
+        opacity: 0;
+        animation: fadeUp 0.7s ease 0.15s forwards;
+    }
+    .portfolio-hero h1 .grad {
+        background: linear-gradient(135deg, #60a5fa, #c4b5fd);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .portfolio-hero p.lead {
+        color: #cbd5e1;
+        max-width: 720px;
+        margin: 0 auto 30px;
+        font-size: 17.5px;
+        line-height: 1.6;
+        opacity: 0;
+        animation: fadeUp 0.7s ease 0.25s forwards;
+    }
+    .portfolio-stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0,1fr));
+        max-width: 720px;
+        margin: 0 auto;
+        gap: 18px;
+        opacity: 0;
+        animation: fadeUp 0.7s ease 0.35s forwards;
+    }
+    .portfolio-stats .stat {
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.10);
+        backdrop-filter: blur(8px);
+        border-radius: 14px;
+        padding: 16px 8px;
+        text-align: center;
+        transition: transform 0.25s ease, background 0.25s ease;
+    }
+    .portfolio-stats .stat:hover {
+        transform: translateY(-3px);
+        background: rgba(255,255,255,0.10);
+    }
+    .portfolio-stats .num {
+        font-size: 32px;
+        font-weight: 800;
+        color: #60a5fa;
+        line-height: 1;
+        margin-bottom: 4px;
+        font-feature-settings: "tnum";
+    }
+    .portfolio-stats .lbl { font-size: 12.5px; color: #cbd5e1; font-weight: 500; letter-spacing: 0.3px; }
 
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─────────── Country quick-nav (sticky) ─────────── */
+    .country-nav {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: rgba(255,255,255,0.96);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid #e5e7eb;
+        padding: 14px 0;
+        opacity: 0;
+        animation: fadeUp 0.5s ease 0.45s forwards;
+    }
+    .country-nav-inner {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        scrollbar-width: thin;
+        padding-bottom: 4px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .country-nav-inner::-webkit-scrollbar { height: 4px; }
+    .country-nav-inner::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
+    .country-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 7px 14px;
+        background: #f1f5f9;
+        color: #1e293b;
+        border-radius: 999px;
+        text-decoration: none;
+        font-size: 13.5px;
+        font-weight: 600;
+        white-space: nowrap;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
+    }
+    .country-chip:hover {
+        background: #fff;
+        border-color: #2563eb;
+        color: #2563eb;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px rgba(37,99,235,0.15);
+    }
+    .country-chip .fi {
+        width: 22px;
+        height: 16px;
+        border-radius: 3px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.20);
+        flex-shrink: 0;
+        background-size: cover;
+    }
+    .country-chip .count {
+        font-size: 11px;
+        background: rgba(15,23,42,0.08);
+        padding: 1px 7px;
+        border-radius: 999px;
+        margin-inline-start: 2px;
+    }
+
+    /* ─────────── Category filter ─────────── */
     .portfolio-cat-nav {
-        padding: 24px 0;
+        padding: 20px 0;
+        background: #fff;
         border-bottom: 1px solid #e5e7eb;
         text-align: center;
-        background: rgba(255,255,255,0.94);
-        backdrop-filter: blur(12px);
     }
     .portfolio-cat-nav a {
         display: inline-block; margin: 4px;
-        padding: 8px 18px;
+        padding: 7px 16px;
         border-radius: 999px;
         background: #f1f5f9; color: #1e293b;
         text-decoration: none;
-        font-size: 14px; font-weight: 500;
+        font-size: 13.5px; font-weight: 500;
         transition: all 0.2s ease;
+        border: 1px solid transparent;
     }
     .portfolio-cat-nav a:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(15,23,42,0.08); }
     .portfolio-cat-nav a.active { background: var(--main-color); color: #fff; box-shadow: 0 6px 16px rgba(37,99,235,0.30); }
 
+    /* ─────────── Country section ─────────── */
+    .country-section { padding-top: 56px; scroll-margin-top: 100px; }
+    .country-section:first-child { padding-top: 24px; }
+    .country-section-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 28px;
+        padding-bottom: 18px;
+        border-bottom: 2px solid #e5e7eb;
+        position: relative;
+    }
+    .country-section-header::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        inset-inline-start: 0;
+        width: 80px;
+        height: 2px;
+        background: linear-gradient(90deg, #2563eb, #7c3aed);
+    }
+    .cs-flag-wrap {
+        flex-shrink: 0;
+        width: 56px; height: 56px;
+        background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        border: 1px solid #cbd5e1;
+        border-radius: 16px;
+        display: grid; place-items: center;
+        box-shadow: 0 6px 16px rgba(15,23,42,0.08);
+    }
+    .cs-flag-wrap .fi {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+        background-size: cover;
+    }
+    .cs-info { flex: 1; min-width: 0; }
+    .cs-name {
+        margin: 0 0 4px;
+        font-size: 24px;
+        font-weight: 800;
+        color: #0f172a;
+        letter-spacing: -0.01em;
+    }
+    .cs-meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        color: #64748b;
+        font-weight: 500;
+        flex-wrap: wrap;
+    }
+    .cs-count {
+        background: #eff6ff;
+        color: #2563eb;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 12px;
+    }
+    .cs-featured-hint {
+        color: #f59e0b;
+        font-weight: 600;
+        font-size: 12.5px;
+    }
+
+    /* ─────────── Project card ─────────── */
     .project-card {
         position: relative;
         background: #fff;
-        border-radius: 16px;
+        border-radius: 18px;
         overflow: hidden;
         border: 1px solid #e5e7eb;
         transition: transform 0.4s cubic-bezier(.2,.8,.2,1), box-shadow 0.4s ease, border-color 0.2s ease;
         height: 100%;
         display: flex; flex-direction: column;
+        opacity: 0;
+        transform: translateY(28px);
+    }
+    .project-card.in-view {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.6s ease, transform 0.6s cubic-bezier(.2,.8,.2,1), box-shadow 0.4s ease, border-color 0.2s ease;
     }
     .project-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 24px 48px rgba(15,23,42,0.12);
+        transform: translateY(-10px);
+        box-shadow: 0 28px 56px rgba(15,23,42,0.14);
         border-color: var(--main-color);
     }
-    /* Browser-frame preview window with scrolling screenshot */
+    /* Browser-frame preview window */
     .project-card .project-img {
         position: relative;
         height: 260px;
         overflow: hidden;
         background: #0f172a;
         border-bottom: 1px solid #e5e7eb;
+        display: block;
     }
-    /* Fake browser chrome (the row of dots) */
     .project-card .project-img::before {
         content: '';
         position: absolute;
@@ -91,108 +318,129 @@
         box-shadow: 14px 0 0 #f59e0b, 28px 0 0 #10b981;
         z-index: 4;
     }
-    /* The screenshot itself — tall image that scrolls down on hover */
     .project-card .project-img img {
         position: absolute;
         top: 26px; left: 0;
         width: 100%;
+        min-height: 234px;
         height: auto;
         display: block;
+        object-fit: cover;
+        object-position: top center;
         transform: translateY(0);
         transition: transform 4.5s cubic-bezier(.22,.61,.36,1);
         will-change: transform;
     }
-    /* On hover, scroll the image up so its bottom comes into view */
+    /* Scroll the image up on hover only if it's taller than the viewport.
+       The min-height + object-fit:cover above ensures short images don't
+       look stretched — they fill the viewport from the top instead. */
     .project-card:hover .project-img img,
     .project-card:focus-within .project-img img {
-        transform: translateY(calc(-100% + 234px)); /* container = 260px - 26px chrome = 234px viewport */
+        transform: translateY(calc(-100% + 234px));
     }
-    /* Subtle vignette at top/bottom of the preview window */
+    /* Hide broken images cleanly so the fallback can show */
+    .project-card .project-img img.img-failed { display: none; }
+
+    /* ─── Image fallback (shown when img fails or for placeholder slugs) ─── */
+    .project-card .img-fallback {
+        position: absolute;
+        top: 26px; left: 0; right: 0; bottom: 0;
+        z-index: 1;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 30px 24px;
+        text-align: center;
+        background:
+            radial-gradient(circle at 20% 20%, rgba(96,165,250,0.20) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(124,58,237,0.22) 0%, transparent 50%),
+            linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+    }
+    .project-card .img-fallback::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+        background-size: 22px 22px;
+    }
+    .project-card .img-fallback-title {
+        position: relative;
+        font-size: 22px;
+        font-weight: 800;
+        color: #fff;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+        max-width: 100%;
+    }
+    .project-card .img-fallback-cat {
+        position: relative;
+        font-size: 11px;
+        font-weight: 700;
+        color: #93c5fd;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    /* When the real img fails, JS marks the parent — show the fallback. */
+    .project-card .project-img.has-failed-img .img-fallback { display: flex; }
+    .project-card .project-img.has-failed-img .scroll-hint { display: none; }
+    /* For SVG placeholder images we made (lotus-sharm.svg, daamny.svg) — show as-is,
+       but disable the hover-scroll so the placeholder stays centered. */
+    .project-card .project-img img[src$=".svg"] {
+        min-height: 0;
+        height: 100%;
+        object-fit: cover;
+    }
+    .project-card:hover .project-img img[src$=".svg"],
+    .project-card:focus-within .project-img img[src$=".svg"] {
+        transform: none;
+    }
+    .project-card:hover .project-img img[src$=".svg"] ~ .scroll-hint,
+    .project-card .project-img img[src$=".svg"] ~ .scroll-hint {
+        display: none;
+    }
     .project-card .project-img > .preview-mask {
         position: absolute;
         top: 26px; left: 0; right: 0; bottom: 0;
         pointer-events: none;
-        background:
-            linear-gradient(180deg, rgba(15,23,42,0.10), transparent 16%, transparent 88%, rgba(15,23,42,0.06));
+        background: linear-gradient(180deg, rgba(15,23,42,0.10), transparent 16%, transparent 88%, rgba(15,23,42,0.06));
         z-index: 2;
     }
-    /* "Hover to scroll" hint — fades on hover */
     .project-card .scroll-hint {
         position: absolute;
         bottom: 12px; right: 12px;
-        background: rgba(15,23,42,0.75);
+        background: rgba(15,23,42,0.78);
         color: #fff;
         font-size: 11px;
         font-weight: 600;
-        padding: 5px 10px;
+        padding: 5px 11px;
         border-radius: 999px;
         z-index: 5;
         backdrop-filter: blur(6px);
         opacity: 0.95;
         transition: opacity 0.25s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
+        display: inline-flex; align-items: center; gap: 6px;
     }
     .project-card:hover .scroll-hint { opacity: 0; }
-    .project-card .scroll-hint i {
-        animation: hintBounce 1.6s ease-in-out infinite;
-    }
-    @keyframes hintBounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(3px); }
-    }
-    /* Country badge — flag + name, top-left of preview */
-    .project-card .country-badge {
-        position: absolute;
-        top: 38px;
-        left: 12px;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        padding: 5px 12px 5px 8px;
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 700;
-        color: #1e293b;
-        z-index: 5;
-        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
-        border: 1px solid rgba(15, 23, 42, 0.06);
-        white-space: nowrap;
-    }
-    .project-card .country-badge .flag {
-        font-size: 16px;
-        line-height: 1;
-        filter: drop-shadow(0 1px 1px rgba(0,0,0,0.10));
-    }
-    .project-card .country-badge .cb-name {
-        font-size: 11.5px;
-        letter-spacing: 0.2px;
-    }
-    html[dir="rtl"] .project-card .country-badge {
-        left: auto;
-        right: 12px;
-        padding: 5px 8px 5px 12px;
-    }
-    html[dir="rtl"] .project-card .featured-badge {
-        right: auto;
-        left: 14px;
-    }
+    .project-card .scroll-hint i { animation: hintBounce 1.6s ease-in-out infinite; }
+    @keyframes hintBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+
     .project-card .featured-badge {
-        position: absolute; top: 14px; right: 14px;
+        position: absolute; top: 38px; right: 12px;
         background: linear-gradient(135deg, #fbbf24, #f59e0b);
         color: #fff;
-        padding: 4px 10px;
+        padding: 5px 11px;
         border-radius: 999px;
         font-size: 11px; font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        z-index: 2;
-        box-shadow: 0 4px 10px rgba(245,158,11,0.4);
+        z-index: 5;
+        box-shadow: 0 6px 14px rgba(245,158,11,0.45);
+        display: inline-flex; align-items: center; gap: 4px;
     }
+    html[dir="rtl"] .project-card .featured-badge { right: auto; left: 12px; }
+
     .project-card .project-body {
         padding: 22px 22px 24px;
         flex: 1;
@@ -207,7 +455,7 @@
         margin-bottom: 8px;
     }
     .project-card h3 {
-        font-size: 17.5px;
+        font-size: 18px;
         font-weight: 700;
         color: #0f172a;
         line-height: 1.35;
@@ -245,38 +493,50 @@
         transition: gap 0.2s ease;
     }
     .project-card .visit:hover { gap: 10px; }
-    .project-card .role {
-        font-size: 11.5px;
-        color: #94a3b8;
-    }
+    .project-card .role { font-size: 11.5px; color: #94a3b8; }
 
+    /* ─────────── CTA ─────────── */
     .portfolio-cta {
         background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
         color: #fff;
-        padding: 50px 40px;
-        border-radius: 18px;
+        padding: 56px 40px;
+        border-radius: 20px;
         text-align: center;
-        margin: 60px 0 30px;
+        margin: 80px 0 30px;
         position: relative;
         overflow: hidden;
     }
-    .portfolio-cta h2 { color: #fff; font-size: 28px; font-weight: 800; margin-bottom: 14px; position: relative; }
-    .portfolio-cta p { color: rgba(255,255,255,0.92); margin-bottom: 24px; max-width: 580px; margin-left: auto; margin-right: auto; position: relative; }
+    .portfolio-cta::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(255,255,255,0.10) 1px, transparent 1px);
+        background-size: 22px 22px;
+        opacity: 0.4;
+    }
+    .portfolio-cta > * { position: relative; }
+    .portfolio-cta h2 { color: #fff; font-size: 30px; font-weight: 800; margin-bottom: 14px; letter-spacing: -0.01em; }
+    .portfolio-cta p { color: rgba(255,255,255,0.92); margin-bottom: 26px; max-width: 600px; margin-left: auto; margin-right: auto; font-size: 16px; }
     .portfolio-cta .btn-cta {
         background: #fff; color: #1e40af;
-        padding: 14px 32px; border-radius: 10px;
+        padding: 15px 36px; border-radius: 12px;
         font-weight: 700; text-decoration: none;
         display: inline-block;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
-        position: relative;
+        font-size: 15px;
     }
-    .portfolio-cta .btn-cta:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,0.25); }
+    .portfolio-cta .btn-cta:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(0,0,0,0.28); }
 
     @media (max-width: 768px) {
-        .portfolio-hero { padding: 80px 0 30px; }
-        .portfolio-hero h1 { font-size: 26px; }
-        .portfolio-hero p { font-size: 15px; }
-        .portfolio-cta { padding: 32px 20px; }
+        .portfolio-hero { padding: 80px 0 36px; }
+        .portfolio-hero h1 { font-size: 28px; }
+        .portfolio-hero p.lead { font-size: 15px; }
+        .portfolio-stats { gap: 10px; }
+        .portfolio-stats .num { font-size: 24px; }
+        .portfolio-stats .lbl { font-size: 11px; }
+        .cs-name { font-size: 20px; }
+        .cs-flag-wrap { width: 48px; height: 48px; font-size: 26px; }
+        .portfolio-cta { padding: 36px 22px; }
         .portfolio-cta h2 { font-size: 22px; }
     }
 </style>
@@ -288,7 +548,7 @@
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "name": "Khaled Ahmed — Web Development Portfolio",
-    "description": "32 real production projects shipped across 7 countries.",
+    "description": "{{ $projectCount }} real production projects shipped across {{ $countryCount }} countries.",
     "url": "{{ url('/portfolios') }}",
     "isPartOf": {"@type":"WebSite","name":"Khaled Ahmed","url":"https://khaledahmed.net"},
     "mainEntity": {
@@ -329,24 +589,42 @@
 <section class="portfolio-hero">
     <div class="container">
         @if(isset($category))
-            <h1>{{ ucfirst(str_replace('-', ' ', $category)) }} Projects</h1>
-            <p>Real production work in <strong>{{ strtolower(str_replace('-', ' ', $category)) }}</strong> — built and shipped by Khaled Ahmed.</p>
+            <span class="eyebrow">{{ app()->getLocale() === 'ar' ? 'تخصّص' : 'Category' }}</span>
+            <h1>{{ ucfirst(str_replace('-', ' ', $category)) }} <span class="grad">Projects</span></h1>
+            <p class="lead">{{ app()->getLocale() === 'ar' ? 'مشاريع إنتاج حقيقيه في' : 'Real production work in' }} <strong>{{ strtolower(str_replace('-', ' ', $category)) }}</strong> — {{ app()->getLocale() === 'ar' ? 'مبنيه ومنشوره بواسطه خالد أحمد.' : 'built and shipped by Khaled Ahmed.' }}</p>
         @else
-            <h1>{{ app()->getLocale() === 'ar' ? 'سابقة الأعمال — مشاريع حقيقيه، نتائج حقيقيه' : 'Portfolio — Real Projects, Real Results' }}</h1>
-            <p>{{ app()->getLocale() === 'ar' ? '32 مشروع إنتاجي تم تسليمها في 7 دول. اضغط على أي بطاقه لتشوف الموقع المباشر — كلها أعمال حقيقيه تخدم عملاء حقيقيين دلوقتي.' : '32 production projects shipped across 7 countries. Click any card to see the live site — these are real businesses serving real customers right now.' }}</p>
+            <span class="eyebrow">{{ app()->getLocale() === 'ar' ? 'سابقة الأعمال' : 'Portfolio' }}</span>
+            <h1>{{ app()->getLocale() === 'ar' ? 'مشاريع حقيقيه،' : 'Real Projects,' }} <span class="grad">{{ app()->getLocale() === 'ar' ? 'نتائج حقيقيه' : 'Real Results' }}</span></h1>
+            <p class="lead">{{ app()->getLocale() === 'ar' ? $projectCount . ' مشروع إنتاجي تم تسليمها في ' . $countryCount . ' دول — من سويسرا وألمانيا للمملكه المتحده والخليج. اضغط على أي بطاقه لتشوف الموقع المباشر.' : $projectCount . ' production projects shipped across ' . $countryCount . ' countries — from Switzerland and Germany to the UK and the Gulf. Click any card to see the live site.' }}</p>
             <div class="portfolio-stats">
-                <div class="stat"><div class="num">32</div><div class="lbl">{{ app()->getLocale() === 'ar' ? 'مشروع مباشر' : 'Live Projects' }}</div></div>
-                <div class="stat"><div class="num">7</div><div class="lbl">{{ app()->getLocale() === 'ar' ? 'دول' : 'Countries' }}</div></div>
-                <div class="stat"><div class="num">{{ count($categories) }}</div><div class="lbl">{{ app()->getLocale() === 'ar' ? 'صناعات' : 'Industries' }}</div></div>
+                <div class="stat"><div class="num" data-counter="{{ $projectCount }}">0</div><div class="lbl">{{ app()->getLocale() === 'ar' ? 'مشروع مباشر' : 'Live Projects' }}</div></div>
+                <div class="stat"><div class="num" data-counter="{{ $countryCount }}">0</div><div class="lbl">{{ app()->getLocale() === 'ar' ? 'دول' : 'Countries' }}</div></div>
+                <div class="stat"><div class="num" data-counter="{{ count($categories) }}">0</div><div class="lbl">{{ app()->getLocale() === 'ar' ? 'صناعات' : 'Industries' }}</div></div>
                 <div class="stat"><div class="num">5+</div><div class="lbl">{{ app()->getLocale() === 'ar' ? 'سنوات' : 'Years' }}</div></div>
             </div>
         @endif
     </div>
 </section>
 
+@if(isset($projectsByCountry) && !isset($category))
+<div class="country-nav">
+    <div class="container">
+        <div class="country-nav-inner">
+            @foreach($projectsByCountry as $group)
+                <a href="#country-{{ $group['code'] }}" class="country-chip">
+                    <span class="fi fi-{{ $group['code'] }}" role="img" aria-label="{{ $group['country_en'] }} flag"></span>
+                    <span>{{ $group['country'] }}</span>
+                    <span class="count">{{ count($group['projects']) }}</span>
+                </a>
+            @endforeach
+        </div>
+    </div>
+</div>
+@endif
+
 <div class="portfolio-cat-nav">
     <div class="container">
-        <a href="{{ route('portfolios') }}" class="{{ !isset($category) ? 'active' : '' }}">{{ app()->getLocale() === 'ar' ? 'الكل' : 'All' }} ({{ count(\App\Services\PortfolioService::all()) }})</a>
+        <a href="{{ route('portfolios') }}" class="{{ !isset($category) ? 'active' : '' }}">{{ app()->getLocale() === 'ar' ? 'الكل' : 'All' }} ({{ $projectCount }})</a>
         @foreach($categories as $slug => $cat)
             <a href="{{ route('portfolios.category', $slug) }}"
                class="{{ (isset($categorySlug) && $categorySlug === $slug) ? 'active' : '' }}">
@@ -356,61 +634,115 @@
     </div>
 </div>
 
-<section class="section pt-5">
+<section class="section pt-4">
     <div class="container">
-        @if(count($projects))
-        <div class="row g-4">
-            @foreach($projects as $project)
-            <div class="col-lg-4 col-md-6">
-                <article class="project-card" tabindex="0">
-                    <a href="{{ $project['url'] }}" target="_blank" rel="noopener" class="project-img" aria-label="Visit {{ $project['title'] }}">
-                        <img src="{{ asset('images/' . $project['image']) }}"
-                             alt="{{ $project['title'] }} — full-page screenshot"
-                             loading="lazy" decoding="async">
-                        <span class="preview-mask"></span>
-                        @if(!empty($project['country']))
-                            <span class="country-badge" title="{{ $project['country'] }}">
-                                <span class="flag">{{ $project['country_flag'] ?? '' }}</span>
-                                <span class="cb-name">{{ $project['country'] }}</span>
-                            </span>
-                        @endif
-                        @if(!empty($project['featured']))
-                            <span class="featured-badge">★ {{ app()->getLocale() === 'ar' ? 'مميّز' : 'Featured' }}</span>
-                        @endif
-                        <span class="scroll-hint"><i class="fas fa-arrow-down"></i> {{ app()->getLocale() === 'ar' ? 'مرّر لتصفّح' : 'Hover to scroll' }}</span>
-                    </a>
-                    <div class="project-body">
-                        <div class="cat">{{ $project['category'] }}</div>
-                        <h3>{{ $project['title'] }}</h3>
-                        <p class="summary">{{ $project['summary'] }}</p>
-                        <div class="tech-stack">
-                            @foreach($project['tech'] as $t)
-                                <span>{{ $t }}</span>
-                            @endforeach
-                        </div>
-                        <div class="actions">
-                            <a href="{{ $project['url'] }}" target="_blank" rel="noopener" class="visit">
-                                {{ app()->getLocale() === 'ar' ? 'زر الموقع المباشر' : 'Visit Live Site' }} <i class="fa fa-external-link-alt" style="font-size:11px;"></i>
-                            </a>
-                            <span class="role">{{ $project['role'] }}</span>
+        @if(isset($projectsByCountry) && !isset($category))
+            {{-- Grouped-by-country layout (default /portfolios view) --}}
+            @foreach($projectsByCountry as $group)
+                @php
+                    $hasFeatured = collect($group['projects'])->contains(fn($p) => !empty($p['featured']));
+                @endphp
+                <div class="country-section" id="country-{{ $group['code'] }}">
+                    <div class="country-section-header">
+                        <div class="cs-flag-wrap"><span class="fi fi-{{ $group['code'] }} fis" role="img" aria-label="{{ $group['country_en'] }} flag"></span></div>
+                        <div class="cs-info">
+                            <h2 class="cs-name">{{ $group['country'] }}</h2>
+                            <div class="cs-meta">
+                                <span class="cs-count">{{ count($group['projects']) }} {{ app()->getLocale() === 'ar' ? 'مشروع' : (count($group['projects']) === 1 ? 'project' : 'projects') }}</span>
+                                @if($hasFeatured)
+                                    <span class="cs-featured-hint">★ {{ app()->getLocale() === 'ar' ? 'يحتوي على مشاريع مميّزه' : 'Featured project inside' }}</span>
+                                @endif
+                            </div>
                         </div>
                     </div>
-                </article>
-            </div>
+                    <div class="row g-4">
+                        @foreach($group['projects'] as $project)
+                            @include('partials.portfolio-card', ['project' => $project])
+                        @endforeach
+                    </div>
+                </div>
             @endforeach
-        </div>
+        @elseif(count($projects))
+            {{-- Flat grid (category filter active) --}}
+            <div class="row g-4">
+                @foreach($projects as $project)
+                    @include('partials.portfolio-card', ['project' => $project])
+                @endforeach
+            </div>
         @else
             <div class="text-center py-5">
-                <p class="text-muted mb-4">No projects in this category yet.</p>
-                <a href="{{ route('portfolios') }}" class="primary-btn"><span class="text">View All Projects</span><span class="icon"><i class="fa fa-arrow-right"></i></span></a>
+                <p class="text-muted mb-4">{{ app()->getLocale() === 'ar' ? 'لا توجد مشاريع في هذا التخصص بعد.' : 'No projects in this category yet.' }}</p>
+                <a href="{{ route('portfolios') }}" class="primary-btn"><span class="text">{{ app()->getLocale() === 'ar' ? 'عرض كل المشاريع' : 'View All Projects' }}</span><span class="icon"><i class="fa fa-arrow-right"></i></span></a>
             </div>
         @endif
 
         <div class="portfolio-cta">
-            <h2>{{ app()->getLocale() === 'ar' ? 'تحب تكون المشروع رقم #33؟' : 'Want to Be Project #33?' }}</h2>
+            <h2>{{ app()->getLocale() === 'ar' ? 'تحب تكون المشروع رقم #' . ($projectCount + 1) . '؟' : 'Want to Be Project #' . ($projectCount + 1) . '?' }}</h2>
             <p>{{ app()->getLocale() === 'ar' ? 'باقبل 2–3 عملاء جدد كل ربع سنه. لو عندك مشروع جاد، خلينا نتكلم — استشاره مجانيه 30 دقيقه، رد خلال 24 ساعه.' : 'I take 2–3 new clients per quarter. If you have a serious project, let\'s talk — free 30-minute consultation, 24-hour response.' }}</p>
             <a href="{{ route('contact') }}" class="btn-cta">{{ __('site.start_your_project') }} <i class="fa fa-arrow-right ms-2"></i></a>
         </div>
     </div>
 </section>
 @endsection
+
+@push('scripts')
+<script>
+(function() {
+    // Card fade-in on scroll (IntersectionObserver — no library)
+    const cards = document.querySelectorAll('.project-card');
+    if (cards.length && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('in-view'), i * 60);
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { rootMargin: '0px 0px -60px 0px', threshold: 0.05 });
+        cards.forEach(c => io.observe(c));
+    } else {
+        // Fallback: show all immediately
+        cards.forEach(c => c.classList.add('in-view'));
+    }
+
+    // Counter animation for hero stats
+    const counters = document.querySelectorAll('[data-counter]');
+    if (counters.length && 'IntersectionObserver' in window) {
+        const co = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target;
+                const target = parseInt(el.dataset.counter, 10) || 0;
+                const duration = 1100;
+                const start = performance.now();
+                function step(now) {
+                    const t = Math.min(1, (now - start) / duration);
+                    const eased = 1 - Math.pow(1 - t, 3);
+                    el.textContent = Math.round(target * eased);
+                    if (t < 1) requestAnimationFrame(step);
+                    else el.textContent = target;
+                }
+                requestAnimationFrame(step);
+                co.unobserve(el);
+            });
+        }, { threshold: 0.3 });
+        counters.forEach(c => co.observe(c));
+    } else {
+        counters.forEach(c => c.textContent = c.dataset.counter);
+    }
+
+    // Smooth scroll for country anchor chips (accounts for sticky nav)
+    document.querySelectorAll('.country-chip[href^="#country-"]').forEach(chip => {
+        chip.addEventListener('click', (e) => {
+            const id = chip.getAttribute('href').slice(1);
+            const target = document.getElementById(id);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                history.replaceState(null, '', '#' + id);
+            }
+        });
+    });
+})();
+</script>
+@endpush
