@@ -8,8 +8,14 @@ DirectoryIndex index.php index.html
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Single-hop canonical redirect (no chains: directly to https://khaledahmed.net)
+    # Single-hop canonical redirect (no chains: directly to https://khaledahmed.net).
+    # The Hostinger `hcdn` proxy rewrites the Host header to khaledahmed.net but
+    # passes the originally requested host in X-Forwarded-Host — so the plain
+    # HTTP_HOST check never catches www. We also match X-Forwarded-Host ^www. to
+    # cover STATIC files (PDF, images) on the www host; PHP routes are additionally
+    # handled by the ForceCanonicalDomain middleware.
     RewriteCond %{HTTP_HOST} !^khaledahmed\.net$ [NC,OR]
+    RewriteCond %{HTTP:X-Forwarded-Host} ^www\. [NC,OR]
     RewriteCond %{HTTPS} !=on
     RewriteCond %{HTTP:X-Forwarded-Proto} !=https
     RewriteRule ^ https://khaledahmed.net%{REQUEST_URI} [R=301,L]

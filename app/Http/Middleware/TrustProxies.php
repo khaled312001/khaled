@@ -10,9 +10,14 @@ class TrustProxies extends Middleware
     /**
      * The trusted proxies for this application.
      *
+     * '*' trusts the Hostinger `hcdn` proxy that always fronts this site, so
+     * X-Forwarded-Host / -Proto are honored (needed for the canonical-domain
+     * redirect and correct https detection). Redirect targets are hardcoded,
+     * so a spoofed X-Forwarded-Host cannot cause an open redirect.
+     *
      * @var array<int, string>|string|null
      */
-    protected $proxies;
+    protected $proxies = '*';
 
     /**
      * The headers that should be used to detect proxies.
