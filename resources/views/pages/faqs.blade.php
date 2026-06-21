@@ -1,43 +1,11 @@
 @extends('layouts.app')
 
+@php $isAr = app()->getLocale() === 'ar'; @endphp
+
 @section('title', 'Web Development FAQs — Pricing, Timelines, Process | Khaled Ahmed')
 @section('description', 'Honest answers to the most common questions about hiring a full stack web developer. Pricing, timelines, technologies, support, and process — from a senior developer with 25+ shipped projects.')
-@section('keywords', 'web developer FAQ, hire web developer, web development cost, Laravel developer FAQ, React developer FAQ, web developer Egypt, freelance web developer, Khaled Ahmed')
+@section('keywords', 'web developer FAQ, hire web developer, web development cost, Laravel developer FAQ, React developer FAQ, Khaled Ahmed')
 @section('canonical', url('/faqs'))
-
-@push('styles')
-<style>
-    .faq-hero { padding: 90px 0 40px; background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%); color: #fff; text-align: center; }
-    .faq-hero h1 { color: #fff; font-weight: 700; margin-bottom: 14px; }
-    .faq-hero p { color: #cbd5e1; max-width: 720px; margin: 0 auto; font-size: 17px; }
-    .faq-section { padding: 50px 0; }
-    .faq-section h2 { font-size: 24px; font-weight: 700; margin: 30px 0 18px; color: #0f172a; padding-bottom: 10px; border-bottom: 2px solid var(--main-color); }
-    .faq-item { border: 1px solid #e5e7eb; border-radius: 10px; margin-bottom: 14px; background: #fff; overflow: hidden; transition: all 0.2s; }
-    .faq-item:hover { border-color: var(--main-color); box-shadow: 0 4px 12px rgba(37,99,235,0.06); }
-    .faq-item summary { padding: 18px 22px; font-weight: 600; font-size: 17px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: #0f172a; }
-    .faq-item summary::-webkit-details-marker { display: none; }
-    .faq-item summary::after { content: '+'; font-size: 24px; color: var(--main-color); transition: transform 0.2s; line-height: 1; }
-    .faq-item[open] summary::after { content: '−'; }
-    .faq-item .answer { padding: 0 22px 22px; color: #475569; line-height: 1.75; font-size: 15.5px; }
-    .faq-item .answer p { margin-bottom: 12px; }
-    .faq-item .answer ul { padding-left: 20px; margin-bottom: 12px; }
-    .faq-item .answer li { margin-bottom: 6px; }
-    .faq-cta { background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); color: #fff; padding: 50px 40px; border-radius: 16px; text-align: center; margin-top: 40px; }
-    .faq-cta h2 { color: #fff; font-size: 26px; margin-bottom: 14px; border: none; padding: 0; }
-    .faq-cta p { color: rgba(255,255,255,0.92); margin-bottom: 24px; max-width: 580px; margin-left: auto; margin-right: auto; }
-    .faq-cta .btn-cta { background: #fff; color: #1e40af; padding: 14px 32px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-block; }
-    .faq-cta .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
-    @media (max-width: 768px) {
-        .faq-hero { padding: 70px 0 30px; }
-        .faq-hero h1 { font-size: 26px; }
-        .faq-section h2 { font-size: 20px; }
-        .faq-item summary { font-size: 15px; padding: 16px 18px; }
-        .faq-item .answer { padding: 0 18px 18px; font-size: 15px; }
-        .faq-cta { padding: 32px 20px; }
-        .faq-cta h2 { font-size: 21px; }
-    }
-</style>
-@endpush
 
 @php
 $faqGroupsAr = [
@@ -132,80 +100,128 @@ $faqGroupsEn = [
     ],
 ];
 
-$faqGroups = app()->getLocale() === 'ar' ? $faqGroupsAr : $faqGroupsEn;
+$faqGroups = $isAr ? $faqGroupsAr : $faqGroupsEn;
 @endphp
 
 @section('structured_data')
 <script type="application/ld+json">
 {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-        @php $first = true; @endphp
-        @foreach($faqGroups as $group => $items)
-            @foreach($items as $item)
-                @if(!$first),@endif
-                {
-                    "@type": "Question",
-                    "name": @json($item[0]),
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": @json(strip_tags($item[1]))
-                    }
-                }
-                @php $first = false; @endphp
-            @endforeach
+  "@context":"https://schema.org","@type":"FAQPage",
+  "mainEntity":[
+    @php $first = true; @endphp
+    @foreach($faqGroups as $group => $items)
+        @foreach($items as $item)
+            @if(!$first),@endif
+            {"@type":"Question","name":@json(strip_tags($item[0])),"acceptedAnswer":{"@type":"Answer","text":@json(strip_tags($item[1]))}}
+            @php $first = false; @endphp
         @endforeach
-    ]
+    @endforeach
+  ]
 }
 </script>
 <script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-        {"@type":"ListItem","position":1,"name":"Home","item":"{{ url('/') }}"},
-        {"@type":"ListItem","position":2,"name":"FAQs","item":"{{ url('/faqs') }}"}
-    ]
-}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ url('/') }}"},{"@type":"ListItem","position":2,"name":"FAQ","item":"{{ url('/faqs') }}"}]}
 </script>
 @endsection
 
+@push('styles')
+<style>
+    .fq-hero { padding: calc(var(--nav-h) + var(--sp-7)) 0 var(--sp-7); position: relative; overflow: hidden; }
+    .fq-hero::before { content:''; position:absolute; inset:0; background: var(--gradient-bg); pointer-events: none; }
+    .fq-hero > .container { position: relative; z-index: 1; }
+    .fq-hero .lead { color: var(--text-2); font-size: 17.5px; max-width: 760px; margin: 0; }
+
+    /* Sticky group nav */
+    .fq-tabs { position: sticky; top: var(--nav-h); z-index: 20; background: rgba(10,14,26,0.95); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border-1); padding: 14px 0; }
+    .fq-tabs__inner { display: flex; gap: 8px; overflow-x: auto; justify-content: center; flex-wrap: wrap; padding-bottom: 4px; }
+    .fq-tab { padding: 7px 14px; background: var(--surface-1); border: 1px solid var(--border-1); color: var(--text-2); border-radius: var(--r-full); text-decoration: none; font-size: 13px; font-weight: 600; white-space: nowrap; transition: all .2s ease; }
+    .fq-tab:hover { color: var(--brand); border-color: var(--border-3); transform: translateY(-2px); }
+
+    .fq-group { padding-top: var(--sp-6); scroll-margin-top: calc(var(--nav-h) + 80px); }
+    .fq-group__hd { display: flex; align-items: center; gap: 14px; margin-bottom: var(--sp-4); padding-bottom: 12px; border-bottom: 2px solid var(--border-1); position: relative; }
+    .fq-group__hd::after { content: ''; position: absolute; bottom: -2px; inset-inline-start: 0; width: 60px; height: 2px; background: var(--gradient-1); }
+    .fq-group__hd h2 { margin: 0; font-size: 22px; }
+    .fq-group__hd .fq-count { background: rgba(96,165,250,0.10); color: var(--brand); padding: 3px 10px; border-radius: var(--r-full); font-weight: 700; font-size: 12px; border: 1px solid rgba(96,165,250,0.20); }
+
+    .fq-item { background: var(--surface-1); border: 1px solid var(--border-1); border-radius: var(--r-md); margin-bottom: 10px; transition: border-color .2s ease; }
+    .fq-item:hover, .fq-item[open] { border-color: var(--border-3); }
+    .fq-item summary { cursor: pointer; padding: 18px 22px; font-weight: 600; color: var(--text-1); list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 14px; font-size: 15.5px; }
+    .fq-item summary::-webkit-details-marker { display: none; }
+    .fq-item summary::after { content: '+'; font-size: 22px; color: var(--brand); line-height: 1; transition: transform .2s ease; flex-shrink: 0; }
+    .fq-item[open] summary::after { content: '−'; }
+    .fq-item .ans { padding: 0 22px 20px; color: var(--text-2); line-height: 1.75; font-size: 15px; }
+    .fq-item .ans strong { color: var(--text-1); }
+    .fq-item .ans a { color: var(--brand); font-weight: 600; }
+    .fq-item .ans a:hover { color: var(--brand-2); }
+</style>
+@endpush
+
 @section('content')
-<section class="faq-hero">
+
+<section class="fq-hero">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-9">
-                <h1>{{ app()->getLocale() === 'ar' ? 'الأسئلة الشائعة' : 'Frequently Asked Questions' }}</h1>
-                <p>{{ app()->getLocale() === 'ar' ? 'إجابات صريحه على أكثر الأسئله شيوعًا حول توظيف مطوّر ويب فُل ستاك خبير. الأسعار، المدد الزمنيه، التقنيات، طريقه العمل والدعم — كأنك على مكالمه استكشافيه.' : 'Honest answers to the most common questions about hiring a senior full stack web developer. Pricing, timelines, technologies, process, and support — answered the way I would answer them on a discovery call.' }}</p>
-            </div>
+        <div class="d-inline-flex align-items-center gap-2 mb-3" style="font-size:13px;color:var(--text-3);">
+            <a href="{{ route('home') }}" style="color:var(--text-2);text-decoration:none;">{{ __('site.home') }}</a>
+            <i class="fas fa-chevron-{{ $isAr ? 'left' : 'right' }}" style="font-size:10px;color:var(--text-4);"></i>
+            <span>{{ $isAr ? 'الأسئلة الشائعة' : 'FAQ' }}</span>
         </div>
+        <span class="ks-eyebrow">{{ $isAr ? 'إجابات صريحه' : 'Honest answers' }}</span>
+        <h1 class="mt-3">{{ $isAr ? 'الأسئلة' : 'Frequently' }} <span class="ks-grad-text">{{ $isAr ? 'الشائعة' : 'asked questions' }}</span></h1>
+        <p class="lead">{{ $isAr ? 'إجابات صريحه على أكثر الأسئله شيوعًا حول توظيف مطوّر ويب فُل ستاك خبير. الأسعار، المدد الزمنيه، التقنيات، طريقه العمل والدعم.' : 'Honest answers to the most common questions about hiring a senior full stack web developer. Pricing, timelines, technologies, process, and support — answered the way I would on a discovery call.' }}</p>
     </div>
 </section>
 
-<section class="faq-section">
+<div class="fq-tabs">
+    <div class="container">
+        <div class="fq-tabs__inner">
+            @foreach($faqGroups as $group => $items)
+                <a href="#fq-{{ md5($group) }}" class="fq-tab">{{ $group }} <span style="color:var(--text-4);font-weight:400;">({{ count($items) }})</span></a>
+            @endforeach
+        </div>
+    </div>
+</div>
+
+<section class="ks-section">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-9">
+            <div class="col-lg-10">
                 @foreach($faqGroups as $group => $items)
-                    <h2>{{ $group }}</h2>
-                    @foreach($items as $i => $item)
-                        <details class="faq-item" @if($loop->parent->first && $i === 0) open @endif>
-                            <summary>{{ $item[0] }}</summary>
-                            <div class="answer">
-                                <p>{!! $item[1] !!}</p>
-                            </div>
-                        </details>
-                    @endforeach
+                    <div class="fq-group" id="fq-{{ md5($group) }}">
+                        <div class="fq-group__hd">
+                            <h2>{{ $group }}</h2>
+                            <span class="fq-count">{{ count($items) }}</span>
+                        </div>
+                        @foreach($items as $i => $item)
+                            <details class="fq-item" @if($loop->parent->first && $i === 0) open @endif>
+                                <summary>{{ $item[0] }}</summary>
+                                <div class="ans">{!! $item[1] !!}</div>
+                            </details>
+                        @endforeach
+                    </div>
                 @endforeach
 
-                <div class="faq-cta">
-                    <h2>Still Have Questions?</h2>
-                    <p>The fastest way to get an answer is a 30-minute discovery call. No sales pitch — just an honest conversation about your project.</p>
-                    <a href="{{ route('contact') }}" class="btn-cta">Book a Free Call <i class="fa fa-arrow-right ms-2"></i></a>
+                <div class="home-cta ks-fadeup" style="margin-top: var(--sp-7);">
+                    <h2>{{ $isAr ? 'لسه عندك أسئلة؟' : 'Still have questions?' }}</h2>
+                    <p>{{ $isAr ? 'الطريقه الأسرع للإجابه: مكالمه استكشاف 30 دقيقه. لا بيع، فقط حوار صريح عن مشروعك.' : 'The fastest way to get an answer is a 30-minute discovery call. No sales pitch, just an honest conversation about your project.' }}</p>
+                    <div class="home-cta__row">
+                        <a href="{{ route('contact') }}" class="ks-btn ks-btn--primary">{{ $isAr ? 'احجز مكالمه مجانية' : 'Book a free call' }} <i class="fa fa-arrow-right"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 @endsection
+
+@push('scripts')
+<script>
+document.querySelectorAll('.fq-tab[href^="#fq-"]').forEach(function (t) {
+    t.addEventListener('click', function (e) {
+        var id = t.getAttribute('href').slice(1);
+        var el = document.getElementById(id);
+        if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); history.replaceState(null, '', '#' + id); }
+    });
+});
+</script>
+@endpush

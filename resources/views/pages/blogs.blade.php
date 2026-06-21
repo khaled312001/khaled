@@ -1,154 +1,106 @@
 @extends('layouts.app')
 
-@section('title', isset($category) ? ucfirst($category) . ' Articles | Khaled Ahmed Blog' : 'Web Development Blog — Laravel, React, SEO & Performance | Khaled Ahmed')
-@section('description', isset($category) ? 'Read in-depth ' . strtolower($category) . ' articles by Khaled Ahmed — senior full stack web developer. Practical guides on Laravel, React, Node.js, and modern web technologies.' : 'In-depth web development articles from a senior full stack developer. Laravel, React, Node.js, SEO, performance, hiring, and pricing — written for builders, not beginners.')
-@section('keywords', 'web development blog, full stack developer blog, Laravel tutorials, React tutorials, web developer Egypt, hire web developer, SEO guide, web performance, Khaled Ahmed')
-@section('canonical', isset($category) ? 'https://khaledahmed.net/blog/category/' . strtolower($category) : 'https://khaledahmed.net/blogs')
+@php $isAr = app()->getLocale() === 'ar'; @endphp
 
-@push('styles')
-<style>
-    .blog-hero { padding: 80px 0 40px; background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%); color: #fff; }
-    .blog-hero h1 { color: #fff; font-weight: 700; margin-bottom: 12px; }
-    .blog-hero p { color: #cbd5e1; max-width: 720px; margin: 0 auto; font-size: 17px; }
-    .blog-filter-bar { padding: 16px 0; border-bottom: 1px solid #e5e7eb; margin-bottom: 30px; }
-    .blog-filter-bar a { display: inline-block; padding: 6px 14px; margin: 4px 4px; border-radius: 999px; background: #f1f5f9; color: #1e293b; text-decoration: none; font-size: 14px; font-weight: 500; transition: all 0.2s; }
-    .blog-filter-bar a:hover, .blog-filter-bar a.active { background: var(--main-color); color: #fff; }
-    .blog-card { border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden; transition: all 0.3s; height: 100%; display: flex; flex-direction: column; background: #fff; position: relative; }
-    .blog-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #2563eb, #7c3aed); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
-    .blog-card:hover::before { transform: scaleX(1); }
-    .blog-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(15,23,42,0.10); border-color: rgba(37,99,235,0.30); }
-    .blog-card .blog-body { padding: 26px 24px; flex: 1; display: flex; flex-direction: column; }
-    .blog-card .cat-pill { display: inline-block; align-self: flex-start; padding: 5px 12px; border-radius: 999px; background: linear-gradient(135deg, rgba(37,99,235,0.10), rgba(124,58,237,0.10)); color: #2563eb; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; border: 1px solid rgba(37,99,235,0.18); }
-    .blog-card .meta { font-size: 13px; color: #64748b; margin-bottom: 10px; }
-    .blog-card .meta .cat { color: var(--main-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-    .blog-card h3 { font-size: 19px; line-height: 1.4; margin-bottom: 10px; font-weight: 600; }
-    .blog-card h3 a { color: #0f172a; text-decoration: none; }
-    .blog-card h3 a:hover { color: var(--main-color); }
-    .blog-card p { color: #475569; font-size: 14px; line-height: 1.6; margin-bottom: 16px; flex: 1; }
-    .blog-card .read-more { color: var(--main-color); font-weight: 600; text-decoration: none; font-size: 14px; }
-    .blog-card .read-more i { margin-left: 6px; transition: margin 0.2s; }
-    .blog-card .read-more:hover i { margin-left: 12px; }
-    .blog-cta { background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); color: #fff; padding: 50px 40px; border-radius: 16px; text-align: center; margin: 60px 0 40px; }
-    .blog-cta h2 { color: #fff; font-size: 28px; margin-bottom: 14px; }
-    .blog-cta p { color: rgba(255,255,255,0.9); font-size: 16px; margin-bottom: 24px; max-width: 580px; margin-left: auto; margin-right: auto; }
-    .blog-cta .btn-cta { background: #fff; color: #1e40af; padding: 14px 32px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-block; transition: all 0.2s; }
-    .blog-cta .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
-    @media (max-width: 768px) {
-        .blog-hero { padding: 60px 0 30px; }
-        .blog-hero h1 { font-size: 26px; }
-        .blog-cta { padding: 32px 20px; }
-        .blog-cta h2 { font-size: 22px; }
-    }
-</style>
-@endpush
+@section('title', isset($category) ? ucfirst($category) . ' Articles | Khaled Ahmed Blog' : 'Web Development Blog — Laravel, React, SEO & Performance | Khaled Ahmed')
+@section('description', isset($category) ? 'Read in-depth ' . strtolower($category) . ' articles by Khaled Ahmed — senior full stack web developer.' : 'In-depth web development articles from a senior full stack developer. Laravel, React, Node.js, SEO, performance, hiring, and pricing.')
+@section('keywords', 'web development blog, Laravel tutorials, React tutorials, web developer Egypt, hire web developer, SEO guide, web performance, Khaled Ahmed')
+@section('canonical', isset($category) ? 'https://khaledahmed.net/blog/category/' . $category : 'https://khaledahmed.net/blogs')
 
 @section('structured_data')
 <script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "Blog",
-    "name": "Khaled Ahmed — Web Development Blog",
-    "url": "{{ url('/blogs') }}",
-    "description": "In-depth web development articles by senior full stack developer Khaled Ahmed.",
-    "author": {
-        "@type": "Person",
-        "name": "Khaled Ahmed",
-        "url": "https://khaledahmed.net",
-        "jobTitle": "Senior Full Stack Web Developer",
-        "sameAs": [
-            "https://linkedin.com/in/khaled-ahmed-82368819b",
-            "https://github.com/khaled312001"
-        ]
-    },
-    "blogPost": [
-        @foreach($posts as $i => $post)
-        {
-            "@type": "BlogPosting",
-            "headline": @json($post['title']),
-            "description": @json($post['excerpt']),
-            "url": "{{ url('/blog/' . $post['slug']) }}",
-            "datePublished": "{{ $post['date'] }}",
-            "image": "{{ asset('images/' . $post['image']) }}",
-            "author": { "@type": "Person", "name": "Khaled Ahmed" }
-        }@if(!$loop->last),@endif
-        @endforeach
-    ]
-}
+{"@context":"https://schema.org","@type":"Blog","name":"Khaled Ahmed — Web Development Blog","url":"{{ url('/blogs') }}","description":"In-depth web development articles by senior full stack developer Khaled Ahmed.","author":{"@type":"Person","name":"Khaled Ahmed","url":"https://khaledahmed.net"},"blogPost":[@foreach($posts as $i => $post){"@type":"BlogPosting","headline":@json($post['title']),"description":@json($post['excerpt']),"url":"{{ url('/blog/' . $post['slug']) }}","datePublished":"{{ $post['date'] }}","author":{"@type":"Person","name":"Khaled Ahmed"}}@if(!$loop->last),@endif @endforeach]}
 </script>
 <script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-        {"@type":"ListItem","position":1,"name":"Home","item":"{{ url('/') }}"},
-        {"@type":"ListItem","position":2,"name":"Blog","item":"{{ url('/blogs') }}"}
-        @if(isset($category))
-        ,{"@type":"ListItem","position":3,"name":"{{ ucfirst($category) }}","item":"{{ url('/blog/category/' . strtolower($category)) }}"}
-        @endif
-    ]
-}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ url('/') }}"},{"@type":"ListItem","position":2,"name":"Blog","item":"{{ url('/blogs') }}"}@if(isset($category)),{"@type":"ListItem","position":3,"name":"{{ ucfirst($category) }}","item":"{{ url('/blog/category/' . (isset($categorySlug) ? $categorySlug : $category)) }}"}@endif]}
 </script>
 @endsection
 
+@push('styles')
+<style>
+    .bl-hero { padding: calc(var(--nav-h) + var(--sp-7)) 0 var(--sp-7); position: relative; overflow: hidden; }
+    .bl-hero::before { content:''; position:absolute; inset:0; background: var(--gradient-bg); pointer-events: none; }
+    .bl-hero > .container { position: relative; z-index: 1; }
+    .bl-hero h1 { margin: 0 0 var(--sp-3); }
+    .bl-hero .lead { color: var(--text-2); font-size: 17.5px; max-width: 720px; margin: 0; }
+
+    .bl-cats { padding: 18px 0; border-bottom: 1px solid var(--border-1); text-align: center; }
+    .bl-cats a { display: inline-block; margin: 4px; padding: 7px 14px; border-radius: var(--r-full); background: var(--surface-1); border: 1px solid var(--border-1); color: var(--text-1); font-size: 13px; font-weight: 600; text-decoration: none; transition: all .2s ease; }
+    .bl-cats a:hover { border-color: var(--border-3); color: var(--brand); transform: translateY(-2px); }
+    .bl-cats a.is-active { background: var(--brand); color: var(--bg-1); border-color: var(--brand); }
+
+    .bl-card { display: flex; flex-direction: column; height: 100%; padding: 28px 26px; background: linear-gradient(160deg, var(--surface-1) 0%, var(--bg-2) 100%); border: 1px solid var(--border-1); border-radius: var(--r-lg); text-decoration: none; transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; position: relative; overflow: hidden; }
+    .bl-card::before { content:''; position: absolute; top: 0; inset-inline-start: 0; right: 0; height: 3px; background: var(--gradient-1); transform: scaleX(0); transform-origin: left; transition: transform .4s ease; }
+    html[dir="rtl"] .bl-card::before { transform-origin: right; }
+    .bl-card:hover { transform: translateY(-6px); border-color: var(--border-3); box-shadow: var(--shadow-md); }
+    .bl-card:hover::before { transform: scaleX(1); }
+    .bl-card__cat { display: inline-block; font-size: 11px; color: var(--brand); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; background: rgba(96,165,250,0.10); border: 1px solid rgba(96,165,250,0.20); border-radius: var(--r-full); margin-bottom: 14px; align-self: flex-start; }
+    .bl-card__title { font-size: 18px; font-weight: 700; color: var(--text-1) !important; line-height: 1.4; margin: 0 0 10px; }
+    .bl-card__meta { display: flex; align-items: center; gap: 14px; font-size: 12.5px; color: var(--text-3); margin-bottom: 12px; }
+    .bl-card__meta i { color: var(--brand); font-size: 11px; }
+    .bl-card__excerpt { color: var(--text-2); font-size: 14.5px; line-height: 1.65; margin: 0 0 14px; flex: 1; }
+    .bl-card__more { display: inline-flex; align-items: center; gap: 6px; color: var(--brand); font-weight: 700; font-size: 13.5px; transition: gap .2s ease; }
+    .bl-card:hover .bl-card__more { gap: 10px; color: var(--brand-2); }
+</style>
+@endpush
+
 @section('content')
-<section class="blog-hero">
+
+<section class="bl-hero">
     <div class="container">
-        <div class="row justify-content-center text-center">
-            <div class="col-lg-10">
-                @if(isset($category))
-                    <h1>{{ ucfirst($category) }} Articles</h1>
-                    <p>Deep, practical articles on {{ strtolower($category) }} from a working senior full stack web developer with 5+ years of experience and 25+ shipped projects.</p>
-                @else
-                    <h1>{{ app()->getLocale() === 'ar' ? 'مدوّنه تطوير الويب' : 'Web Development Blog' }}</h1>
-                    <p>{{ app()->getLocale() === 'ar' ? 'مقالات عمليه بدون كلام كثير عن Laravel و React و Node.js و SEO والأداء والتوظيف — مكتوبه بقلم مطور ويب متكامل خبير ينشر إنتاجي كل أسبوع.' : 'Practical, no-fluff articles on Laravel, React, Node.js, SEO, performance, and hiring — written by a senior full stack developer who ships in production every week.' }}</p>
-                @endif
-            </div>
+        <div class="d-inline-flex align-items-center gap-2 mb-3" style="font-size:13px;color:var(--text-3);">
+            <a href="{{ route('home') }}" style="color:var(--text-2);text-decoration:none;">{{ __('site.home') }}</a>
+            <i class="fas fa-chevron-{{ $isAr ? 'left' : 'right' }}" style="font-size:10px;color:var(--text-4);"></i>
+            <span>{{ $isAr ? 'المدوّنة' : 'Blog' }}</span>
         </div>
+        @if(isset($category))
+            <span class="ks-eyebrow">{{ $isAr ? 'تخصص' : 'Category' }}</span>
+            <h1 class="mt-3">{{ ucfirst($category) }} <span class="ks-grad-text">{{ $isAr ? 'مقالات' : 'Articles' }}</span></h1>
+            <p class="lead">{{ $isAr ? 'مقالات عملية ومعمقة حول' : 'In-depth practical articles on' }} <strong>{{ strtolower($category) }}</strong>.</p>
+        @else
+            <span class="ks-eyebrow"><span class="ks-dot"></span> {{ $isAr ? 'مدوّنة تطوير الويب' : 'Web development blog' }}</span>
+            <h1 class="mt-3">{{ $isAr ? 'مقالات عملية' : 'Practical articles' }} <span class="ks-grad-text">{{ $isAr ? 'لمبرمجين حقيقيين' : 'for real builders' }}</span></h1>
+            <p class="lead">{{ $isAr ? 'دلائل عميقة حول Laravel و React و Node.js و SEO والأداء والتوظيف، يكتبها مطوّر ينشر في الإنتاج كل أسبوع.' : 'Deep guides on Laravel, React, Node.js, SEO, performance, and hiring — written by a senior developer who ships in production every week.' }}</p>
+        @endif
     </div>
 </section>
 
-<section class="section pt-4">
+<div class="bl-cats">
     <div class="container">
-        <div class="blog-filter-bar text-center">
-            <a href="{{ route('blogs') }}" class="{{ !isset($category) ? 'active' : '' }}">{{ app()->getLocale() === 'ar' ? 'كل المقالات' : 'All Posts' }}</a>
-            @foreach($categories as $slug => $cat)
-                <a href="{{ route('blog.category', $slug) }}"
-                   class="{{ (isset($categorySlug) && $categorySlug === $slug) ? 'active' : '' }}">
-                   {{ $cat['name'] }} ({{ $cat['count'] }})
-                </a>
-            @endforeach
-        </div>
+        <a href="{{ route('blogs') }}" class="{{ !isset($category) ? 'is-active' : '' }}">{{ $isAr ? 'كل المقالات' : 'All posts' }}</a>
+        @foreach($categories as $slug => $cat)
+            <a href="{{ route('blog.category', $slug) }}" class="{{ (isset($categorySlug) && $categorySlug === $slug) ? 'is-active' : '' }}">{{ $cat['name'] }} ({{ $cat['count'] }})</a>
+        @endforeach
+    </div>
+</div>
 
+<section class="ks-section">
+    <div class="container">
         <div class="row g-4">
             @foreach($posts as $post)
-            <div class="col-lg-4 col-md-6">
-                <article class="blog-card" itemscope itemtype="https://schema.org/BlogPosting">
-                    <div class="blog-body">
-                        <span class="cat-pill" itemprop="articleSection">{{ $post['category'] }}</span>
-                        <h3 itemprop="headline">
-                            <a href="{{ route('blog.show', $post['slug']) }}" itemprop="url">{{ $post['title'] }}</a>
-                        </h3>
-                        <div class="meta">
-                            <i class="far fa-calendar"></i>
-                            <time datetime="{{ $post['date'] }}" itemprop="datePublished">{{ \Carbon\Carbon::parse($post['date'])->locale(app()->getLocale())->translatedFormat(app()->getLocale() === 'ar' ? 'd F Y' : 'M d, Y') }}</time>
-                            &nbsp;&bull;&nbsp;
-                            <i class="far fa-clock"></i> {{ $post['read_time'] }}
+                <div class="col-lg-4 col-md-6 ks-fadeup">
+                    <a href="{{ route('blog.show', $post['slug']) }}" class="bl-card">
+                        <span class="bl-card__cat">{{ $post['category'] }}</span>
+                        <h3 class="bl-card__title">{{ $post['title'] }}</h3>
+                        <div class="bl-card__meta">
+                            <span><i class="far fa-calendar"></i> {{ \Carbon\Carbon::parse($post['date'])->locale(app()->getLocale())->translatedFormat($isAr ? 'd F Y' : 'M d, Y') }}</span>
+                            <span><i class="far fa-clock"></i> {{ $post['read_time'] }}</span>
                         </div>
-                        <p itemprop="description">{{ $post['excerpt'] }}</p>
-                        <a href="{{ route('blog.show', $post['slug']) }}" class="read-more">
-                            {{ __('site.read_full_article') }} <i class="fa fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
-            </div>
+                        <p class="bl-card__excerpt">{{ $post['excerpt'] }}</p>
+                        <span class="bl-card__more">{{ $isAr ? 'اقرأ المقال' : 'Read article' }} <i class="fas fa-arrow-{{ $isAr ? 'left' : 'right' }}"></i></span>
+                    </a>
+                </div>
             @endforeach
         </div>
 
-        <div class="blog-cta">
-            <h2>Need a Senior Full Stack Developer for Your Project?</h2>
-            <p>I help businesses build fast, secure, and scalable web applications. Let's discuss your project — I respond within 24 hours with an honest recommendation.</p>
-            <a href="{{ route('contact') }}" class="btn-cta">Get a Free Consultation <i class="fa fa-arrow-right ms-2"></i></a>
+        <div class="home-cta ks-fadeup" style="margin-top: var(--sp-9);">
+            <h2>{{ $isAr ? 'تحتاج مطوّر ويب خبير لمشروعك؟' : 'Need a senior developer for your project?' }}</h2>
+            <p>{{ $isAr ? 'استشارة مجانية وعرض ثابت السعر خلال 24 ساعة.' : 'Free consultation and fixed-fee quote within 24 hours.' }}</p>
+            <div class="home-cta__row">
+                <a href="{{ route('contact') }}" class="ks-btn ks-btn--primary">{{ $isAr ? 'تواصل معي' : 'Contact me' }} <i class="fa fa-arrow-right"></i></a>
+            </div>
         </div>
     </div>
 </section>
+
 @endsection

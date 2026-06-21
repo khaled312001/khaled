@@ -1,38 +1,23 @@
-{{-- Single project card — used by both grouped-by-country and flat-grid layouts in pages.portfolios --}}
+{{-- Portfolio card — text-only (no images per design choice) --}}
+@php $isAr = app()->getLocale() === 'ar'; @endphp
 <div class="col-lg-4 col-md-6">
-    <article class="project-card" tabindex="0">
-        <a href="{{ $project['url'] }}" target="_blank" rel="noopener" class="project-img" aria-label="Visit {{ $project['title'] }}">
-            <img src="{{ asset('images/' . $project['image']) }}"
-                 alt="{{ $project['title'] }}"
-                 loading="lazy" decoding="async"
-                 onerror="this.classList.add('img-failed'); this.removeAttribute('alt'); this.parentElement.classList.add('has-failed-img');"
-                 data-title="{{ $project['title'] }}"
-                 data-cat="{{ $project['category'] }}">
-            <span class="img-fallback" aria-hidden="true">
-                <span class="img-fallback-title">{{ $project['title'] }}</span>
-                <span class="img-fallback-cat">{{ $project['category'] }}</span>
-            </span>
-            <span class="preview-mask"></span>
+    <a href="{{ $project['url'] }}" target="_blank" rel="noopener" class="pf-card ks-fadeup">
+        <div class="pf-card__top">
+            <span class="pf-card__cat">{{ $project['category'] }}</span>
             @if(!empty($project['featured']))
-                <span class="featured-badge"><i class="fa fa-star" style="font-size:10px;"></i> {{ app()->getLocale() === 'ar' ? 'مميّز' : 'Featured' }}</span>
+                <span class="pf-card__feat"><i class="fas fa-star"></i> {{ $isAr ? 'مميّز' : 'Featured' }}</span>
             @endif
-            <span class="scroll-hint"><i class="fas fa-arrow-down"></i> {{ app()->getLocale() === 'ar' ? 'مرّر لتصفّح' : 'Hover to scroll' }}</span>
-        </a>
-        <div class="project-body">
-            <div class="cat">{{ $project['category'] }}</div>
-            <h3>{{ $project['title'] }}</h3>
-            <p class="summary">{{ $project['summary'] }}</p>
-            <div class="tech-stack">
-                @foreach($project['tech'] as $t)
-                    <span>{{ $t }}</span>
-                @endforeach
-            </div>
-            <div class="actions">
-                <a href="{{ $project['url'] }}" target="_blank" rel="noopener" class="visit">
-                    {{ app()->getLocale() === 'ar' ? 'زر الموقع المباشر' : 'Visit Live Site' }} <i class="fa fa-external-link-alt" style="font-size:11px;"></i>
-                </a>
-                <span class="role">{{ $project['role'] }}</span>
-            </div>
         </div>
-    </article>
+        <h3 class="pf-card__title">{{ $project['title'] }}</h3>
+        <p class="pf-card__sum">{{ $project['summary'] }}</p>
+        @if(!empty($project['tech']))
+            <div class="pf-card__tech">
+                @foreach(array_slice($project['tech'], 0, 5) as $t)<span>{{ $t }}</span>@endforeach
+            </div>
+        @endif
+        <div class="pf-card__foot">
+            <span class="pf-card__role">{{ $project['role'] }}</span>
+            <span class="pf-card__visit">{{ $isAr ? 'زر الموقع' : 'Visit site' }} <i class="fas fa-external-link-alt"></i></span>
+        </div>
+    </a>
 </div>
