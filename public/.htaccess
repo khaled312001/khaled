@@ -5,14 +5,16 @@
 
     RewriteEngine On
 
-    # ---------------------------------------------------------------
-    # Single-hop canonical redirect.
-    # Any of (http|https) × (www|non-www) that is NOT
-    # https://khaledahmed.net is rewritten to it in ONE 301.
-    # Avoids redirect chains (Google's "Page with redirect — Validation
-    # Failed" flag was caused by 2-hop chains: http→https, then www→non-www).
-    # ---------------------------------------------------------------
+    # Redirect legacy tag queries to clean blogs page in a single hop
+    RewriteCond %{QUERY_STRING} (^|&)tag= [NC]
+    RewriteRule ^blogs/?$ https://khaledahmed.net/blogs? [R=301,NE,L]
+
+    # 1. Force Canonical Host (non-www)
     RewriteCond %{HTTP_HOST} !^khaledahmed\.net$ [NC,OR]
+    RewriteCond %{HTTP:X-Forwarded-Host} ^www\. [NC]
+    RewriteRule ^ https://khaledahmed.net%{REQUEST_URI} [R=301,L]
+
+    # 2. Force HTTPS
     RewriteCond %{HTTPS} !=on
     RewriteCond %{HTTP:X-Forwarded-Proto} !=https
     RewriteRule ^ https://khaledahmed.net%{REQUEST_URI} [R=301,L]

@@ -6,15 +6,10 @@ c.connect('145.79.20.56', 65002, 'u405809647', 'support@Passord123support@Passor
           look_for_keys=False, allow_agent=False, timeout=20)
 
 cmd = r'''
-for u in "http://www.khaledahmed.net/" "http://khaledahmed.net/" "https://www.khaledahmed.net/" "https://khaledahmed.net/"; do
-  echo "============================================"
-  echo "ORIGIN: $u"
-  echo "============================================"
-  # -I HEAD with -L follow + show ALL response headers including each hop
-  curl -sILv "$u" -o /dev/null 2>&1 | grep -iE "^[<>] (HTTP|location)" | head -20
-  echo
-done
+echo "=== FULL HEADERS FOR http://www.khaledahmed.net/ ==="
+curl -IL "http://www.khaledahmed.net/" 2>&1 | grep -E "^HTTP|^[Ll]ocation|^[Ss]erver|^[Xx]-"
 '''
 _, out, _ = c.exec_command(cmd, timeout=120)
 print(out.read().decode())
 c.close()
+

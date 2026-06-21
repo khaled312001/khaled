@@ -48,14 +48,15 @@ class PageController extends Controller
 
     public function blogCategory($category)
     {
-        $allPosts = BlogService::all();
-        $posts = array_values(array_filter($allPosts, fn($p) => strtolower($p['category']) === strtolower($category)));
+        // $category is a stable English slug like "saas", "e-commerce", "devops".
+        $categorySlug = strtolower($category);
+        $posts = BlogService::byCategorySlug($categorySlug);
         if (empty($posts)) {
             abort(404);
         }
         $categories = BlogService::categories();
         $tags = BlogService::tags();
-        return view('pages.blogs', compact('posts', 'categories', 'tags', 'category'));
+        return view('pages.blogs', compact('posts', 'categories', 'tags', 'category', 'categorySlug'));
     }
 
     public function contact()
@@ -248,11 +249,6 @@ class PageController extends Controller
         return view('pages.plans');
     }
 
-    public function careers()
-    {
-        return view('pages.careers');
-    }
-
     public function sitemap()
     {
         $base = 'https://khaledahmed.net';
@@ -269,7 +265,6 @@ class PageController extends Controller
             ['/plans', 'monthly', '0.7'],
             ['/teams', 'monthly', '0.5'],
             ['/gallery', 'monthly', '0.5'],
-            ['/careers', 'monthly', '0.5'],
         ];
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";

@@ -1,7 +1,6 @@
 """Re-deploy all SEO-fix files and run a comprehensive verification."""
 import paramiko, hashlib, time, sys
 from pathlib import Path
-
 PASSWORD = "support@Passord123support@Passord123"
 REMOTE_ROOT = "domains/khaledahmed.net/public_html"
 LOCAL = Path("f:/Certificates/khaled")
@@ -11,7 +10,9 @@ FILES = [
     "app/Http/Middleware/TrustProxies.php",
     "app/Http/Kernel.php",
     ".htaccess",
+    "public/.htaccess",
     "app/Http/Controllers/PageController.php",
+    "app/Services/BlogService.php",
 ]
 
 def md5_local(p): return hashlib.md5(Path(p).read_bytes()).hexdigest()
@@ -88,9 +89,8 @@ for u in "https://www.khaledahmed.net/" "https://www.khaledahmed.net/services" "
   printf "  %-65s -> %s %s\n" "$u" "$code" "$loc"
 done
 
-echo
 echo "=== non-www (must stay 200, no loops) ==="
-for u in "https://khaledahmed.net/" "https://khaledahmed.net/services" "https://khaledahmed.net/blogs" "https://khaledahmed.net/portfolios" "https://khaledahmed.net/plans" "https://khaledahmed.net/blog/react-vs-vue-2026" "https://khaledahmed.net/blog/category/security"; do
+for u in "https://khaledahmed.net/" "https://khaledahmed.net/services" "https://khaledahmed.net/blogs" "https://khaledahmed.net/portfolios" "https://khaledahmed.net/plans" "https://khaledahmed.net/blog/react-vs-vue-2026" "https://khaledahmed.net/blog/build-saas-mvp-laravel-react-2026" "https://khaledahmed.net/blog/nextjs-performance-optimization-2026"; do
   code=$(curl -sI "$u" 2>/dev/null | grep -i "^HTTP" | head -1 | awk '{print $2}')
   printf "  %-65s -> %s\n" "$u" "$code"
 done
@@ -98,6 +98,8 @@ done
 echo
 echo "=== ?tag redirect ==="
 curl -sI "https://khaledahmed.net/blogs?tag=web+development" 2>/dev/null | grep -iE "^HTTP|^location" | head -2 | tr -d '\r'
+echo "=== www ?tag redirect ==="
+curl -sI "https://www.khaledahmed.net/blogs?tag=web+development" 2>/dev/null | grep -iE "^HTTP|^location" | head -2 | tr -d '\r'
 
 echo
 echo "=== PDF noindex header (non-www) ==="

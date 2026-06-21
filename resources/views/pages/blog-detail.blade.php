@@ -21,25 +21,28 @@
     .article-hero .cat-badge { display: inline-block; background: rgba(255,255,255,0.15); color: #fff; padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; }
     .article-hero h1 { color: #fff; font-weight: 700; font-size: 36px; line-height: 1.25; max-width: 900px; margin-bottom: 18px; }
     .article-hero .article-meta { color: #cbd5e1; font-size: 14px; }
-    .article-hero .article-meta span { margin-right: 18px; }
-    .article-hero .article-meta i { margin-right: 6px; color: #93c5fd; }
+    .article-hero .article-meta span { margin-inline-end: 18px; }
+    .article-hero .article-meta i { margin-inline-end: 6px; color: #93c5fd; }
     .article-body { padding: 50px 0; }
-    .article-body img.featured { width: 100%; max-height: 500px; object-fit: cover; border-radius: 12px; margin-bottom: 40px; }
     .article-content { font-size: 17px; line-height: 1.8; color: #1e293b; }
-    .article-content .lead { font-size: 19px; color: #334155; margin-bottom: 30px; padding: 18px 22px; background: #f8fafc; border-left: 4px solid var(--main-color); border-radius: 4px; }
+    /* Logical properties so border + indents flip correctly under html[dir="rtl"] */
+    .article-content .lead { font-size: 19px; color: #334155; margin-bottom: 30px; padding: 18px 22px; background: #f8fafc; border-inline-start: 4px solid var(--main-color); border-radius: 4px; }
     .article-content h2 { margin-top: 40px; margin-bottom: 18px; font-size: 26px; font-weight: 700; color: #0f172a; }
     .article-content h3 { margin-top: 30px; margin-bottom: 14px; font-size: 21px; font-weight: 600; color: #0f172a; }
     .article-content p { margin-bottom: 18px; }
-    .article-content ul, .article-content ol { margin-bottom: 22px; padding-left: 24px; }
+    .article-content ul, .article-content ol { margin-bottom: 22px; padding-inline-start: 24px; }
     .article-content li { margin-bottom: 8px; }
     .article-content code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.92em; color: #be185d; }
     .article-content a { color: var(--main-color); font-weight: 600; }
     .article-content a:hover { text-decoration: underline; }
+    /* Defensive: any parent stylesheet that forces direction: ltr or unicode-bidi: bidi-override
+       must NOT bleed into the article body. Anchor the bidi context here. */
+    .article-content { direction: inherit; unicode-bidi: isolate; }
     .article-tags { padding: 24px 0; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; margin: 40px 0 30px; }
-    .article-tags .tag { display: inline-block; background: #f1f5f9; color: #1e293b; padding: 6px 14px; border-radius: 999px; font-size: 13px; margin-right: 8px; margin-bottom: 6px; text-decoration: none; }
+    .article-tags .tag { display: inline-block; background: #f1f5f9; color: #1e293b; padding: 6px 14px; border-radius: 999px; font-size: 13px; margin-inline-end: 8px; margin-bottom: 6px; text-decoration: none; }
     .article-tags .tag:hover { background: var(--main-color); color: #fff; }
     .author-box { display: flex; gap: 20px; align-items: center; padding: 30px; background: #f8fafc; border-radius: 12px; margin: 30px 0; }
-    .author-box img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; }
+    .author-box .author-mark { flex: 0 0 auto; width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, var(--main-color), #7c3aed); color: #fff; font-weight: 800; font-size: 22px; letter-spacing: 1px; box-shadow: 0 8px 20px rgba(37,99,235,0.30); }
     .author-box h4 { margin: 0 0 6px; font-size: 18px; }
     .author-box p { margin: 0; color: #64748b; font-size: 14px; }
     .author-box .author-cta { margin-top: 10px; }
@@ -51,14 +54,13 @@
     .article-cta .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
     .related-posts { padding: 40px 0; background: #f8fafc; }
     .related-posts h2 { font-size: 28px; font-weight: 700; margin-bottom: 30px; text-align: center; }
-    .related-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: all 0.2s; }
+    .related-card { background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: all 0.2s; padding: 22px 22px 20px; border-inline-start: 3px solid var(--main-color); height: 100%; }
     .related-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
-    .related-card img { width: 100%; height: 180px; object-fit: cover; }
-    .related-card .body { padding: 20px; }
-    .related-card h3 { font-size: 17px; line-height: 1.4; margin: 0 0 10px; }
+    .related-card .body { padding: 0; }
+    .related-card h3 { font-size: 17px; line-height: 1.4; margin: 8px 0 0; }
     .related-card h3 a { color: #0f172a; text-decoration: none; }
     .related-card h3 a:hover { color: var(--main-color); }
-    .related-card .cat { font-size: 12px; color: var(--main-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .related-card .cat { font-size: 12px; color: var(--main-color); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
     @media (max-width: 768px) {
         .article-hero { padding: 80px 0 28px; }
         .article-hero h1 { font-size: 25px; line-height: 1.3; }
@@ -147,11 +149,6 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10">
-                    <img src="{{ asset('images/' . $post['image']) }}"
-                         alt="{{ $post['title'] }}"
-                         class="featured" itemprop="image"
-                         width="1000" height="500">
-
                     <div class="article-content" itemprop="articleBody">
                         {!! $post['content'] !!}
                     </div>
@@ -164,10 +161,10 @@
                     </div>
 
                     <div class="author-box" itemscope itemtype="https://schema.org/Person" itemprop="author">
-                        <img src="{{ asset('images/logo.png') }}" alt="Khaled Ahmed - Senior Full Stack Web Developer" loading="lazy" width="80" height="80" itemprop="image">
+                        <div class="author-mark" aria-hidden="true">KH</div>
                         <div>
                             <h4 itemprop="name">About <a href="https://khaledahmed.net" itemprop="url" style="color:inherit;text-decoration:none;">Khaled Ahmed</a></h4>
-                            <p itemprop="description">Senior Full Stack Web Developer based in Cairo, Egypt with 5+ years of experience and 25+ shipped projects across 7 countries. Founder of Barmagly. Specialized in Laravel, React, Node.js, and modern web technologies. Not to be confused with the <a href="https://en.wikipedia.org/w/index.php?title=Khaled_Ahmed&amp;oldid=1352803089" rel="nofollow noopener" target="_blank">Pakistani journalist of the same name</a>.</p>
+                            <p itemprop="description">Senior Full Stack Web Developer based in Cairo, Egypt with 5+ years of experience and 25+ shipped projects across 7 countries. Founder of Barmagly. Specialized in Laravel, React, Node.js, and modern web technologies.</p>
                             <div class="author-cta" style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:12px;">
                                 <a href="{{ route('contact') }}">Hire Khaled <i class="fa fa-arrow-right"></i></a>
                                 <a href="{{ route('services') }}">View Services <i class="fa fa-arrow-right"></i></a>
@@ -195,9 +192,6 @@
                 @foreach($related as $rel)
                 <div class="col-lg-4 col-md-6">
                     <article class="related-card">
-                        <a href="{{ route('blog.show', $rel['slug']) }}">
-                            <img src="{{ asset('images/' . $rel['image']) }}" alt="{{ $rel['title'] }}" loading="lazy" width="400" height="180">
-                        </a>
                         <div class="body">
                             <span class="cat">{{ $rel['category'] }}</span>
                             <h3><a href="{{ route('blog.show', $rel['slug']) }}">{{ $rel['title'] }}</a></h3>

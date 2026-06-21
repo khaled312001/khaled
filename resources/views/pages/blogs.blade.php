@@ -110,11 +110,11 @@
 <section class="section pt-4">
     <div class="container">
         <div class="blog-filter-bar text-center">
-            <a href="{{ route('blogs') }}" class="{{ !isset($category) ? 'active' : '' }}">All Posts</a>
-            @foreach($categories as $catName => $count)
-                <a href="{{ route('blog.category', strtolower($catName)) }}"
-                   class="{{ isset($category) && strtolower($category) === strtolower($catName) ? 'active' : '' }}">
-                   {{ $catName }} ({{ $count }})
+            <a href="{{ route('blogs') }}" class="{{ !isset($category) ? 'active' : '' }}">{{ app()->getLocale() === 'ar' ? 'كل المقالات' : 'All Posts' }}</a>
+            @foreach($categories as $slug => $cat)
+                <a href="{{ route('blog.category', $slug) }}"
+                   class="{{ (isset($categorySlug) && $categorySlug === $slug) ? 'active' : '' }}">
+                   {{ $cat['name'] }} ({{ $cat['count'] }})
                 </a>
             @endforeach
         </div>

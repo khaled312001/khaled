@@ -35,7 +35,13 @@ class ForceCanonicalDomain
         $isWww = str_starts_with($host, 'www.') || str_starts_with($forwarded, 'www.');
 
         if ($isNonCanonical && $isWww) {
-            $target = 'https://' . self::CANONICAL_HOST . $request->getRequestUri();
+            $uri = $request->getRequestUri();
+            // If the query contains a tag parameter, redirect directly to the canonical blogs page to avoid a 2-hop redirect chain
+            if ($request->query('tag') !== null) {
+                $target = 'https://' . self::CANONICAL_HOST . '/blogs';
+            } else {
+                $target = 'https://' . self::CANONICAL_HOST . $uri;
+            }
             return redirect($target, 301)->header('Cache-Control', 'no-store, max-age=0');
         }
 

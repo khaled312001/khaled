@@ -9,320 +9,211 @@
 
 @push('styles')
 <style>
-    /* === HERO with personal photo + creative animations === */
-    .hero-banner {
-        background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%);
-        padding: 110px 0 60px;
-        min-height: 720px;
-        display: flex;
-        align-items: center;
-    }
-    .hero-banner h1 { color: #fff; font-size: 48px; line-height: 1.2; font-weight: 800; margin-bottom: 18px; }
-    .hero-banner h1 span { color: #60a5fa; }
-    .hero-banner h2 { color: #cbd5e1; font-size: 18px; line-height: 1.6; font-weight: 400; margin-bottom: 30px; max-width: 640px; }
-    .hero-stats { display: flex; gap: 36px; margin: 24px 0; flex-wrap: wrap; }
-    .hero-stats .stat { color: #fff; }
-    .hero-stats .stat .num { font-size: 34px; font-weight: 800; color: #60a5fa; line-height: 1; }
-    .hero-stats .stat .lbl { font-size: 13px; color: #cbd5e1; margin-top: 4px; }
-    .hero-cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 26px; }
-    .hero-cta-row .btn-primary-cta { background: linear-gradient(135deg, #60a5fa, #2563eb) !important; color: #fff !important; padding: 14px 28px; border-radius: 10px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
-    .hero-cta-row .btn-primary-cta:hover { background: linear-gradient(135deg, #3b82f6, #1e40af) !important; transform: translateY(-2px); box-shadow: 0 12px 28px rgba(96,165,250,0.4); }
-    .hero-cta-row .btn-secondary-cta { background: rgba(255,255,255,0.05); color: #fff; border: 2px solid rgba(255,255,255,0.30); padding: 12px 28px; border-radius: 10px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
-    .hero-cta-row .btn-secondary-cta:hover { border-color: #fff; background: rgba(255,255,255,0.12); }
+    /* =====================================================
+       HOME — clean, dark-first, modern. Self-contained.
+       Uses shared --dm-* variables from layout dark-mode-global.
+       ===================================================== */
 
-    /* === Photo column === */
-    .hero-photo-wrap {
-        position: relative;
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        height: 100%;
-        min-height: 540px;
-    }
-    /* Animated multi-layer ring */
-    .hero-photo-ring {
-        position: absolute;
-        top: 50%; left: 50%;
-        width: 460px; height: 460px;
-        transform: translate(-50%, -50%);
-        border-radius: 50%;
+    /* Section spacing baseline (overrides default light section padding) */
+    .home-page .h-section { padding: 96px 0; position: relative; }
+    .home-page .h-section.tight { padding: 64px 0; }
+
+    /* ============ HERO ============ */
+    .h-hero {
+        padding: 140px 0 100px;
         background:
-            conic-gradient(from 0deg, #60a5fa, #7c3aed, #ec4899, #60a5fa);
-        animation: ringSpin 18s linear infinite;
-        opacity: 0.55;
-        filter: blur(2px);
-    }
-    .hero-photo-ring::after {
-        content: '';
-        position: absolute;
-        inset: 8px;
-        background: radial-gradient(circle, #1e3a5f 0%, #0f172a 70%);
-        border-radius: 50%;
-    }
-    .hero-photo-ring-2 {
-        position: absolute;
-        top: 50%; left: 50%;
-        width: 510px; height: 510px;
-        transform: translate(-50%, -50%);
-        border-radius: 50%;
-        border: 1.5px dashed rgba(96,165,250,0.40);
-        animation: ringSpin 28s linear infinite reverse;
-    }
-    @keyframes ringSpin {
-        from { transform: translate(-50%, -50%) rotate(0deg); }
-        to   { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-
-    /* The actual photo */
-    .hero-photo {
+            radial-gradient(circle at 18% 18%, rgba(96,165,250,0.15) 0%, transparent 45%),
+            radial-gradient(circle at 82% 80%, rgba(167,139,250,0.18) 0%, transparent 45%),
+            linear-gradient(180deg, #050816 0%, #0a0e1a 100%);
         position: relative;
-        z-index: 2;
-        max-height: 580px;
-        width: auto;
-        filter: drop-shadow(0 30px 50px rgba(0,0,0,0.45));
-        animation: heroFloat 6s ease-in-out infinite;
+        overflow: hidden;
     }
-    @keyframes heroFloat {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-14px); }
+    .h-hero::before {
+        content: '';
+        position: absolute; inset: 0;
+        background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+        background-size: 28px 28px;
+        opacity: 0.5;
+        pointer-events: none;
     }
+    .h-hero .container { position: relative; z-index: 1; }
 
-    /* Floating tech-stack pills around the photo */
-    .float-pill {
-        position: absolute;
-        background: rgba(255, 255, 255, 0.95);
-        color: #1e293b;
-        padding: 9px 16px;
+    .h-eyebrow {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 8px 16px;
+        background: rgba(96,165,250,0.10);
+        border: 1px solid rgba(96,165,250,0.30);
+        color: #93c5fd;
+        font-size: 12.5px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
         border-radius: 999px;
-        font-size: 13px;
-        font-weight: 700;
-        box-shadow: 0 14px 30px rgba(15,23,42,0.35);
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        z-index: 3;
-        backdrop-filter: blur(6px);
-        animation: pillFloat 6s ease-in-out infinite;
+        margin-bottom: 22px;
+        opacity: 0; animation: h-fadeup 0.6s ease 0.05s forwards;
     }
-    .float-pill i { font-size: 16px; }
-    .float-pill.fp-laravel { top: 8%; left: -10%; animation-delay: 0s; color: #f55247; }
-    .float-pill.fp-react   { top: 22%; right: -8%; animation-delay: 1.2s; color: #61dafb; }
-    .float-pill.fp-node    { bottom: 30%; left: -12%; animation-delay: 2.4s; color: #5fa04e; }
-    .float-pill.fp-mysql   { bottom: 12%; right: -6%; animation-delay: 3.6s; color: #00758f; }
-    @keyframes pillFloat {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
+    .h-eyebrow .h-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 0 0 rgba(16,185,129,0.6); animation: h-pulse 2s ease infinite; }
+
+    .h-hero h1 {
+        color: #fff; font-weight: 800;
+        font-size: 56px; line-height: 1.08; letter-spacing: -0.03em;
+        margin: 0 0 22px;
+        opacity: 0; animation: h-fadeup 0.7s ease 0.15s forwards;
+    }
+    .h-hero h1 .h-grad {
+        background: linear-gradient(135deg, #60a5fa, #c4b5fd 60%, #f0abfc);
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .h-hero h2 {
+        color: #cbd5e1; font-size: 19px; line-height: 1.6; font-weight: 400;
+        max-width: 680px; margin: 0 0 36px;
+        opacity: 0; animation: h-fadeup 0.7s ease 0.25s forwards;
     }
 
-    /* Hero text intro animation */
-    .hero-fadeup { opacity: 0; transform: translateY(28px); animation: heroFadeUp 0.9s cubic-bezier(.2,.8,.2,1) forwards; }
-    .hero-fadeup.d1 { animation-delay: 0.05s; }
-    .hero-fadeup.d2 { animation-delay: 0.20s; }
-    .hero-fadeup.d3 { animation-delay: 0.35s; }
-    .hero-fadeup.d4 { animation-delay: 0.50s; }
-    @keyframes heroFadeUp {
-        to { opacity: 1; transform: translateY(0); }
+    .h-stats {
+        display: grid; grid-template-columns: repeat(4, minmax(0,1fr));
+        gap: 18px; max-width: 720px; margin-bottom: 40px;
+        opacity: 0; animation: h-fadeup 0.7s ease 0.35s forwards;
     }
-
-    /* Other site-wide CSS continues below — kept identical */
-    /* === Trust bar — modern card-based === */
-    .trust-bar {
-        background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
-        padding: 36px 0;
-        border-bottom: 1px solid #e0e7ff;
-        position: relative;
-    }
-    .trust-bar .trust-card {
-        background: #fff;
+    .h-stats .stat {
+        padding: 18px 12px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.08);
         border-radius: 14px;
-        padding: 22px 24px;
-        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
-        border: 1px solid rgba(37, 99, 235, 0.08);
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        height: 100%;
-        transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .trust-bar .trust-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.10);
-    }
-    .trust-bar .trust-icon {
-        width: 48px;
-        height: 48px;
-        border-radius: 12px;
-        background: linear-gradient(135deg, #2563eb, #7c3aed);
-        color: #fff;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        flex-shrink: 0;
-    }
-    .trust-bar .trust-card:nth-child(2) .trust-icon { background: linear-gradient(135deg, #06b6d4, #0891b2); }
-    .trust-bar .trust-card:nth-child(3) .trust-icon { background: linear-gradient(135deg, #10b981, #059669); }
-    .trust-bar .trust-body { flex: 1; min-width: 0; }
-    .trust-bar .label {
-        color: #64748b;
-        font-size: 11.5px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1.2px;
-        margin-bottom: 4px;
-    }
-    .trust-bar .countries {
-        color: #0f172a;
-        font-weight: 600;
-        font-size: 14.5px;
-        line-height: 1.4;
-    }
-    @media (max-width: 768px) {
-        .trust-bar { padding: 24px 0; }
-        .trust-bar .trust-card { padding: 16px 18px; gap: 12px; }
-        .trust-bar .trust-icon { width: 40px; height: 40px; font-size: 16px; }
-        .trust-bar .countries { font-size: 13.5px; }
-    }
-
-    /* === About section — modernized === */
-    #about { padding: 80px 0 !important; background: #fff; }
-    .about-grid {
-        display: grid;
-        grid-template-columns: 1fr 1.6fr;
-        gap: 60px;
-        align-items: center;
-    }
-    @media (max-width: 991px) {
-        .about-grid { grid-template-columns: 1fr; gap: 40px; }
-    }
-    .about-photo-wrap {
-        position: relative;
         text-align: center;
+        backdrop-filter: blur(8px);
+        transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
     }
-    .about-photo-wrap::before {
-        content: '';
-        position: absolute;
-        top: 50%; left: 50%;
-        width: 90%; aspect-ratio: 1;
-        transform: translate(-50%, -50%);
-        background: linear-gradient(135deg, rgba(37,99,235,0.10), rgba(124,58,237,0.10));
-        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-        animation: blobMorph 12s ease-in-out infinite;
-        z-index: 0;
+    .h-stats .stat:hover { transform: translateY(-3px); background: rgba(96,165,250,0.10); border-color: rgba(96,165,250,0.25); }
+    .h-stats .num { font-size: 30px; font-weight: 800; color: #60a5fa; line-height: 1; margin-bottom: 5px; font-feature-settings: "tnum"; }
+    .h-stats .lbl { font-size: 12.5px; color: #cbd5e1; font-weight: 500; letter-spacing: 0.3px; }
+
+    .h-cta-row {
+        display: flex; gap: 14px; flex-wrap: wrap;
+        opacity: 0; animation: h-fadeup 0.7s ease 0.45s forwards;
     }
-    @keyframes blobMorph {
-        0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-        50% { border-radius: 70% 30% 50% 50% / 50% 70% 30% 50%; }
+    .h-btn {
+        display: inline-flex; align-items: center; gap: 10px;
+        padding: 14px 28px;
+        border-radius: 12px;
+        font-weight: 700; font-size: 15px;
+        text-decoration: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        border: 1px solid transparent;
     }
-    .about-photo {
-        position: relative;
-        z-index: 1;
-        max-width: 100%;
-        max-height: 480px;
-        width: auto;
-        filter: drop-shadow(0 24px 40px rgba(15, 23, 42, 0.20));
-    }
-    .about-content h2.section-title-h2 {
-        font-size: 32px !important;
-        margin-bottom: 18px;
-    }
-    .about-content p { font-size: 16px; line-height: 1.8; color: #475569; margin-bottom: 16px; }
-    .about-info-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 14px;
-        margin: 24px 0 28px;
-    }
-    @media (max-width: 576px) {
-        .about-info-grid { grid-template-columns: 1fr; }
-    }
-    .about-info-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-        padding: 14px 16px;
-        background: #f8fafc;
-        border: 1px solid #e2e8f0;
-        border-radius: 10px;
-        transition: border-color 0.2s ease, background 0.2s ease;
-    }
-    .about-info-item:hover {
-        border-color: #2563eb;
-        background: #fff;
-        box-shadow: 0 6px 14px rgba(37, 99, 235, 0.06);
-    }
-    .about-info-item .ai-icon {
-        width: 38px; height: 38px;
-        border-radius: 10px;
-        background: linear-gradient(135deg, #2563eb, #1e40af);
+    .h-btn-primary {
+        background: linear-gradient(135deg, #60a5fa, #7c3aed);
         color: #fff;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 14px;
-        flex-shrink: 0;
+        box-shadow: 0 10px 30px -10px rgba(96,165,250,0.55);
     }
-    .about-info-item:nth-child(2) .ai-icon { background: linear-gradient(135deg, #7c3aed, #5b21b6); }
-    .about-info-item:nth-child(3) .ai-icon { background: linear-gradient(135deg, #06b6d4, #0891b2); }
-    .about-info-item:nth-child(4) .ai-icon { background: linear-gradient(135deg, #10b981, #059669); }
-    .about-info-item:nth-child(5) .ai-icon { background: linear-gradient(135deg, #f97316, #ea580c); }
-    .about-info-item:nth-child(6) .ai-icon { background: linear-gradient(135deg, #ec4899, #db2777); }
-    .about-info-item .ai-body { min-width: 0; flex: 1; }
-    .about-info-item .ai-label {
-        font-size: 11.5px;
-        color: #64748b;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 2px;
+    .h-btn-primary:hover { transform: translateY(-2px); color: #fff; box-shadow: 0 14px 36px -10px rgba(96,165,250,0.75); }
+    .h-btn-ghost {
+        background: rgba(255,255,255,0.04);
+        color: #e2e8f0;
+        border-color: rgba(255,255,255,0.15);
     }
-    .about-info-item .ai-value {
-        font-size: 14px;
-        color: #0f172a;
-        font-weight: 600;
-        line-height: 1.4;
+    .h-btn-ghost:hover { background: rgba(255,255,255,0.08); color: #fff; transform: translateY(-2px); }
+    .h-btn i { font-size: 12px; transition: transform 0.2s ease; }
+    .h-btn:hover i { transform: translateX(3px); }
+    html[dir="rtl"] .h-btn:hover i { transform: translateX(-3px); }
+
+    /* ============ Code-card decoration (right column on desktop) ============ */
+    .h-code {
+        position: relative;
+        background: linear-gradient(160deg, #0b1220 0%, #131a2c 100%);
+        border: 1px solid rgba(96,165,250,0.20);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 30px 80px -25px rgba(0,0,0,0.65);
+        opacity: 0; animation: h-fadeup 0.8s ease 0.4s forwards;
+        max-width: 480px; margin-inline-start: auto;
     }
-    .about-info-item .ai-value a { color: inherit; text-decoration: none; }
-    .about-info-item .ai-value a:hover { color: #2563eb; }
-    .services-grid { padding: 70px 0; }
-    .service-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 28px; transition: all 0.3s; height: 100%; }
-    .service-card:hover { border-color: var(--main-color); transform: translateY(-4px); box-shadow: 0 12px 30px rgba(37,99,235,0.08); }
-    .service-card .icon { width: 56px; height: 56px; background: linear-gradient(135deg, #2563eb, #1e40af); color: #fff; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 18px; }
-    .service-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: #0f172a; }
-    .service-card p { color: #475569; font-size: 14.5px; line-height: 1.65; margin-bottom: 14px; }
-    .service-card .features { list-style: none; padding: 0; margin: 0; }
-    .service-card .features li { font-size: 13.5px; color: #334155; padding: 4px 0 4px 22px; position: relative; }
-    .service-card .features li::before { content: "✓"; color: var(--main-color); font-weight: 700; position: absolute; left: 0; }
-    .why-section { background: #f8fafc; padding: 70px 0; }
-    .why-card { padding: 24px; }
-    .why-card .num { width: 48px; height: 48px; background: var(--main-color); color: #fff; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; margin-bottom: 14px; }
-    .why-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #0f172a; }
-    .why-card p { color: #475569; font-size: 14.5px; line-height: 1.65; }
-    .stack-section { padding: 70px 0; }
-    .stack-pill { display: inline-block; background: #f1f5f9; color: #1e293b; padding: 8px 16px; border-radius: 999px; font-size: 14px; font-weight: 500; margin: 4px; }
-    .stack-pill.primary { background: var(--main-color); color: #fff; }
-    .testimonial-section { padding: 70px 0; background: #f8fafc; }
-    .testimonial-card { background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); height: 100%; }
-    .testimonial-card .stars { color: #fbbf24; margin-bottom: 12px; }
-    .testimonial-card p { color: #334155; font-style: italic; line-height: 1.7; margin-bottom: 16px; }
-    .testimonial-card .author { font-weight: 700; color: #0f172a; }
-    .testimonial-card .role { font-size: 13px; color: #64748b; }
-    .final-cta { background: linear-gradient(135deg, #1e40af 0%, #0f172a 100%); color: #fff; padding: 80px 0; text-align: center; }
-    .final-cta h2 { color: #fff; font-size: 36px; font-weight: 800; margin-bottom: 16px; }
-    .final-cta p { color: #cbd5e1; font-size: 18px; max-width: 640px; margin: 0 auto 30px; }
-    .final-cta .btn-cta { background: #60a5fa; color: #0f172a; padding: 16px 36px; border-radius: 8px; font-weight: 700; font-size: 17px; text-decoration: none; display: inline-block; transition: all 0.2s; }
-    .final-cta .btn-cta:hover { background: #93c5fd; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(96,165,250,0.4); }
-    @media (max-width: 991px) {
-        .hero-banner { min-height: auto !important; padding: 100px 0 50px; }
-        .hero-photo-wrap { display: none !important; }
+    .h-code .bar { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .h-code .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .h-code .dot.r { background: #ef4444; } .h-code .dot.y { background: #f59e0b; } .h-code .dot.g { background: #10b981; }
+    .h-code .file { margin-inline-start: auto; font-size: 12px; color: #94a3b8; font-family: ui-monospace, monospace; }
+    .h-code pre { margin: 0; padding: 22px 26px; font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 14.5px; line-height: 1.85; color: #cbd5e1; background: transparent; overflow-x: auto; direction: ltr; text-align: left; unicode-bidi: isolate; }
+    .h-code pre code { background: transparent; color: inherit; padding: 0; display: block; }
+    .h-code .t-c { color: #64748b; font-style: italic; }
+    .h-code .t-k { color: #c084fc; }
+    .h-code .t-v { color: #60a5fa; }
+    .h-code .t-p { color: #f0abfc; }
+    .h-code .t-s { color: #34d399; }
+    .h-code .t-n { color: #fbbf24; }
+
+    /* ============ TRUST STRIP ============ */
+    .h-trust { padding: 50px 0; background: rgba(255,255,255,0.02); border-top: 1px solid var(--dm-border, rgba(255,255,255,0.08)); border-bottom: 1px solid var(--dm-border, rgba(255,255,255,0.08)); }
+    .h-trust-card { display: flex; gap: 14px; align-items: center; padding: 18px 22px; background: var(--dm-card, #131a2c); border: 1px solid var(--dm-border, rgba(255,255,255,0.08)); border-radius: 14px; }
+    .h-trust-icon { flex-shrink: 0; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 12px; background: rgba(96,165,250,0.12); color: #60a5fa; font-size: 20px; }
+    .h-trust-card .label { font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+    .h-trust-card .countries { font-size: 15px; color: #e2e8f0; font-weight: 600; }
+
+    /* ============ SECTION HEADING ============ */
+    .h-shead { text-align: center; max-width: 720px; margin: 0 auto 56px; }
+    .h-shead .h-eyebrow { margin-bottom: 14px; }
+    .h-shead h2 { color: #fff; font-size: 38px; font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; margin: 0 0 14px; }
+    .h-shead p { color: #94a3b8; font-size: 16.5px; line-height: 1.6; margin: 0; }
+
+    /* ============ SERVICES GRID ============ */
+    .h-service {
+        position: relative;
+        padding: 32px 28px;
+        background: linear-gradient(160deg, var(--dm-card, #131a2c) 0%, var(--dm-bg-2, #0f172a) 100%);
+        border: 1px solid var(--dm-border, rgba(255,255,255,0.08));
+        border-radius: 16px;
+        height: 100%;
+        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+    }
+    .h-service::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(96,165,250,0.05), transparent 60%); opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
+    .h-service:hover { transform: translateY(-6px); border-color: rgba(96,165,250,0.35); box-shadow: 0 24px 50px -20px rgba(0,0,0,0.55); }
+    .h-service:hover::before { opacity: 1; }
+    .h-service .h-icon { width: 56px; height: 56px; border-radius: 14px; display: grid; place-items: center; background: linear-gradient(135deg, rgba(96,165,250,0.18), rgba(124,58,237,0.18)); color: #60a5fa; font-size: 24px; margin-bottom: 22px; border: 1px solid rgba(96,165,250,0.20); }
+    .h-service h3 { color: #fff; font-size: 19px; font-weight: 700; margin: 0 0 12px; }
+    .h-service p { color: #94a3b8; font-size: 14.5px; line-height: 1.65; margin: 0 0 20px; }
+    .h-service .h-more { color: #60a5fa; font-weight: 600; font-size: 13.5px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: gap 0.2s ease; }
+    .h-service .h-more:hover { gap: 10px; }
+
+    /* ============ TECH STACK ============ */
+    .h-stack { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; max-width: 900px; margin: 0 auto; }
+    .h-chip { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; background: var(--dm-card, #131a2c); border: 1px solid var(--dm-border, rgba(255,255,255,0.08)); color: #e2e8f0; font-size: 14px; font-weight: 600; transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease; }
+    .h-chip:hover { transform: translateY(-3px); border-color: rgba(96,165,250,0.40); background: rgba(96,165,250,0.08); }
+    .h-chip i { color: #60a5fa; }
+
+    /* ============ FINAL CTA ============ */
+    .h-final {
+        padding: 80px 40px;
+        background:
+            radial-gradient(circle at 30% 50%, rgba(96,165,250,0.20) 0%, transparent 60%),
+            linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+        border: 1px solid rgba(96,165,250,0.20);
+        border-radius: 24px;
+        text-align: center;
+        margin-top: 40px;
+    }
+    .h-final h2 { color: #fff; font-size: 38px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.18; margin: 0 0 16px; }
+    .h-final p { color: #cbd5e1; font-size: 17px; margin: 0 auto 30px; max-width: 620px; line-height: 1.65; }
+
+    /* ============ ANIMATIONS ============ */
+    @keyframes h-fadeup { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes h-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.55); } 50% { box-shadow: 0 0 0 6px rgba(16,185,129,0); } }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 992px) {
+        .h-hero { padding: 110px 0 70px; }
+        .h-hero h1 { font-size: 40px; }
+        .h-code { margin-top: 50px; max-width: 100%; }
     }
     @media (max-width: 768px) {
-        .hero-banner h1 { font-size: 30px; }
-        .hero-banner h2 { font-size: 16px; }
-        .hero-stats { gap: 24px; }
-        .hero-stats .stat .num { font-size: 26px; }
-        .final-cta h2 { font-size: 26px; }
-        .final-cta p { font-size: 15px; }
+        .h-hero { padding: 90px 0 50px; }
+        .h-hero h1 { font-size: 32px; line-height: 1.15; }
+        .h-hero h2 { font-size: 16px; }
+        .h-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .h-stats .num { font-size: 24px; }
+        .h-shead h2 { font-size: 28px; }
+        .h-final { padding: 50px 24px; }
+        .h-final h2 { font-size: 26px; }
+        .home-page .h-section { padding: 64px 0; }
     }
 </style>
 @endpush
@@ -331,102 +222,106 @@
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
-    "@type": "Service",
-    "serviceType": "Full Stack Web Development",
-    "provider": {
-        "@type": "Person",
-        "name": "Khaled Ahmed",
-        "url": "https://khaledahmed.net"
-    },
-    "areaServed": ["Worldwide"],
-    "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Web Development Services",
-        "itemListElement": [
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Custom Web Application Development"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Laravel Development"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "React.js Development"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Node.js Development"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "E-commerce Development"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "SaaS Development"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "API Development"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Website SEO Optimization"}}
-        ]
+    "@type": "Person",
+    "name": "Khaled Ahmed",
+    "url": "https://khaledahmed.net",
+    "jobTitle": "Senior Full Stack Web Developer",
+    "worksFor": { "@type": "Organization", "name": "Barmagly", "url": "https://barmagly.tech" },
+    "description": "Senior full stack web developer with 5+ years of experience and 25+ shipped projects across 7 countries. Expert in Laravel, React, Node.js.",
+    "address": { "@type": "PostalAddress", "addressLocality": "Cairo", "addressCountry": "EG" },
+    "sameAs": [
+        "https://linkedin.com/in/khaled-ahmed-82368819b",
+        "https://github.com/khaled312001"
+    ],
+    "knowsAbout": ["Laravel","React","Next.js","Node.js","TypeScript","PHP","MySQL","PostgreSQL","SEO","Web Performance"]
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://khaledahmed.net",
+    "name": "Khaled Ahmed — Senior Full Stack Web Developer",
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://khaledahmed.net/blogs?q={search_term_string}",
+        "query-input": "required name=search_term_string"
     }
 }
 </script>
 @endsection
 
 @section('content')
-<section class="hero-banner" data-scroll-index="1">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-7 col-md-12">
-                <h1 class="hero-fadeup d1">{{ __('site.hero_title_1') }} <span>{{ __('site.hero_title_2') }}</span> {{ __('site.hero_title_3') }}</h1>
-                <h2 class="hero-fadeup d2">{{ __('site.hero_subtitle') }}</h2>
+<div class="home-page">
 
-                <div class="hero-stats hero-fadeup d3">
+<section class="h-hero">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+                <span class="h-eyebrow"><span class="h-dot"></span> {{ app()->getLocale() === 'ar' ? 'متاح لمشاريع جديده' : 'Available for new projects' }}</span>
+                <h1>{{ app()->getLocale() === 'ar' ? 'مطوّر ويب' : 'Senior Full Stack' }} <span class="h-grad">{{ app()->getLocale() === 'ar' ? 'فُل ستاك خبير' : 'Web Developer' }}</span> {{ app()->getLocale() === 'ar' ? 'يسلّم بإتقان' : 'who ships in production' }}</h1>
+                <h2>{{ app()->getLocale() === 'ar' ? 'أنا خالد أحمد — أكتر من 5 سنين خبره و 25+ مشروع إنتاج تم تسليمه في 7 دول. متخصص في Laravel و React و Node.js. تواصل واستشاره مجانيه، رد خلال 24 ساعه.' : 'I am Khaled Ahmed — 5+ years and 25+ production projects shipped across 7 countries. Specialized in Laravel, React, Node.js. Free consultation, response within 24 hours.' }}</h2>
+
+                <div class="h-stats">
                     <div class="stat"><div class="num">25+</div><div class="lbl">{{ __('site.projects_shipped') }}</div></div>
                     <div class="stat"><div class="num">7</div><div class="lbl">{{ __('site.countries_served') }}</div></div>
                     <div class="stat"><div class="num">5+</div><div class="lbl">{{ __('site.years_experience') }}</div></div>
                     <div class="stat"><div class="num">24h</div><div class="lbl">{{ __('site.response_time') }}</div></div>
                 </div>
 
-                <div class="hero-cta-row hero-fadeup d4">
-                    <a href="{{ route('contact') }}" class="btn-primary-cta">
-                        {{ __('site.get_free_consultation') }} <i class="fa fa-arrow-right"></i>
-                    </a>
-                    <a href="{{ route('portfolios') }}" class="btn-secondary-cta">
-                        {{ __('site.view_my_work') }} <i class="fa fa-arrow-right"></i>
-                    </a>
+                <div class="h-cta-row">
+                    <a href="{{ route('contact') }}" class="h-btn h-btn-primary">{{ __('site.get_free_consultation') }} <i class="fa fa-arrow-right"></i></a>
+                    <a href="{{ route('portfolios') }}" class="h-btn h-btn-ghost">{{ __('site.view_my_work') }} <i class="fa fa-arrow-right"></i></a>
                 </div>
             </div>
+
             <div class="col-lg-5 d-none d-lg-block">
-                <div class="hero-photo-wrap">
-                    <div class="hero-photo-ring-2"></div>
-                    <div class="hero-photo-ring"></div>
-                    <span class="float-pill fp-laravel"><i class="fab fa-laravel"></i> Laravel</span>
-                    <span class="float-pill fp-react"><i class="fab fa-react"></i> React</span>
-                    <span class="float-pill fp-node"><i class="fab fa-node-js"></i> Node.js</span>
-                    <span class="float-pill fp-mysql"><i class="fas fa-database"></i> MySQL</span>
-                    <img src="{{ asset('images/khaled-hero.png') }}"
-                         alt="Khaled Ahmed — Senior Full Stack Web Developer"
-                         class="hero-photo"
-                         width="490" height="1000"
-                         loading="eager" decoding="async">
+                <div class="h-code" aria-hidden="true">
+                    <div class="bar">
+                        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+                        <span class="file">App.tsx</span>
+                    </div>
+                    <pre><code><span class="t-c">// senior full stack</span>
+<span class="t-k">const</span> <span class="t-v">khaled</span> = {
+  <span class="t-p">stack</span>: [<span class="t-s">'Laravel'</span>, <span class="t-s">'React'</span>],
+  <span class="t-p">shipped</span>: <span class="t-n">25</span>,
+  <span class="t-p">countries</span>: <span class="t-n">8</span>,
+  <span class="t-p">since</span>: <span class="t-n">2020</span>,
+  <span class="t-p">ship</span>: () => <span class="t-s">'production'</span>,
+}</code></pre>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="trust-bar">
+<section class="h-trust">
     <div class="container">
         <div class="row g-3">
             <div class="col-md-4">
-                <div class="trust-card">
-                    <div class="trust-icon"><i class="fas fa-globe-americas"></i></div>
-                    <div class="trust-body">
-                        <div class="label">{{ __('site.trust_label_1') }}</div>
-                        <div class="countries">{{ __('site.trust_value_1') }}</div>
+                <div class="h-trust-card">
+                    <div class="h-trust-icon"><i class="fas fa-globe"></i></div>
+                    <div>
+                        <div class="label">{{ app()->getLocale() === 'ar' ? 'البلدان' : 'Coverage' }}</div>
+                        <div class="countries">{{ app()->getLocale() === 'ar' ? 'مصر · UK · السعوديه · UAE · سويسرا · ألمانيا · فرنسا · الكويت' : 'Egypt · UK · Saudi · UAE · Switzerland · Germany · France · Kuwait' }}</div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="trust-card">
-                    <div class="trust-icon"><i class="fas fa-bullseye"></i></div>
-                    <div class="trust-body">
-                        <div class="label">{{ __('site.trust_label_2') }}</div>
-                        <div class="countries">{{ __('site.trust_value_2') }}</div>
+                <div class="h-trust-card">
+                    <div class="h-trust-icon"><i class="fas fa-rocket"></i></div>
+                    <div>
+                        <div class="label">{{ app()->getLocale() === 'ar' ? 'مشاريع منشوره' : 'Live projects' }}</div>
+                        <div class="countries">{{ app()->getLocale() === 'ar' ? '35+ موقع إنتاج فعّال' : '35+ shipped production sites' }}</div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="trust-card">
-                    <div class="trust-icon"><i class="fas fa-calendar-check"></i></div>
-                    <div class="trust-body">
-                        <div class="label">{{ __('site.trust_label_3') }}</div>
-                        <div class="countries">{{ __('site.trust_value_3') }}</div>
+                <div class="h-trust-card">
+                    <div class="h-trust-icon"><i class="fas fa-comments"></i></div>
+                    <div>
+                        <div class="label">{{ app()->getLocale() === 'ar' ? 'الرد' : 'Response' }}</div>
+                        <div class="countries">{{ app()->getLocale() === 'ar' ? 'خلال 24 ساعه — عرض مكتوب' : 'Within 24 hours — written quote' }}</div>
                     </div>
                 </div>
             </div>
@@ -434,226 +329,103 @@
     </div>
 </section>
 
-<section id="about">
+<section class="h-section">
     <div class="container">
-        <div class="about-grid">
-            <div class="about-photo-wrap">
-                <img src="{{ asset('images/khaled-hero.png') }}"
-                     alt="{{ __('site.about_h2') }}"
-                     class="about-photo"
-                     loading="lazy" decoding="async">
-            </div>
-            <div class="about-content">
-                <span class="section-badge"><i class="fas fa-user-tie"></i> {{ __('site.about_me') }}</span>
-                <h2 class="section-title-h2">{{ __('site.about_h2') }}</h2>
-                <p>{{ __('site.about_p1') }}</p>
-                <p>{!! __('site.about_p2') !!}</p>
-
-                <div class="about-info-grid">
-                    <div class="about-info-item">
-                        <div class="ai-icon"><i class="fas fa-user"></i></div>
-                        <div class="ai-body">
-                            <div class="ai-label">{{ __('site.name_label') }}</div>
-                            <div class="ai-value">{{ __('site.name_value') }}</div>
-                        </div>
-                    </div>
-                    <div class="about-info-item">
-                        <div class="ai-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <div class="ai-body">
-                            <div class="ai-label">{{ __('site.location_label') }}</div>
-                            <div class="ai-value">{{ __('site.location_value') }}</div>
-                        </div>
-                    </div>
-                    <div class="about-info-item">
-                        <div class="ai-icon"><i class="fas fa-graduation-cap"></i></div>
-                        <div class="ai-body">
-                            <div class="ai-label">{{ __('site.education_label') }}</div>
-                            <div class="ai-value">{{ __('site.education_value') }}</div>
-                        </div>
-                    </div>
-                    <div class="about-info-item">
-                        <div class="ai-icon"><i class="fas fa-language"></i></div>
-                        <div class="ai-body">
-                            <div class="ai-label">{{ __('site.languages_label') }}</div>
-                            <div class="ai-value">{{ __('site.languages_value') }}</div>
-                        </div>
-                    </div>
-                    <div class="about-info-item">
-                        <div class="ai-icon"><i class="fas fa-briefcase"></i></div>
-                        <div class="ai-body">
-                            <div class="ai-label">{{ __('site.freelance_label') }}</div>
-                            <div class="ai-value">{{ __('site.freelance_value') }}</div>
-                        </div>
-                    </div>
-                    <div class="about-info-item">
-                        <div class="ai-icon"><i class="fas fa-phone"></i></div>
-                        <div class="ai-body">
-                            <div class="ai-label">{{ __('site.phone_label') }}</div>
-                            <div class="ai-value">
-                                <a href="tel:+201204593124">+20 120 459 3124</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="d-flex flex-wrap gap-3">
-                    <a href="{{ route('contact') }}" class="primary-btn">
-                        <span class="text">{{ __('site.hire_me') }}</span>
-                        <span class="icon"><i class="fa fa-arrow-right"></i></span>
-                    </a>
-                    <a href="/Khaled_Ahmed.pdf" class="primary-btn primary-btn--outline" download rel="nofollow">
-                        <span class="text">{{ __('site.download_cv') }}</span>
-                        <span class="icon"><i class="fa fa-download"></i></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="services-grid">
-    <div class="container">
-        <div class="text-center mb-5">
-            <span class="section-badge"><i class="fas fa-bolt"></i> {{ __('site.what_i_build') }}</span>
-            <h2 class="section-title-h2">{{ __('site.web_dev_services') }}</h2>
-            <p class="section-subtitle">{{ __('site.web_dev_subtitle') }}</p>
-        </div>
-
-        @php
-        $services = [
-            ['fas fa-code', 'srv_custom_title', 'srv_custom_desc', ['srv_custom_f1','srv_custom_f2','srv_custom_f3','srv_custom_f4']],
-            ['fas fa-shopping-cart', 'srv_ecom_title', 'srv_ecom_desc', ['srv_ecom_f1','srv_ecom_f2','srv_ecom_f3','srv_ecom_f4']],
-            ['fas fa-rocket', 'srv_saas_title', 'srv_saas_desc', ['srv_saas_f1','srv_saas_f2','srv_saas_f3','srv_saas_f4']],
-            ['fab fa-laravel', 'srv_laravel_title', 'srv_laravel_desc', ['srv_laravel_f1','srv_laravel_f2','srv_laravel_f3','srv_laravel_f4']],
-            ['fab fa-react', 'srv_react_title', 'srv_react_desc', ['srv_react_f1','srv_react_f2','srv_react_f3','srv_react_f4']],
-            ['fas fa-search', 'srv_seo_title', 'srv_seo_desc', ['srv_seo_f1','srv_seo_f2','srv_seo_f3','srv_seo_f4']],
-            ['fas fa-mobile-alt', 'srv_pwa_title', 'srv_pwa_desc', ['srv_pwa_f1','srv_pwa_f2','srv_pwa_f3','srv_pwa_f4']],
-            ['fas fa-server', 'srv_devops_title', 'srv_devops_desc', ['srv_devops_f1','srv_devops_f2','srv_devops_f3','srv_devops_f4']],
-            ['fas fa-graduation-cap', 'srv_training_title', 'srv_training_desc', ['srv_training_f1','srv_training_f2','srv_training_f3','srv_training_f4']],
-        ];
-        @endphp
-        <div class="row g-4">
-            @foreach($services as $svc)
-            <div class="col-lg-4 col-md-6">
-                <div class="service-card">
-                    <div class="icon"><i class="{{ $svc[0] }}"></i></div>
-                    <h3>{{ __('site.' . $svc[1]) }}</h3>
-                    <p>{{ __('site.' . $svc[2]) }}</p>
-                    <ul class="features">
-                        @foreach($svc[3] as $featKey)
-                            <li>{{ __('site.' . $featKey) }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-            @endforeach
-        </div>
-
-        <div class="text-center mt-5">
-            <a href="{{ route('services') }}" class="primary-btn">
-                <span class="text">{{ __('site.view_all_services') }}</span>
-                <span class="icon"><i class="fa fa-arrow-right"></i></span>
-            </a>
-        </div>
-    </div>
-</section>
-
-<section class="why-section">
-    <div class="container">
-        <div class="text-center mb-5">
-            <span class="section-badge"><i class="fas fa-award"></i> {{ __('site.why_choose_me') }}</span>
-            <h2 class="section-title-h2">{{ __('site.why_clients_hire') }}</h2>
+        <div class="h-shead">
+            <span class="h-eyebrow">{{ app()->getLocale() === 'ar' ? 'خدمات' : 'Services' }}</span>
+            <h2>{{ app()->getLocale() === 'ar' ? 'كل اللي تحتاجه لمشروع ويب احترافي' : 'Everything you need for a production-grade web project' }}</h2>
+            <p>{{ app()->getLocale() === 'ar' ? 'من تصميم الـAPI لحد النشر — كل المراحل بفريق واحد بدون تعقيدات.' : 'From API design to deployment — every stage handled by one accountable senior, no agency overhead.' }}</p>
         </div>
         <div class="row g-4">
-            @for($i = 1; $i <= 6; $i++)
-            <div class="col-lg-4 col-md-6">
-                <div class="why-card">
-                    <div class="num">{{ $i }}</div>
-                    <h3>{{ __('site.why_' . $i . '_title') }}</h3>
-                    <p>{{ __('site.why_' . $i . '_desc') }}</p>
+            <div class="col-md-6 col-lg-4">
+                <div class="h-service">
+                    <div class="h-icon"><i class="fab fa-laravel"></i></div>
+                    <h3>{{ app()->getLocale() === 'ar' ? 'Laravel Backend' : 'Laravel Backend' }}</h3>
+                    <p>{{ app()->getLocale() === 'ar' ? 'تطبيقات ويب قويه ومُحكمه: API، Auth، queues، billing، multi-tenant.' : 'Rock-solid web apps: REST/GraphQL APIs, auth, queues, billing, multi-tenant architectures.' }}</p>
+                    <a href="{{ route('services') }}" class="h-more">{{ app()->getLocale() === 'ar' ? 'التفاصيل' : 'Learn more' }} <i class="fa fa-arrow-right"></i></a>
                 </div>
             </div>
-            @endfor
-        </div>
-    </div>
-</section>
-
-<section class="stack-section">
-    <div class="container">
-        <div class="text-center mb-5">
-            <span class="section-badge"><i class="fas fa-layer-group"></i> {{ __('site.my_stack') }}</span>
-            <h2 class="section-title-h2">{{ __('site.technologies_i_use') }}</h2>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 mb-4">
-                <h3 style="font-size: 19px; font-weight: 700; margin-bottom: 14px;">{{ __('site.stack_backend') }}</h3>
-                <span class="stack-pill primary">Laravel 11</span>
-                <span class="stack-pill primary">PHP 8.3</span>
-                <span class="stack-pill primary">Node.js</span>
-                <span class="stack-pill">Express</span>
-                <span class="stack-pill">NestJS</span>
-                <span class="stack-pill">REST APIs</span>
-                <span class="stack-pill">GraphQL</span>
-                <span class="stack-pill">tRPC</span>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <h3 style="font-size: 19px; font-weight: 700; margin-bottom: 14px;">{{ __('site.stack_frontend') }}</h3>
-                <span class="stack-pill primary">React 19</span>
-                <span class="stack-pill primary">Next.js</span>
-                <span class="stack-pill">Vue 3</span>
-                <span class="stack-pill">Nuxt</span>
-                <span class="stack-pill">TypeScript</span>
-                <span class="stack-pill">Tailwind CSS</span>
-                <span class="stack-pill">Inertia.js</span>
-                <span class="stack-pill">Livewire</span>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <h3 style="font-size: 19px; font-weight: 700; margin-bottom: 14px;">{{ __('site.stack_db_devops') }}</h3>
-                <span class="stack-pill primary">MySQL</span>
-                <span class="stack-pill primary">PostgreSQL</span>
-                <span class="stack-pill">MongoDB</span>
-                <span class="stack-pill">Redis</span>
-                <span class="stack-pill">Docker</span>
-                <span class="stack-pill">Nginx</span>
-                <span class="stack-pill">DigitalOcean</span>
-                <span class="stack-pill">AWS</span>
-                <span class="stack-pill">Cloudflare</span>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="testimonial-section">
-    <div class="container">
-        <div class="text-center mb-5">
-            <span class="section-badge"><i class="fas fa-star"></i> {{ __('site.testimonials') }}</span>
-            <h2 class="section-title-h2">{{ __('site.what_clients_say') }}</h2>
-        </div>
-        <div class="row g-4">
-            @for($i = 1; $i <= 3; $i++)
-            <div class="col-lg-4 col-md-6">
-                <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p>{{ __('site.testi_' . $i) }}</p>
-                    <div class="author">{{ __('site.testi_' . $i . '_author') }}</div>
-                    <div class="role">{{ __('site.testi_' . $i . '_role') }}</div>
+            <div class="col-md-6 col-lg-4">
+                <div class="h-service">
+                    <div class="h-icon"><i class="fab fa-react"></i></div>
+                    <h3>{{ app()->getLocale() === 'ar' ? 'React & Next.js' : 'React & Next.js' }}</h3>
+                    <p>{{ app()->getLocale() === 'ar' ? 'واجهات سريعه و SEO-ready بـNext.js 15 و RSC و Tailwind و TypeScript.' : 'Fast, SEO-ready frontends with Next.js 15, React Server Components, Tailwind, and TypeScript.' }}</p>
+                    <a href="{{ route('services') }}" class="h-more">{{ app()->getLocale() === 'ar' ? 'التفاصيل' : 'Learn more' }} <i class="fa fa-arrow-right"></i></a>
                 </div>
             </div>
-            @endfor
+            <div class="col-md-6 col-lg-4">
+                <div class="h-service">
+                    <div class="h-icon"><i class="fas fa-rocket"></i></div>
+                    <h3>{{ app()->getLocale() === 'ar' ? 'SaaS MVP' : 'SaaS MVP Development' }}</h3>
+                    <p>{{ app()->getLocale() === 'ar' ? 'إطلاق MVP خلال 8-16 أسبوع — Stripe billing، dashboard، API، نشر آلي.' : 'Ship your SaaS MVP in 8-16 weeks — Stripe billing, dashboards, API, CI/CD deployment.' }}</p>
+                    <a href="{{ route('services') }}" class="h-more">{{ app()->getLocale() === 'ar' ? 'التفاصيل' : 'Learn more' }} <i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="h-service">
+                    <div class="h-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <h3>{{ app()->getLocale() === 'ar' ? 'تجاره إلكترونيه' : 'E-commerce' }}</h3>
+                    <p>{{ app()->getLocale() === 'ar' ? 'WooCommerce، Shopify، أو custom Laravel — دفع، شحن، تكاملات.' : 'WooCommerce, Shopify, or custom Laravel storefronts with payment, shipping, and CRM integrations.' }}</p>
+                    <a href="{{ route('services') }}" class="h-more">{{ app()->getLocale() === 'ar' ? 'التفاصيل' : 'Learn more' }} <i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="h-service">
+                    <div class="h-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>{{ app()->getLocale() === 'ar' ? 'أداء و SEO' : 'Performance & SEO' }}</h3>
+                    <p>{{ app()->getLocale() === 'ar' ? 'تحسين Core Web Vitals، Lighthouse 95+، schema، sitemap، canonical.' : 'Core Web Vitals tuning, Lighthouse 95+ scores, structured data, sitemap and canonical hygiene.' }}</p>
+                    <a href="{{ route('services') }}" class="h-more">{{ app()->getLocale() === 'ar' ? 'التفاصيل' : 'Learn more' }} <i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="h-service">
+                    <div class="h-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>{{ app()->getLocale() === 'ar' ? 'صيانه و أمن' : 'Maintenance & Security' }}</h3>
+                    <p>{{ app()->getLocale() === 'ar' ? 'retainer شهري: تحديثات، backups، monitoring، ترقيع ثغرات.' : 'Monthly retainers: updates, backups, monitoring, security patches, and small feature additions.' }}</p>
+                    <a href="{{ route('services') }}" class="h-more">{{ app()->getLocale() === 'ar' ? 'التفاصيل' : 'Learn more' }} <i class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="final-cta">
+<section class="h-section tight">
     <div class="container">
-        <h2>{{ __('site.ready_to_build') }}</h2>
-        <p>{{ __('site.ready_subtitle') }}</p>
-        <a href="{{ route('contact') }}" class="btn-cta">{{ __('site.book_consultation') }} <i class="fa fa-arrow-right ms-2"></i></a>
-        <div style="margin-top: 18px; color: #94a3b8; font-size: 14px;">
-            <i class="far fa-clock"></i> {{ __('site.reply_24h_chip') }} &nbsp; · &nbsp;
-            <i class="fas fa-globe"></i> {{ __('site.worldwide_remote_chip') }} &nbsp; · &nbsp;
-            <i class="fas fa-shield-alt"></i> {{ __('site.nda_on_request_chip') }}
+        <div class="h-shead">
+            <span class="h-eyebrow">{{ app()->getLocale() === 'ar' ? 'الأدوات' : 'Tech stack' }}</span>
+            <h2>{{ app()->getLocale() === 'ar' ? 'تقنيات حديثه وقويه' : 'Modern, production-ready stack' }}</h2>
+        </div>
+        <div class="h-stack">
+            <span class="h-chip"><i class="fab fa-laravel"></i> Laravel</span>
+            <span class="h-chip"><i class="fab fa-react"></i> React</span>
+            <span class="h-chip"><i class="fab fa-node-js"></i> Node.js</span>
+            <span class="h-chip"><i class="fab fa-js"></i> TypeScript</span>
+            <span class="h-chip"><i class="fab fa-vuejs"></i> Vue.js</span>
+            <span class="h-chip"><i class="fab fa-php"></i> PHP 8.3</span>
+            <span class="h-chip"><i class="fas fa-database"></i> MySQL</span>
+            <span class="h-chip"><i class="fas fa-database"></i> PostgreSQL</span>
+            <span class="h-chip"><i class="fas fa-database"></i> MongoDB</span>
+            <span class="h-chip"><i class="fas fa-server"></i> Redis</span>
+            <span class="h-chip"><i class="fab fa-aws"></i> AWS</span>
+            <span class="h-chip"><i class="fab fa-docker"></i> Docker</span>
+            <span class="h-chip"><i class="fab fa-git-alt"></i> Git / CI</span>
+            <span class="h-chip"><i class="fas fa-credit-card"></i> Stripe</span>
         </div>
     </div>
 </section>
+
+<section class="h-section">
+    <div class="container">
+        <div class="h-final">
+            <h2>{{ app()->getLocale() === 'ar' ? 'مستعد لنبدأ مشروعك؟' : 'Ready to start your project?' }}</h2>
+            <p>{{ app()->getLocale() === 'ar' ? 'ابعتلي تفاصيل المشروع وهتلاقي عرض مكتوب وخطه واضحه خلال 24 ساعه. بدون التزام، بدون مكالمات مبيعات.' : 'Send the project brief. You will get a written, fixed-fee quote and a realistic timeline within 24 hours. No commitment, no sales calls.' }}</p>
+            <div class="h-cta-row" style="justify-content: center;">
+                <a href="{{ route('contact') }}" class="h-btn h-btn-primary">{{ __('site.get_free_consultation') }} <i class="fa fa-arrow-right"></i></a>
+                <a href="{{ route('portfolios') }}" class="h-btn h-btn-ghost">{{ __('site.view_my_work') }} <i class="fa fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+</div>
 @endsection

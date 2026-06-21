@@ -608,8 +608,9 @@
             padding-left: 0;
             padding-right: 6px;
         }
-        html[dir="rtl"] .blog-card .read-more i,
-        html[dir="rtl"] .article-content .lead { transform: scaleX(-1); }
+        html[dir="rtl"] .blog-card .read-more i { transform: scaleX(-1); }
+        /* NEVER apply scaleX(-1) to .article-content .lead — it mirrors the entire paragraph text.
+           That selector was a copy-paste bug; the icon-flip rule only belongs on the .read-more <i>. */
         html[dir="rtl"] .fa-arrow-right::before { content: "\f060"; /* FA arrow-left */ }
         html[dir="rtl"] .me-3, html[dir="rtl"] .me-2 { margin-right: 0 !important; margin-left: 0.75rem !important; }
         html[dir="rtl"] .ms-2 { margin-left: 0 !important; margin-right: 0.5rem !important; }
@@ -638,6 +639,391 @@
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/helper-style.css') }}">
+
+    <style id="dark-mode-global">
+        /* ============================================================
+           GLOBAL DARK MODE OVERRIDE — applied last so it wins.
+           Always-on dark theme. CSS variables let later tweaks be small.
+           ============================================================ */
+        :root {
+            --dm-bg:        #0a0e1a;
+            --dm-bg-2:      #0f172a;
+            --dm-card:      #131a2c;
+            --dm-elev:      #1a2238;
+            --dm-text:      #e2e8f0;
+            --dm-text-2:    #94a3b8;
+            --dm-text-3:    #64748b;
+            --dm-border:    rgba(255,255,255,0.08);
+            --dm-border-2:  rgba(255,255,255,0.15);
+            --dm-accent:    #60a5fa;
+            --dm-accent-2:  #a78bfa;
+            --main-color:   #60a5fa;
+        }
+        html, body {
+            background: var(--dm-bg) !important;
+            color: var(--dm-text) !important;
+            color-scheme: dark;
+        }
+        body { background-color: var(--dm-bg) !important; }
+
+        /* Reset every plain white surface and slate-50/100 backgrounds */
+        section, .section, main, article, .container, .row, .col,
+        .blog-card, .project-card, .related-card, .services-item,
+        .faq-item, .faq-section, .services-faq, .services-trust,
+        .article-body, .related-posts, .portfolio-cat-nav,
+        .author-box, .article-tags, .article-cta, .article-content {
+            background-color: transparent;
+        }
+        .bg-white, .bg-light, [style*="background:#fff"], [style*="background: #fff"],
+        [style*="background:#f8fafc"], [style*="background: #f8fafc"],
+        [style*="background:#f1f5f9"], [style*="background: #f1f5f9"] {
+            background-color: var(--dm-card) !important;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 { color: var(--dm-text) !important; }
+        p, li, span, strong, em, blockquote, dd, dt, label, td, th, figcaption {
+            color: var(--dm-text);
+        }
+        small, .text-muted, .meta, .read-time, time { color: var(--dm-text-2) !important; }
+        a { color: var(--dm-accent); }
+        a:hover { color: var(--dm-accent-2); }
+
+        /* Borders */
+        hr, .border, .border-top, .border-bottom, .border-start, .border-end,
+        .blog-card, .project-card, .related-card, .services-item,
+        .faq-item, .article-tags, .article-content, .author-box {
+            border-color: var(--dm-border) !important;
+        }
+
+        /* Cards & elevated surfaces */
+        .blog-card, .project-card, .related-card, .services-item, .faq-item,
+        .author-box, .trust-card, .stat-card {
+            background: var(--dm-card) !important;
+            border: 1px solid var(--dm-border) !important;
+            color: var(--dm-text);
+        }
+        .related-card { border-inline-start: 3px solid var(--dm-accent) !important; }
+
+        /* Code & pre blocks inside articles */
+        .article-content code, code, pre {
+            background: rgba(255,255,255,0.06) !important;
+            color: #fbbf24 !important;
+        }
+        .article-content pre, pre { padding: 16px 18px; border-radius: 10px; border: 1px solid var(--dm-border); }
+        .article-content pre code, pre code { background: transparent !important; color: #e2e8f0 !important; }
+
+        /* Lead callout — dark version */
+        .article-content .lead {
+            background: rgba(96,165,250,0.08) !important;
+            color: var(--dm-text) !important;
+            border-inline-start-color: var(--dm-accent) !important;
+        }
+        .article-content { color: var(--dm-text) !important; }
+
+        /* Forms — inputs & textareas */
+        input, textarea, select {
+            background: var(--dm-card) !important;
+            color: var(--dm-text) !important;
+            border-color: var(--dm-border-2) !important;
+        }
+        input::placeholder, textarea::placeholder { color: var(--dm-text-3) !important; }
+
+        /* Tags / chips */
+        .tag, .article-tags .tag, .blog-filter-bar a,
+        .portfolio-cat-nav a {
+            background: rgba(255,255,255,0.05) !important;
+            color: var(--dm-text) !important;
+            border: 1px solid var(--dm-border) !important;
+        }
+        .blog-filter-bar a.active, .portfolio-cat-nav a.active {
+            background: var(--dm-accent) !important;
+            color: #0a0e1a !important;
+            border-color: var(--dm-accent) !important;
+        }
+
+        /* Header / navbar */
+        .header, .navbar, .navbar-light, .navbar.fixed-header {
+            background: rgba(10,14,26,0.85) !important;
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--dm-border) !important;
+        }
+        .navbar .nav-link, .navbar-nav .nav-link { color: var(--dm-text) !important; }
+        .navbar .nav-link:hover, .navbar-nav .nav-link.active { color: var(--dm-accent) !important; }
+
+        /* Footer */
+        .footer, footer { background: #060912 !important; color: var(--dm-text) !important; border-top: 1px solid var(--dm-border); }
+        .footer h4, .footer h5, .footer p, .footer a, .footer li, .footer span { color: var(--dm-text) !important; }
+        .footer a:hover { color: var(--dm-accent) !important; }
+
+        /* Hero gradients — keep dark variant */
+        .breadcrumb-section, .hero-banner, .article-hero, .blog-hero,
+        .portfolio-hero, .faq-hero {
+            background: linear-gradient(135deg, #050816 0%, #0c1631 50%, #1e2960 100%) !important;
+        }
+        .breadcrumb-section h1, .hero-banner h1, .article-hero h1,
+        .blog-hero h1, .portfolio-hero h1, .faq-hero h1 { color: #fff !important; }
+
+        /* Buttons */
+        .btn, .primary-btn, .btn-cta, .btn-primary-cta {
+            background: var(--dm-accent) !important;
+            color: #0a0e1a !important;
+            border-color: var(--dm-accent) !important;
+        }
+        .btn-secondary-cta, .btn-outline {
+            background: transparent !important;
+            color: var(--dm-text) !important;
+            border: 1px solid var(--dm-border-2) !important;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 12px; height: 12px; }
+        ::-webkit-scrollbar-track { background: var(--dm-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--dm-border-2); border-radius: 6px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--dm-accent); }
+
+        /* Selection */
+        ::selection { background: var(--dm-accent); color: #0a0e1a; }
+
+        /* Disable per-page light backgrounds that fight the dark theme */
+        .services-trust, .related-posts, .services-faq, .blog-filter-bar {
+            background: transparent !important;
+        }
+        .blog-filter-bar { border-bottom-color: var(--dm-border) !important; }
+
+        /* Author box (blog detail) */
+        .author-box { background: var(--dm-card) !important; }
+        .author-box p { color: var(--dm-text-2) !important; }
+    </style>
+
+    <style id="nav-and-fab">
+        /* ============================================================
+           NEW NAVBAR — dark glass, modern, replaces .header.fixed-top
+           ============================================================ */
+        /* Hide ALL legacy header pieces — the new one is independent */
+        .header.fixed-top { display: none !important; }
+
+        .nav-bar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1050;
+            background: rgba(10, 14, 26, 0.72);
+            backdrop-filter: blur(18px) saturate(160%);
+            -webkit-backdrop-filter: blur(18px) saturate(160%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            transition: background .25s ease, border-color .25s ease;
+        }
+        .nav-bar.scrolled { background: rgba(7, 10, 20, 0.92); border-bottom-color: rgba(96,165,250,0.18); }
+        body { padding-top: 76px; }
+
+        .nav-bar-inner {
+            display: flex; align-items: center; gap: 24px;
+            height: 76px;
+            padding-inline: 24px;
+        }
+
+        /* Brand */
+        .nav-brand {
+            display: inline-flex; align-items: center; gap: 12px;
+            text-decoration: none; flex-shrink: 0;
+        }
+        .nav-brand-mark {
+            width: 40px; height: 40px;
+            display: grid; place-items: center;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa 60%, #f0abfc);
+            color: #0a0e1a; font-weight: 800; font-size: 14px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 18px -6px rgba(96,165,250,0.55);
+        }
+        .nav-brand-text { color: #e2e8f0; font-weight: 700; font-size: 17px; letter-spacing: -0.01em; }
+        .nav-brand-text span { background: linear-gradient(135deg, #60a5fa, #c4b5fd); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+        /* Links (centered) */
+        .nav-links {
+            display: flex; align-items: center; gap: 6px;
+            margin-inline-start: auto;
+            margin-inline-end: auto;
+        }
+        .nav-link {
+            position: relative;
+            padding: 9px 16px;
+            color: #cbd5e1 !important;
+            font-size: 14.5px; font-weight: 600;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: color .2s ease, background .2s ease;
+        }
+        .nav-link:hover { color: #fff !important; background: rgba(255,255,255,0.05); }
+        .nav-link.active { color: #fff !important; }
+        .nav-link.active::after {
+            content: ''; position: absolute;
+            left: 16px; right: 16px; bottom: 2px;
+            height: 2px; border-radius: 2px;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+        }
+
+        /* Right actions */
+        .nav-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; margin-inline-start: auto; }
+        .nav-lang {
+            display: inline-flex; align-items: center; gap: 7px;
+            padding: 8px 14px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.10);
+            color: #e2e8f0 !important;
+            font-size: 13.5px; font-weight: 600;
+            border-radius: 999px; text-decoration: none;
+            transition: background .2s ease, border-color .2s ease, transform .2s ease;
+        }
+        .nav-lang:hover { background: rgba(96,165,250,0.10); border-color: rgba(96,165,250,0.30); color: #fff !important; transform: translateY(-1px); }
+        .nav-lang i { font-size: 12px; color: #60a5fa; }
+
+        .nav-cta {
+            display: inline-flex; align-items: center; gap: 9px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #60a5fa, #7c3aed);
+            color: #fff !important;
+            font-size: 13.5px; font-weight: 700;
+            border-radius: 999px; text-decoration: none;
+            box-shadow: 0 8px 22px -8px rgba(96,165,250,0.55);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 28px -8px rgba(96,165,250,0.75); color: #fff !important; }
+        .nav-cta i { font-size: 11px; transition: transform .2s ease; }
+        .nav-cta:hover i { transform: translateX(3px); }
+        html[dir="rtl"] .nav-cta:hover i { transform: translateX(-3px); }
+        html[dir="rtl"] .nav-cta i,
+        html[dir="rtl"] .nav-link i { transform: scaleX(-1); }
+
+        /* Burger (mobile) */
+        .nav-burger {
+            display: none;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.10);
+            width: 42px; height: 42px;
+            border-radius: 10px;
+            padding: 0;
+            cursor: pointer;
+            flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+            margin-inline-start: auto;
+        }
+        .nav-burger span { display: block; width: 18px; height: 2px; background: #e2e8f0; border-radius: 2px; transition: transform .2s ease; }
+        .nav-burger:hover { background: rgba(96,165,250,0.10); border-color: rgba(96,165,250,0.30); }
+
+        @media (max-width: 991.98px) {
+            .nav-links, .nav-actions { display: none; }
+            .nav-burger { display: flex; }
+        }
+        @media (max-width: 480px) {
+            .nav-brand-text { display: none; }
+            body { padding-top: 70px; }
+            .nav-bar-inner { height: 70px; padding-inline: 16px; }
+        }
+
+        /* ============================================================
+           FLOATING WHATSAPP — always on LEFT (regardless of LTR/RTL)
+           ============================================================ */
+        .floating-whatsapp,
+        html[dir="rtl"] .floating-whatsapp,
+        html[dir="ltr"] .floating-whatsapp {
+            position: fixed !important;
+            left: 28px !important;
+            right: auto !important;
+            bottom: 90px !important;
+            width: 60px !important; height: 60px !important;
+            border-radius: 50% !important;
+            background: linear-gradient(135deg, #25d366, #128c7e) !important;
+            color: #fff !important;
+            display: flex !important; align-items: center; justify-content: center;
+            font-size: 28px !important;
+            box-shadow: 0 12px 30px -6px rgba(37,211,102,0.55);
+            z-index: 999;
+            border: 2px solid rgba(255,255,255,0.18);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .floating-whatsapp:hover { transform: scale(1.08); box-shadow: 0 16px 36px -6px rgba(37,211,102,0.75); }
+        .floating-whatsapp::before {
+            content: '';
+            position: absolute; inset: -6px;
+            border-radius: 50%;
+            border: 2px solid #25d366;
+            opacity: .6;
+            animation: wa-ring 2s ease-out infinite;
+        }
+        @keyframes wa-ring {
+            0% { transform: scale(0.9); opacity: 0.7; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+
+        /* ============================================================
+           MOBILE BOTTOM BAR — dark glass, restyled
+           ============================================================ */
+        .mobile-widget-container {
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: 998;
+            display: none;
+            gap: 10px; padding: 12px 14px;
+            background: rgba(10, 14, 26, 0.88) !important;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 -8px 24px rgba(0,0,0,0.35) !important;
+        }
+        .mobile-widget-container .btn-icon {
+            flex: 1;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 13px 14px;
+            border-radius: 12px;
+            font-weight: 700; font-size: 14px;
+            text-decoration: none;
+            transition: transform .15s ease, box-shadow .15s ease;
+        }
+        .mobile-widget-container .btn-icon i { font-size: 16px; }
+        .mobile-widget-container .btn-icon:first-child {
+            background: linear-gradient(135deg, #60a5fa, #7c3aed) !important;
+            color: #fff !important;
+            box-shadow: 0 8px 20px -6px rgba(96,165,250,0.45);
+        }
+        .mobile-widget-container .btn-icon:last-child {
+            background: linear-gradient(135deg, #25d366, #128c7e) !important;
+            color: #fff !important;
+            box-shadow: 0 8px 20px -6px rgba(37,211,102,0.45);
+        }
+        .mobile-widget-container .btn-icon:active { transform: translateY(1px); }
+
+        /* Only show the mobile bar on phones (≤768px) and keep the floating WA visible too */
+        @media (max-width: 768px) {
+            body { padding-bottom: 76px; }
+            .mobile-widget-container { display: flex !important; }
+            .floating-whatsapp { bottom: 96px !important; width: 54px !important; height: 54px !important; font-size: 24px !important; left: 18px !important; }
+        }
+
+        /* ============================================================
+           SCROLL-TOP — always RIGHT (so it does NOT stack on the left
+           with the floating WhatsApp). Overrides legacy RTL flip.
+           ============================================================ */
+        .scroll-top-btn,
+        html[dir="rtl"] .scroll-top-btn,
+        html[dir="ltr"] .scroll-top-btn {
+            position: fixed !important;
+            right: 28px !important;
+            left: auto !important;
+            bottom: 28px !important;
+            width: 46px !important; height: 46px !important;
+            border-radius: 50% !important;
+            background: rgba(96,165,250,0.18) !important;
+            color: #60a5fa !important;
+            display: grid; place-items: center;
+            font-size: 16px !important;
+            border: 1px solid rgba(96,165,250,0.35) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 22px -6px rgba(0,0,0,0.45);
+            z-index: 998;
+            transition: transform .2s ease, background .2s ease;
+            text-decoration: none !important;
+        }
+        .scroll-top-btn:hover { transform: translateY(-2px); background: rgba(96,165,250,0.32) !important; color: #fff !important; }
+        @media (max-width: 768px) {
+            .scroll-top-btn { right: 18px !important; bottom: 88px !important; width: 42px !important; height: 42px !important; }
+        }
+    </style>
 
     {{-- Post-style.css overrides — must load AFTER style.css to win the cascade.
          The legacy theme adds rgba(0,0,0,0.3) overlay via .hero-banner::before;

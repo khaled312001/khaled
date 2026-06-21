@@ -27,7 +27,9 @@ Route::get('/portfolios', [App\Http\Controllers\PageController::class, 'portfoli
 Route::get('/portfolio/category/{category}', [App\Http\Controllers\PageController::class, 'portfolioCategory'])->name('portfolios.category');
 Route::get('/portfolio/{slug}', [App\Http\Controllers\PageController::class, 'portfolioShow'])->name('portfolio.show');
 Route::get('/plans', [App\Http\Controllers\PageController::class, 'plans'])->name('plans');
-Route::get('/careers', [App\Http\Controllers\PageController::class, 'careers'])->name('careers');
+// /careers permanently removed — GSC flagged it as Crawled-not-indexed (thin content);
+// 410 Gone tells Google to drop it from the index faster than 404.
+Route::get('/careers', fn () => response('Gone', 410))->name('careers');
 
 // SEO infrastructure
 Route::get('/sitemap.xml', [App\Http\Controllers\PageController::class, 'sitemap'])->name('sitemap');
