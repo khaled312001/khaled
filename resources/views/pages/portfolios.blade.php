@@ -75,6 +75,35 @@
     .pf-card__visit { color: var(--brand); font-weight: 700; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; transition: gap .2s ease; }
     .pf-card__visit i { font-size: 11px; }
     .pf-card:hover .pf-card__visit { gap: 10px; color: var(--brand-2); }
+
+    /* Websites / Apps toggle */
+    .pf-toggle { padding: 20px 0 4px; }
+    .pf-toggle__inner { display: inline-flex; gap: 4px; padding: 5px; background: var(--surface-1); border: 1px solid var(--border-1); border-radius: var(--r-full); }
+    .pf-toggle { text-align: center; }
+    .pf-toggle__btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: transparent; border: none; color: var(--text-3); font-size: 14px; font-weight: 600; border-radius: var(--r-full); cursor: pointer; font-family: var(--font-sans); transition: all .2s ease; }
+    .pf-toggle__btn:hover { color: var(--text-1); }
+    .pf-toggle__btn.is-active { background: var(--gradient-2); color: #fff; box-shadow: 0 8px 20px -8px rgba(96,165,250,0.55); }
+    .pf-toggle__btn i { font-size: 14px; }
+    .pf-toggle__cnt { font-size: 12px; padding: 1px 8px; background: rgba(255,255,255,0.14); border-radius: var(--r-full); }
+    .pf-toggle__btn:not(.is-active) .pf-toggle__cnt { background: rgba(255,255,255,0.05); }
+
+    /* App card */
+    .app-card { display: flex; flex-direction: column; height: 100%; padding: 26px 24px; background: linear-gradient(160deg, var(--surface-1) 0%, var(--bg-2) 100%); border: 1px solid var(--border-1); border-radius: var(--r-lg); transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; opacity: 0; transform: translateY(20px); }
+    .app-card.is-in { opacity: 1; transform: translateY(0); transition: opacity .5s ease, transform .5s ease, border-color .3s ease, box-shadow .3s ease; }
+    .app-card:hover { transform: translateY(-6px); border-color: var(--border-3); box-shadow: var(--shadow-md); }
+    .app-card__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 16px; }
+    .app-card__ico { width: 60px; height: 60px; border-radius: 16px; display: grid; place-items: center; color: #fff; font-size: 26px; box-shadow: var(--shadow-sm); }
+    .app-card__feat { font-size: 10.5px; color: var(--warning); font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; padding: 4px 9px; background: rgba(251,191,36,0.10); border: 1px solid rgba(251,191,36,0.25); border-radius: var(--r-full); display: inline-flex; align-items: center; gap: 4px; height: fit-content; }
+    .app-card__cat { display: inline-block; align-self: flex-start; font-size: 11px; color: var(--brand); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; background: rgba(96,165,250,0.10); border: 1px solid rgba(96,165,250,0.20); border-radius: var(--r-full); margin-bottom: 12px; }
+    .app-card__name { font-size: 18px; font-weight: 700; color: var(--text-1); margin: 0 0 8px; }
+    .app-card__tag { color: var(--text-3); font-size: 14px; line-height: 1.6; margin: 0 0 16px; flex: 1; }
+    .app-card__foot { display: flex; align-items: center; gap: 10px; padding-top: 16px; border-top: 1px solid var(--border-1); }
+    .app-card__store { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; background: #fff; color: #0a0e1a !important; font-size: 13px; font-weight: 700; border-radius: var(--r-sm); text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; flex: 1; justify-content: center; }
+    .app-card__store:hover { transform: translateY(-2px); box-shadow: 0 8px 18px -6px rgba(0,0,0,0.4); color: #0a0e1a !important; }
+    .app-card__store i { font-size: 15px; color: #0a0e1a; }
+    .app-card__web { flex-shrink: 0; width: 40px; height: 40px; display: grid; place-items: center; background: rgba(255,255,255,0.04); border: 1px solid var(--border-2); border-radius: var(--r-sm); color: var(--text-2); transition: all .2s ease; }
+    .app-card__web:hover { border-color: var(--border-3); color: var(--brand); transform: translateY(-2px); }
+    .app-card__web i { font-size: 13px; }
 </style>
 @endpush
 
@@ -105,6 +134,22 @@
     </div>
 </section>
 
+@if(!isset($category))
+<div class="pf-toggle">
+    <div class="container">
+        <div class="pf-toggle__inner" role="tablist">
+            <button type="button" class="pf-toggle__btn is-active" data-pf-view="websites" role="tab" aria-selected="true">
+                <i class="fas fa-globe"></i> {{ $isAr ? 'المواقع' : 'Websites' }} <span class="pf-toggle__cnt">{{ $projectCount }}</span>
+            </button>
+            <button type="button" class="pf-toggle__btn" data-pf-view="apps" role="tab" aria-selected="false">
+                <i class="fas fa-mobile-screen-button"></i> {{ $isAr ? 'التطبيقات' : 'Mobile Apps' }} <span class="pf-toggle__cnt">{{ count($apps ?? []) }}</span>
+            </button>
+        </div>
+    </div>
+</div>
+@endif
+
+<div id="pfWebsites">
 @if(isset($projectsByCountry) && !isset($category))
 <div class="pf-nav">
     <div class="container">
@@ -165,9 +210,56 @@
                 <a href="{{ route('portfolios') }}" class="ks-btn ks-btn--ghost mt-3">{{ $isAr ? 'كل المشاريع' : 'View all projects' }} <i class="fa fa-arrow-right"></i></a>
             </div>
         @endif
+    </div>
+</section>
+</div>{{-- /#pfWebsites --}}
 
-        <div class="home-cta ks-fadeup" style="margin-top: var(--sp-9);">
-            <h2>{{ $isAr ? 'كن المشروع رقم ' . ($projectCount + 1) : 'Be project #' . ($projectCount + 1) }}</h2>
+@if(!isset($category) && !empty($apps))
+<div id="pfApps" hidden>
+    <section class="ks-section">
+        <div class="container">
+            <div class="pf-section__hd" style="margin-bottom: var(--sp-6);">
+                <div class="pf-flag-box"><i class="fas fa-mobile-screen-button" style="color: var(--brand); font-size: 24px;"></i></div>
+                <div>
+                    <h2 class="pf-section__title">{{ $isAr ? 'تطبيقات الموبايل' : 'Mobile Apps' }}</h2>
+                    <div class="pf-section__meta">
+                        <span class="pf-section__cnt">{{ count($apps) }} {{ $isAr ? 'تطبيق على Google Play' : 'apps on Google Play' }}</span>
+                        <span class="pf-section__feat"><i class="fab fa-google-play"></i> {{ $isAr ? 'منشوره ومباشره' : 'Published & live' }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-4">
+                @foreach($apps as $app)
+                    <div class="col-lg-4 col-md-6 ks-fadeup">
+                        <div class="app-card">
+                            <div class="app-card__top">
+                                <div class="app-card__ico" style="background: {{ $app['grad'] }};"><i class="{{ $app['icon'] }}"></i></div>
+                                @if(!empty($app['featured']))<span class="app-card__feat"><i class="fas fa-star"></i> {{ $isAr ? 'مميّز' : 'Featured' }}</span>@endif
+                            </div>
+                            <span class="app-card__cat">{{ $app['category'] }}</span>
+                            <h3 class="app-card__name">{{ $app['name'] }}</h3>
+                            <p class="app-card__tag">{{ $app['tagline'] }}</p>
+                            <div class="app-card__foot">
+                                <a href="{{ $app['store'] }}" target="_blank" rel="noopener" class="app-card__store">
+                                    <i class="fab fa-google-play"></i> {{ $isAr ? 'حمّل من Google Play' : 'Google Play' }}
+                                </a>
+                                @if(!empty($app['website']))
+                                    <a href="{{ $app['website'] }}" target="_blank" rel="noopener" class="app-card__web" aria-label="{{ $isAr ? 'الموقع' : 'Website' }}"><i class="fas fa-external-link-alt"></i></a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+</div>{{-- /#pfApps --}}
+@endif
+
+<section class="ks-section ks-section--tight">
+    <div class="container">
+        <div class="home-cta ks-fadeup">
+            <h2>{{ $isAr ? 'عندك فكره مشروع أو تطبيق؟' : 'Have a project or app in mind?' }}</h2>
             <p>{{ $isAr ? 'أقبل 2 إلى 3 عملاء جدد كل ربع سنة. لو عندك مشروع جاد، فلنتحدث.' : 'I take 2–3 new clients per quarter. If you have a serious project, let us talk.' }}</p>
             <div class="home-cta__row">
                 <a href="{{ route('contact') }}" class="ks-btn ks-btn--primary">{{ $isAr ? 'تواصل معي' : 'Contact me' }} <i class="fa fa-arrow-right"></i></a>
@@ -181,16 +273,21 @@
 @push('scripts')
 <script>
 (function () {
-    var cards = document.querySelectorAll('.pf-card');
-    if ('IntersectionObserver' in window) {
-        var io = new IntersectionObserver(function (entries) {
-            entries.forEach(function (e, i) {
-                if (e.isIntersecting) { setTimeout(function () { e.target.classList.add('is-in'); }, i * 50); io.unobserve(e.target); }
-            });
-        }, { rootMargin: '0px 0px -60px 0px', threshold: 0.05 });
-        cards.forEach(function (c) { io.observe(c); });
-    } else { cards.forEach(function (c) { c.classList.add('is-in'); }); }
+    // Reveal cards on scroll
+    function reveal(scope) {
+        var cards = (scope || document).querySelectorAll('.pf-card:not(.is-in), .app-card:not(.is-in)');
+        if ('IntersectionObserver' in window) {
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e, i) {
+                    if (e.isIntersecting) { setTimeout(function () { e.target.classList.add('is-in'); }, i * 40); io.unobserve(e.target); }
+                });
+            }, { rootMargin: '0px 0px -60px 0px', threshold: 0.05 });
+            cards.forEach(function (c) { io.observe(c); });
+        } else { cards.forEach(function (c) { c.classList.add('is-in'); }); }
+    }
+    reveal();
 
+    // Country anchor smooth-scroll
     document.querySelectorAll('.pf-cchip[href^="#country-"]').forEach(function (chip) {
         chip.addEventListener('click', function (e) {
             var id = chip.getAttribute('href').slice(1);
@@ -198,6 +295,27 @@
             if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); history.replaceState(null, '', '#' + id); }
         });
     });
+
+    // Websites / Apps toggle
+    var websites = document.getElementById('pfWebsites');
+    var apps = document.getElementById('pfApps');
+    var btns = document.querySelectorAll('.pf-toggle__btn');
+    function setView(view) {
+        btns.forEach(function (b) {
+            var on = b.getAttribute('data-pf-view') === view;
+            b.classList.toggle('is-active', on);
+            b.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        if (websites) websites.hidden = (view !== 'websites');
+        if (apps) apps.hidden = (view !== 'apps');
+        if (view === 'apps' && apps) reveal(apps);
+        try { history.replaceState(null, '', view === 'apps' ? '#apps' : location.pathname); } catch (e) {}
+    }
+    btns.forEach(function (b) {
+        b.addEventListener('click', function () { setView(b.getAttribute('data-pf-view')); });
+    });
+    // Deep-link: /portfolios#apps opens the apps view
+    if (location.hash === '#apps' && apps) setView('apps');
 })();
 </script>
 @endpush

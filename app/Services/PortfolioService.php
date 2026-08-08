@@ -50,6 +50,100 @@ class PortfolioService
         return count(array_unique(array_column(self::projects(), 'country')));
     }
 
+    /**
+     * Mobile apps published on Google Play (developer: Barmagly).
+     * Localized name/tagline based on the current locale.
+     */
+    public static function apps(): array
+    {
+        $isAr = function_exists('app') && app()->getLocale() === 'ar';
+        return array_map(function ($a) use ($isAr) {
+            if ($isAr) {
+                if (!empty($a['name_ar']))    $a['name'] = $a['name_ar'];
+                if (!empty($a['tagline_ar'])) $a['tagline'] = $a['tagline_ar'];
+                if (!empty($a['category_ar'])) $a['category'] = $a['category_ar'];
+            }
+            return $a;
+        }, self::appsData());
+    }
+
+    public static function appCount(): int
+    {
+        return count(self::appsData());
+    }
+
+    private static function appsData(): array
+    {
+        // grad: two-color CSS gradient for the icon tile. icon: Font Awesome class.
+        return [
+            [
+                'name' => 'Omnixtrack CRM',
+                'name_ar' => 'Omnixtrack CRM',
+                'tagline' => 'Multi-tenant CRM: leads, sales pipelines, WhatsApp and tasks — on the go.',
+                'tagline_ar' => 'إدارة علاقات عملاء متعددة المستأجرين: العملاء المحتملون، المبيعات، الواتساب والمهام — من هاتفك.',
+                'category' => 'Business / CRM',
+                'category_ar' => 'أعمال / CRM',
+                'icon' => 'fas fa-chart-line',
+                'grad' => 'linear-gradient(135deg, #0ea5e9, #1e3a8a)',
+                'store' => 'https://play.google.com/store/apps/details?id=com.omnixtrack.app',
+                'website' => 'https://omnixtrack.com',
+                'featured' => true,
+            ],
+            [
+                'name' => 'POS Barmagly',
+                'name_ar' => 'POS Barmagly',
+                'tagline' => 'Cloud point-of-sale for restaurants, cafes and retail — offline-ready.',
+                'tagline_ar' => 'نقاط بيع سحابيه للمطاعم والمقاهي والتجزئه — تعمل بدون إنترنت.',
+                'category' => 'Business / POS',
+                'category_ar' => 'أعمال / نقاط بيع',
+                'icon' => 'fas fa-cash-register',
+                'grad' => 'linear-gradient(135deg, #7c3aed, #4c1d95)',
+                'store' => 'https://play.google.com/store/apps/details?id=tech.barmagly.pos',
+                'website' => 'https://pos.barmagly.tech',
+                'featured' => true,
+            ],
+            [
+                'name' => 'Barmagly — Order Food',
+                'name_ar' => 'Barmagly — طلب الطعام',
+                'tagline' => 'Online food ordering and delivery with live order tracking.',
+                'tagline_ar' => 'طلب وتوصيل الطعام أونلاين مع تتبع لحظي للطلب.',
+                'category' => 'Food & Delivery',
+                'category_ar' => 'طعام وتوصيل',
+                'icon' => 'fas fa-utensils',
+                'grad' => 'linear-gradient(135deg, #f97316, #b91c1c)',
+                'store' => 'https://play.google.com/store/apps/details?id=com.barmagly.customer',
+                'website' => null,
+                'featured' => false,
+            ],
+            [
+                'name' => 'Klipp — Salon Booking',
+                'name_ar' => 'Klipp — حجز الصالونات',
+                'tagline' => 'Book salon and barber appointments, manage staff and services.',
+                'tagline_ar' => 'حجز مواعيد الصالونات والحلاقه، وإدارة الموظفين والخدمات.',
+                'category' => 'Beauty & Booking',
+                'category_ar' => 'تجميل وحجوزات',
+                'icon' => 'fas fa-scissors',
+                'grad' => 'linear-gradient(135deg, #ec4899, #831843)',
+                'store' => 'https://play.google.com/store/apps/details?id=tech.barmagly.barber',
+                'website' => 'https://barber.barmagly.tech',
+                'featured' => false,
+            ],
+            [
+                'name' => 'Holy Quran — Barmagly',
+                'name_ar' => 'القرآن الكريم — برمجلي',
+                'tagline' => 'Read and listen to the Holy Quran — ad-free, tracker-free, privacy-first.',
+                'tagline_ar' => 'قراءه واستماع القرآن الكريم — بدون إعلانات ولا تتبع، يحترم الخصوصيه.',
+                'category' => 'Islamic',
+                'category_ar' => 'إسلامي',
+                'icon' => 'fas fa-book-quran',
+                'grad' => 'linear-gradient(135deg, #10b981, #065f46)',
+                'store' => 'https://play.google.com/store/apps/details?id=tech.barmagly.quran',
+                'website' => 'https://quran.khaledahmed.net',
+                'featured' => false,
+            ],
+        ];
+    }
+
     private static function countryPriority(): array
     {
         return [
@@ -184,7 +278,7 @@ class PortfolioService
     }
 
     /**
-     * 35 real production projects shipped by Khaled Ahmed.
+     * 37 real production projects shipped by Khaled Ahmed.
      * Curated from live deployments — duplicates removed.
      */
     private static function projects(): array
@@ -790,6 +884,41 @@ class PortfolioService
                 'country_ar' => 'السعوديه',
                 'country_flag' => '🇸🇦',
                 'country_code' => 'sa',
+            ],
+            [
+                'slug' => 'omnixtrack',
+                'title' => 'Omnixtrack — Arabic Multi-Tenant CRM',
+                'summary' => 'Made-in-Egypt multi-tenant CRM platform for Arabic-speaking businesses — lead pipelines, sales tracking, WhatsApp integration, task management, and team analytics — all in one localized platform, hosted inside Egypt.',
+                'title_ar' => 'Omnixtrack — منصه CRM عربيه متعددة المستأجرين',
+                'summary_ar' => 'منصه CRM متعددة المستأجرين صُنعت في مصر ومُستضافه داخل مصر — إدارة العملاء المحتملين، تتبع المبيعات، تكامل الواتساب، وإدارة المهام والفرق في منصه واحده معربه بالكامل.',
+                'category' => 'Tech / SaaS',
+                'tech' => ['Laravel', 'Vue.js', 'MySQL', 'Redis', 'WhatsApp API'],
+                'url' => 'https://omnixtrack.com',
+                'image' => 'projects/omnixtrack.png',
+                'role' => 'Lead Developer',
+                'language' => 'ar',
+                'country' => 'Egypt',
+                'country_ar' => 'مصر',
+                'country_flag' => '🇪🇬',
+                'country_code' => 'eg',
+                'featured' => true,
+            ],
+            [
+                'slug' => 'tamem-delivery',
+                'title' => 'Tamem Delivery — Upper Egypt Delivery & Logistics Platform',
+                'summary' => 'Integrated last-mile delivery and shipping platform serving Upper Egypt (Qift, Qena, Luxor, Aswan, Red Sea) — food, pharmacy and supermarket delivery, inter-governorate shipping, B2B merchant tools, live tracking, and a companion mobile app.',
+                'title_ar' => 'تميم للتوصيل — منصه توصيل وشحن لصعيد مصر',
+                'summary_ar' => 'منصه توصيل وشحن متكامله تخدم الصعيد (قفط · قنا · الأقصر · أسوان · البحر الأحمر) — توصيل مطاعم وصيدليات وسوبر ماركت، شحن بين المحافظات، حلول تجار B2B، تتبع لحظي، وتطبيق موبايل مصاحب.',
+                'category' => 'Tech / SaaS',
+                'tech' => ['Laravel', 'Flutter', 'MySQL', 'Google Maps API', 'Real-time Tracking'],
+                'url' => 'https://deliverytamem.com',
+                'image' => 'projects/deliverytamem.png',
+                'role' => 'Full Stack Developer',
+                'language' => 'ar',
+                'country' => 'Egypt',
+                'country_ar' => 'مصر',
+                'country_flag' => '🇪🇬',
+                'country_code' => 'eg',
             ],
         ];
     }

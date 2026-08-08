@@ -155,7 +155,8 @@ class PageController extends Controller
         $projectsByCountry = PortfolioService::byCountry();
         $categories = PortfolioService::categories();
         $countryCount = PortfolioService::countryCount();
-        return view('pages.portfolios', compact('projects', 'projectsByCountry', 'categories', 'countryCount'));
+        $apps = PortfolioService::apps();
+        return view('pages.portfolios', compact('projects', 'projectsByCountry', 'categories', 'countryCount', 'apps'));
     }
 
     public function portfolioCategory($category)
