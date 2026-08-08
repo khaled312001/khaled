@@ -1,0 +1,31 @@
+# Laravel defaults
+/vendor
+/node_modules
+.env
+.env.backup
+.phpunit.result.cache
+/storage/*.key
+/public/storage
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+
+# ── Deployment / automation scripts (CONTAIN SSH CREDENTIALS — never commit) ──
+*.py
+deploy-*.sh
+deploy-portfolio.sh
+syanatech-robots.txt
+_args.json
+posts-args.json
+posts-needing-arabic.json
+posts-need-expansion.json
+translations-output.json
+expansion-output.json
+seo-mega-output.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.bak
+*.bak.*
