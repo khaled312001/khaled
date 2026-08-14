@@ -515,6 +515,11 @@
         .ks-fadeup { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1); }
         .ks-fadeup.is-in { opacity: 1; transform: translateY(0); }
 
+        /* ─── Media (framed image) ─── */
+        .ks-media { position: relative; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border-2); box-shadow: var(--shadow-md); }
+        .ks-media img { width: 100%; height: auto; display: block; }
+        .ks-media::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 0 50px rgba(96,165,250,0.10); border-radius: var(--r-lg); pointer-events: none; }
+
         /* ─── Utilities ─── */
         .ks-grad-text { background: var(--gradient-1); -webkit-background-clip: text; background-clip: text; color: transparent; }
         .ks-bg-grad   { background: var(--gradient-bg), linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%); }

@@ -65,6 +65,16 @@
     </div>
 </section>
 
+@if(!isset($category))
+<div class="container" style="margin-top: calc(-1 * var(--sp-5)); margin-bottom: var(--sp-6);">
+    <div class="ks-media ks-fadeup" style="max-width: 1000px; margin: 0 auto;">
+        <img src="{{ asset('images/site/blog-cover.png') }}"
+             alt="{{ $isAr ? 'مدوّنة تطوير الويب — مقالات Laravel و React و SEO والأداء' : 'Web development blog — Laravel, React, SEO and performance articles' }}"
+             width="1536" height="1024" loading="lazy" decoding="async">
+    </div>
+</div>
+@endif
+
 <div class="bl-cats">
     <div class="container">
         <a href="{{ route('blogs') }}" class="{{ !isset($category) ? 'is-active' : '' }}">{{ $isAr ? 'كل المقالات' : 'All posts' }}</a>

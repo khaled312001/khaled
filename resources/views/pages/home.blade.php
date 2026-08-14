@@ -77,6 +77,15 @@
         .home-code { margin-top: 36px; max-width: 100%; }
     }
 
+    /* Hero image */
+    .home-hero-img { position: relative; border-radius: var(--r-xl); overflow: hidden; border: 1px solid var(--border-3); box-shadow: var(--shadow-lg); opacity: 0; animation: ks-fadeup .8s ease .4s forwards; }
+    .home-hero-img::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 0 60px rgba(96,165,250,0.12); border-radius: var(--r-xl); pointer-events: none; }
+    .home-hero-img img { width: 100%; height: auto; display: block; }
+
+    /* Section image (landing / content pages) */
+    .ks-media { position: relative; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border-2); box-shadow: var(--shadow-md); }
+    .ks-media img { width: 100%; height: auto; display: block; }
+
     /* Rapid delivery band */
     .home-speed__band { padding: 48px 44px; background: radial-gradient(circle at 15% 20%, rgba(96,165,250,0.12) 0%, transparent 55%), radial-gradient(circle at 85% 90%, rgba(167,139,250,0.12) 0%, transparent 55%), linear-gradient(160deg, var(--surface-1) 0%, var(--bg-2) 100%); border: 1px solid var(--border-3); border-radius: var(--r-2xl); }
     .home-speed__head { text-align: center; max-width: 760px; margin: 0 auto; }
@@ -124,16 +133,10 @@
             </div>
 
             <div class="col-lg-5 d-none d-lg-block">
-                <div class="home-code" aria-hidden="true">
-                    <div class="home-code__bar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="home-code__file">App.tsx</span></div>
-                    <pre><code><span class="c">// senior full stack</span>
-<span class="k">const</span> <span class="v">khaled</span> = {
-  <span class="p">stack</span>: [<span class="s">'Laravel'</span>, <span class="s">'React'</span>],
-  <span class="p">shipped</span>: <span class="n">25</span>,
-  <span class="p">countries</span>: <span class="n">8</span>,
-  <span class="p">since</span>: <span class="n">2020</span>,
-  <span class="p">ship</span>: () => <span class="s">'production'</span>,
-}</code></pre>
+                <div class="home-hero-img">
+                    <img src="{{ asset('images/site/hero-workspace.png') }}"
+                         alt="{{ app()->getLocale() === 'ar' ? 'مطور ويب فل ستاك يبني تطبيقات Laravel و React احترافية' : 'Senior full stack developer building professional Laravel and React web applications' }}"
+                         width="1536" height="1024" loading="eager" decoding="async" fetchpriority="high">
                 </div>
             </div>
         </div>

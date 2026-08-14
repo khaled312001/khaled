@@ -138,6 +138,11 @@
             <h2>{{ $isAr ? 'عملية واضحة بأربع خطوات' : 'A simple four-step process' }}</h2>
             <p>{{ $isAr ? 'بدون عقود معقدة. نفس الخطوات التي اتبعتها في كل واحد من 25 مشروع نشرتهم.' : 'No 10-page contracts. The same four steps I used for every one of my 25+ shipped projects.' }}</p>
         </div>
+        <div class="ks-media ks-fadeup" style="max-width: 920px; margin: 0 auto var(--sp-6);">
+            <img src="{{ asset('images/site/process-workflow.png') }}"
+                 alt="{{ $isAr ? 'مراحل العمل الأربع: اكتشاف، عرض سعر، تطوير، إطلاق' : 'Four-step delivery process: discovery, quote, build, launch' }}"
+                 width="1536" height="1024" loading="lazy" decoding="async">
+        </div>
         <div class="row g-4">
             @foreach([
                 [$isAr ? 'مكالمة استكشافية مجانية' : 'Free discovery call',         $isAr ? 'مكالمة 30 دقيقة لفهم الهدف والمستخدمين والقيود. أخرج برأي صريح في ما إذا كان المشروع يستحق التنفيذ.' : '30-minute call to understand the goal, users, and constraints. I leave with enough to write a quote; you leave with an honest opinion.'],

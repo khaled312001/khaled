@@ -100,6 +100,11 @@
             </div>
 
             <div class="col-lg-5">
+                <div class="ks-media ks-fadeup" style="margin-bottom: 20px;">
+                    <img src="{{ asset('images/site/about-developer.png') }}"
+                         alt="{{ app()->getLocale() === 'ar' ? 'مساحة عمل مطور ويب خبير — أكواد وشاشات وتصميم معماري' : 'Senior web developer workspace — clean code, multiple monitors, architecture' }}"
+                         width="1536" height="1024" loading="lazy" decoding="async">
+                </div>
                 <div class="about-info">
                     <div class="about-info__row"><div class="about-info__lbl">{{ app()->getLocale() === 'ar' ? 'الاسم' : 'Name' }}</div><div class="about-info__val">Khaled Ahmed</div></div>
                     <div class="about-info__row"><div class="about-info__lbl">{{ app()->getLocale() === 'ar' ? 'الموقع' : 'Location' }}</div><div class="about-info__val">{{ app()->getLocale() === 'ar' ? 'القاهرة، مصر' : 'Cairo, Egypt' }}</div></div>

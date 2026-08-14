@@ -102,7 +102,22 @@
 
 <section class="ks-section ks-section--tight">
     <div class="container">
-        <div class="lp-intro ks-fadeup">{!! $intro !!}</div>
+        @if(!empty($page['image']))
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-7">
+                    <div class="lp-intro ks-fadeup">{!! $intro !!}</div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="ks-media ks-fadeup">
+                        <img src="{{ asset('images/' . $page['image']) }}"
+                             alt="{{ $page['image_alt'] ?? $page['h1'] }}"
+                             width="1536" height="1024" loading="lazy" decoding="async">
+                    </div>
+                </div>
+            </div>
+        @else
+            <div class="lp-intro ks-fadeup">{!! $intro !!}</div>
+        @endif
     </div>
 </section>
 
