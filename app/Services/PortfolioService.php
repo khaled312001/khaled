@@ -99,7 +99,7 @@ class PortfolioService
                 'icon' => 'fas fa-cash-register',
                 'grad' => 'linear-gradient(135deg, #7c3aed, #4c1d95)',
                 'store' => 'https://play.google.com/store/apps/details?id=tech.barmagly.pos',
-                'website' => 'https://pos.barmagly.tech',
+                'website' => 'https://kassenta.com',
                 'featured' => true,
             ],
             [
@@ -125,7 +125,7 @@ class PortfolioService
                 'icon' => 'fas fa-scissors',
                 'grad' => 'linear-gradient(135deg, #ec4899, #831843)',
                 'store' => 'https://play.google.com/store/apps/details?id=tech.barmagly.barber',
-                'website' => 'https://barber.barmagly.tech',
+                'website' => 'https://klippsalon.com',
                 'featured' => false,
             ],
             [
@@ -278,7 +278,7 @@ class PortfolioService
     }
 
     /**
-     * 37 real production projects shipped by Khaled Ahmed.
+     * 39 real production projects shipped by Khaled Ahmed.
      * Curated from live deployments — duplicates removed.
      */
     private static function projects(): array
@@ -390,14 +390,14 @@ class PortfolioService
             ],
             [
                 'slug' => 'barmagly-pos',
-                'title' => 'Barmagly POS — Cloud Multi-Tenant Cash System',
-                'summary' => 'Cloud-based, multi-tenant point-of-sale system for restaurants, cafés and retail. Built for the German and Swiss markets.',
-                'title_ar' => 'برمجلي POS — كاشير سحابي متعدد المستأجرين',
-                'summary_ar' => 'نظام نقاط بيع سحابي متعدد المستأجرين للمطاعم والكافيهات والتجزئه. مبني للسوق الألماني والسويسري.',
+                'title' => 'Kassenta — Cloud Multi-Tenant POS System',
+                'summary' => 'Cloud-based, multi-tenant point-of-sale system for restaurants, cafés and retail — with inventory, multi-branch and reporting.',
+                'title_ar' => 'Kassenta — كاشير سحابي متعدد المستأجرين',
+                'summary_ar' => 'نظام نقاط بيع سحابي متعدد المستأجرين للمطاعم والكافيهات والتجزئه، مع مخزون وتعدد فروع وتقارير.',
                 'category' => 'Tech / SaaS',
                 'tech' => ['Laravel', 'Vue.js', 'MySQL', 'Redis', 'Stripe'],
-                'url' => 'https://pos.barmagly.tech',
-                'image' => 'projects/barmagly-pos.jpg',
+                'url' => 'https://kassenta.com',
+                'image' => 'projects/barmagly-pos.png',
                 'role' => 'Lead Developer',
                 'language' => 'de',
                 'country' => 'Germany',
@@ -408,14 +408,14 @@ class PortfolioService
             ],
             [
                 'slug' => 'barmagly-salon',
-                'title' => 'Barmagly Salon — AI-Powered Salon Management',
-                'summary' => 'SaaS platform for salons: bookings, POS, inventory, staff scheduling, AI hair-makeover previews and analytics — all in one platform.',
-                'title_ar' => 'برمجلي صالون — منصه إداره صالونات بالذكاء الاصطناعي',
-                'summary_ar' => 'منصه SaaS للصالونات: حجوزات، POS، مخزون، جدوله موظفين، معاينات تسريحات بالذكاء الاصطناعي وتحليلات — كله في منصه واحده.',
+                'title' => 'Klipp — AI-Powered Salon Management',
+                'summary' => 'SaaS platform for salons and barbershops: bookings, POS, inventory, staff scheduling, AI hair-makeover previews and analytics — all in one platform.',
+                'title_ar' => 'Klipp — منصه إداره صالونات بالذكاء الاصطناعي',
+                'summary_ar' => 'منصه SaaS للصالونات ومحلات الحلاقه: حجوزات، POS، مخزون، جدوله موظفين، معاينات تسريحات بالذكاء الاصطناعي وتحليلات — كله في منصه واحده.',
                 'category' => 'Tech / SaaS',
                 'tech' => ['Laravel', 'React', 'AI/OpenAI', 'PostgreSQL'],
-                'url' => 'https://barber.barmagly.tech',
-                'image' => 'projects/barmagly-salon.jpg',
+                'url' => 'https://klippsalon.com',
+                'image' => 'projects/barmagly-salon.png',
                 'role' => 'Lead Developer',
                 'language' => 'en',
                 'country' => 'Switzerland',
@@ -919,6 +919,40 @@ class PortfolioService
                 'country_ar' => 'مصر',
                 'country_flag' => '🇪🇬',
                 'country_code' => 'eg',
+            ],
+            [
+                'slug' => 'maeyn',
+                'title' => 'Maeyn — Pilgrim Water & Meals Supply Platform',
+                'summary' => 'Saudi platform for supplying purified drinking water and meals to pilgrims at the holy sites in Mecca — service catalog, ordering, and delivery management.',
+                'title_ar' => 'مَعين — منصه توريد المياه والوجبات للحجاج',
+                'summary_ar' => 'منصه سعوديه لتوريد مياه الشرب النقيه والوجبات للحجاج والمعتمرين في المشاعر المقدسه بمكه المكرمه — كتالوج خدمات وطلبات وإداره توصيل.',
+                'category' => 'Religious / Quran',
+                'tech' => ['Laravel', 'Livewire', 'MySQL', 'Tailwind'],
+                'url' => 'https://maeyn.wasiila.com',
+                'image' => 'projects/maeyn.png',
+                'role' => 'Full Stack Developer',
+                'language' => 'ar',
+                'country' => 'Saudi Arabia',
+                'country_ar' => 'السعوديه',
+                'country_flag' => '🇸🇦',
+                'country_code' => 'sa',
+            ],
+            [
+                'slug' => 'taffweed',
+                'title' => 'Taffweed — Umrah Packages & Booking Platform',
+                'summary' => 'Saudi platform offering flexible year-round Umrah packages and pilgrim services — package catalog, online booking, payments, and itinerary management.',
+                'title_ar' => 'تفويض — منصه باقات وحجوزات العمره',
+                'summary_ar' => 'منصه سعوديه تقدّم باقات عمره مرنه على مدار العام وخدمات للمعتمرين — كتالوج باقات وحجز أونلاين ومدفوعات وإداره برامج الرحلات.',
+                'category' => 'Religious / Quran',
+                'tech' => ['Laravel', 'Livewire', 'MySQL', 'Stripe'],
+                'url' => 'https://taffweed.wasiila.com',
+                'image' => 'projects/taffweed.png',
+                'role' => 'Full Stack Developer',
+                'language' => 'ar',
+                'country' => 'Saudi Arabia',
+                'country_ar' => 'السعوديه',
+                'country_flag' => '🇸🇦',
+                'country_code' => 'sa',
             ],
         ];
     }
