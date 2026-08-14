@@ -23,6 +23,11 @@
 
     .svc-card { padding: 32px 28px; background: linear-gradient(160deg, var(--surface-1) 0%, var(--bg-2) 100%); border: 1px solid var(--border-1); border-radius: var(--r-lg); height: 100%; transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; position: relative; overflow: hidden; }
     .svc-card:hover { transform: translateY(-6px); border-color: var(--border-3); box-shadow: var(--shadow-md); }
+    .svc-card__cover { margin: -32px -28px 22px; height: 168px; overflow: hidden; border-bottom: 1px solid var(--border-1); position: relative; }
+    .svc-card__cover::after { content:''; position:absolute; inset:0; background: linear-gradient(180deg, transparent 55%, rgba(19,26,44,0.55)); }
+    .svc-card__cover img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform .5s ease; }
+    .svc-card:hover .svc-card__cover img { transform: scale(1.06); }
+    .svc-card__cover + .svc-card__ico { margin-top: -46px; position: relative; z-index: 1; box-shadow: 0 8px 20px -6px rgba(0,0,0,0.5); }
     .svc-card__ico { width: 54px; height: 54px; border-radius: var(--r-md); display:grid; place-items:center; background: linear-gradient(135deg, rgba(96,165,250,0.20), rgba(124,58,237,0.20)); color: var(--brand); font-size: 22px; margin-bottom: 18px; border: 1px solid rgba(96,165,250,0.20); }
     .svc-card h3 { color: var(--text-1); font-size: 19px; font-weight: 700; margin: 0 0 10px; }
     .svc-card p { color: var(--text-3); font-size: 14.5px; line-height: 1.7; margin: 0 0 14px; }
@@ -61,35 +66,35 @@
         ['fab fa-laravel', $isAr ? 'تطوير الخلفية بـ Laravel' : 'Laravel Backend Development',
             $isAr ? 'تطبيقات ويب ثابتة قابلة للتوسع: واجهات API، أنظمة مصادقة، طوابير معالجة، أنظمة فوترة وتعدد المستأجرين.' : 'Solid scalable web apps: REST/GraphQL APIs, auth systems, queue workers, billing engines, multi-tenant architecture.',
             $isAr ? ['تصميم قواعد البيانات وعلاقاتها','واجهات API موثقة بـ OpenAPI','تكاملات Stripe و PayPal و Paymob','جدولة المهام وطوابير Redis','معالجة الأخطاء والمراقبة'] : ['Database schema and migrations','API documented with OpenAPI','Stripe / PayPal / Paymob integrations','Scheduled jobs and Redis queues','Error handling and observability'],
-            ['Laravel 11','PHP 8.3','MySQL','PostgreSQL','Redis'], 'hire-laravel-developer'],
+            ['Laravel 11','PHP 8.3','MySQL','PostgreSQL','Redis'], 'hire-laravel-developer', 'laravel-code.png'],
         ['fab fa-react', $isAr ? 'واجهات React و Next.js' : 'React & Next.js Frontend',
             $isAr ? 'واجهات سريعة جاهزة لمحركات البحث بـ Next.js 15 و React Server Components و TypeScript و Tailwind.' : 'Fast, SEO-ready frontends with Next.js 15, React Server Components, TypeScript, and Tailwind.',
             $isAr ? ['تصميم متجاوب لكل الأجهزة','تحسين الصور والخطوط تلقائيا','أداء Lighthouse 95 فأعلى','إمكانية الوصول WCAG 2.2','تكامل ساعات CMS أو Headless'] : ['Pixel-perfect responsive design','Auto image & font optimization','Lighthouse 95+ performance','WCAG 2.2 accessibility','Headless CMS integration'],
-            ['Next.js 15','React 19','TypeScript','Tailwind','Vercel'], 'hire-react-developer'],
+            ['Next.js 15','React 19','TypeScript','Tailwind','Vercel'], 'hire-react-developer', 'react-frontend.png'],
         ['fas fa-rocket', $isAr ? 'بناء MVP لـ SaaS' : 'SaaS MVP Development',
             $isAr ? 'إطلاق منتج SaaS أولي خلال 8 إلى 16 أسبوعا مع كل الأساسيات: التسجيل، الاشتراكات، لوحة التحكم، الفوترة، النشر الآلي.' : 'Ship a SaaS MVP in 8-16 weeks with all essentials: signup, subscriptions, dashboards, billing, CI/CD deployment.',
             $isAr ? ['أنظمة فوترة Stripe كاملة','لوحة تحكم متعددة المستأجرين','أنظمة دور المستخدم والصلاحيات','تحليلات وتقارير','نشر على VPS أو Vercel'] : ['Stripe Cashier billing','Multi-tenant admin dashboard','Roles and permissions','Analytics dashboards','VPS or Vercel deployment'],
-            ['Laravel','Next.js','Stripe','PostgreSQL','Docker'], 'saas-development'],
+            ['Laravel','Next.js','Stripe','PostgreSQL','Docker'], 'saas-development', 'saas-dashboard.png'],
         ['fas fa-shopping-cart', $isAr ? 'متاجر إلكترونية' : 'E-commerce Solutions',
             $isAr ? 'متاجر WooCommerce أو Shopify أو Laravel مخصصة مع دفع متعدد ومخزون وشحن وتقارير وتكاملات CRM.' : 'WooCommerce, Shopify, or custom Laravel storefronts with multi-gateway payments, inventory, shipping, CRM integrations.',
             $isAr ? ['سله متقدمة بمنطق ضريبي وشحن','تكامل بوابات الدفع المحلية والعالمية','إدارة المخزون والمنتجات','نظام نقاط الولاء','تكامل مع شركات الشحن'] : ['Tax and shipping rule engine','Local + global payment gateways','Inventory + product management','Loyalty points system','Shipping carrier integrations'],
-            ['Shopify','WooCommerce','Laravel','Stripe','Paymob'], 'ecommerce-development'],
+            ['Shopify','WooCommerce','Laravel','Stripe','Paymob'], 'ecommerce-development', 'ecommerce-store.png'],
         ['fas fa-bolt', $isAr ? 'الأداء وتحسين محركات البحث' : 'Performance & SEO',
             $isAr ? 'تحسين Core Web Vitals، تحقيق درجات Lighthouse فوق 95، schema markup، sitemap، canonical hygiene.' : 'Core Web Vitals tuning, Lighthouse 95+ scores, structured data, sitemap and canonical hygiene, technical SEO.',
             $isAr ? ['تدقيق فني كامل بتقرير مكتوب','إصلاحات أداء قابلة للقياس','schema.org و JSON-LD','sitemap و robots و canonical','تحليل Search Console'] : ['Full technical audit with report','Measurable performance fixes','Schema.org and JSON-LD','Sitemap, robots, canonical','Search Console analysis'],
-            ['Lighthouse','Search Console','Schema.org','WebPageTest','GTmetrix'], null],
+            ['Lighthouse','Search Console','Schema.org','WebPageTest','GTmetrix'], null, 'hero-workspace.png'],
         ['fas fa-shield-alt', $isAr ? 'الصيانة والأمان و DevOps' : 'Maintenance, Security & DevOps',
             $isAr ? 'تعاقد شهري: تحديثات أمنية، نسخ احتياطي، مراقبة، حل ثغرات، نشر آلي، وإضافة ميزات صغيرة.' : 'Monthly retainers: security patches, backups, monitoring, vulnerability fixes, CI/CD, small feature additions.',
             $isAr ? ['تحديث المكتبات أسبوعيا','نسخ احتياطي يومي مشفر','مراقبة 24/7 بتنبيهات','تدقيقات أمنية ربع سنوية','استجابه طوارئ خلال 4 ساعات'] : ['Weekly dependency updates','Daily encrypted backups','24/7 monitoring with alerts','Quarterly security audits','4-hour emergency response'],
-            ['GitHub Actions','Docker','AWS','Sentry','UptimeRobot'], null],
+            ['GitHub Actions','Docker','AWS','Sentry','UptimeRobot'], null, 'process-workflow.png'],
         ['fas fa-brain', $isAr ? 'تكامل الذكاء الاصطناعي' : 'AI Integration',
             $isAr ? 'دمج OpenAI و Anthropic Claude في تطبيقاتك: روبوتات محادثة، استرجاع محسن (RAG)، تلخيص، توليد محتوى.' : 'Integrate OpenAI, Anthropic Claude and other LLMs into your apps: chatbots, retrieval-augmented generation (RAG), summarization, content generation.',
             $isAr ? ['روبوتات محادثة للموقع','بحث دلالي على البيانات','تلخيص الوثائق','توليد المحتوى المساعد','حماية بيانات العملاء'] : ['Customer chatbots','Semantic search over docs','Document summarization','Content generation','Privacy-first design'],
-            ['OpenAI','Anthropic','Pinecone','LangChain','Vector DB'], null],
+            ['OpenAI','Anthropic','Pinecone','LangChain','Vector DB'], null, 'mobile-apps.png'],
         ['fas fa-paint-brush', $isAr ? 'تصميم وتطبيق UI/UX' : 'UI/UX Implementation',
             $isAr ? 'تحويل تصاميم Figma و Adobe XD إلى كود إنتاج عالي الجودة مع تفاعلية وانتقالات وميكرو-أنميشن.' : 'Convert Figma and Adobe XD designs into pixel-perfect production code with interactions, transitions, and micro-animations.',
             $isAr ? ['دقه pixel-perfect','تفاعلية وانتقالات لطيفه','تجربه RTL/LTR كاملة','دعم الوضع الداكن','مكونات قابلة لإعاده الاستخدام'] : ['Pixel-perfect implementation','Smooth interactions','Full RTL/LTR support','Dark mode support','Reusable components'],
-            ['Figma','Adobe XD','Tailwind','Framer Motion','GSAP'], null],
+            ['Figma','Adobe XD','Tailwind','Framer Motion','GSAP'], null, 'blog-cover.png'],
     ];
 @endphp
 
@@ -113,9 +118,14 @@
 <section class="ks-section">
     <div class="container">
         <div class="row g-4">
-            @foreach($services as $i => [$icon, $title, $desc, $items, $stack, $lp])
+            @foreach($services as $i => [$icon, $title, $desc, $items, $stack, $lp, $img])
                 <div class="col-md-6 col-lg-4 ks-fadeup">
                     <div class="svc-card d-flex flex-column">
+                        @if(!empty($img))
+                            <div class="svc-card__cover">
+                                <img src="{{ asset('images/site/' . $img) }}" alt="{{ $title }}" width="1536" height="1024" loading="lazy" decoding="async">
+                            </div>
+                        @endif
                         <div class="svc-card__ico"><i class="{{ $icon }}"></i></div>
                         <h3>@if($lp)<a href="{{ url('/' . $lp) }}" style="color:inherit;text-decoration:none;">{{ $title }}</a>@else{{ $title }}@endif</h3>
                         <p>{{ $desc }}</p>

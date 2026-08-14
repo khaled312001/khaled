@@ -114,7 +114,7 @@
                 <span class="ks-eyebrow"><span class="ks-dot"></span> {{ app()->getLocale() === 'ar' ? 'متاح لمشاريع جديدة' : 'Available for new projects' }}</span>
                 <h1>
                     {{ app()->getLocale() === 'ar' ? 'مطور ويب' : 'Senior Full Stack' }}
-                    <span class="ks-grad-text">{{ app()->getLocale() === 'ar' ? 'فل ستاك خبير' : 'Web Developer' }}</span>
+                    <span class="ks-grad-text">{{ app()->getLocale() === 'ar' ? 'Full Stack خبير' : 'Web Developer' }}</span>
                     {{ app()->getLocale() === 'ar' ? 'ينشر في الإنتاج' : 'who ships in production' }}
                 </h1>
                 <p class="home-lead">{{ app()->getLocale() === 'ar' ? 'أنا خالد أحمد، مطور ويب من القاهرة بخبرة تتجاوز خمس سنوات وأكثر من 25 مشروعا منشورا في 8 دول. متخصص في Laravel و React و Node.js. استشارة مجانية ورد خلال 24 ساعة.' : 'I am Khaled Ahmed, a Cairo-based web developer with 5+ years and 25+ shipped projects across 8 countries. Specialized in Laravel, React, and Node.js. Free consultation, response within 24 hours.' }}</p>
@@ -135,7 +135,7 @@
             <div class="col-lg-5 d-none d-lg-block">
                 <div class="home-hero-img">
                     <img src="{{ asset('images/site/hero-workspace.png') }}"
-                         alt="{{ app()->getLocale() === 'ar' ? 'مطور ويب فل ستاك يبني تطبيقات Laravel و React احترافية' : 'Senior full stack developer building professional Laravel and React web applications' }}"
+                         alt="{{ app()->getLocale() === 'ar' ? 'مطور ويب Full Stack يبني تطبيقات Laravel و React احترافية' : 'Senior full stack developer building professional Laravel and React web applications' }}"
                          width="1536" height="1024" loading="eager" decoding="async" fetchpriority="high">
                 </div>
             </div>

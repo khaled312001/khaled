@@ -130,7 +130,7 @@ class PortfolioService
             ],
             [
                 'name' => 'Holy Quran — Barmagly',
-                'name_ar' => 'القرآن الكريم — برمجلي',
+                'name_ar' => 'القرآن الكريم — Barmagly',
                 'tagline' => 'Read and listen to the Holy Quran — ad-free, tracker-free, privacy-first.',
                 'tagline_ar' => 'قراءه واستماع القرآن الكريم — بدون إعلانات ولا تتبع، يحترم الخصوصيه.',
                 'category' => 'Islamic',
@@ -400,7 +400,7 @@ class PortfolioService
                 'slug' => 'barmagly-tech',
                 'title' => 'Barmagly — Swiss-Licensed Software House',
                 'summary' => 'Founder & lead developer. Enterprise web, mobile, POS and business automation systems delivered to clients across Europe and the Middle East.',
-                'title_ar' => 'برمجلي — شركه برمجيات سويسريه',
+                'title_ar' => 'Barmagly — شركه برمجيات سويسريه',
                 'summary_ar' => 'مؤسس ومطوّر رئيسي. أنظمه مؤسسيه للويب والموبايل و POS وأتمته الأعمال لعملاء في أوروبا والشرق الأوسط.',
                 'category' => 'Tech / SaaS',
                 'tech' => ['Laravel', 'Next.js', 'Node.js', 'TypeScript', 'PostgreSQL'],

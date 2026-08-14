@@ -128,7 +128,7 @@
                         <div class="pd-author__mark" aria-hidden="true">KH</div>
                         <div>
                             <h4 itemprop="name">{{ $isAr ? 'كتبه' : 'Written by' }} <a href="{{ route('about') }}" itemprop="url">Khaled Ahmed</a></h4>
-                            <p itemprop="description">{{ $isAr ? 'مطور ويب فل ستاك خبير من القاهرة، أكثر من 5 سنوات خبرة و25 مشروع منشور في 8 دول. مؤسس Barmagly.' : 'Senior full stack web developer based in Cairo with 5+ years of experience and 25+ shipped projects across 8 countries. Founder of Barmagly.' }}</p>
+                            <p itemprop="description">{{ $isAr ? 'مطور ويب Full Stack خبير من القاهرة، أكثر من 5 سنوات خبرة و25 مشروع منشور في 8 دول. مؤسس Barmagly.' : 'Senior full stack web developer based in Cairo with 5+ years of experience and 25+ shipped projects across 8 countries. Founder of Barmagly.' }}</p>
                             <div class="pd-author__links">
                                 <a href="{{ route('contact') }}">{{ $isAr ? 'تواصل معي' : 'Hire me' }}</a>
                                 <a href="{{ route('services') }}">{{ $isAr ? 'الخدمات' : 'Services' }}</a>

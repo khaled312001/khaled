@@ -74,7 +74,7 @@
         </div>
         <span class="ks-eyebrow"><span class="ks-dot"></span> {{ app()->getLocale() === 'ar' ? 'تعرف علي' : 'Get to know me' }}</span>
         <h1>{{ app()->getLocale() === 'ar' ? 'أنا خالد أحمد، أصمم وأبني تطبيقات ويب' : 'I am Khaled Ahmed — I design and ship web applications' }} <span class="ks-grad-text">{{ app()->getLocale() === 'ar' ? 'تعمل فعلا' : 'that actually ship' }}</span></h1>
-        <p class="lead">{{ app()->getLocale() === 'ar' ? 'مطور ويب فل ستاك من القاهرة بأكثر من خمس سنوات من الخبرة العملية. سلمت 25 مشروع إنتاج في 8 دول، من شركات ناشئة سعودية إلى وكالات أوروبية. تخصصي: Laravel و React و Node.js وتصميم البنية القابلة للتوسع.' : 'Cairo-based full stack web developer with 5+ years of hands-on experience. Shipped 25+ production projects across 8 countries — from Saudi startups to European agencies. Specialized in Laravel, React, Node.js, and scalable architecture.' }}</p>
+        <p class="lead">{{ app()->getLocale() === 'ar' ? 'مطور ويب Full Stack من القاهرة بأكثر من خمس سنوات من الخبرة العملية. سلمت 25 مشروع إنتاج في 8 دول، من شركات ناشئة سعودية إلى وكالات أوروبية. تخصصي: Laravel و React و Node.js وتصميم البنية القابلة للتوسع.' : 'Cairo-based full stack web developer with 5+ years of hands-on experience. Shipped 25+ production projects across 8 countries — from Saudi startups to European agencies. Specialized in Laravel, React, Node.js, and scalable architecture.' }}</p>
     </div>
 </section>
 
@@ -131,7 +131,7 @@
                         ['GREEN ARROW ACADEMY',     app()->getLocale() === 'ar' ? 'مدرب برمجة' : 'Coding Instructor',             app()->getLocale() === 'ar' ? 'مايو — أكتوبر 2025 · السعودية' : 'May — Oct 2025 · Saudi Arabia'],
                         ['NILE INTERNATIONAL SCHOOLS', app()->getLocale() === 'ar' ? 'معلم تكنولوجيا المعلومات' : 'ICT Teacher',  app()->getLocale() === 'ar' ? 'يوليو 2024 — مايو 2025 · مصر' : 'Jul 2024 — May 2025 · Egypt'],
                         ['NEO SOFT HUB',            app()->getLocale() === 'ar' ? 'مطور ويب' : 'Web Developer',                  app()->getLocale() === 'ar' ? 'فبراير 2022 — فبراير 2024 · سويسرا' : 'Feb 2022 — Feb 2024 · Switzerland'],
-                        ['ALBAHITH ACADEMY',        app()->getLocale() === 'ar' ? 'مطور فل ستاك' : 'Full Stack Developer',         app()->getLocale() === 'ar' ? 'يونيو 2022 — أغسطس 2023 · الإمارات' : 'Jun 2022 — Aug 2023 · UAE'],
+                        ['ALBAHITH ACADEMY',        app()->getLocale() === 'ar' ? 'مطور Full Stack' : 'Full Stack Developer',         app()->getLocale() === 'ar' ? 'يونيو 2022 — أغسطس 2023 · الإمارات' : 'Jun 2022 — Aug 2023 · UAE'],
                         ['BARMAGLY',                app()->getLocale() === 'ar' ? 'مؤسس ومطور رئيسي' : 'Founder & Lead Developer', app()->getLocale() === 'ar' ? 'مايو 2021 — حتى الآن · مصر' : 'May 2021 — Present · Egypt'],
                     ];
                     @endphp
