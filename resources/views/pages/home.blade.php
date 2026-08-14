@@ -111,24 +111,23 @@
     <div class="container">
         <div class="row align-items-center g-5">
             <div class="col-lg-7">
-                <span class="ks-eyebrow"><span class="ks-dot"></span> {{ app()->getLocale() === 'ar' ? 'متاح لمشاريع جديدة' : 'Available for new projects' }}</span>
+                <span class="ks-eyebrow"><span class="ks-dot"></span> {{ app()->getLocale() === 'ar' ? 'متاح لمشاريع جديدة · رد خلال ساعات' : 'Available now · replies within hours' }}</span>
                 <h1>
-                    {{ app()->getLocale() === 'ar' ? 'مطور ويب' : 'Senior Full Stack' }}
-                    <span class="ks-grad-text">{{ app()->getLocale() === 'ar' ? 'Full Stack خبير' : 'Web Developer' }}</span>
-                    {{ app()->getLocale() === 'ar' ? 'ينشر في الإنتاج' : 'who ships in production' }}
+                    {{ app()->getLocale() === 'ar' ? 'مطور ويب Full Stack يحوّل فكرتك إلى' : 'A Full Stack developer who turns your idea into a' }}
+                    <span class="ks-grad-text">{{ app()->getLocale() === 'ar' ? 'منتج يبيع ويكبر' : 'product that sells & scales' }}</span>
                 </h1>
-                <p class="home-lead">{{ app()->getLocale() === 'ar' ? 'أنا خالد أحمد، مطور ويب من القاهرة بخبرة تتجاوز خمس سنوات وأكثر من 25 مشروعا منشورا في 8 دول. متخصص في Laravel و React و Node.js. استشارة مجانية ورد خلال 24 ساعة.' : 'I am Khaled Ahmed, a Cairo-based web developer with 5+ years and 25+ shipped projects across 8 countries. Specialized in Laravel, React, and Node.js. Free consultation, response within 24 hours.' }}</p>
+                <p class="home-lead">{{ app()->getLocale() === 'ar' ? 'أنا خالد أحمد — أبني تطبيقات ويب ومتاجر ومنصات SaaS احترافية في Laravel و React و Node.js. أكثر من 39 مشروعا منشورا في 8 دول، من الفكرة إلى الإطلاق في أيام لا شهور. استشارة مجانية ورد خلال 24 ساعة، وعرض سعر ثابت بلا مفاجآت.' : 'I am Khaled Ahmed — I build professional web apps, online stores, and SaaS platforms in Laravel, React, and Node.js. 39+ shipped projects across 8 countries, from idea to launch in days, not months. Free consultation, 24-hour reply, and a fixed-fee quote with no surprises.' }}</p>
 
                 <div class="ks-stats">
-                    <div class="ks-stat"><div class="ks-stat__num">25+</div><div class="ks-stat__lbl">{{ app()->getLocale() === 'ar' ? 'مشروع' : 'Projects' }}</div></div>
+                    <div class="ks-stat"><div class="ks-stat__num">39+</div><div class="ks-stat__lbl">{{ app()->getLocale() === 'ar' ? 'مشروع منشور' : 'Live projects' }}</div></div>
                     <div class="ks-stat"><div class="ks-stat__num">8</div><div class="ks-stat__lbl">{{ app()->getLocale() === 'ar' ? 'دول' : 'Countries' }}</div></div>
-                    <div class="ks-stat"><div class="ks-stat__num">5+</div><div class="ks-stat__lbl">{{ app()->getLocale() === 'ar' ? 'سنوات' : 'Years' }}</div></div>
+                    <div class="ks-stat"><div class="ks-stat__num">5+</div><div class="ks-stat__lbl">{{ app()->getLocale() === 'ar' ? 'سنوات خبرة' : 'Years' }}</div></div>
                     <div class="ks-stat"><div class="ks-stat__num">24h</div><div class="ks-stat__lbl">{{ app()->getLocale() === 'ar' ? 'سرعة الرد' : 'Response' }}</div></div>
                 </div>
 
                 <div class="home-cta-row">
-                    <a href="{{ route('contact') }}" class="ks-btn ks-btn--primary">{{ app()->getLocale() === 'ar' ? 'احصل على استشارة مجانية' : 'Get a free consultation' }} <i class="fa fa-arrow-right"></i></a>
-                    <a href="{{ route('portfolios') }}" class="ks-btn ks-btn--ghost">{{ app()->getLocale() === 'ar' ? 'تصفح أعمالي' : 'View my work' }} <i class="fa fa-arrow-right"></i></a>
+                    <a href="{{ route('contact') }}" class="ks-btn ks-btn--primary">{{ app()->getLocale() === 'ar' ? 'ابدأ مشروعك الآن' : 'Start your project' }} <i class="fa fa-arrow-right"></i></a>
+                    <a href="{{ route('portfolios') }}" class="ks-btn ks-btn--ghost">{{ app()->getLocale() === 'ar' ? 'شاهد نتائج حقيقية' : 'See real results' }} <i class="fa fa-arrow-right"></i></a>
                 </div>
             </div>
 
@@ -159,8 +158,8 @@
                 <div class="home-trust-card">
                     <div class="home-trust-card__ico"><i class="fas fa-rocket"></i></div>
                     <div>
-                        <div class="lbl">{{ app()->getLocale() === 'ar' ? 'مشاريع منشورة' : 'Live projects' }}</div>
-                        <div class="val">{{ app()->getLocale() === 'ar' ? 'أكثر من 35 موقع إنتاج فعال' : '35+ shipped production sites' }}</div>
+                        <div class="lbl">{{ app()->getLocale() === 'ar' ? 'سجل حافل' : 'Proven track record' }}</div>
+                        <div class="val">{{ app()->getLocale() === 'ar' ? '39+ مشروع منشور و7 تطبيقات على Google Play' : '39+ live projects & 7 apps on Google Play' }}</div>
                     </div>
                 </div>
             </div>
@@ -181,8 +180,8 @@
     <div class="container">
         <div class="ks-shead ks-fadeup">
             <span class="ks-eyebrow">{{ app()->getLocale() === 'ar' ? 'خدمات' : 'Services' }}</span>
-            <h2>{{ app()->getLocale() === 'ar' ? 'كل ما تحتاجه لمشروع ويب احترافي' : 'Everything you need for a production-grade web project' }}</h2>
-            <p>{{ app()->getLocale() === 'ar' ? 'من تصميم الواجهة إلى النشر، كل المراحل بفريق واحد دون تعقيدات.' : 'From API design to deployment — every stage handled by one accountable senior, no agency overhead.' }}</p>
+            <h2>{{ app()->getLocale() === 'ar' ? 'خدمات تبني لك ميزة تنافسية حقيقية' : 'Services that build you a real competitive edge' }}</h2>
+            <p>{{ app()->getLocale() === 'ar' ? 'من أول سطر كود حتى الإطلاق — مطور واحد خبير مسؤول عن كل شيء، بجودة وكالة وبدون تعقيداتها ولا تكاليفها.' : 'From the first line of code to launch — one senior developer accountable for everything, with agency-grade quality minus the overhead and the cost.' }}</p>
         </div>
         <div class="row g-4">
             @php
@@ -277,8 +276,8 @@
 <section class="ks-section ks-section--tight">
     <div class="container">
         <div class="home-cta ks-fadeup">
-            <h2>{{ app()->getLocale() === 'ar' ? 'مستعد لنبدأ مشروعك؟' : 'Ready to start your project?' }}</h2>
-            <p>{{ app()->getLocale() === 'ar' ? 'أرسل تفاصيل المشروع وستحصل على عرض مكتوب وخطة واضحة خلال 24 ساعة. دون التزام ودون مكالمات مبيعات.' : 'Send the project brief. You will get a written, fixed-fee quote and a realistic timeline within 24 hours. No commitment, no sales calls.' }}</p>
+            <h2>{{ app()->getLocale() === 'ar' ? 'فكرتك تستحق إطلاقًا احترافيًا — لنبدأ اليوم' : 'Your idea deserves a professional launch — let us start today' }}</h2>
+            <p>{{ app()->getLocale() === 'ar' ? 'أرسل تفاصيل مشروعك وستحصل على رأي صريح وعرض سعر ثابت وخطة واضحة خلال 24 ساعة. دون التزام، ودون مكالمات مبيعات مزعجة — فقط طريق واضح نحو الإطلاق.' : 'Send your project details and get an honest opinion, a fixed-fee quote, and a clear plan within 24 hours. No commitment, no pushy sales calls — just a clear path to launch.' }}</p>
             <div class="home-cta__row">
                 <a href="{{ route('contact') }}" class="ks-btn ks-btn--primary">{{ app()->getLocale() === 'ar' ? 'تواصل معي' : 'Contact me' }} <i class="fa fa-arrow-right"></i></a>
                 <a href="{{ route('portfolios') }}" class="ks-btn ks-btn--ghost">{{ app()->getLocale() === 'ar' ? 'تصفح المعرض' : 'View portfolio' }} <i class="fa fa-arrow-right"></i></a>
