@@ -404,28 +404,60 @@
         .ks-foot__social a:hover { background: rgba(96,165,250,0.10); border-color: var(--border-3); color: var(--brand); transform: translateY(-2px); }
         .ks-foot__bot { border-top: 1px solid var(--border-1); margin-top: var(--sp-6); padding-top: var(--sp-5); display: flex; justify-content: space-between; gap: var(--sp-4); flex-wrap: wrap; font-size: 13px; color: var(--text-3); }
 
-        /* ─── FLOATING WHATSAPP (left) ─── */
+        /* ─── FLOATING WHATSAPP (left) — expanding pill ─── */
         .ks-fab-wa {
             position: fixed; bottom: 96px; left: 24px; z-index: 999;
-            width: 58px; height: 58px;
-            border-radius: 50%;
+            height: 60px;
+            padding: 0 6px;
+            border-radius: 999px;
             background: linear-gradient(135deg, #25d366, #128c7e);
             color: #fff !important;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 26px;
+            display: inline-flex; align-items: center; gap: 0;
             text-decoration: none;
-            box-shadow: 0 12px 30px -6px rgba(37,211,102,0.55);
-            border: 2px solid rgba(255,255,255,0.18);
-            transition: transform .2s ease, box-shadow .2s ease;
+            box-shadow: 0 14px 34px -8px rgba(37,211,102,0.6);
+            border: 2px solid rgba(255,255,255,0.20);
+            transition: gap .3s cubic-bezier(.2,.8,.2,1), padding .3s cubic-bezier(.2,.8,.2,1), transform .2s ease, box-shadow .2s ease;
+            overflow: hidden;
+            animation: ks-fab-in .5s ease .8s both;
         }
-        .ks-fab-wa:hover { transform: scale(1.08); box-shadow: 0 16px 40px -6px rgba(37,211,102,0.80); color: #fff !important; }
+        .ks-fab-wa__icon {
+            flex-shrink: 0;
+            width: 48px; height: 48px;
+            display: grid; place-items: center;
+            font-size: 27px; line-height: 1;
+            position: relative;
+        }
+        /* online dot */
+        .ks-fab-wa__dot {
+            position: absolute; top: 6px; right: 6px;
+            width: 11px; height: 11px; border-radius: 50%;
+            background: #4ade80; border: 2px solid #0e5c3f;
+        }
+        .ks-fab-wa__label {
+            max-width: 0; opacity: 0;
+            white-space: nowrap; font-size: 14.5px; font-weight: 700;
+            transition: max-width .3s cubic-bezier(.2,.8,.2,1), opacity .25s ease, padding .3s ease;
+            padding: 0;
+        }
+        .ks-fab-wa:hover { transform: translateY(-2px); box-shadow: 0 18px 42px -8px rgba(37,211,102,0.85); color: #fff !important; gap: 4px; padding: 0 18px 0 6px; }
+        .ks-fab-wa:hover .ks-fab-wa__label { max-width: 200px; opacity: 1; padding-inline-end: 4px; }
         .ks-fab-wa::before {
             content: ''; position: absolute; inset: -6px;
-            border-radius: 50%; border: 2px solid #25d366;
-            opacity: .55; animation: ks-ring 2s ease-out infinite;
+            border-radius: 999px; border: 2px solid #25d366;
+            opacity: .5; animation: ks-ring 2.2s ease-out infinite;
+            pointer-events: none;
         }
+        /* Auto-reveal the label briefly on load to draw attention, then collapse */
+        .ks-fab-wa.ks-fab-wa--peek { gap: 4px; padding: 0 18px 0 6px; }
+        .ks-fab-wa.ks-fab-wa--peek .ks-fab-wa__label { max-width: 200px; opacity: 1; padding-inline-end: 4px; }
+        @keyframes ks-fab-in { from { opacity: 0; transform: translateY(16px) scale(.9); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        html[dir="rtl"] .ks-fab-wa:hover { padding: 0 6px 0 18px; }
         @media (max-width: 768px) {
-            .ks-fab-wa { left: 14px; bottom: 100px; width: 54px; height: 54px; font-size: 23px; }
+            .ks-fab-wa { left: 14px; bottom: 104px; height: 54px; }
+            .ks-fab-wa__icon { width: 44px; height: 44px; font-size: 24px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .ks-fab-wa, .ks-fab-wa::before { animation: none; }
         }
 
         /* ─── SCROLL-TOP (right) ─── */
@@ -505,10 +537,11 @@
 
 @include('partials.footer')
 
-{{-- Floating WhatsApp (always left) --}}
+{{-- Floating WhatsApp (always left) — expanding pill --}}
 <a href="https://wa.me/201204593124?text={{ urlencode($khLocale === 'ar' ? 'أهلاً خالد، أحب أناقش مشروع تطوير ويب' : 'Hi Khaled, I would like to discuss a web development project') }}"
-   target="_blank" rel="noopener" class="ks-fab-wa" aria-label="WhatsApp Khaled Ahmed">
-    <i class="fab fa-whatsapp"></i>
+   target="_blank" rel="noopener" class="ks-fab-wa" id="ksFabWa" aria-label="{{ $khLocale === 'ar' ? 'تواصل عبر واتساب' : 'Chat on WhatsApp' }}">
+    <span class="ks-fab-wa__icon"><i class="fab fa-whatsapp"></i><span class="ks-fab-wa__dot"></span></span>
+    <span class="ks-fab-wa__label">{{ $khLocale === 'ar' ? 'تواصل واتساب' : 'Chat on WhatsApp' }}</span>
 </a>
 
 {{-- Scroll-to-top (always right) --}}
@@ -572,6 +605,15 @@
     if (fabTop) fabTop.addEventListener('click', function () {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    // WhatsApp FAB: briefly reveal the label ~2s after load to draw attention, then collapse
+    var fabWa = document.getElementById('ksFabWa');
+    if (fabWa && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        setTimeout(function () {
+            fabWa.classList.add('ks-fab-wa--peek');
+            setTimeout(function () { fabWa.classList.remove('ks-fab-wa--peek'); }, 3200);
+        }, 2000);
+    }
 
     // Mobile drawer
     var drawer = document.getElementById('ksDrawer');

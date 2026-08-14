@@ -86,6 +86,9 @@
                     @if(session('success'))
                         <div class="ct-alert ct-alert--success"><i class="fas fa-check-circle"></i> {{ session('success') }}</div>
                     @endif
+                    @if(session('error'))
+                        <div class="ct-alert ct-alert--error"><i class="fas fa-exclamation-circle"></i> {{ session('error') }}</div>
+                    @endif
                     @if($errors->any())
                         <div class="ct-alert ct-alert--error"><i class="fas fa-exclamation-circle"></i> {{ $isAr ? 'يوجد أخطاء في النموذج:' : 'There are errors in the form:' }}
                             <ul>@foreach($errors->all() as $err)<li>{{ $err }}</li>@endforeach</ul>
