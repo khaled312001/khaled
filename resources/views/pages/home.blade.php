@@ -76,6 +76,23 @@
     @media (max-width: 991.98px) {
         .home-code { margin-top: 36px; max-width: 100%; }
     }
+
+    /* Rapid delivery band */
+    .home-speed__band { padding: 48px 44px; background: radial-gradient(circle at 15% 20%, rgba(96,165,250,0.12) 0%, transparent 55%), radial-gradient(circle at 85% 90%, rgba(167,139,250,0.12) 0%, transparent 55%), linear-gradient(160deg, var(--surface-1) 0%, var(--bg-2) 100%); border: 1px solid var(--border-3); border-radius: var(--r-2xl); }
+    .home-speed__head { text-align: center; max-width: 760px; margin: 0 auto; }
+    .home-speed__head h2 { margin: 14px 0 12px; }
+    .home-speed__head p { color: var(--text-2); font-size: 16.5px; line-height: 1.7; margin: 0; }
+    .home-speed__card { height: 100%; padding: 24px 22px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-1); border-radius: var(--r-lg); transition: transform .3s ease, border-color .3s ease; }
+    .home-speed__card:hover { transform: translateY(-4px); border-color: var(--border-3); }
+    .home-speed__ico { width: 48px; height: 48px; border-radius: var(--r-md); display: grid; place-items: center; font-size: 20px; color: var(--brand); background: linear-gradient(135deg, rgba(96,165,250,0.18), rgba(124,58,237,0.18)); border: 1px solid rgba(96,165,250,0.20); margin-bottom: 16px; }
+    .home-speed__card h3 { font-size: 16.5px; margin: 0 0 8px; color: var(--text-1); }
+    .home-speed__card p { font-size: 13.5px; line-height: 1.6; color: var(--text-3); margin: 0; }
+    .home-speed__cta { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; margin-top: 32px; padding-top: 26px; border-top: 1px solid var(--border-1); }
+    .home-speed__note { color: var(--text-2); font-size: 15px; font-weight: 500; }
+    @media (max-width: 768px) {
+        .home-speed__band { padding: 32px 22px; }
+        .home-speed__cta { flex-direction: column; align-items: stretch; text-align: center; }
+    }
 </style>
 @endpush
 
@@ -185,6 +202,42 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+    </div>
+</section>
+
+<section class="ks-section ks-section--tight home-speed">
+    <div class="container">
+        <div class="home-speed__band ks-fadeup">
+            <div class="home-speed__head">
+                <span class="ks-eyebrow"><i class="fas fa-bolt"></i> {{ app()->getLocale() === 'ar' ? 'سرعة التسليم' : 'Rapid delivery' }}</span>
+                <h2>{{ app()->getLocale() === 'ar' ? 'من الفكرة إلى الإطلاق في أيام، مش شهور' : 'From idea to launch in days — not months' }}</h2>
+                <p>{{ app()->getLocale() === 'ar' ? 'أسلّم مشاريع احترافية بسرعة مهما كان حجمها أو توسّعها — بفضل بنية جاهزة، ووحدات قابلة لإعادة الاستخدام، ومطوّر واحد خبير مسؤول عن كل شيء. تشوف نسخة تشتغل من أول أيام، مش بعد شهور.' : 'I ship professional projects fast — whatever the size or scale — thanks to battle-tested architecture, reusable modules, and one senior developer accountable for everything. You see a working version in the first days, not after months.' }}</p>
+            </div>
+            <div class="row g-4 mt-2">
+                @php
+                    $isAr = app()->getLocale() === 'ar';
+                    $speed = [
+                        ['fas fa-layer-group', $isAr ? 'بنية جاهزة ومجرّبة' : 'Battle-tested architecture', $isAr ? 'أبدأ من أساس إنتاجي جاهز (مصادقة، فوترة، صلاحيات، API) بدل الصفر — يوفّر أسابيع.' : 'I start from a production-ready foundation (auth, billing, roles, API) instead of scratch — saving weeks.'],
+                        ['fas fa-cubes', $isAr ? 'وحدات قابلة لإعادة الاستخدام' : 'Reusable modules', $isAr ? 'مكتبة مكوّنات ولوحات تحكم بنيتها عبر 39 مشروع، أركّبها وأخصّصها لمشروعك بسرعة.' : 'A library of components and dashboards built across 39 projects, assembled and customized fast for you.'],
+                        ['fas fa-gauge-high', $isAr ? 'نسخة تشتغل من أول يوم' : 'Working build from day one', $isAr ? 'رابط staging حيّ من اليوم الأول وعروض متكرّرة — تتابع التقدّم لحظياً بدل الانتظار.' : 'A live staging URL from day one with frequent demos — you track progress live, no waiting.'],
+                        ['fas fa-user-check', $isAr ? 'مطوّر واحد مسؤول' : 'One accountable senior', $isAr ? 'بدون طبقات وكالة ولا تسليمات بين فرق — قرارات أسرع وتنفيذ مباشر بجودة عالية.' : 'No agency layers or hand-offs between teams — faster decisions and direct, high-quality execution.'],
+                    ];
+                @endphp
+                @foreach($speed as [$icon, $t, $dsc])
+                    <div class="col-md-6 col-lg-3 ks-fadeup">
+                        <div class="home-speed__card">
+                            <div class="home-speed__ico"><i class="{{ $icon }}"></i></div>
+                            <h3>{{ $t }}</h3>
+                            <p>{{ $dsc }}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="home-speed__cta">
+                <span class="home-speed__note">{{ $isAr ? 'موقع تعريفي احترافي؟ أيام. متجر أو MVP؟ أسابيع قليلة بخطة واضحة.' : 'A professional marketing site? Days. A store or an MVP? A few focused weeks with a clear plan.' }}</span>
+                <a href="{{ route('contact') }}" class="ks-btn ks-btn--primary">{{ $isAr ? 'ابدأ بسرعة' : 'Start fast' }} <i class="fa fa-arrow-right"></i></a>
+            </div>
         </div>
     </div>
 </section>
