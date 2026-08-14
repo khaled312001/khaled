@@ -141,6 +141,32 @@ class PortfolioService
                 'website' => 'https://quran.khaledahmed.net',
                 'featured' => false,
             ],
+            [
+                'name' => 'Tamem Delivery',
+                'name_ar' => 'تميم للتوصيل',
+                'tagline' => 'Order food, pharmacy and supermarket delivery across Upper Egypt with live tracking.',
+                'tagline_ar' => 'اطلب توصيل مطاعم وصيدليات وسوبر ماركت في صعيد مصر مع تتبع لحظي.',
+                'category' => 'Food & Delivery',
+                'category_ar' => 'طعام وتوصيل',
+                'icon' => 'fas fa-motorcycle',
+                'grad' => 'linear-gradient(135deg, #ef4444, #7f1d1d)',
+                'store' => 'https://play.google.com/store/apps/details?id=com.tamem.delivery',
+                'website' => 'https://deliverytamem.com',
+                'featured' => false,
+            ],
+            [
+                'name' => 'Omnixtrack Calls',
+                'name_ar' => 'Omnixtrack Calls',
+                'tagline' => 'Log and sync sales calls straight into your Omnixtrack CRM pipeline on the go.',
+                'tagline_ar' => 'سجّل مكالمات المبيعات وزامنها مباشره مع نظام Omnixtrack CRM من هاتفك.',
+                'category' => 'Business / CRM',
+                'category_ar' => 'أعمال / CRM',
+                'icon' => 'fas fa-phone-volume',
+                'grad' => 'linear-gradient(135deg, #0ea5e9, #1e3a8a)',
+                'store' => 'https://play.google.com/store/apps/details?id=com.omnixtrack.calls',
+                'website' => 'https://omnixtrack.com',
+                'featured' => false,
+            ],
         ];
     }
 

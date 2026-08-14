@@ -32,8 +32,10 @@
     <meta property="og:url"         content="@yield('canonical', $khCanonical)">
     <meta property="og:title"       content="@yield('og_title', 'Khaled Ahmed — Senior Full Stack Web Developer')">
     <meta property="og:description" content="@yield('og_description', 'Senior full stack web developer. Laravel, React, Node.js. 5+ years, 25+ projects, 7 countries.')">
-    <meta property="og:image"       content="@yield('og_image', asset('images/logo.png'))">
-    <meta property="og:image:alt"   content="@yield('og_image_alt', 'Khaled Ahmed')">
+    <meta property="og:image"       content="@yield('og_image', asset('images/og-cover.png'))">
+    <meta property="og:image:width"  content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt"   content="@yield('og_image_alt', 'Khaled Ahmed — Senior Full Stack Web Developer')">
     <meta property="og:site_name"   content="Khaled Ahmed">
     <meta property="og:locale"      content="{{ $khLocale === 'ar' ? 'ar_EG' : 'en_US' }}">
 
@@ -42,8 +44,8 @@
     <meta name="twitter:url"         content="@yield('canonical', $khCanonical)">
     <meta name="twitter:title"       content="@yield('twitter_title', 'Khaled Ahmed — Senior Full Stack Web Developer')">
     <meta name="twitter:description" content="@yield('twitter_description', 'Senior full stack web developer. Laravel, React, Node.js.')">
-    <meta name="twitter:image"       content="@yield('twitter_image', asset('images/logo.png'))">
-    <meta name="twitter:image:alt"   content="@yield('twitter_image_alt', 'Khaled Ahmed')">
+    <meta name="twitter:image"       content="@yield('twitter_image', asset('images/og-cover.png'))">
+    <meta name="twitter:image:alt"   content="@yield('twitter_image_alt', 'Khaled Ahmed — Senior Full Stack Web Developer')">
 
     {{-- Favicons --}}
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
