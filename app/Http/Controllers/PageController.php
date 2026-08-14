@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactMail;
 use App\Services\BlogService;
 use App\Services\PortfolioService;
+use App\Services\LandingService;
 use Illuminate\Support\Facades\Log;
 use Exception;
 
@@ -20,6 +21,27 @@ class PageController extends Controller
     public function services()
     {
         return view('pages.services');
+    }
+
+    /**
+     * High-intent SEO landing pages (hire-laravel-developer, saas-development, ...).
+     * Content lives in LandingService; related projects pulled from the portfolio.
+     */
+    public function landing($slug)
+    {
+        $page = LandingService::find($slug);
+        if (!$page) {
+            abort(404);
+        }
+        // Pull up to 3 related portfolio projects in the same category.
+        $cat = $page['related_category'] ?? null;
+        $related = [];
+        if ($cat) {
+            $all = PortfolioService::all();
+            $related = array_values(array_filter($all, fn($p) => ($p['category'] ?? '') === $cat));
+            $related = array_slice($related, 0, 3);
+        }
+        return view('pages.landing', compact('page', 'related'));
     }
 
     public function blogs(Request $request)
@@ -278,6 +300,17 @@ class PageController extends Controller
             $xml .= "    <lastmod>{$today}</lastmod>\n";
             $xml .= "    <changefreq>{$freq}</changefreq>\n";
             $xml .= "    <priority>{$priority}</priority>\n";
+            $xml .= "  </url>\n";
+        }
+
+        // High-intent SEO landing pages (money pages — high priority)
+        foreach (LandingService::slugs() as $slug) {
+            $loc = $base . '/' . $slug;
+            $xml .= "  <url>\n";
+            $xml .= "    <loc>{$loc}</loc>\n";
+            $xml .= "    <lastmod>{$today}</lastmod>\n";
+            $xml .= "    <changefreq>weekly</changefreq>\n";
+            $xml .= "    <priority>0.9</priority>\n";
             $xml .= "  </url>\n";
         }
 

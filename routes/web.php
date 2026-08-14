@@ -44,6 +44,12 @@ Route::get('/search', function () {
 // Legacy redirects to fix old /test page if indexed
 Route::permanentRedirect('/test', '/');
 
+// SEO landing pages (high commercial-intent, hire keywords).
+// Constrained to known slugs so this top-level route never shadows others.
+Route::get('/{landing}', [App\Http\Controllers\PageController::class, 'landing'])
+    ->where('landing', 'hire-laravel-developer|hire-react-developer|saas-development|ecommerce-development|mobile-app-development')
+    ->name('landing');
+
 // Language switcher
 Route::get('/lang/{locale}', [App\Http\Controllers\LocaleController::class, 'switch'])
     ->where('locale', 'en|ar')

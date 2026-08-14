@@ -61,35 +61,35 @@
         ['fab fa-laravel', $isAr ? 'تطوير الخلفية بـ Laravel' : 'Laravel Backend Development',
             $isAr ? 'تطبيقات ويب ثابتة قابلة للتوسع: واجهات API، أنظمة مصادقة، طوابير معالجة، أنظمة فوترة وتعدد المستأجرين.' : 'Solid scalable web apps: REST/GraphQL APIs, auth systems, queue workers, billing engines, multi-tenant architecture.',
             $isAr ? ['تصميم قواعد البيانات وعلاقاتها','واجهات API موثقة بـ OpenAPI','تكاملات Stripe و PayPal و Paymob','جدولة المهام وطوابير Redis','معالجة الأخطاء والمراقبة'] : ['Database schema and migrations','API documented with OpenAPI','Stripe / PayPal / Paymob integrations','Scheduled jobs and Redis queues','Error handling and observability'],
-            ['Laravel 11','PHP 8.3','MySQL','PostgreSQL','Redis']],
+            ['Laravel 11','PHP 8.3','MySQL','PostgreSQL','Redis'], 'hire-laravel-developer'],
         ['fab fa-react', $isAr ? 'واجهات React و Next.js' : 'React & Next.js Frontend',
             $isAr ? 'واجهات سريعة جاهزة لمحركات البحث بـ Next.js 15 و React Server Components و TypeScript و Tailwind.' : 'Fast, SEO-ready frontends with Next.js 15, React Server Components, TypeScript, and Tailwind.',
             $isAr ? ['تصميم متجاوب لكل الأجهزة','تحسين الصور والخطوط تلقائيا','أداء Lighthouse 95 فأعلى','إمكانية الوصول WCAG 2.2','تكامل ساعات CMS أو Headless'] : ['Pixel-perfect responsive design','Auto image & font optimization','Lighthouse 95+ performance','WCAG 2.2 accessibility','Headless CMS integration'],
-            ['Next.js 15','React 19','TypeScript','Tailwind','Vercel']],
+            ['Next.js 15','React 19','TypeScript','Tailwind','Vercel'], 'hire-react-developer'],
         ['fas fa-rocket', $isAr ? 'بناء MVP لـ SaaS' : 'SaaS MVP Development',
             $isAr ? 'إطلاق منتج SaaS أولي خلال 8 إلى 16 أسبوعا مع كل الأساسيات: التسجيل، الاشتراكات، لوحة التحكم، الفوترة، النشر الآلي.' : 'Ship a SaaS MVP in 8-16 weeks with all essentials: signup, subscriptions, dashboards, billing, CI/CD deployment.',
             $isAr ? ['أنظمة فوترة Stripe كاملة','لوحة تحكم متعددة المستأجرين','أنظمة دور المستخدم والصلاحيات','تحليلات وتقارير','نشر على VPS أو Vercel'] : ['Stripe Cashier billing','Multi-tenant admin dashboard','Roles and permissions','Analytics dashboards','VPS or Vercel deployment'],
-            ['Laravel','Next.js','Stripe','PostgreSQL','Docker']],
+            ['Laravel','Next.js','Stripe','PostgreSQL','Docker'], 'saas-development'],
         ['fas fa-shopping-cart', $isAr ? 'متاجر إلكترونية' : 'E-commerce Solutions',
             $isAr ? 'متاجر WooCommerce أو Shopify أو Laravel مخصصة مع دفع متعدد ومخزون وشحن وتقارير وتكاملات CRM.' : 'WooCommerce, Shopify, or custom Laravel storefronts with multi-gateway payments, inventory, shipping, CRM integrations.',
             $isAr ? ['سله متقدمة بمنطق ضريبي وشحن','تكامل بوابات الدفع المحلية والعالمية','إدارة المخزون والمنتجات','نظام نقاط الولاء','تكامل مع شركات الشحن'] : ['Tax and shipping rule engine','Local + global payment gateways','Inventory + product management','Loyalty points system','Shipping carrier integrations'],
-            ['Shopify','WooCommerce','Laravel','Stripe','Paymob']],
+            ['Shopify','WooCommerce','Laravel','Stripe','Paymob'], 'ecommerce-development'],
         ['fas fa-bolt', $isAr ? 'الأداء وتحسين محركات البحث' : 'Performance & SEO',
             $isAr ? 'تحسين Core Web Vitals، تحقيق درجات Lighthouse فوق 95، schema markup، sitemap، canonical hygiene.' : 'Core Web Vitals tuning, Lighthouse 95+ scores, structured data, sitemap and canonical hygiene, technical SEO.',
             $isAr ? ['تدقيق فني كامل بتقرير مكتوب','إصلاحات أداء قابلة للقياس','schema.org و JSON-LD','sitemap و robots و canonical','تحليل Search Console'] : ['Full technical audit with report','Measurable performance fixes','Schema.org and JSON-LD','Sitemap, robots, canonical','Search Console analysis'],
-            ['Lighthouse','Search Console','Schema.org','WebPageTest','GTmetrix']],
+            ['Lighthouse','Search Console','Schema.org','WebPageTest','GTmetrix'], null],
         ['fas fa-shield-alt', $isAr ? 'الصيانة والأمان و DevOps' : 'Maintenance, Security & DevOps',
             $isAr ? 'تعاقد شهري: تحديثات أمنية، نسخ احتياطي، مراقبة، حل ثغرات، نشر آلي، وإضافة ميزات صغيرة.' : 'Monthly retainers: security patches, backups, monitoring, vulnerability fixes, CI/CD, small feature additions.',
             $isAr ? ['تحديث المكتبات أسبوعيا','نسخ احتياطي يومي مشفر','مراقبة 24/7 بتنبيهات','تدقيقات أمنية ربع سنوية','استجابه طوارئ خلال 4 ساعات'] : ['Weekly dependency updates','Daily encrypted backups','24/7 monitoring with alerts','Quarterly security audits','4-hour emergency response'],
-            ['GitHub Actions','Docker','AWS','Sentry','UptimeRobot']],
+            ['GitHub Actions','Docker','AWS','Sentry','UptimeRobot'], null],
         ['fas fa-brain', $isAr ? 'تكامل الذكاء الاصطناعي' : 'AI Integration',
             $isAr ? 'دمج OpenAI و Anthropic Claude في تطبيقاتك: روبوتات محادثة، استرجاع محسن (RAG)، تلخيص، توليد محتوى.' : 'Integrate OpenAI, Anthropic Claude and other LLMs into your apps: chatbots, retrieval-augmented generation (RAG), summarization, content generation.',
             $isAr ? ['روبوتات محادثة للموقع','بحث دلالي على البيانات','تلخيص الوثائق','توليد المحتوى المساعد','حماية بيانات العملاء'] : ['Customer chatbots','Semantic search over docs','Document summarization','Content generation','Privacy-first design'],
-            ['OpenAI','Anthropic','Pinecone','LangChain','Vector DB']],
+            ['OpenAI','Anthropic','Pinecone','LangChain','Vector DB'], null],
         ['fas fa-paint-brush', $isAr ? 'تصميم وتطبيق UI/UX' : 'UI/UX Implementation',
             $isAr ? 'تحويل تصاميم Figma و Adobe XD إلى كود إنتاج عالي الجودة مع تفاعلية وانتقالات وميكرو-أنميشن.' : 'Convert Figma and Adobe XD designs into pixel-perfect production code with interactions, transitions, and micro-animations.',
             $isAr ? ['دقه pixel-perfect','تفاعلية وانتقالات لطيفه','تجربه RTL/LTR كاملة','دعم الوضع الداكن','مكونات قابلة لإعاده الاستخدام'] : ['Pixel-perfect implementation','Smooth interactions','Full RTL/LTR support','Dark mode support','Reusable components'],
-            ['Figma','Adobe XD','Tailwind','Framer Motion','GSAP']],
+            ['Figma','Adobe XD','Tailwind','Framer Motion','GSAP'], null],
     ];
 @endphp
 
@@ -113,17 +113,17 @@
 <section class="ks-section">
     <div class="container">
         <div class="row g-4">
-            @foreach($services as $i => [$icon, $title, $desc, $items, $stack])
+            @foreach($services as $i => [$icon, $title, $desc, $items, $stack, $lp])
                 <div class="col-md-6 col-lg-4 ks-fadeup">
                     <div class="svc-card d-flex flex-column">
                         <div class="svc-card__ico"><i class="{{ $icon }}"></i></div>
-                        <h3>{{ $title }}</h3>
+                        <h3>@if($lp)<a href="{{ url('/' . $lp) }}" style="color:inherit;text-decoration:none;">{{ $title }}</a>@else{{ $title }}@endif</h3>
                         <p>{{ $desc }}</p>
                         <ul>
                             @foreach($items as $it)<li>{{ $it }}</li>@endforeach
                         </ul>
                         <div class="svc-card__stack">@foreach($stack as $s)<span>{{ $s }}</span>@endforeach</div>
-                        <a href="{{ route('contact') }}" class="svc-card__cta">{{ $isAr ? 'ابدأ مشروع' : 'Start a project' }} <i class="fa fa-arrow-right"></i></a>
+                        <a href="{{ $lp ? url('/' . $lp) : route('contact') }}" class="svc-card__cta">{{ $lp ? ($isAr ? 'اعرف المزيد' : 'Learn more') : ($isAr ? 'ابدأ مشروع' : 'Start a project') }} <i class="fa fa-arrow-right"></i></a>
                     </div>
                 </div>
             @endforeach
