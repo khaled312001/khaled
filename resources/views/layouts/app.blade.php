@@ -132,9 +132,6 @@
             -moz-osx-font-smoothing: grayscale;
             padding-top: var(--nav-h);
         }
-        body.has-bottom-bar { padding-bottom: 80px; }
-        @media (min-width: 769px) { body.has-bottom-bar { padding-bottom: 0; } }
-
         img, svg { max-width: 100%; display: block; }
         a { color: var(--brand); text-decoration: none; transition: color .2s ease; }
         a:hover { color: var(--brand-2); }
@@ -408,7 +405,7 @@
 
         /* ─── FLOATING WHATSAPP (left) — expanding pill ─── */
         .ks-fab-wa {
-            position: fixed; bottom: 96px; left: 24px; z-index: 999;
+            position: fixed; bottom: 24px; left: 24px; z-index: 999;
             height: 60px;
             padding: 0 6px;
             border-radius: 999px;
@@ -455,7 +452,7 @@
         @keyframes ks-fab-in { from { opacity: 0; transform: translateY(16px) scale(.9); } to { opacity: 1; transform: translateY(0) scale(1); } }
         html[dir="rtl"] .ks-fab-wa:hover { padding: 0 6px 0 18px; }
         @media (max-width: 768px) {
-            .ks-fab-wa { left: 14px; bottom: 104px; height: 54px; }
+            .ks-fab-wa { left: 14px; bottom: 20px; height: 54px; }
             .ks-fab-wa__icon { width: 44px; height: 44px; font-size: 24px; }
         }
         @media (prefers-reduced-motion: reduce) {
@@ -479,34 +476,10 @@
         .ks-fab-top.is-visible { opacity: 1; pointer-events: auto; }
         .ks-fab-top:hover { transform: translateY(-2px); background: rgba(96,165,250,0.30); color: #fff; }
         @media (max-width: 768px) {
-            .ks-fab-top { right: 14px; bottom: 96px; width: 40px; height: 40px; }
+            .ks-fab-top { right: 14px; bottom: 20px; width: 40px; height: 40px; }
         }
 
-        /* ─── MOBILE BOTTOM BAR (call + whatsapp) ─── */
-        .ks-bottom-bar {
-            display: none;
-            position: fixed; bottom: 0; left: 0; right: 0; z-index: 990;
-            gap: 10px; padding: 12px 14px;
-            background: rgba(10,14,26,0.92);
-            backdrop-filter: blur(16px);
-            border-top: 1px solid var(--border-1);
-            box-shadow: 0 -8px 24px rgba(0,0,0,0.35);
-        }
-        .ks-bottom-bar a {
-            flex: 1;
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 13px 14px;
-            border-radius: var(--r-md);
-            font-weight: 700; font-size: 14px;
-            text-decoration: none;
-            color: #fff !important;
-        }
-        .ks-bottom-bar a.is-call { background: var(--gradient-2); }
-        .ks-bottom-bar a.is-wa   { background: linear-gradient(135deg, #25d366, #128c7e); }
-        @media (max-width: 768px) {
-            .ks-bottom-bar { display: flex; }
-            body { padding-bottom: 80px; }
-        }
+        /* mobile bottom bar removed */
 
         /* ─── ANIMATIONS ─── */
         @keyframes ks-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(52,211,153,0.5); } 50% { box-shadow: 0 0 0 7px rgba(52,211,153,0); } }
@@ -555,17 +528,6 @@
 <button type="button" class="ks-fab-top" id="ksFabTop" aria-label="Scroll to top">
     <i class="fas fa-arrow-up"></i>
 </button>
-
-{{-- Mobile bottom bar (phones only) --}}
-<div class="ks-bottom-bar">
-    <a href="tel:+201204593124" class="is-call" aria-label="Call">
-        <i class="fas fa-phone-alt"></i> {{ $khLocale === 'ar' ? 'اتصل' : 'Call' }}
-    </a>
-    <a href="https://wa.me/201204593124?text={{ urlencode($khLocale === 'ar' ? 'أهلاً خالد، أحب أناقش مشروع تطوير ويب' : 'Hi Khaled, I would like to discuss a web development project') }}"
-       target="_blank" rel="noopener" class="is-wa" aria-label="WhatsApp">
-        <i class="fab fa-whatsapp"></i> WhatsApp
-    </a>
-</div>
 
 {{-- Mobile drawer --}}
 <div class="ks-drawer__backdrop" id="ksDrawerBackdrop"></div>
