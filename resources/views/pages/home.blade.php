@@ -75,6 +75,7 @@
 
     @media (max-width: 991.98px) {
         .home-code { margin-top: 36px; max-width: 100%; }
+        .home-hero-img { margin-top: 32px; }
     }
 
     /* Hero image */
@@ -131,7 +132,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-5 d-none d-lg-block">
+            <div class="col-lg-5">
                 <div class="home-hero-img">
                     <img src="{{ asset('images/site/hero-workspace.png') }}"
                          alt="{{ app()->getLocale() === 'ar' ? 'مطور ويب Full Stack يبني تطبيقات Laravel و React احترافية' : 'Senior full stack developer building professional Laravel and React web applications' }}"
