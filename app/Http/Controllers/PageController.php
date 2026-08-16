@@ -280,53 +280,40 @@ class PageController extends Controller
         $base = 'https://khaledahmed.net';
         $today = date('Y-m-d');
 
-        // Only substantive, indexable, 200-status pages belong here. Never add a page to
-        // this list that carries a noindex tag, redirects, or is thin — that is exactly
-        // what produced the Soft-404 / Crawled-not-indexed reports in Search Console.
-        $staticPages = [
-            ['/', 'daily', '1.0'],
-            ['/about', 'monthly', '0.8'],
-            ['/services', 'weekly', '0.9'],
-            ['/portfolios', 'weekly', '0.9'],
-            ['/contact', 'monthly', '0.9'],
-            ['/blogs', 'daily', '0.9'],
-            ['/faqs', 'weekly', '0.7'],
-            ['/plans', 'monthly', '0.7'],
-        ];
+        // Every entry is emitted twice — once per language tree — with a reciprocal
+        // xhtml:link block. Both /about and /ar/about are real, separately indexable
+        // documents, so listing only one of them would hide half the site.
+        //
+        // Only substantive, indexable, 200-status paths belong here. Never add a path
+        // that carries a noindex tag, redirects, or is thin: that is exactly what
+        // produced the Soft-404 / Crawled-not-indexed reports in Search Console.
+        $entries = [];
 
-        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
+        $add = function (string $path, string $freq, string $priority, ?string $lastmod = null) use (&$entries, $today) {
+            $entries[] = [
+                'path'     => $path === '/' ? '' : $path,
+                'freq'     => $freq,
+                'priority' => $priority,
+                'lastmod'  => $lastmod ?: $today,
+            ];
+        };
 
-        foreach ($staticPages as [$path, $freq, $priority]) {
-            $loc = $base . ($path === '/' ? '' : $path);
-            $xml .= "  <url>\n";
-            $xml .= "    <loc>{$loc}</loc>\n";
-            $xml .= "    <lastmod>{$today}</lastmod>\n";
-            $xml .= "    <changefreq>{$freq}</changefreq>\n";
-            $xml .= "    <priority>{$priority}</priority>\n";
-            $xml .= "  </url>\n";
-        }
+        $add('/', 'daily', '1.0');
+        $add('/about', 'monthly', '0.8');
+        $add('/services', 'weekly', '0.9');
+        $add('/portfolios', 'weekly', '0.9');
+        $add('/contact', 'monthly', '0.9');
+        $add('/blogs', 'daily', '0.9');
+        $add('/faqs', 'weekly', '0.7');
+        $add('/plans', 'monthly', '0.7');
 
         // High-intent SEO landing pages (money pages — high priority)
         foreach (LandingService::slugs() as $slug) {
-            $loc = $base . '/' . $slug;
-            $xml .= "  <url>\n";
-            $xml .= "    <loc>{$loc}</loc>\n";
-            $xml .= "    <lastmod>{$today}</lastmod>\n";
-            $xml .= "    <changefreq>weekly</changefreq>\n";
-            $xml .= "    <priority>0.9</priority>\n";
-            $xml .= "  </url>\n";
+            $add('/' . $slug, 'weekly', '0.9');
         }
 
         foreach (BlogService::all() as $post) {
-            $loc = $base . '/blog/' . $post['slug'];
-            $lastmod = $post['date'];
-            $xml .= "  <url>\n";
-            $xml .= "    <loc>{$loc}</loc>\n";
-            $xml .= "    <lastmod>{$lastmod}</lastmod>\n";
-            $xml .= "    <changefreq>monthly</changefreq>\n";
-            $xml .= "    <priority>0.8</priority>\n";
-            $xml .= "  </url>\n";
+            $add('/blog/' . $post['slug'], 'monthly', '0.8', $post['date']);
         }
 
         // Category archives are only worth indexing once they hold enough posts to be
@@ -336,13 +323,27 @@ class PageController extends Controller
             if (($meta['count'] ?? 0) < BlogService::MIN_INDEXABLE_CATEGORY_POSTS) {
                 continue;
             }
-            $loc = $base . '/blog/category/' . $slug;
-            $xml .= "  <url>\n";
-            $xml .= "    <loc>{$loc}</loc>\n";
-            $xml .= "    <lastmod>{$today}</lastmod>\n";
-            $xml .= "    <changefreq>weekly</changefreq>\n";
-            $xml .= "    <priority>0.6</priority>\n";
-            $xml .= "  </url>\n";
+            $add('/blog/category/' . $slug, 'weekly', '0.6');
+        }
+
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
+
+        foreach ($entries as $e) {
+            $en = $base . $e['path'];
+            $ar = $base . '/ar' . $e['path'];
+
+            foreach ([$en, $ar] as $loc) {
+                $xml .= "  <url>\n";
+                $xml .= "    <loc>" . htmlspecialchars($loc, ENT_XML1) . "</loc>\n";
+                $xml .= "    <xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"" . htmlspecialchars($en, ENT_XML1) . "\"/>\n";
+                $xml .= "    <xhtml:link rel=\"alternate\" hreflang=\"ar\" href=\"" . htmlspecialchars($ar, ENT_XML1) . "\"/>\n";
+                $xml .= "    <xhtml:link rel=\"alternate\" hreflang=\"x-default\" href=\"" . htmlspecialchars($en, ENT_XML1) . "\"/>\n";
+                $xml .= "    <lastmod>{$e['lastmod']}</lastmod>\n";
+                $xml .= "    <changefreq>{$e['freq']}</changefreq>\n";
+                $xml .= "    <priority>{$e['priority']}</priority>\n";
+                $xml .= "  </url>\n";
+            }
         }
 
         $xml .= '</urlset>';

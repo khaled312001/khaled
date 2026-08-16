@@ -3,7 +3,6 @@
 @section('title', 'Hire a Senior Full Stack Web Developer | Laravel, React, Node.js — Khaled Ahmed')
 @section('description', 'Hire Khaled Ahmed — Senior Full Stack Web Developer with 5+ years and 25+ shipped projects across 8 countries. Expert in Laravel, React, Node.js. Free consultation, 24-hour response.')
 @section('keywords', 'hire full stack developer, senior web developer, Laravel developer, React developer, Node.js developer, freelance web developer Egypt, custom web application, SaaS developer, Khaled Ahmed')
-@section('canonical', 'https://khaledahmed.net')
 @section('og_image', asset('images/logo.png'))
 
 @section('structured_data')

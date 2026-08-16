@@ -3,7 +3,6 @@
 @section('title', 'About Khaled Ahmed | Senior Full Stack Web Developer — Laravel, React, Node.js')
 @section('description', 'Learn about Khaled Ahmed, senior full stack web developer with 5+ years of experience, 25+ shipped projects across 8 countries, founder of Barmagly, and ITI graduate.')
 @section('keywords', 'About Khaled Ahmed, full stack developer Egypt, Laravel expert, React developer Cairo, web developer biography, Khaled Ahmed Barmagly')
-@section('canonical', 'https://khaledahmed.net/about')
 
 @section('structured_data')
 <script type="application/ld+json">

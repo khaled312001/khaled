@@ -3,7 +3,6 @@
 @section('title', 'Web Development Services — Laravel, React, Node.js, SaaS, E-commerce | Khaled Ahmed')
 @section('description', 'Hire a senior full stack developer for custom web apps, SaaS MVPs, e-commerce, Laravel and React projects. Fixed-fee quotes, 24-hour response, 5+ years experience.')
 @section('keywords', 'web development services, hire full stack developer, Laravel developer, React developer, Node.js developer, SaaS MVP development, e-commerce developer, Khaled Ahmed services')
-@section('canonical', 'https://khaledahmed.net/services')
 
 @section('structured_data')
 <script type="application/ld+json">
@@ -127,13 +126,13 @@
                             </div>
                         @endif
                         <div class="svc-card__ico"><i class="{{ $icon }}"></i></div>
-                        <h3>@if($lp)<a href="{{ url('/' . $lp) }}" style="color:inherit;text-decoration:none;">{{ $title }}</a>@else{{ $title }}@endif</h3>
+                        <h3>@if($lp)<a href="{{ route('landing', $lp) }}" style="color:inherit;text-decoration:none;">{{ $title }}</a>@else{{ $title }}@endif</h3>
                         <p>{{ $desc }}</p>
                         <ul>
                             @foreach($items as $it)<li>{{ $it }}</li>@endforeach
                         </ul>
                         <div class="svc-card__stack">@foreach($stack as $s)<span>{{ $s }}</span>@endforeach</div>
-                        <a href="{{ $lp ? url('/' . $lp) : route('contact') }}" class="svc-card__cta">{{ $lp ? ($isAr ? 'اعرف المزيد' : 'Learn more') : ($isAr ? 'ابدأ مشروع' : 'Start a project') }} <i class="fa fa-arrow-right"></i></a>
+                        <a href="{{ $lp ? route('landing', $lp) : route('contact') }}" class="svc-card__cta">{{ $lp ? ($isAr ? 'اعرف المزيد' : 'Learn more') : ($isAr ? 'ابدأ مشروع' : 'Start a project') }} <i class="fa fa-arrow-right"></i></a>
                     </div>
                 </div>
             @endforeach

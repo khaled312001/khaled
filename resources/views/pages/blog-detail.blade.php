@@ -5,17 +5,16 @@
 @section('title', $post['meta_title'] ?? $post['title'])
 @section('description', $post['meta_description'] ?? $post['excerpt'])
 @section('keywords', implode(', ', $post['tags']) . ', Khaled Ahmed')
-@section('canonical', 'https://khaledahmed.net/blog/' . $post['slug'])
 @section('og_type', 'article')
 @section('og_title', $post['title'])
 @section('og_description', $post['excerpt'])
 
 @section('structured_data')
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","headline":@json($post['title']),"description":@json($post['excerpt']),"datePublished":"{{ $post['date'] }}","dateModified":"{{ $post['date'] }}","author":{"@type":"Person","name":"Khaled Ahmed","url":"https://khaledahmed.net"},"publisher":{"@type":"Organization","name":"Khaled Ahmed","logo":{"@type":"ImageObject","url":"{{ asset('images/logo.png') }}"}},"mainEntityOfPage":{"@type":"WebPage","@id":"{{ url('/blog/' . $post['slug']) }}"},"keywords":@json(implode(', ', $post['tags']))}
+{"@context":"https://schema.org","@type":"BlogPosting","headline":@json($post['title']),"description":@json($post['excerpt']),"datePublished":"{{ $post['date'] }}","dateModified":"{{ $post['date'] }}","author":{"@type":"Person","name":"Khaled Ahmed","url":"https://khaledahmed.net"},"publisher":{"@type":"Organization","name":"Khaled Ahmed","logo":{"@type":"ImageObject","url":"{{ asset('images/logo.png') }}"}},"mainEntityOfPage":{"@type":"WebPage","@id":"{{ route('blog.show', $post['slug']) }}"},"keywords":@json(implode(', ', $post['tags']))}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ url('/') }}"},{"@type":"ListItem","position":2,"name":"Blog","item":"{{ url('/blogs') }}"},{"@type":"ListItem","position":3,"name":@json($post['title']),"item":"{{ url('/blog/' . $post['slug']) }}"}]}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},{"@type":"ListItem","position":2,"name":"Blog","item":"{{ route('blogs') }}"},{"@type":"ListItem","position":3,"name":@json($post['title']),"item":"{{ route('blog.show', $post['slug']) }}"}]}
 </script>
 @endsection
 

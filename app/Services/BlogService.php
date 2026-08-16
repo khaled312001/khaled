@@ -47,6 +47,18 @@ class BlogService
         foreach ($map as $en => $ar) {
             if (!empty($post[$ar])) $post[$en] = $post[$ar];
         }
+
+        // Only one post carries a hand-written meta_title_ar, so without this the other
+        // seventeen Arabic pages would inherit the English <title> and meta description
+        // — an Arabic page indexed under an English snippet ranks for neither language.
+        // Fall back to the Arabic headline and excerpt, which nearly every post has.
+        if (empty($post['meta_title_ar']) && !empty($post['title_ar'])) {
+            $post['meta_title'] = $post['title_ar'];
+        }
+        if (empty($post['meta_description_ar']) && !empty($post['excerpt_ar'])) {
+            $post['meta_description'] = $post['excerpt_ar'];
+        }
+
         return $post;
     }
 
@@ -12157,7 +12169,11 @@ HTML
             [
                 'slug' => 'website-security-checklist',
                 'title' => 'The Website Security Checklist Every Business Needs in 2026',
+                'title_ar' => 'قائمه فحص أمان الموقع التي يحتاجها كل نشاط تجاري في 2026',
                 'excerpt' => 'A senior full stack developer\'s practical security checklist. The 23 items that prevent 95% of website attacks — for sites of any size.',
+                'excerpt_ar' => 'قائمه فحص أمنيه عمليه من مطور Full Stack سينيور: ثلاثه وعشرون بندا تمنع 95% من الهجمات على المواقع، مهما كان حجم موقعك.',
+                'meta_title_ar' => 'قائمه فحص أمان المواقع 2026 — 23 بندا أساسيا',
+                'meta_description_ar' => 'قائمه فحص عمليه لأمان موقعك في 2026: ثلاثه وعشرون بندا تمنع 95% من الهجمات، من مطور نظّف الكثير من الاختراقات.',
                 'category' => 'Backend',
                 'tags' => ['security', 'OWASP', 'web development', 'best practices'],
                 'image' => '1710763075-services-bg-img-1.jpg',

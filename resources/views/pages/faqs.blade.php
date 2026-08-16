@@ -5,7 +5,6 @@
 @section('title', 'Web Development FAQs — Pricing, Timelines, Process | Khaled Ahmed')
 @section('description', 'Honest answers to the most common questions about hiring a full stack web developer. Pricing, timelines, technologies, support, and process — from a senior developer with 25+ shipped projects.')
 @section('keywords', 'web developer FAQ, hire web developer, web development cost, Laravel developer FAQ, React developer FAQ, Khaled Ahmed')
-@section('canonical', url('/faqs'))
 
 @php
 $faqGroupsAr = [
@@ -120,7 +119,7 @@ $faqGroups = $isAr ? $faqGroupsAr : $faqGroupsEn;
 }
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ url('/') }}"},{"@type":"ListItem","position":2,"name":"FAQ","item":"{{ url('/faqs') }}"}]}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},{"@type":"ListItem","position":2,"name":"FAQ","item":"{{ route('faqs') }}"}]}
 </script>
 @endsection
 

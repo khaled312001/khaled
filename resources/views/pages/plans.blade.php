@@ -5,7 +5,6 @@
 @section('title', 'Pricing Plans — Web Development Services | Khaled Ahmed')
 @section('description', 'Transparent pricing for web development services. Choose from Starter, Professional, or Enterprise plans. Fixed-fee quotes, no hidden costs, 24-hour response.')
 @section('keywords', 'web development pricing, Laravel pricing, web developer rates, fixed-fee web development, SaaS development cost, Khaled Ahmed pricing')
-@section('canonical', 'https://khaledahmed.net/plans')
 
 @push('styles')
 <style>

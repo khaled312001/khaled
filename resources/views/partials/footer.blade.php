@@ -23,7 +23,7 @@
                 <h4>{{ $khLocale === 'ar' ? 'الخدمات' : 'Services' }}</h4>
                 <ul class="ks-foot__links">
                     @foreach(\App\Services\LandingService::index() as $lp)
-                        <li><a href="{{ url('/' . $lp['slug']) }}">{{ $lp['label'] }}</a></li>
+                        <li><a href="{{ route('landing', $lp['slug']) }}">{{ $lp['label'] }}</a></li>
                     @endforeach
                 </ul>
             </div>

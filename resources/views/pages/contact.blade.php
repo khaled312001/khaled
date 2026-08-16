@@ -5,7 +5,6 @@
 @section('title', 'Contact Khaled Ahmed — Free 30-Minute Consultation | Web Developer')
 @section('description', 'Get in touch with Khaled Ahmed. Free 30-minute consultation, written fixed-fee quote within 24 hours, and an honest recommendation for your web project.')
 @section('keywords', 'contact Khaled Ahmed, hire web developer, free web development consultation, project quote, Laravel developer contact')
-@section('canonical', 'https://khaledahmed.net/contact')
 
 @section('structured_data')
 <script type="application/ld+json">

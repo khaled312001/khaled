@@ -20,14 +20,13 @@
     @section('robots', 'noindex, follow, max-image-preview:large')
 @endif
 @section('keywords', 'web development blog, Laravel tutorials, React tutorials, web developer Egypt, hire web developer, SEO guide, web performance, Khaled Ahmed')
-@section('canonical', isset($category) ? 'https://khaledahmed.net/blog/category/' . $category : 'https://khaledahmed.net/blogs')
 
 @section('structured_data')
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Blog","name":"Khaled Ahmed — Web Development Blog","url":"{{ url('/blogs') }}","description":"In-depth web development articles by senior full stack developer Khaled Ahmed.","author":{"@type":"Person","name":"Khaled Ahmed","url":"https://khaledahmed.net"},"blogPost":[@foreach($posts as $i => $post){"@type":"BlogPosting","headline":@json($post['title']),"description":@json($post['excerpt']),"url":"{{ url('/blog/' . $post['slug']) }}","datePublished":"{{ $post['date'] }}","author":{"@type":"Person","name":"Khaled Ahmed"}}@if(!$loop->last),@endif @endforeach]}
+{"@context":"https://schema.org","@type":"Blog","name":"Khaled Ahmed — Web Development Blog","url":"{{ route('blogs') }}","description":"In-depth web development articles by senior full stack developer Khaled Ahmed.","author":{"@type":"Person","name":"Khaled Ahmed","url":"https://khaledahmed.net"},"blogPost":[@foreach($posts as $i => $post){"@type":"BlogPosting","headline":@json($post['title']),"description":@json($post['excerpt']),"url":"{{ route('blog.show', $post['slug']) }}","datePublished":"{{ $post['date'] }}","author":{"@type":"Person","name":"Khaled Ahmed"}}@if(!$loop->last),@endif @endforeach]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ url('/') }}"},{"@type":"ListItem","position":2,"name":"Blog","item":"{{ url('/blogs') }}"}@if(isset($category)),{"@type":"ListItem","position":3,"name":@json($catLabel),"item":"{{ url('/blog/category/' . (isset($categorySlug) ? $categorySlug : $category)) }}"}@endif]}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},{"@type":"ListItem","position":2,"name":"Blog","item":"{{ route('blogs') }}"}@if(isset($category)),{"@type":"ListItem","position":3,"name":@json($catLabel),"item":"{{ route('blog.category', isset($categorySlug) ? $categorySlug : $category) }}"}@endif]}
 </script>
 @endsection
 

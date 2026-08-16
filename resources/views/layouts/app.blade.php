@@ -3,6 +3,16 @@
     $khOther  = $khLocale === 'ar' ? 'en' : 'ar';
     $khDir    = $khLocale === 'ar' ? 'rtl' : 'ltr';
     $khCanonical = url()->current();
+
+    // Real hreflang pair. Each language has its own URL (/about and /ar/about), so
+    // these point at genuinely different documents — which is what makes the
+    // annotation valid. Pointing all three at one URL, as this used to, told Google
+    // nothing and left the whole Arabic translation unindexable.
+    $khPath   = '/' . ltrim(request()->getPathInfo(), '/');
+    $khEnUrl  = rtrim(url(\App\Http\Middleware\SetLocale::toLocale($khPath, 'en') ?? '/'), '/');
+    $khArUrl  = rtrim(url(\App\Http\Middleware\SetLocale::toLocale($khPath, 'ar') ?? '/ar'), '/');
+    $khEnUrl  = $khEnUrl !== '' ? $khEnUrl : url('/');
+    $khAltUrl = $khLocale === 'ar' ? $khEnUrl : $khArUrl;
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $khLocale }}" dir="{{ $khDir }}" itemscope itemtype="https://schema.org/WebSite">
@@ -24,9 +34,9 @@
     <meta name="author" content="Khaled Ahmed">
 
     <link rel="canonical" href="@yield('canonical', $khCanonical)">
-    <link rel="alternate" hreflang="en" href="@yield('canonical', $khCanonical)">
-    <link rel="alternate" hreflang="ar" href="@yield('canonical', $khCanonical)">
-    <link rel="alternate" hreflang="x-default" href="@yield('canonical', $khCanonical)">
+    <link rel="alternate" hreflang="en" href="{{ $khEnUrl }}">
+    <link rel="alternate" hreflang="ar" href="{{ $khArUrl }}">
+    <link rel="alternate" hreflang="x-default" href="{{ $khEnUrl }}">
 
     {{-- Open Graph --}}
     <meta property="og:type"        content="@yield('og_type', 'website')">

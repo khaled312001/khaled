@@ -9,14 +9,13 @@
 @section('title', isset($category) ? ucfirst(str_replace('-', ' ', $category)) . ' Projects | Khaled Ahmed Portfolio' : $projectCount . ' Real Projects Shipped Across ' . $countryCount . ' Countries | Khaled Ahmed Portfolio')
 @section('description', isset($category) ? 'See ' . strtolower(str_replace('-', ' ', $category)) . ' web development projects shipped by Khaled Ahmed.' : $projectCount . ' real production projects shipped across ' . $countryCount . ' countries — Laravel, React, Node.js. SaaS, e-commerce, restaurants, hotels, healthcare, education.')
 @section('keywords', 'web developer portfolio, Laravel projects, React projects, full stack developer portfolio, custom web application portfolio, Khaled Ahmed projects')
-@section('canonical', isset($category) ? 'https://khaledahmed.net/portfolio/category/' . $category : 'https://khaledahmed.net/portfolios')
 
 @section('structured_data')
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"CollectionPage","name":"Khaled Ahmed — Portfolio","description":"{{ $projectCount }} real production projects shipped across {{ $countryCount }} countries.","url":"{{ url('/portfolios') }}","mainEntity":{"@type":"ItemList","numberOfItems":{{ count($projects) }},"itemListElement":[@foreach($projects as $i => $p){"@type":"ListItem","position":{{ $i + 1 }},"item":{"@type":"CreativeWork","name":@json($p['title']),"description":@json($p['summary']),"url":@json($p['url'])}}@if(!$loop->last),@endif @endforeach]}}
+{"@context":"https://schema.org","@type":"CollectionPage","name":"Khaled Ahmed — Portfolio","description":"{{ $projectCount }} real production projects shipped across {{ $countryCount }} countries.","url":"{{ route('portfolios') }}","mainEntity":{"@type":"ItemList","numberOfItems":{{ count($projects) }},"itemListElement":[@foreach($projects as $i => $p){"@type":"ListItem","position":{{ $i + 1 }},"item":{"@type":"CreativeWork","name":@json($p['title']),"description":@json($p['summary']),"url":@json($p['url'])}}@if(!$loop->last),@endif @endforeach]}}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ url('/') }}"},{"@type":"ListItem","position":2,"name":"Portfolio","item":"{{ url('/portfolios') }}"}@if(isset($category)),{"@type":"ListItem","position":3,"name":"{{ ucfirst($category) }}","item":"{{ url('/portfolio/category/' . $category) }}"}@endif]}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},{"@type":"ListItem","position":2,"name":"Portfolio","item":"{{ route('portfolios') }}"}@if(isset($category)),{"@type":"ListItem","position":3,"name":"{{ ucfirst($category) }}","item":"{{ route('portfolios.category', $category) }}"}@endif]}
 </script>
 @endsection
 

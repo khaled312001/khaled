@@ -17,7 +17,6 @@
 @section('title', $mTitle)
 @section('description', $mDesc)
 @section('keywords', $page['keywords'] ?? '')
-@section('canonical', 'https://khaledahmed.net/' . $page['slug'])
 
 @section('structured_data')
 <script type="application/ld+json">
@@ -27,7 +26,7 @@
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[@foreach(($page['faq'] ?? []) as $i => $f){"@type":"Question","name":@json($f['q']),"acceptedAnswer":{"@type":"Answer","text":@json($f['a'])}}@if(!$loop->last),@endif @endforeach]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ url('/') }}"},{"@type":"ListItem","position":2,"name":"Services","item":"{{ url('/services') }}"},{"@type":"ListItem","position":3,"name":@json($page['h1']),"item":"{{ url('/' . $page['slug']) }}"}]}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},{"@type":"ListItem","position":2,"name":"Services","item":"{{ route('services') }}"},{"@type":"ListItem","position":3,"name":@json($page['h1']),"item":"{{ route('landing', $page['slug']) }}"}]}
 </script>
 @endsection
 
