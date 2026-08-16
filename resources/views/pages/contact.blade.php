@@ -247,4 +247,35 @@
     </div>
 </section>
 
+{{-- Timezone overlap. The commonest objection from UK/EU/US buyers hiring remotely is
+     "will I be able to reach you during my working day". Cairo (GMT+2) answers it well,
+     and no competitor in the geo research was making the argument explicitly. --}}
+<section class="ks-section ks-section--tight" style="background: rgba(255,255,255,0.02);">
+    <div class="container">
+        <div class="ks-shead ks-fadeup">
+            <span class="ks-eyebrow"><i class="fas fa-clock"></i> {{ $isAr ? 'التوقيت' : 'Working hours' }}</span>
+            <h2>{{ $isAr ? 'أعمل داخل يوم عملك، لا بعده' : 'I work inside your business day, not after it' }}</h2>
+            <p>{{ $isAr ? 'مقرّي القاهره بتوقيت GMT+2. هذا يعني تداخلا كاملا مع يوم العمل الأوروبي والبريطاني، وتداخلا مسائيا حقيقيا مع الساحل الشرقي الأمريكي — لا انتظار أربعا وعشرين ساعه بين كل سؤال ورده.' : 'I am based in Cairo, GMT+2. That is a full working-day overlap with the UK and Europe, and a real afternoon overlap with US Eastern — not a 24-hour wait between every question and its answer.' }}</p>
+        </div>
+        <div class="row g-4" style="max-width:1000px;margin:0 auto;">
+            @foreach([
+                ['fas fa-flag', 'United Kingdom · London', 'المملكه المتحده · لندن', 'GMT+0 — 7 hours of overlap every day', 'GMT+0 — سبع ساعات تداخل يوميا'],
+                ['fas fa-flag', 'Germany · Netherlands · France', 'ألمانيا · هولندا · فرنسا', 'GMT+1 — 8 hours of overlap every day', 'GMT+1 — ثماني ساعات تداخل يوميا'],
+                ['fas fa-flag', 'Saudi Arabia · UAE · Qatar', 'السعوديه · الإمارات · قطر', 'GMT+3/+4 — effectively the same working day', 'GMT+3/+4 — يوم العمل نفسه تقريبا'],
+                ['fas fa-flag', 'United States · East Coast', 'الولايات المتحده · الساحل الشرقي', 'GMT-5 — my afternoon is your morning', 'GMT-5 — ظهيرتي هي صباحك'],
+            ] as [$ico, $regionEn, $regionAr, $noteEn, $noteAr])
+                <div class="col-md-6 ks-fadeup">
+                    <div class="home-trust-card">
+                        <div class="home-trust-card__ico"><i class="{{ $ico }}"></i></div>
+                        <div>
+                            <div class="lbl">{{ $isAr ? $regionAr : $regionEn }}</div>
+                            <div class="val">{{ $isAr ? $noteAr : $noteEn }}</div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
 @endsection
