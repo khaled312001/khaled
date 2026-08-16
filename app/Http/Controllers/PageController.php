@@ -70,15 +70,28 @@ class PageController extends Controller
 
     public function blogCategory($category)
     {
-        // $category is a stable English slug like "saas", "e-commerce", "devops".
+        // $category is a stable English slug like "backend", "platforms", "hiring".
         $categorySlug = strtolower($category);
+
+        // Categories were consolidated (15 near-empty archives -> 5 real ones). Retired
+        // slugs 301 to their new home so a previously crawled archive URL never 404s.
+        if ($newSlug = BlogService::resolveLegacyCategory($categorySlug)) {
+            return redirect()->route('blog.category', ['category' => $newSlug], 301);
+        }
+
         $posts = BlogService::byCategorySlug($categorySlug);
         if (empty($posts)) {
             abort(404);
         }
         $categories = BlogService::categories();
         $tags = BlogService::tags();
-        return view('pages.blogs', compact('posts', 'categories', 'tags', 'category', 'categorySlug'));
+        $categoryMeta = BlogService::categoryMeta($categorySlug);
+        // An archive with only a post or two is thin by definition — let Google follow
+        // the links out of it but keep it out of the index until it earns its place.
+        $noindex = count($posts) < BlogService::MIN_INDEXABLE_CATEGORY_POSTS;
+        return view('pages.blogs', compact(
+            'posts', 'categories', 'tags', 'category', 'categorySlug', 'categoryMeta', 'noindex'
+        ));
     }
 
     public function contact()
@@ -159,16 +172,6 @@ class PageController extends Controller
     public function faqs()
     {
         return view('pages.faqs');
-    }
-
-    public function gallery()
-    {
-        return view('pages.gallery');
-    }
-
-    public function teams()
-    {
-        return view('pages.teams');
     }
 
     public function portfolios()
@@ -277,6 +280,9 @@ class PageController extends Controller
         $base = 'https://khaledahmed.net';
         $today = date('Y-m-d');
 
+        // Only substantive, indexable, 200-status pages belong here. Never add a page to
+        // this list that carries a noindex tag, redirects, or is thin — that is exactly
+        // what produced the Soft-404 / Crawled-not-indexed reports in Search Console.
         $staticPages = [
             ['/', 'daily', '1.0'],
             ['/about', 'monthly', '0.8'],
@@ -286,8 +292,6 @@ class PageController extends Controller
             ['/blogs', 'daily', '0.9'],
             ['/faqs', 'weekly', '0.7'],
             ['/plans', 'monthly', '0.7'],
-            ['/teams', 'monthly', '0.5'],
-            ['/gallery', 'monthly', '0.5'],
         ];
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
@@ -325,8 +329,13 @@ class PageController extends Controller
             $xml .= "  </url>\n";
         }
 
-        foreach (array_keys(BlogService::categories()) as $cat) {
-            $slug = strtolower(str_replace(' ', '-', $cat));
+        // Category archives are only worth indexing once they hold enough posts to be
+        // more than a link list. Thin ones are noindexed in the view and skipped here so
+        // the sitemap never advertises a page Google will refuse to index.
+        foreach (BlogService::categories() as $slug => $meta) {
+            if (($meta['count'] ?? 0) < BlogService::MIN_INDEXABLE_CATEGORY_POSTS) {
+                continue;
+            }
             $loc = $base . '/blog/category/' . $slug;
             $xml .= "  <url>\n";
             $xml .= "    <loc>{$loc}</loc>\n";
@@ -363,10 +372,15 @@ class PageController extends Controller
         $content .= "Disallow: /composer.lock\n";
         $content .= "Disallow: /artisan\n";
         $content .= "Disallow: /test-email\n";
-        $content .= "Disallow: /test\n";
         $content .= "Disallow: /search\n\n";
-        $content .= "# Block PDF indexing — fixes Duplicate-without-canonical for /Khaled_Ahmed.pdf\n";
-        $content .= "Disallow: /*.pdf$\n\n";
+        $content .= "# ---------------------------------------------------------------\n";
+        $content .= "# Deliberately NOT disallowed, and it must stay that way:\n";
+        $content .= "#   /careers, /teams, /gallery  -> return 410 Gone\n";
+        $content .= "#   /*.pdf                      -> carries X-Robots-Tag: noindex\n";
+        $content .= "# Google can only act on a 410 or a noindex header if it is allowed to\n";
+        $content .= "# fetch the URL. Blocking these in robots.txt would strand them in the\n";
+        $content .= "# index as URL-only results permanently. Removal requires crawlability.\n";
+        $content .= "# ---------------------------------------------------------------\n\n";
         $content .= "# Allow critical asset folders for rendering\n";
         $content .= "Allow: /css/\n";
         $content .= "Allow: /js/\n";

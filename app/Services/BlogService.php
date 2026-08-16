@@ -4,6 +4,13 @@ namespace App\Services;
 
 class BlogService
 {
+    /**
+     * A category archive below this post count is a link list, not a page. Google
+     * classes those as thin/soft-404, so they get `noindex, follow` in the view and
+     * are skipped in the sitemap. Raise the count by publishing, not by lowering this.
+     */
+    public const MIN_INDEXABLE_CATEGORY_POSTS = 3;
+
     public static function all(): array
     {
         return array_map([self::class, 'localize'], self::posts());
@@ -25,11 +32,16 @@ class BlogService
      */
     private static function localize(array $post): array
     {
+        // Keep the raw key so slug/label lookups keep working after translation.
+        $post['category_key'] = $post['category'] ?? '';
+        $post['category_slug'] = self::categorySlug($post['category_key']);
+        $post['category'] = self::categoryLabel($post['category_key']);
+
         $isAr = function_exists('app') && app()->getLocale() === 'ar';
         if (!$isAr) return $post;
         $map = [
             'title' => 'title_ar', 'excerpt' => 'excerpt_ar',
-            'category' => 'category_ar', 'meta_title' => 'meta_title_ar',
+            'meta_title' => 'meta_title_ar',
             'meta_description' => 'meta_description_ar', 'content' => 'content_ar',
         ];
         foreach ($map as $en => $ar) {
@@ -38,53 +50,147 @@ class BlogService
         return $post;
     }
 
-    private static function categoryToAr(string $en): string
+    /**
+     * The five live categories. Keys are the internal English values stored on each
+     * post; each entry carries the URL slug and the display label per locale.
+     *
+     * Deliberately few: the blog previously spread 18 posts over 15 categories, so
+     * every archive held one or two posts and Google classed them all as thin. A
+     * category only earns its own URL once it can hold a shelf of posts.
+     */
+    private const CATEGORY_DEFS = [
+        'Hiring'      => ['slug' => 'hiring',      'en' => 'Hiring & Costs',          'ar' => 'التوظيف والتكلفه'],
+        'Performance' => ['slug' => 'performance', 'en' => 'Performance & SEO',       'ar' => 'الأداء وتحسين محركات البحث'],
+        'Backend'     => ['slug' => 'backend',     'en' => 'Backend & Architecture',  'ar' => 'الخلفيه والمعماريه'],
+        'Frontend'    => ['slug' => 'frontend',    'en' => 'Frontend & Mobile',       'ar' => 'الواجهات والموبايل'],
+        'Platforms'   => ['slug' => 'platforms',   'en' => 'Platforms & Product',     'ar' => 'المنصات والمنتجات'],
+    ];
+
+    /**
+     * Old category URLs that were live and crawled before the consolidation above.
+     * The controller 301s these to their new home so no archive URL ever 404s.
+     */
+    public const LEGACY_CATEGORY_REDIRECTS = [
+        'pricing'    => 'hiring',
+        'seo'        => 'performance',
+        'database'   => 'backend',
+        'security'   => 'backend',
+        'devops'     => 'backend',
+        'mobile'     => 'frontend',
+        'design'     => 'frontend',
+        'cms'        => 'platforms',
+        'e-commerce' => 'platforms',
+        'ecommerce'  => 'platforms',
+        'saas'       => 'platforms',
+        'trends'     => 'platforms',
+        'ai'         => 'platforms',
+        'industry'   => 'platforms',
+        'business'   => 'hiring',
+    ];
+
+    /** Display label for a category key, in the active locale. */
+    public static function categoryLabel(string $key): string
     {
-        return [
-            'Hiring' => 'التوظيف',
-            'Backend' => 'الخلفيه',
-            'Frontend' => 'الواجهه',
-            'Pricing' => 'الأسعار',
-            'SEO' => 'تحسين محركات البحث',
-            'Performance' => 'الأداء',
-            'Design' => 'التصميم',
-            'E-commerce' => 'تجاره إلكترونيه',
-            'CMS' => 'أنظمه إداره المحتوى',
-            'Mobile' => 'تطبيقات موبايل',
-            'Trends' => 'الاتجاهات',
-            'Security' => 'الأمن',
-            'Database' => 'قواعد البيانات',
-            'DevOps' => 'DevOps',
-            'SaaS' => 'تطبيقات SaaS',
-            'AI' => 'الذكاء الاصطناعي',
-            'Industry' => 'دلائل صناعيه',
-            'Business' => 'استراتيجيات الأعمال',
-        ][$en] ?? $en;
+        $isAr = function_exists('app') && app()->getLocale() === 'ar';
+        $def = self::CATEGORY_DEFS[$key] ?? null;
+        return $def ? $def[$isAr ? 'ar' : 'en'] : $key;
+    }
+
+    /**
+     * Unique intro copy for each category archive. Without this an archive is a
+     * heading plus a card grid — the exact thin-content pattern that got
+     * /blog/category/seo reported as Crawled-currently-not-indexed.
+     * Returns ['title' => ..., 'intro' => ...] in the active locale.
+     */
+    public static function categoryMeta(string $slug): array
+    {
+        $isAr = function_exists('app') && app()->getLocale() === 'ar';
+        $map = [
+            'hiring' => [
+                'en' => [
+                    'Hiring a Web Developer & What It Costs',
+                    'Choosing who builds your product is the most expensive decision in the project, and the one made with the least information. These guides cover how to vet a developer properly, the questions worth asking before you sign anything, how freelance and agency models actually compare on cost and risk once you account for management overhead, and what a website, store, or platform genuinely costs to build in 2026 — with real numbers instead of "it depends".',
+                ],
+                'ar' => [
+                    'توظيف مطور ويب وتكلفه المشروع',
+                    'اختيار من يبني منتجك هو أغلى قرار في المشروع، وهو أيضا القرار الذي يُتخذ بأقل قدر من المعلومات. تشرح هذه الأدله كيف تُقيّم المطور تقييما صحيحا، والأسئله التي يجب طرحها قبل توقيع أي عقد، والفرق الحقيقي بين المستقل وشركه البرمجه من حيث التكلفه والمخاطر بعد حساب عبء الإداره، وكم يكلف بناء موقع أو متجر أو منصه فعليا في 2026 — بأرقام حقيقيه بدلا من إجابه "على حسب".',
+                ],
+            ],
+            'performance' => [
+                'en' => [
+                    'Website Performance & SEO',
+                    'Speed and visibility are the two things a site owner can measure in revenue. These articles diagnose why pages load slowly and what actually fixes it — caching, query tuning, image strategy, bundle size — then move to the search side: indexing problems and how to diagnose them, Core Web Vitals read honestly, structured data, and the difference between work that moves rankings and work that only fills a monthly report.',
+                ],
+                'ar' => [
+                    'أداء المواقع وتحسين محركات البحث',
+                    'السرعه والظهور هما الشيئان اللذان يستطيع صاحب الموقع قياس أثرهما في الإيراد مباشره. تشخّص هذه المقالات أسباب بطء تحميل الصفحات وما الذي يعالجها فعلا — التخزين المؤقت، وضبط الاستعلامات، واستراتيجيه الصور، وحجم الملفات — ثم تنتقل إلى جانب البحث: مشاكل الأرشفه وكيفيه تشخيصها، وقراءه صادقه لمؤشرات Core Web Vitals، والبيانات المنظمه، والفرق بين العمل الذي يحرّك الترتيب فعلا والعمل الذي يملأ التقارير الشهريه فقط.',
+                ],
+            ],
+            'backend' => [
+                'en' => [
+                    'Backend & Architecture',
+                    'Server-side engineering from a developer who maintains what he ships. Laravel and Node.js compared on the tradeoffs that matter rather than benchmarks nobody reproduces, API design that survives its second consumer, database schemas you can live with for years, security hardening before a site handles real customer data, and hosting decisions that get expensive to reverse once traffic arrives.',
+                ],
+                'ar' => [
+                    'الخلفيه والمعماريه',
+                    'هندسه جانب الخادم من مطور يتولى صيانه ما يبنيه. مقارنه Laravel و Node.js على أساس المفاضلات التي تهم فعلا لا المقاييس التي لا يعيد أحد إنتاجها، وتصميم APIs تصمد أمام ثاني مستهلك لها، وبنيه قواعد بيانات يمكنك التعايش معها لسنوات، وتأمين الموقع قبل أن يتعامل مع بيانات عملاء حقيقيه، وقرارات استضافه يصعب التراجع عنها بعد وصول الزيارات.',
+                ],
+            ],
+            'frontend' => [
+                'en' => [
+                    'Frontend & Mobile',
+                    'Interface engineering judged by outcomes rather than screenshots. React and Vue compared without tribalism, rendering strategies and what they cost, progressive web apps and when they genuinely replace a native build, and mobile-first layout — because most traffic arrives on a phone while most sites are still designed on a desktop monitor.',
+                ],
+                'ar' => [
+                    'الواجهات والموبايل',
+                    'هندسه الواجهات مقاسه بالنتائج لا بلقطات الشاشه. مقارنه React و Vue بلا تعصب، واستراتيجيات العرض وتكلفه كل منها، وتطبيقات الويب التقدميه ومتى تحل فعلا محل التطبيق الأصلي، والتصميم بمنهج الموبايل أولا — لأن أغلب الزيارات تأتي من الهاتف بينما تُصمم أغلب المواقع على شاشه مكتبيه.',
+                ],
+            ],
+            'platforms' => [
+                'en' => [
+                    'Platforms & Product',
+                    'What to build on, and what to build. WordPress, custom builds, and hosted platforms compared on total cost of ownership rather than sticker price; e-commerce architecture that survives its own success; taking a SaaS product from idea to paying customers without an architecture that forces a rewrite at version two; and an honest read on which industry trends are worth reorganising a project around.',
+                ],
+                'ar' => [
+                    'المنصات والمنتجات',
+                    'على أي أساس تبني، وماذا تبني. مقارنه بين WordPress والبناء المخصص والمنصات الجاهزه على أساس التكلفه الإجماليه للملكيه لا السعر المعلن؛ ومعماريه متاجر إلكترونيه تتحمل نجاحها؛ ونقل منتج SaaS من الفكره إلى عملاء يدفعون دون معماريه تفرض إعاده بناء كامله في النسخه الثانيه؛ وقراءه صادقه لأي اتجاهات الصناعه يستحق أن تعيد تنظيم مشروعك حوله.',
+                ],
+            ],
+        ];
+        $entry = $map[$slug] ?? null;
+        if (!$entry) {
+            return ['title' => '', 'intro' => ''];
+        }
+        [$title, $intro] = $entry[$isAr ? 'ar' : 'en'];
+        return ['title' => $title, 'intro' => $intro];
     }
 
     public static function related(string $slug, int $limit = 3): array
     {
-        $current = self::find($slug);
-        if (!$current) {
+        $currentKey = null;
+        foreach (self::posts() as $post) {
+            if ($post['slug'] === $slug) {
+                $currentKey = $post['category'];
+                break;
+            }
+        }
+        if ($currentKey === null) {
             return [];
         }
-        $related = [];
-        foreach (self::posts() as $post) {
-            if ($post['slug'] === $slug) continue;
-            if ($post['category'] === $current['category']) {
-                $related[] = $post;
-                if (count($related) >= $limit) break;
-            }
-        }
-        if (count($related) < $limit) {
+
+        // Same category first, then anything else, so the block is always full —
+        // these links are the main path crawlers have into the deeper posts.
+        $picked = [];
+        foreach ([true, false] as $sameCategoryPass) {
             foreach (self::posts() as $post) {
+                if (count($picked) >= $limit) break 2;
                 if ($post['slug'] === $slug) continue;
-                if (in_array($post, $related, true)) continue;
-                $related[] = $post;
-                if (count($related) >= $limit) break;
+                if (isset($picked[$post['slug']])) continue;
+                if ($sameCategoryPass && $post['category'] !== $currentKey) continue;
+                $picked[$post['slug']] = $post;
             }
         }
-        return $related;
+        return array_values(array_map([self::class, 'localize'], $picked));
     }
 
     /**
@@ -93,27 +199,29 @@ class BlogService
      */
     public static function categories(): array
     {
-        $isAr = function_exists('app') && app()->getLocale() === 'ar';
         $counts = [];
         foreach (self::posts() as $post) {
-            $en = $post['category'];
-            $counts[$en] = ($counts[$en] ?? 0) + 1;
+            $key = $post['category'];
+            $counts[$key] = ($counts[$key] ?? 0) + 1;
         }
         $result = [];
-        foreach ($counts as $en => $count) {
-            $slug = self::categorySlug($en);
-            $name = $isAr ? self::categoryToAr($en) : $en;
-            $result[$slug] = ['name' => $name, 'count' => $count, 'en' => $en];
+        // Iterate the definitions, not the counts, so display order is intentional
+        // (buyer-intent first) rather than whatever order posts happen to appear in.
+        foreach (self::CATEGORY_DEFS as $key => $def) {
+            if (empty($counts[$key])) continue;
+            $result[$def['slug']] = [
+                'name'  => self::categoryLabel($key),
+                'count' => $counts[$key],
+                'en'    => $key,
+            ];
         }
-        ksort($result);
         return $result;
     }
 
     /** Stable URL slug for a category — locale-independent. */
-    public static function categorySlug(string $en): string
+    public static function categorySlug(string $key): string
     {
-        // 'SaaS' -> 'saas', 'E-commerce' -> 'e-commerce', 'DevOps' -> 'devops'
-        return strtolower(str_replace(' ', '-', $en));
+        return self::CATEGORY_DEFS[$key]['slug'] ?? strtolower(str_replace([' ', '&'], ['-', ''], $key));
     }
 
     /** Filter posts by stable English slug (works regardless of current locale). */
@@ -125,6 +233,12 @@ class BlogService
             fn($p) => self::categorySlug($p['category']) === $slug
         );
         return array_values(array_map([self::class, 'localize'], $filtered));
+    }
+
+    /** Resolve a retired category slug to its current one, or null if it is current. */
+    public static function resolveLegacyCategory(string $slug): ?string
+    {
+        return self::LEGACY_CATEGORY_REDIRECTS[strtolower($slug)] ?? null;
     }
 
     public static function tags(): array
@@ -148,7 +262,7 @@ class BlogService
                 'title_ar' => 'كيفية بناء تطبيق SaaS MVP قابل للتوسع باستخدام Laravel و React في 2026',
                 'excerpt' => 'A comprehensive developer\'s playbook for building a scalable SaaS MVP using Laravel and React. Best practices for multi-tenancy, Stripe billing, API architecture, and deployment.',
                 'excerpt_ar' => 'دليل شامل للمطورين لبناء تطبيق SaaS MVP قابل للتوسع باستخدام Laravel و React. أفضل الممارسات لتقسيم البيانات، وتكامل Stripe، وتصميم الـ APIs، والنشر.',
-                'category' => 'SaaS',
+                'category' => 'Platforms',
                 'tags' => ['SaaS', 'Laravel', 'React', 'MVP', 'development'],
                 'image' => '1710768229-blog-img-1.jpg',
                 'date' => '2026-06-16',
@@ -5016,7 +5130,7 @@ HTML
                 'excerpt' => 'The real numbers behind website pricing — landing pages, e-commerce, custom web apps, and SaaS. From a developer who has quoted hundreds of projects.',
                 'title_ar' => 'كم يكلّف الموقع فعلاً في 2026؟ (بدون كلام تسويقي)',
                 'excerpt_ar' => 'الأرقام الحقيقيه وراء أسعار المواقع — landing pages، متاجر إلكترونيه، تطبيقات ويب مخصصه و SaaS. من مطوّر قدّم مئات العروض.',
-                'category' => 'Pricing',
+                'category' => 'Hiring',
                 'tags' => ['website cost', 'pricing', 'web development', 'budget'],
                 'image' => '1710766541-portfolio-grid-img-1.jpg',
                 'date' => '2026-03-25',
@@ -5992,7 +6106,7 @@ HTML
                 'excerpt' => 'The exact technical and on-page SEO checklist I use to rank client sites on Google in 2026. Skip the bloat — these are the items that move the needle.',
                 'title_ar' => 'قائمه تحقّق SEO من 47 نقطه وصّلتني للمركز الأول (إصدار 2026)',
                 'excerpt_ar' => 'قائمه التحقق التقنيه على الصفحه اللي باستخدمها لأرفّع مواقع العملاء على Google في 2026. سيب الكلام الكثير — دي العناصر اللي بتفرق فعلاً.',
-                'category' => 'SEO',
+                'category' => 'Performance',
                 'tags' => ['SEO', 'Google', 'web development', 'rankings'],
                 'image' => '1710763075-services-bg-img-1.jpg',
                 'date' => '2026-03-18',
@@ -7724,7 +7838,7 @@ HTML
                 'excerpt' => 'Mobile traffic is now 65% of the web. Here is what mobile-first really means in 2026, the design patterns that work, and the ones that frustrate users.',
                 'title_ar' => 'تصميم Mobile-First في 2026: ما اللي يهم فعلاً',
                 'excerpt_ar' => 'حركه الموبايل دلوقتي 65% من الويب. ده شرح إيه يعني mobile-first في 2026، أنماط التصميم اللي بتشتغل، واللي بتزعّل المستخدمين.',
-                'category' => 'Design',
+                'category' => 'Frontend',
                 'tags' => ['mobile-first', 'responsive design', 'UX', 'web design'],
                 'image' => '1710763151-services-bg-img-3.jpg',
                 'date' => '2026-03-03',
@@ -8532,7 +8646,7 @@ HTML
                 'excerpt' => 'A senior developer compares the three real e-commerce options in 2026 — Shopify, WooCommerce, and custom Laravel/Node.js. Pricing, scaling, and which to pick.',
                 'title_ar' => 'بناء متجر إلكتروني في 2026: Shopify ضد WooCommerce ضد Custom',
                 'excerpt_ar' => 'مطوّر خبير يقارن الخيارات الـ 3 الحقيقيه للتجاره الإلكترونيه في 2026 — Shopify و WooCommerce و Laravel/Node.js مخصص. الأسعار، التوسّع، أيهم تختار.',
-                'category' => 'E-commerce',
+                'category' => 'Platforms',
                 'tags' => ['e-commerce', 'Shopify', 'WooCommerce', 'Laravel'],
                 'image' => '1710763190-services-bg-img-4.jpg',
                 'date' => '2026-02-25',
@@ -9480,7 +9594,7 @@ HTML
                 'excerpt' => 'A practical comparison of WordPress and Laravel for business websites in 2026. When to use each, and the cost of choosing wrong.',
                 'title_ar' => 'WordPress أم Laravel: أيهم تختار لموقع شركتك؟',
                 'excerpt_ar' => 'مقارنه عمليه بين WordPress و Laravel لمواقع الشركات في 2026. متى تستخدم كل منهما، وتكلفه الاختيار الخاطئ.',
-                'category' => 'CMS',
+                'category' => 'Platforms',
                 'tags' => ['WordPress', 'Laravel', 'CMS', 'web development'],
                 'image' => '1710763232-services-bg-img-5.jpg',
                 'date' => '2026-02-18',
@@ -10320,7 +10434,7 @@ HTML
                 'excerpt' => 'PWAs were hyped in 2018, ignored in 2022, and are quietly dominant in 2026. When to build a PWA, when to build a native app, and when both is the right call.',
                 'title_ar' => 'تطبيقات الويب التقدميه (PWA) في 2026: تستحق البناء أم اتجاه ميت؟',
                 'excerpt_ar' => 'الـ PWA كان hyped في 2018، اتجاهل في 2022، وصار مهيمن بهدوء في 2026. متى تبني PWA، متى تبني native، ومتى الاتنين هما الحل.',
-                'category' => 'Mobile',
+                'category' => 'Frontend',
                 'tags' => ['PWA', 'mobile', 'web apps', 'JavaScript'],
                 'image' => '1710763272-services-bg-img-6.jpg',
                 'date' => '2026-02-10',
@@ -11376,7 +11490,7 @@ HTML
                 'excerpt' => 'Skip the hype list. These are the 11 web development trends that are genuinely changing how senior developers ship in 2026 — and what you should adopt.',
                 'title_ar' => '11 اتجاه في تطوير الويب يهم فعلاً في 2026',
                 'excerpt_ar' => 'سيب الـ buzzwords. دي الـ 11 اتجاه اللي غيّرت طريقه شغل المطورين الخبراء في 2026 — وما اللي يجب أن تتبناه.',
-                'category' => 'Trends',
+                'category' => 'Platforms',
                 'tags' => ['trends', 'web development', '2026', 'technology'],
                 'image' => '1710766541-portfolio-grid-img-1.jpg',
                 'date' => '2026-02-03',
@@ -12044,7 +12158,7 @@ HTML
                 'slug' => 'website-security-checklist',
                 'title' => 'The Website Security Checklist Every Business Needs in 2026',
                 'excerpt' => 'A senior full stack developer\'s practical security checklist. The 23 items that prevent 95% of website attacks — for sites of any size.',
-                'category' => 'Security',
+                'category' => 'Backend',
                 'tags' => ['security', 'OWASP', 'web development', 'best practices'],
                 'image' => '1710763075-services-bg-img-1.jpg',
                 'date' => '2026-01-27',
@@ -13128,7 +13242,7 @@ HTML
                 'excerpt_ar' => 'بعد 5+ سنوات و 25+ مشروع إنتاجي، دي قواعد تصميم قواعد البيانات اللي بتفرق بين تطبيقات بتتوسّع وتطبيقات بتنهار عند 10,000 مستخدم.',
                 'title_ar' => 'قائمه تحقّق أمن الموقع لكل شركه في 2026',
                 'excerpt_ar' => 'قائمه أمنيه عمليه من مطور ويب متكامل خبير. الـ 23 عنصر اللي بتمنع 95% من هجمات المواقع — لمواقع من أي حجم.',
-                'category' => 'Database',
+                'category' => 'Backend',
                 'tags' => ['MySQL', 'PostgreSQL', 'database', 'web development'],
                 'image' => '1710763115-services-bg-img-2.jpg',
                 'date' => '2026-01-20',
@@ -15798,7 +15912,7 @@ HTML
                 'excerpt' => 'A senior developer\'s honest guide to web hosting in 2026. Real prices, real performance, and which option fits your business.',
                 'title_ar' => 'اختيار استضافه ويب في 2026: مشتركه، VPS، سحابه، أم Serverless؟',
                 'excerpt_ar' => 'دليل مطوّر خبير صريح لاستضافه الويب في 2026. أسعار حقيقيه، أداء حقيقي، وأي خيار مناسب لشركتك.',
-                'category' => 'DevOps',
+                'category' => 'Backend',
                 'tags' => ['hosting', 'VPS', 'cloud', 'serverless'],
                 'image' => '1710763190-services-bg-img-4.jpg',
                 'date' => '2026-01-01',

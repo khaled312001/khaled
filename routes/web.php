@@ -21,15 +21,17 @@ Route::get('/blog/{slug}', [App\Http\Controllers\PageController::class, 'blogSho
 Route::get('/contact', [App\Http\Controllers\PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [App\Http\Controllers\PageController::class, 'contactSubmit'])->name('contact.submit');
 Route::get('/faqs', [App\Http\Controllers\PageController::class, 'faqs'])->name('faqs');
-Route::get('/gallery', [App\Http\Controllers\PageController::class, 'gallery'])->name('gallery');
-Route::get('/teams', [App\Http\Controllers\PageController::class, 'teams'])->name('teams');
 Route::get('/portfolios', [App\Http\Controllers\PageController::class, 'portfolios'])->name('portfolios');
 Route::get('/portfolio/category/{category}', [App\Http\Controllers\PageController::class, 'portfolioCategory'])->name('portfolios.category');
 Route::get('/portfolio/{slug}', [App\Http\Controllers\PageController::class, 'portfolioShow'])->name('portfolio.show');
 Route::get('/plans', [App\Http\Controllers\PageController::class, 'plans'])->name('plans');
-// /careers permanently removed — GSC flagged it as Crawled-not-indexed (thin content);
-// 410 Gone tells Google to drop it from the index faster than 404.
-Route::get('/careers', fn () => response('Gone', 410))->name('careers');
+// Permanently removed pages. These were leftover theme stubs with ~90 words and a single
+// stock image; they were orphaned (no nav link) yet still listed in the sitemap, which is
+// what produced the Soft-404 / Crawled-not-indexed reports in Search Console.
+// 410 Gone tells Google to drop them from the index faster than a 404 does.
+foreach (['careers', 'gallery', 'teams'] as $goneSlug) {
+    Route::get('/' . $goneSlug, fn () => response('Gone', 410))->name('gone.' . $goneSlug);
+}
 
 // SEO infrastructure
 Route::get('/sitemap.xml', [App\Http\Controllers\PageController::class, 'sitemap'])->name('sitemap');

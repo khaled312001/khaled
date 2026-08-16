@@ -2,8 +2,23 @@
 
 @php $isAr = app()->getLocale() === 'ar'; @endphp
 
-@section('title', isset($category) ? ucfirst($category) . ' Articles | Khaled Ahmed Blog' : 'Web Development Blog — Laravel, React, SEO & Performance | Khaled Ahmed')
-@section('description', isset($category) ? 'Read in-depth ' . strtolower($category) . ' articles by Khaled Ahmed — senior full stack web developer.' : 'In-depth web development articles from a senior full stack developer. Laravel, React, Node.js, SEO, performance, hiring, and pricing.')
+@php
+    $catTitle = $categoryMeta['title'] ?? '';
+    $catIntro = $categoryMeta['intro'] ?? '';
+    $catLabel = $catTitle !== '' ? $catTitle : (isset($category) ? ucfirst($category) : '');
+@endphp
+
+@section('title', isset($category)
+    ? $catLabel . ($isAr ? ' | مدونه خالد أحمد' : ' | Khaled Ahmed')
+    : ($isAr ? 'مدونه تطوير الويب — Laravel و React والسيو والأداء | خالد أحمد' : 'Web Development Blog — Laravel, React, SEO & Performance | Khaled Ahmed'))
+@section('description', isset($category)
+    ? \Illuminate\Support\Str::limit(strip_tags($catIntro), 150)
+    : ($isAr ? 'مقالات معمقه في تطوير الويب من مطور Full Stack محترف: Laravel و React و Node.js، والسيو، والأداء، والتوظيف، والأسعار.' : 'In-depth web development articles from a senior full stack developer. Laravel, React, Node.js, SEO, performance, hiring, and pricing.'))
+
+{{-- Thin archives stay out of the index but keep passing link equity to the posts. --}}
+@if(!empty($noindex))
+    @section('robots', 'noindex, follow, max-image-preview:large')
+@endif
 @section('keywords', 'web development blog, Laravel tutorials, React tutorials, web developer Egypt, hire web developer, SEO guide, web performance, Khaled Ahmed')
 @section('canonical', isset($category) ? 'https://khaledahmed.net/blog/category/' . $category : 'https://khaledahmed.net/blogs')
 
@@ -12,7 +27,7 @@
 {"@context":"https://schema.org","@type":"Blog","name":"Khaled Ahmed — Web Development Blog","url":"{{ url('/blogs') }}","description":"In-depth web development articles by senior full stack developer Khaled Ahmed.","author":{"@type":"Person","name":"Khaled Ahmed","url":"https://khaledahmed.net"},"blogPost":[@foreach($posts as $i => $post){"@type":"BlogPosting","headline":@json($post['title']),"description":@json($post['excerpt']),"url":"{{ url('/blog/' . $post['slug']) }}","datePublished":"{{ $post['date'] }}","author":{"@type":"Person","name":"Khaled Ahmed"}}@if(!$loop->last),@endif @endforeach]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ url('/') }}"},{"@type":"ListItem","position":2,"name":"Blog","item":"{{ url('/blogs') }}"}@if(isset($category)),{"@type":"ListItem","position":3,"name":"{{ ucfirst($category) }}","item":"{{ url('/blog/category/' . (isset($categorySlug) ? $categorySlug : $category)) }}"}@endif]}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ url('/') }}"},{"@type":"ListItem","position":2,"name":"Blog","item":"{{ url('/blogs') }}"}@if(isset($category)),{"@type":"ListItem","position":3,"name":@json($catLabel),"item":"{{ url('/blog/category/' . (isset($categorySlug) ? $categorySlug : $category)) }}"}@endif]}
 </script>
 @endsection
 
@@ -55,8 +70,19 @@
         </div>
         @if(isset($category))
             <span class="ks-eyebrow">{{ $isAr ? 'تخصص' : 'Category' }}</span>
-            <h1 class="mt-3">{{ ucfirst($category) }} <span class="ks-grad-text">{{ $isAr ? 'مقالات' : 'Articles' }}</span></h1>
-            <p class="lead">{{ $isAr ? 'مقالات عملية ومعمقة حول' : 'In-depth practical articles on' }} <strong>{{ strtolower($category) }}</strong>.</p>
+            <h1 class="mt-3">{{ $catLabel }}</h1>
+            @if($catIntro !== '')
+                <p class="lead">{{ $catIntro }}</p>
+            @else
+                <p class="lead">{{ $isAr ? 'مقالات عمليه ومعمقه في' : 'In-depth practical articles on' }} <strong>{{ $catLabel }}</strong>.</p>
+            @endif
+            <p style="color:var(--text-3);font-size:14.5px;margin-top:14px;">
+                {{ trans_choice(
+                    $isAr ? '{1} مقال واحد في هذا القسم|{2} مقالان في هذا القسم|[3,10] :count مقالات في هذا القسم|[11,*] :count مقالا في هذا القسم'
+                          : '{1} :count article in this category|[2,*] :count articles in this category',
+                    count($posts), ['count' => count($posts)]
+                ) }}
+            </p>
         @else
             <span class="ks-eyebrow"><span class="ks-dot"></span> {{ $isAr ? 'مدوّنة تطوير الويب' : 'Web development blog' }}</span>
             <h1 class="mt-3">{{ $isAr ? 'مقالات عملية' : 'Practical articles' }} <span class="ks-grad-text">{{ $isAr ? 'لمبرمجين حقيقيين' : 'for real builders' }}</span></h1>

@@ -13,8 +13,9 @@
     <meta name="theme-color" content="#0a0e1a">
     <meta name="color-scheme" content="dark">
 
+    {{-- Single source of truth. A hardcoded googlebot directive here would win over the
+         generic one (more specific agent), silently un-noindexing any page that sets it. --}}
     <meta name="robots" content="@yield('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1')">
-    <meta name="googlebot" content="index, follow">
 
     <title>@yield('title', 'Khaled Ahmed — Senior Full Stack Web Developer | Laravel, React, Node.js')</title>
     <meta name="title" content="@yield('title', 'Khaled Ahmed — Senior Full Stack Web Developer')">
