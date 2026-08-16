@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'About Khaled Ahmed | Senior Full Stack Web Developer — Laravel, React, Node.js')
-@section('description', 'Learn about Khaled Ahmed, senior full stack web developer with 5+ years of experience, 25+ shipped projects across 8 countries, founder of Barmagly, and ITI graduate.')
-@section('keywords', 'About Khaled Ahmed, full stack developer Egypt, Laravel expert, React developer Cairo, web developer biography, Khaled Ahmed Barmagly')
+@section('title', app()->getLocale() === 'ar' ? 'عن خالد أحمد — مطور Laravel و React من القاهره' : 'About Khaled Ahmed — Laravel & React Developer, Cairo')
+@section('description', app()->getLocale() === 'ar' ? 'خمس سنوات و39 مشروعا في بيئه الإنتاج عبر 8 دول، و7 تطبيقات على Google Play. كيف أعمل، وكم أتقاضى، وأي المشاريع أعتذر عنها.' : 'Five years, 39 production builds across 8 countries, 7 apps on Google Play. How I work, what I charge, and the projects I turn down.')
+@section('keywords', 'Khaled Ahmed web developer, about Khaled Ahmed, Laravel expert Cairo, React developer Egypt, senior full stack developer, خالد أحمد مطور ويب')
 
 @section('structured_data')
 <script type="application/ld+json">

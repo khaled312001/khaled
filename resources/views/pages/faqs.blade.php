@@ -2,9 +2,9 @@
 
 @php $isAr = app()->getLocale() === 'ar'; @endphp
 
-@section('title', 'Web Development FAQs — Pricing, Timelines, Process | Khaled Ahmed')
-@section('description', 'Honest answers to the most common questions about hiring a full stack web developer. Pricing, timelines, technologies, support, and process — from a senior developer with 25+ shipped projects.')
-@section('keywords', 'web developer FAQ, hire web developer, web development cost, Laravel developer FAQ, React developer FAQ, Khaled Ahmed')
+@section('title', app()->getLocale() === 'ar' ? 'أسئله يطرحها العملاء قبل التعاقد معي — إجابات مباشره' : 'Questions Clients Ask Before Hiring Me — Answered')
+@section('description', app()->getLocale() === 'ar' ? 'ملكيه الكود، والدفعات، واتفاقيات عدم الإفصاح، والجداول الزمنيه، والتعديلات، وماذا يحدث إن تعثر المشروع. إجابات مباشره بلا لغه مبيعات.' : 'Ownership, payments, NDAs, timelines, revisions and what happens if it goes wrong. Straight answers, no sales language.')
+@section('keywords', 'questions to ask a web developer before hiring, web developer FAQ, who owns the website code, web development process, أسئلة قبل التعاقد مع مبرمج')
 
 @php
 $faqGroupsAr = [

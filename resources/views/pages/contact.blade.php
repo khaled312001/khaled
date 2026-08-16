@@ -2,9 +2,9 @@
 
 @php $isAr = app()->getLocale() === 'ar'; @endphp
 
-@section('title', 'Contact Khaled Ahmed — Free 30-Minute Consultation | Web Developer')
-@section('description', 'Get in touch with Khaled Ahmed. Free 30-minute consultation, written fixed-fee quote within 24 hours, and an honest recommendation for your web project.')
-@section('keywords', 'contact Khaled Ahmed, hire web developer, free web development consultation, project quote, Laravel developer contact')
+@section('title', app()->getLocale() === 'ar' ? 'ابدأ مشروعك — عرض سعر مفصّل خلال 48 ساعه' : 'Start a Project — Get a Scoped Quote in 48 Hours')
+@section('description', app()->getLocale() === 'ar' ? 'احك لي المشكله لا المواصفات. تحصل على تقدير مفصّل وجدول زمني وسعر ثابت خلال يومي عمل. القاهره بتوقيت GMT+2.' : 'Tell me the problem, not the spec. You get a scoped estimate, a timeline and a fixed price within two working days. Cairo GMT+2.')
+@section('keywords', 'contact web developer, hire Khaled Ahmed, free web development consultation, project quote, تواصل مع مطور ويب, طلب عرض سعر')
 
 @section('structured_data')
 <script type="application/ld+json">

@@ -2,9 +2,9 @@
 
 @php $isAr = app()->getLocale() === 'ar'; @endphp
 
-@section('title', 'Pricing Plans — Web Development Services | Khaled Ahmed')
-@section('description', 'Transparent pricing for web development services. Choose from Starter, Professional, or Enterprise plans. Fixed-fee quotes, no hidden costs, 24-hour response.')
-@section('keywords', 'web development pricing, Laravel pricing, web developer rates, fixed-fee web development, SaaS development cost, Khaled Ahmed pricing')
+@section('title', app()->getLocale() === 'ar' ? 'باقات الصيانه والدعم — ما الذي تشمله فعليا' : 'Maintenance & Support Plans — What\'s Actually Included')
+@section('description', app()->getLocale() === 'ar' ? 'اشتراكات شهريه للتحديثات وترقيعات الأمان والنسخ الاحتياطي والإصلاحات. ساعات واضحه، بلا ارتباط طويل، ويمكن الإلغاء أي شهر.' : 'Monthly retainers for updates, security patches, backups and fixes. Transparent hours, no lock-in, cancel any month.')
+@section('keywords', 'website maintenance plans monthly, what is included in website maintenance, website support retainer, web development pricing, باقات صيانة المواقع, أسعار تصميم المواقع')
 
 @push('styles')
 <style>

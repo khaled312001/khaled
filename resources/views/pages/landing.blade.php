@@ -170,6 +170,42 @@
 </section>
 @endif
 
+@php
+    // Supporting posts for this pillar. Landing pages are the most crawl-trusted URLs on
+    // the domain and previously linked only outward to client sites, leaving the blog
+    // posts with almost no internal equity — a main cause of Crawled-not-indexed.
+    $guideSlugs = $page['related_posts'] ?? [];
+    $guides = [];
+    foreach ($guideSlugs as $gs) {
+        if ($g = \App\Services\BlogService::find($gs)) { $guides[] = $g; }
+    }
+@endphp
+@if(count($guides))
+<section class="ks-section ks-section--tight">
+    <div class="container">
+        <div class="ks-shead" style="text-align:start;margin-bottom:var(--sp-5);">
+            <span class="ks-eyebrow">{{ $isAr ? 'اقرأ أيضا' : 'Read next' }}</span>
+            <h2>{{ $isAr ? 'أدله معمقه في هذا المجال' : 'In-depth guides on this' }}</h2>
+            <p style="margin:0;">{{ $isAr ? 'مقالات عمليه تشرح القرارات والتكاليف قبل أن تتعاقد مع أي شخص.' : 'Practical articles on the decisions and the costs, before you hire anyone.' }}</p>
+        </div>
+        <div class="row g-4">
+            @foreach($guides as $g)
+                <div class="col-lg-4 col-md-6 ks-fadeup">
+                    <a href="{{ route('blog.show', $g['slug']) }}" class="lp-related-card">
+                        <span class="cat">{{ $g['category'] }} · {{ $g['read_time'] }}</span>
+                        <h3>{{ $g['title'] }}</h3>
+                        <p>{{ \Illuminate\Support\Str::limit(strip_tags($g['excerpt']), 100) }}</p>
+                    </a>
+                </div>
+            @endforeach
+        </div>
+        <div style="margin-top:var(--sp-5);">
+            <a href="{{ route('blogs') }}" class="ks-btn ks-btn--ghost">{{ $isAr ? 'كل المقالات' : 'All articles' }} <i class="fa fa-arrow-{{ $isAr ? 'left' : 'right' }}"></i></a>
+        </div>
+    </div>
+</section>
+@endif
+
 <section class="ks-section ks-section--tight">
     <div class="container">
         <div class="ks-shead" style="margin-bottom:var(--sp-5);">

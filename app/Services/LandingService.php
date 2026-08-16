@@ -39,6 +39,16 @@ class LandingService
         return [
             'hire-laravel-developer' => [
                 'slug' => 'hire-laravel-developer',
+                // Supporting posts for this pillar. These internal links are the main
+                // path crawl equity has from a trusted page into the deeper articles.
+                'related_posts' => [
+                    'laravel-vs-nodejs-2026',
+                    'freelance-developer-vs-agency',
+                    'hire-full-stack-web-developer-egypt',
+                    'api-design-best-practices-2026',
+                    'database-design-for-web-apps',
+                    'wordpress-vs-laravel-which-to-choose',
+                ],
                 'nav' => 'Hire a Laravel Developer',
                 'nav_ar' => 'مطور Laravel',
                 'service_type' => 'Laravel Development',
@@ -99,6 +109,15 @@ class LandingService
 
             'hire-react-developer' => [
                 'slug' => 'hire-react-developer',
+                // Supporting posts for this pillar. These internal links are the main
+                // path crawl equity has from a trusted page into the deeper articles.
+                'related_posts' => [
+                    'react-vs-vue-2026',
+                    'nextjs-performance-optimization-2026',
+                    'mobile-first-web-design-2026',
+                    'progressive-web-apps-2026',
+                    'why-your-website-loads-slowly',
+                ],
                 'nav' => 'Hire a React Developer',
                 'nav_ar' => 'مطور React',
                 'service_type' => 'React & Next.js Development',
@@ -159,6 +178,16 @@ class LandingService
 
             'saas-development' => [
                 'slug' => 'saas-development',
+                // Supporting posts for this pillar. These internal links are the main
+                // path crawl equity has from a trusted page into the deeper articles.
+                'related_posts' => [
+                    'build-saas-mvp-laravel-react-2026',
+                    'database-design-for-web-apps',
+                    'laravel-vs-nodejs-2026',
+                    'api-design-best-practices-2026',
+                    'how-much-does-website-cost-2026',
+                    'choosing-web-hosting-2026',
+                ],
                 'nav' => 'SaaS Development',
                 'nav_ar' => 'تطوير SaaS',
                 'service_type' => 'SaaS Development',
@@ -219,6 +248,15 @@ class LandingService
 
             'ecommerce-development' => [
                 'slug' => 'ecommerce-development',
+                // Supporting posts for this pillar. These internal links are the main
+                // path crawl equity has from a trusted page into the deeper articles.
+                'related_posts' => [
+                    'ecommerce-website-development-guide',
+                    'website-security-checklist',
+                    'why-your-website-loads-slowly',
+                    'wordpress-vs-laravel-which-to-choose',
+                    'mobile-first-web-design-2026',
+                ],
                 'nav' => 'E-commerce Development',
                 'nav_ar' => 'تطوير المتاجر',
                 'service_type' => 'E-commerce Development',
@@ -279,6 +317,15 @@ class LandingService
 
             'mobile-app-development' => [
                 'slug' => 'mobile-app-development',
+                // Supporting posts for this pillar. These internal links are the main
+                // path crawl equity has from a trusted page into the deeper articles.
+                'related_posts' => [
+                    'progressive-web-apps-2026',
+                    'mobile-first-web-design-2026',
+                    'api-design-best-practices-2026',
+                    'how-much-does-website-cost-2026',
+                    'web-development-trends-2026',
+                ],
                 'nav' => 'Mobile App Development',
                 'nav_ar' => 'تطبيقات الجوال',
                 'service_type' => 'Mobile App Development',

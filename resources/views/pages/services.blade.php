@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Web Development Services — Laravel, React, Node.js, SaaS, E-commerce | Khaled Ahmed')
-@section('description', 'Hire a senior full stack developer for custom web apps, SaaS MVPs, e-commerce, Laravel and React projects. Fixed-fee quotes, 24-hour response, 5+ years experience.')
-@section('keywords', 'web development services, hire full stack developer, Laravel developer, React developer, Node.js developer, SaaS MVP development, e-commerce developer, Khaled Ahmed services')
+@section('title', app()->getLocale() === 'ar' ? 'تطوير تطبيقات الويب المخصصه — Laravel و React و Next.js' : 'Custom Web App Development — Laravel, React, Next.js')
+@section('description', app()->getLocale() === 'ar' ? 'تطبيقات ويب ومنصات SaaS ومتاجر إلكترونيه وواجهات APIs يبنيها مطور واحد مسؤول. نطاق محدد وسعر ثابت وكود تملكه بالكامل.' : 'Web apps, SaaS platforms, online stores and APIs built by one senior developer. Fixed scope, fixed price, and code you own outright.')
+@section('keywords', 'custom web application development services, laravel development services, react development, saas development, ecommerce development, api development, تطوير تطبيقات الويب, برمجة مواقع')
 
 @section('structured_data')
 <script type="application/ld+json">
@@ -195,6 +195,42 @@
         </div>
     </div>
 </section>
+
+@php
+    // /services is the most crawl-trusted page on the domain after the homepage and was
+    // passing no equity at all to the blog. One link per topic area, spread across the
+    // whole archive rather than repeating the homepage's six.
+    $svcGuides = [
+        'how-much-does-website-cost-2026', 'ecommerce-website-development-guide',
+        'build-saas-mvp-laravel-react-2026', 'website-security-checklist',
+        'nextjs-performance-optimization-2026', 'api-design-best-practices-2026',
+        'database-design-for-web-apps', 'wordpress-vs-laravel-which-to-choose',
+        'choosing-web-hosting-2026', 'progressive-web-apps-2026',
+        'react-vs-vue-2026', 'website-seo-checklist-2026',
+    ];
+    $svcPosts = [];
+    foreach ($svcGuides as $sg) {
+        if ($sp = \App\Services\BlogService::find($sg)) { $svcPosts[] = $sp; }
+    }
+@endphp
+@if(count($svcPosts))
+<section class="ks-section ks-section--tight" style="background: rgba(255,255,255,0.02);">
+    <div class="container">
+        <div class="ks-shead ks-fadeup">
+            <span class="ks-eyebrow">{{ $isAr ? 'أدله مرجعيه' : 'Reference guides' }}</span>
+            <h2>{{ $isAr ? 'كيف أتخذ هذه القرارات فعليا' : 'How I actually make these decisions' }}</h2>
+            <p>{{ $isAr ? 'كل خدمه هنا تقف خلفها مقالات تشرح المفاضلات والتكاليف بالتفصيل.' : 'Every service here is backed by a written guide explaining the tradeoffs and the costs.' }}</p>
+        </div>
+        <div class="d-flex flex-wrap" style="gap:10px;max-width:1000px;margin:0 auto;">
+            @foreach($svcPosts as $sp)
+                <a href="{{ route('blog.show', $sp['slug']) }}" class="ks-chip" style="text-decoration:none;">
+                    <i class="fas fa-book-open"></i> {{ \Illuminate\Support\Str::limit($sp['title'], 58) }}
+                </a>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
 
 <section class="ks-section ks-section--tight">
     <div class="container">

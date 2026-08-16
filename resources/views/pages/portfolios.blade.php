@@ -6,9 +6,15 @@
     $countryCount = $countryCount ?? \App\Services\PortfolioService::countryCount();
 @endphp
 
-@section('title', isset($category) ? ucfirst(str_replace('-', ' ', $category)) . ' Projects | Khaled Ahmed Portfolio' : $projectCount . ' Real Projects Shipped Across ' . $countryCount . ' Countries | Khaled Ahmed Portfolio')
-@section('description', isset($category) ? 'See ' . strtolower(str_replace('-', ' ', $category)) . ' web development projects shipped by Khaled Ahmed.' : $projectCount . ' real production projects shipped across ' . $countryCount . ' countries — Laravel, React, Node.js. SaaS, e-commerce, restaurants, hotels, healthcare, education.')
-@section('keywords', 'web developer portfolio, Laravel projects, React projects, full stack developer portfolio, custom web application portfolio, Khaled Ahmed projects')
+@section('title', isset($category)
+    ? ucfirst(str_replace('-', ' ', $category)) . (app()->getLocale() === 'ar' ? ' | أعمال خالد أحمد' : ' Projects | Khaled Ahmed Portfolio')
+    : (app()->getLocale() === 'ar'
+        ? $projectCount . ' مشروعا منفّذا في ' . $countryCount . ' دول — أعمال خالد أحمد'
+        : $projectCount . ' Shipped Projects Across ' . $countryCount . ' Countries — Khaled Ahmed'))
+@section('description', app()->getLocale() === 'ar'
+    ? 'تطبيقات في بيئه الإنتاج عبر 8 دول و7 تطبيقات منشوره على Google Play. التقنيات والنطاق والمده والنتيجه لكل مشروع.'
+    : 'Production apps across 8 countries and 7 live Google Play releases. Stack, scope, timeline and outcome for each build.')
+@section('keywords', 'laravel react case studies, web developer portfolio, custom web application examples, saas case study, معرض أعمال مطور ويب, مشاريع برمجة')
 
 @section('structured_data')
 <script type="application/ld+json">

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Hire a Senior Full Stack Web Developer | Laravel, React, Node.js — Khaled Ahmed')
-@section('description', 'Hire Khaled Ahmed — Senior Full Stack Web Developer with 5+ years and 25+ shipped projects across 8 countries. Expert in Laravel, React, Node.js. Free consultation, 24-hour response.')
-@section('keywords', 'hire full stack developer, senior web developer, Laravel developer, React developer, Node.js developer, freelance web developer Egypt, custom web application, SaaS developer, Khaled Ahmed')
+@section('title', app()->getLocale() === 'ar' ? 'خالد أحمد — مطور Full Stack مستقل | Laravel و React' : 'Khaled Ahmed — Freelance Full Stack Developer | Laravel & React')
+@section('description', app()->getLocale() === 'ar' ? 'مطور Laravel و React و Next.js من القاهره. 39 مشروعا منشورا في 8 دول، و7 تطبيقات على Google Play. عرض سعر ثابت ورد خلال 24 ساعه.' : 'Senior Laravel, React and Next.js developer in Cairo. 39 products shipped across 8 countries, 7 apps live on Google Play. Fixed-fee quotes, 24-hour reply.')
+@section('keywords', 'freelance full stack developer, freelance laravel developer, freelance react developer, hire web developer, custom web application, SaaS developer, Khaled Ahmed, مطور ويب مستقل, مبرمج مواقع')
 @section('og_image', asset('images/logo.png'))
 
 @section('structured_data')
@@ -272,6 +272,51 @@
         </div>
     </div>
 </section>
+
+@php
+    // The homepage is the most-crawled URL on the domain and, until now, linked to no
+    // article at all. These links are the shortest path crawl equity has into the blog,
+    // which is the set of pages Search Console reports as Crawled-not-indexed.
+    $isAr = app()->getLocale() === 'ar';
+    $featuredSlugs = [
+        'how-much-does-website-cost-2026',
+        'freelance-developer-vs-agency',
+        'hire-full-stack-web-developer-egypt',
+        'laravel-vs-nodejs-2026',
+        'build-saas-mvp-laravel-react-2026',
+        'why-your-website-loads-slowly',
+    ];
+    $featured = [];
+    foreach ($featuredSlugs as $fs) {
+        if ($fp = \App\Services\BlogService::find($fs)) { $featured[] = $fp; }
+    }
+@endphp
+@if(count($featured))
+<section class="ks-section ks-section--tight">
+    <div class="container">
+        <div class="ks-shead ks-fadeup">
+            <span class="ks-eyebrow">{{ $isAr ? 'أدله عمليه' : 'Practical guides' }}</span>
+            <h2>{{ $isAr ? 'اقرأ قبل أن تتعاقد مع أي مطور' : 'Read this before you hire any developer' }}</h2>
+            <p>{{ $isAr ? 'أرقام حقيقيه ومفاضلات صريحه من مطور ينشر في بيئه الإنتاج كل أسبوع — لا لغه تسويقيه.' : 'Real numbers and honest tradeoffs from a developer who ships to production every week — no marketing language.' }}</p>
+        </div>
+        <div class="row g-4">
+            @foreach($featured as $fp)
+                <div class="col-lg-4 col-md-6 ks-fadeup">
+                    <a href="{{ route('blog.show', $fp['slug']) }}" class="home-svc" style="display:flex;flex-direction:column;text-decoration:none;">
+                        <span class="ks-eyebrow" style="margin-bottom:12px;">{{ $fp['category'] }} · {{ $fp['read_time'] }}</span>
+                        <h3>{{ $fp['title'] }}</h3>
+                        <p style="flex:1;">{{ \Illuminate\Support\Str::limit(strip_tags($fp['excerpt']), 110) }}</p>
+                        <span class="home-svc__more">{{ $isAr ? 'اقرأ الدليل' : 'Read the guide' }} <i class="fa fa-arrow-{{ $isAr ? 'left' : 'right' }}"></i></span>
+                    </a>
+                </div>
+            @endforeach
+        </div>
+        <div class="text-center" style="margin-top:var(--sp-6);">
+            <a href="{{ route('blogs') }}" class="ks-btn ks-btn--ghost">{{ $isAr ? 'كل المقالات' : 'Browse all articles' }} <i class="fa fa-arrow-{{ $isAr ? 'left' : 'right' }}"></i></a>
+        </div>
+    </div>
+</section>
+@endif
 
 <section class="ks-section ks-section--tight">
     <div class="container">
