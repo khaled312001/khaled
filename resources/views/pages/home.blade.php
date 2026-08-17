@@ -3,8 +3,7 @@
 @section('title', app()->getLocale() === 'ar' ? 'خالد أحمد — مطور Full Stack مستقل | Laravel و React' : 'Khaled Ahmed — Freelance Full Stack Developer | Laravel & React')
 @section('description', app()->getLocale() === 'ar' ? 'مطور Laravel و React و Next.js من القاهره. 39 مشروعا منشورا في 8 دول، و7 تطبيقات على Google Play. عرض سعر ثابت ورد خلال 24 ساعه.' : 'Senior Laravel, React and Next.js developer in Cairo. 39 products shipped across 8 countries, 7 apps live on Google Play. Fixed-fee quotes, 24-hour reply.')
 @section('keywords', 'freelance full stack developer, freelance laravel developer, freelance react developer, hire web developer, custom web application, SaaS developer, Khaled Ahmed, مطور ويب مستقل, مبرمج مواقع')
-@section('og_image', asset('images/logo.webp'))
-@section('lcp_image', asset('images/site/hero-workspace.webp'))
+@section('lcp_image', asset('images/site/hero-workspace-720w.webp'))
 
 @section('structured_data')
 <script type="application/ld+json">
@@ -134,8 +133,14 @@
 
             <div class="col-lg-5">
                 <div class="home-hero-img">
-                    <img src="{{ asset('images/site/hero-workspace.webp') }}"
+                    <img src="{{ asset('images/site/hero-workspace-720w.webp') }}"
+                         srcset="{{ asset('images/site/hero-workspace-480w.webp') }} 480w,
+                                 {{ asset('images/site/hero-workspace-720w.webp') }} 720w,
+                                 {{ asset('images/site/hero-workspace-1000w.webp') }} 1000w,
+                                 {{ asset('images/site/hero-workspace.webp') }} 1400w"
+                         sizes="(max-width: 991px) calc(100vw - 24px), 480px"
                          alt="{{ app()->getLocale() === 'ar' ? 'مطور ويب Full Stack يبني تطبيقات Laravel و React احترافية' : 'Senior full stack developer building professional Laravel and React web applications' }}"
+                         width="1400" height="933" loading="eager" decoding="async" fetchpriority="high">getLocale() === 'ar' ? 'مطور ويب Full Stack يبني تطبيقات Laravel و React احترافية' : 'Senior full stack developer building professional Laravel and React web applications' }}"
                          width="1536" height="1024" loading="eager" decoding="async" fetchpriority="high">
                 </div>
             </div>
@@ -201,7 +206,7 @@
                         <div class="home-svc__ico"><i class="{{ $icon }}"></i></div>
                         <h3>{{ $title }}</h3>
                         <p>{{ $desc }}</p>
-                        <a href="{{ route('services') }}" class="home-svc__more">{{ app()->getLocale() === 'ar' ? 'التفاصيل' : 'Learn more' }} <i class="fa fa-arrow-right"></i></a>
+                        <a href="{{ route('services') }}" class="home-svc__more">{{ app()->getLocale() === 'ar' ? 'التفاصيل' : 'Learn more' }}<span class="visually-hidden"> {{ app()->getLocale() === 'ar' ? 'عن ' : 'about ' }}{{ $title }}</span> <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
                     </div>
                 </div>
             @endforeach

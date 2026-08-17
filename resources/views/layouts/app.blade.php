@@ -68,33 +68,22 @@
     <meta name="twitter:image:alt"   content="@yield('twitter_image_alt', 'Khaled Ahmed — Senior Full Stack Web Developer')">
 
     {{-- Favicons --}}
-    <link rel="icon" type="image/png" href="{{ asset('images/logo.webp') }}">
-    <link rel="apple-touch-icon" href="{{ asset('images/logo.webp') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-360w.webp') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo-360w.webp') }}">
 
-    {{-- Warm up all three third-party origins before the parser reaches their stylesheets. --}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
-    {{-- Fonts: Inter (EN/UI) + Cairo (AR). Only the weights actually used are requested —
-         asking for five weights of three families cost several hundred KB for glyphs that
-         never rendered. JetBrains Mono is loaded only where code blocks exist. --}}
+
+    {{-- Preload only the faces the first paint needs. Self-hosted, so they start
+         downloading immediately instead of after a round trip to a third-party CSS file. --}}
     @php
-        $khFontFamilies = $khLocale === 'ar'
-            ? 'family=Cairo:wght@400;600;700;800&family=Inter:wght@400;600;700'
-            : 'family=Inter:wght@400;500;600;700;800&family=Cairo:wght@400;700';
+        $khPreloadFonts = $khLocale === 'ar'
+            ? ['fonts/self/cairo-400-40278.woff2', 'fonts/self/cairo-700-40278.woff2']
+            : ['fonts/self/inter-400-56160.woff2', 'fonts/self/inter-700-56160.woff2'];
     @endphp
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?{{ $khFontFamilies }}&display=swap">
+    @foreach($khPreloadFonts as $khFont)
+        <link rel="preload" as="font" type="font/woff2" href="{{ asset($khFont) }}" crossorigin>
+    @endforeach
 
-    {{-- Bootstrap (grid + utilities only — we override theme via design system) --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-
-    {{-- Font Awesome is decorative only, so it must not block first paint. Loaded as a
-         non-blocking stylesheet with a <noscript> fallback for crawlers and no-JS clients. --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-          media="print" onload="this.media='all';this.onload=null;">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 
     {{-- Preload the homepage hero: it is the LCP element, so discovering it via CSS-blocked
          HTML parsing costs roughly a full round trip. --}}
@@ -106,6 +95,172 @@
          DESIGN SYSTEM — single source of truth. Deep navy dark.
          ========================================================= --}}
     <style id="design-system">
+        /* Font Awesome, subset to the icons this site uses and self-hosted.
+           font-display:swap is declared here; the CDN build omits it, which
+           Lighthouse measured as 160 ms of invisible icons on mobile. */
+        @font-face {
+            font-family: 'Font Awesome 6 Free';
+            font-style: normal;
+            font-weight: 900;
+            font-display: swap;
+            src: url('/fonts/fa/fa-solid-900.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Font Awesome 6 Brands';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('/fonts/fa/fa-brands-400.woff2') format('woff2');
+        }
+        .fa, .fas, .fa-solid, .far, .fa-regular, .fab, .fa-brands {
+            -moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased;
+            display: inline-block; font-style: normal; font-variant: normal;
+            line-height: 1; text-rendering: auto; }
+        .fa, .fas, .fa-solid, .far, .fa-regular { font-family: 'Font Awesome 6 Free'; font-weight: 900; }
+        .fab, .fa-brands { font-family: 'Font Awesome 6 Brands'; font-weight: 400; }
+        .fa-arrow-left::before { content: "\f060"; }
+        .fa-arrow-right::before { content: "\f061"; }
+        .fa-arrow-up::before { content: "\f062"; }
+        .fa-bars::before { content: "\f0c9"; }
+        .fa-bolt::before { content: "\f0e7"; }
+        .fa-book-open::before { content: "\f518"; }
+        .fa-bookmark::before { content: "\f02e"; }
+        .fa-calendar::before { content: "\f133"; }
+        .fa-calendar-alt::before { content: "\f073"; }
+        .fa-check-circle::before { content: "\f058"; }
+        .fa-chevron-left::before { content: "\f053"; }
+        .fa-chevron-right::before { content: "\f054"; }
+        .fa-circle::before { content: "\f111"; }
+        .fa-circle-minus::before { content: "\f056"; }
+        .fa-clock::before { content: "\f017"; }
+        .fa-comments::before { content: "\f086"; }
+        .fa-download::before { content: "\f019"; }
+        .fa-envelope::before { content: "\f0e0"; }
+        .fa-exclamation-circle::before { content: "\f06a"; }
+        .fa-external-link-alt::before { content: "\f35d"; }
+        .fa-github::before { content: "\f09b"; }
+        .fa-globe::before { content: "\f0ac"; }
+        .fa-google-play::before { content: "\f3ab"; }
+        .fa-home::before { content: "\f015"; }
+        .fa-link::before { content: "\f0c1"; }
+        .fa-linkedin::before { content: "\f08c"; }
+        .fa-linkedin-in::before { content: "\f0e1"; }
+        .fa-map-marker-alt::before { content: "\f3c5"; }
+        .fa-mobile-screen-button::before { content: "\f3cd"; }
+        .fa-paper-plane::before { content: "\f1d8"; }
+        .fa-phone-alt::before { content: "\f879"; }
+        .fa-rocket::before { content: "\f135"; }
+        .fa-star::before { content: "\f005"; }
+        .fa-times::before { content: "\f00d"; }
+        .fa-user::before { content: "\f007"; }
+        .fa-whatsapp::before { content: "\f232"; }
+
+        /* Self-hosted Inter + Cairo. font-display:swap on every face. */
+@font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('/fonts/self/inter-400-56160.woff2') format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+@font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 500;
+            font-display: swap;
+            src: url('/fonts/self/inter-500-56160.woff2') format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+@font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 600;
+            font-display: swap;
+            src: url('/fonts/self/inter-600-56160.woff2') format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+@font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url('/fonts/self/inter-700-56160.woff2') format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+@font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 800;
+            font-display: swap;
+            src: url('/fonts/self/inter-800-56160.woff2') format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+@font-face {
+            font-family: 'Cairo';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('/fonts/self/cairo-400-40278.woff2') format('woff2');
+            unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
+        }
+@font-face {
+            font-family: 'Cairo';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('/fonts/self/cairo-400-56160.woff2') format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+@font-face {
+            font-family: 'Cairo';
+            font-style: normal;
+            font-weight: 600;
+            font-display: swap;
+            src: url('/fonts/self/cairo-600-40278.woff2') format('woff2');
+            unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
+        }
+@font-face {
+            font-family: 'Cairo';
+            font-style: normal;
+            font-weight: 600;
+            font-display: swap;
+            src: url('/fonts/self/cairo-600-56160.woff2') format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+@font-face {
+            font-family: 'Cairo';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url('/fonts/self/cairo-700-40278.woff2') format('woff2');
+            unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
+        }
+@font-face {
+            font-family: 'Cairo';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url('/fonts/self/cairo-700-56160.woff2') format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+@font-face {
+            font-family: 'Cairo';
+            font-style: normal;
+            font-weight: 800;
+            font-display: swap;
+            src: url('/fonts/self/cairo-800-40278.woff2') format('woff2');
+            unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
+        }
+@font-face {
+            font-family: 'Cairo';
+            font-style: normal;
+            font-weight: 800;
+            font-display: swap;
+            src: url('/fonts/self/cairo-800-56160.woff2') format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
         :root {
             /* ─── Color palette ─── */
             --bg-1:        #0a0e1a;
@@ -159,6 +314,159 @@
 
         /* ─── Reset ─── */
         *, *::before, *::after { box-sizing: border-box; }
+
+        /* ─── GRID & UTILITIES ───────────────────────────────────────────
+           Replaces the Bootstrap CDN. Lighthouse measured that file at
+           1,050 ms of render-blocking time on mobile with 31.5 KiB unused;
+           an audit of every template found only grid, flex, spacing and
+           text utilities in use. Inlining them removes the request, and
+           with it a whole third-party origin, from the critical path.
+           Breakpoints and gutter sizes match Bootstrap 5 so no markup changed. */
+        .container { width: 100%; padding-inline: 12px; margin-inline: auto; }
+        @media (min-width: 576px)  { .container { max-width: 540px; } }
+        @media (min-width: 768px)  { .container { max-width: 720px; } }
+        @media (min-width: 992px)  { .container { max-width: 960px; } }
+        @media (min-width: 1200px) { .container { max-width: 1140px; } }
+        @media (min-width: 1400px) { .container { max-width: 1320px; } }
+
+        .row { --gx: 24px; --gy: 0px; display: flex; flex-wrap: wrap;
+               margin-inline: calc(-.5 * var(--gx)); margin-top: calc(-1 * var(--gy)); }
+        .row > * { flex-shrink: 0; width: 100%; max-width: 100%;
+                   padding-inline: calc(.5 * var(--gx)); margin-top: var(--gy); }
+        .g-0 { --gx: 0px;  --gy: 0px;  }
+        .g-1 { --gx: 4px;  --gy: 4px;  }
+        .g-2 { --gx: 8px;  --gy: 8px;  }
+        .g-3 { --gx: 16px; --gy: 16px; }
+        .g-4 { --gx: 24px; --gy: 24px; }
+        .g-5 { --gx: 48px; --gy: 48px; }
+
+        .col { flex: 1 0 0%; }
+        .col-auto { flex: 0 0 auto; width: auto; }
+        .col-1 { flex: 0 0 auto; width: 8.333333%; }
+        .col-2 { flex: 0 0 auto; width: 16.666667%; }
+        .col-3 { flex: 0 0 auto; width: 25%; }
+        .col-4 { flex: 0 0 auto; width: 33.333333%; }
+        .col-5 { flex: 0 0 auto; width: 41.666667%; }
+        .col-6 { flex: 0 0 auto; width: 50%; }
+        .col-7 { flex: 0 0 auto; width: 58.333333%; }
+        .col-8 { flex: 0 0 auto; width: 66.666667%; }
+        .col-9 { flex: 0 0 auto; width: 75%; }
+        .col-10 { flex: 0 0 auto; width: 83.333333%; }
+        .col-11 { flex: 0 0 auto; width: 91.666667%; }
+        .col-12 { flex: 0 0 auto; width: 100%; }
+
+        @media (min-width: 576px) {
+            .col-sm-auto { flex: 0 0 auto; width: auto; }
+            .col-sm-1 { flex: 0 0 auto; width: 8.333333%; }
+            .col-sm-2 { flex: 0 0 auto; width: 16.666667%; }
+            .col-sm-3 { flex: 0 0 auto; width: 25%; }
+            .col-sm-4 { flex: 0 0 auto; width: 33.333333%; }
+            .col-sm-5 { flex: 0 0 auto; width: 41.666667%; }
+            .col-sm-6 { flex: 0 0 auto; width: 50%; }
+            .col-sm-7 { flex: 0 0 auto; width: 58.333333%; }
+            .col-sm-8 { flex: 0 0 auto; width: 66.666667%; }
+            .col-sm-9 { flex: 0 0 auto; width: 75%; }
+            .col-sm-10 { flex: 0 0 auto; width: 83.333333%; }
+            .col-sm-11 { flex: 0 0 auto; width: 91.666667%; }
+            .col-sm-12 { flex: 0 0 auto; width: 100%; }
+        }
+
+        @media (min-width: 768px) {
+            .col-md-auto { flex: 0 0 auto; width: auto; }
+            .col-md-1 { flex: 0 0 auto; width: 8.333333%; }
+            .col-md-2 { flex: 0 0 auto; width: 16.666667%; }
+            .col-md-3 { flex: 0 0 auto; width: 25%; }
+            .col-md-4 { flex: 0 0 auto; width: 33.333333%; }
+            .col-md-5 { flex: 0 0 auto; width: 41.666667%; }
+            .col-md-6 { flex: 0 0 auto; width: 50%; }
+            .col-md-7 { flex: 0 0 auto; width: 58.333333%; }
+            .col-md-8 { flex: 0 0 auto; width: 66.666667%; }
+            .col-md-9 { flex: 0 0 auto; width: 75%; }
+            .col-md-10 { flex: 0 0 auto; width: 83.333333%; }
+            .col-md-11 { flex: 0 0 auto; width: 91.666667%; }
+            .col-md-12 { flex: 0 0 auto; width: 100%; }
+        }
+
+        @media (min-width: 992px) {
+            .col-lg-auto { flex: 0 0 auto; width: auto; }
+            .col-lg-1 { flex: 0 0 auto; width: 8.333333%; }
+            .col-lg-2 { flex: 0 0 auto; width: 16.666667%; }
+            .col-lg-3 { flex: 0 0 auto; width: 25%; }
+            .col-lg-4 { flex: 0 0 auto; width: 33.333333%; }
+            .col-lg-5 { flex: 0 0 auto; width: 41.666667%; }
+            .col-lg-6 { flex: 0 0 auto; width: 50%; }
+            .col-lg-7 { flex: 0 0 auto; width: 58.333333%; }
+            .col-lg-8 { flex: 0 0 auto; width: 66.666667%; }
+            .col-lg-9 { flex: 0 0 auto; width: 75%; }
+            .col-lg-10 { flex: 0 0 auto; width: 83.333333%; }
+            .col-lg-11 { flex: 0 0 auto; width: 91.666667%; }
+            .col-lg-12 { flex: 0 0 auto; width: 100%; }
+        }
+
+        @media (min-width: 1200px) {
+            .col-xl-auto { flex: 0 0 auto; width: auto; }
+            .col-xl-1 { flex: 0 0 auto; width: 8.333333%; }
+            .col-xl-2 { flex: 0 0 auto; width: 16.666667%; }
+            .col-xl-3 { flex: 0 0 auto; width: 25%; }
+            .col-xl-4 { flex: 0 0 auto; width: 33.333333%; }
+            .col-xl-5 { flex: 0 0 auto; width: 41.666667%; }
+            .col-xl-6 { flex: 0 0 auto; width: 50%; }
+            .col-xl-7 { flex: 0 0 auto; width: 58.333333%; }
+            .col-xl-8 { flex: 0 0 auto; width: 66.666667%; }
+            .col-xl-9 { flex: 0 0 auto; width: 75%; }
+            .col-xl-10 { flex: 0 0 auto; width: 83.333333%; }
+            .col-xl-11 { flex: 0 0 auto; width: 91.666667%; }
+            .col-xl-12 { flex: 0 0 auto; width: 100%; }
+        }
+
+        @media (min-width: 1400px) {
+            .col-xxl-auto { flex: 0 0 auto; width: auto; }
+            .col-xxl-1 { flex: 0 0 auto; width: 8.333333%; }
+            .col-xxl-2 { flex: 0 0 auto; width: 16.666667%; }
+            .col-xxl-3 { flex: 0 0 auto; width: 25%; }
+            .col-xxl-4 { flex: 0 0 auto; width: 33.333333%; }
+            .col-xxl-5 { flex: 0 0 auto; width: 41.666667%; }
+            .col-xxl-6 { flex: 0 0 auto; width: 50%; }
+            .col-xxl-7 { flex: 0 0 auto; width: 58.333333%; }
+            .col-xxl-8 { flex: 0 0 auto; width: 66.666667%; }
+            .col-xxl-9 { flex: 0 0 auto; width: 75%; }
+            .col-xxl-10 { flex: 0 0 auto; width: 83.333333%; }
+            .col-xxl-11 { flex: 0 0 auto; width: 91.666667%; }
+            .col-xxl-12 { flex: 0 0 auto; width: 100%; }
+        }
+
+        .d-flex { display: flex !important; }
+        .d-inline-flex { display: inline-flex !important; }
+        .d-block { display: block !important; }
+        .d-none { display: none !important; }
+        .flex-column { flex-direction: column !important; }
+        .flex-wrap { flex-wrap: wrap !important; }
+        .align-items-center { align-items: center !important; }
+        .align-items-start { align-items: flex-start !important; }
+        .align-items-end { align-items: flex-end !important; }
+        .justify-content-center { justify-content: center !important; }
+        .justify-content-between { justify-content: space-between !important; }
+        .justify-content-end { justify-content: flex-end !important; }
+        .text-center { text-align: center !important; }
+        .text-start { text-align: start !important; }
+        .text-end { text-align: end !important; }
+        .order-1 { order: 1 !important; } .order-2 { order: 2 !important; } .order-3 { order: 3 !important; }
+        .gap-1 { gap: 4px !important; }  .gap-2 { gap: 8px !important; }
+        .gap-3 { gap: 16px !important; } .gap-4 { gap: 24px !important; }
+        .mt-1 { margin-top: 4px !important; }   .mt-2 { margin-top: 8px !important; }
+        .mt-3 { margin-top: 16px !important; }  .mt-4 { margin-top: 24px !important; }
+        .mt-5 { margin-top: 48px !important; }
+        .mb-1 { margin-bottom: 4px !important; }  .mb-2 { margin-bottom: 8px !important; }
+        .mb-3 { margin-bottom: 16px !important; } .mb-4 { margin-bottom: 24px !important; }
+        .mb-5 { margin-bottom: 48px !important; }
+        .me-3 { margin-inline-end: 16px !important; }
+        .mr-3 { margin-inline-end: 16px !important; }
+        .py-5 { padding-top: 48px !important; padding-bottom: 48px !important; }
+        .img-fluid { max-width: 100%; height: auto; }
+        .clearfix::after { display: block; clear: both; content: ""; }
+        .visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0;
+            margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
         html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
         body {
             margin: 0;
@@ -433,6 +741,7 @@
         .ks-foot a { color: var(--text-2); text-decoration: none; transition: color .2s ease; }
         .ks-foot a:hover { color: var(--brand); }
         .ks-foot h4 { color: var(--text-1); font-size: 14px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; margin: 0 0 var(--sp-4); }
+        .ks-foot__h { font-size: 15px; font-weight: 700; color: var(--text-1); margin: 0 0 var(--sp-4); letter-spacing: 0; }
         .ks-foot__brand { display: flex; align-items: center; gap: 10px; margin-bottom: var(--sp-4); }
         .ks-foot__brand img { height: 38px; width: auto; }
         .ks-foot__about { color: var(--text-3); font-size: 14px; line-height: 1.7; margin: 0 0 var(--sp-4); }
@@ -571,9 +880,9 @@
 
 {{-- Mobile drawer --}}
 <div class="ks-drawer__backdrop" id="ksDrawerBackdrop"></div>
-<aside class="ks-drawer" id="ksDrawer" aria-hidden="true">
+<aside class="ks-drawer" id="ksDrawer" aria-hidden="true" inert>
     <div class="ks-drawer__head">
-        <a href="{{ route('home') }}" class="ks-nav__brand"><img src="{{ asset('images/logo.webp') }}" alt="Khaled Ahmed"></a>
+        <a href="{{ route('home') }}" class="ks-nav__brand"><img src="{{ asset('images/logo-360w.webp') }}" alt="Khaled Ahmed"></a>
         <button type="button" class="ks-drawer__close" id="ksDrawerClose" aria-label="Close menu"><i class="fas fa-times"></i></button>
     </div>
     <ul class="ks-drawer__links">
@@ -601,10 +910,13 @@
     'use strict';
     // Nav scrolled state
     var nav = document.querySelector('.ks-nav');
+    var fabTop = document.getElementById('ksFabTop');
     var onScroll = function () {
-        if (nav) nav.classList.toggle('is-scrolled', window.scrollY > 8);
-        var fabTop = document.getElementById('ksFabTop');
-        if (fabTop) fabTop.classList.toggle('is-visible', window.scrollY > 300);
+        // Read scroll position once, before any class change. Reading it again after a
+        // classList.toggle() has invalidated style forces a synchronous layout.
+        var y = window.scrollY;
+        if (nav) nav.classList.toggle('is-scrolled', y > 8);
+        if (fabTop) fabTop.classList.toggle('is-visible', y > 300);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
@@ -630,12 +942,12 @@
     var closeBtn = document.getElementById('ksDrawerClose');
     var openBtns = document.querySelectorAll('[data-ks-drawer-open]');
     var open = function () {
-        if (drawer) { drawer.classList.add('is-open'); drawer.setAttribute('aria-hidden', 'false'); }
+        if (drawer) { drawer.classList.add('is-open'); drawer.setAttribute('aria-hidden','false'); drawer.removeAttribute('inert'); }
         if (backdrop) backdrop.classList.add('is-open');
         document.body.classList.add('has-drawer-open');
     };
     var close = function () {
-        if (drawer) { drawer.classList.remove('is-open'); drawer.setAttribute('aria-hidden', 'true'); }
+        if (drawer) { drawer.classList.remove('is-open'); drawer.setAttribute('aria-hidden','true'); drawer.setAttribute('inert',''); }
         if (backdrop) backdrop.classList.remove('is-open');
         document.body.classList.remove('has-drawer-open');
     };

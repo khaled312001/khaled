@@ -5,7 +5,7 @@
 <header class="ks-nav" id="ksNav">
     <div class="ks-nav__inner">
         <a href="{{ route('home') }}" class="ks-nav__brand" aria-label="Khaled Ahmed Home">
-            <img src="{{ asset('images/logo.webp') }}" alt="Khaled Ahmed" width="180" height="38">
+            <img src="{{ asset('images/logo-360w.webp') }}" alt="Khaled Ahmed" width="180" height="38">
         </a>
 
         <nav class="ks-nav__links" aria-label="Primary">

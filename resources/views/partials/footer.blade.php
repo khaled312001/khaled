@@ -7,7 +7,7 @@
         <div class="row g-5">
             <div class="col-lg-3">
                 <div class="ks-foot__brand">
-                    <img src="{{ asset('images/logo.webp') }}" alt="Khaled Ahmed" width="180" height="38">
+                    <img src="{{ asset('images/logo-360w.webp') }}" alt="Khaled Ahmed" width="180" height="38">
                 </div>
                 <p class="ks-foot__about">
                     {{ $khLocale === 'ar' ? 'مطور ويب Full Stack خبير في Laravel و React و Node.js. أكثر من خمس سنوات خبرة و25 مشروعا منشورا في ثماني دول.' : 'Senior full stack web developer specialized in Laravel, React, and Node.js. 5+ years of experience and 25+ shipped production projects across 8 countries.' }}
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="col-6 col-md-4 col-lg-3">
-                <h4>{{ $khLocale === 'ar' ? 'الخدمات' : 'Services' }}</h4>
+                <h2 class="ks-foot__h">{{ $khLocale === 'ar' ? 'الخدمات' : 'Services' }}</h2>
                 <ul class="ks-foot__links">
                     @foreach(\App\Services\LandingService::index() as $lp)
                         <li><a href="{{ route('landing', $lp['slug']) }}">{{ $lp['label'] }}</a></li>
@@ -28,7 +28,7 @@
                 </ul>
             </div>
             <div class="col-6 col-md-4 col-lg-2">
-                <h4>{{ $khLocale === 'ar' ? 'الموقع' : 'Site' }}</h4>
+                <h2 class="ks-foot__h">{{ $khLocale === 'ar' ? 'الموقع' : 'Site' }}</h2>
                 <ul class="ks-foot__links">
                     <li><a href="{{ route('home') }}">{{ __('site.home') }}</a></li>
                     <li><a href="{{ route('about') }}">{{ __('site.about') }}</a></li>
@@ -38,7 +38,7 @@
                 </ul>
             </div>
             <div class="col-md-4 col-lg-4">
-                <h4>{{ $khLocale === 'ar' ? 'تواصل' : 'Get in touch' }}</h4>
+                <h2 class="ks-foot__h">{{ $khLocale === 'ar' ? 'تواصل' : 'Get in touch' }}</h2>
                 <ul class="ks-foot__links">
                     <li><a href="mailto:khaledahmedhaggagy@gmail.com"><i class="fas fa-envelope" style="color:var(--brand);width:16px;"></i> khaledahmedhaggagy@gmail.com</a></li>
                     <li><a href="tel:+201204593124" dir="ltr"><i class="fas fa-phone-alt" style="color:var(--brand);width:16px;"></i> +20 120 459 3124</a></li>
