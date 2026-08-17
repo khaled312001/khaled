@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
-@php $isAr = app()->getLocale() === 'ar'; @endphp
+@php
+    $isAr = app()->getLocale() === 'ar';
+    // str_word_count() is byte-oriented and silently undercounts Arabic, which would put a
+    // wrong wordCount in the BlogPosting schema on every /ar page.
+    $khWordCount = count(preg_split('/\s+/u', trim(strip_tags($post['content'])), -1, PREG_SPLIT_NO_EMPTY));
+@endphp
 
 @section('title', $post['meta_title'] ?? $post['title'])
 @section('description', $post['meta_description'] ?? $post['excerpt'])
@@ -11,8 +16,15 @@
 
 @section('structured_data')
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","headline":@json($post['title']),"description":@json($post['excerpt']),"datePublished":"{{ $post['date'] }}","dateModified":"{{ $post['date'] }}","author":{"@type":"Person","name":"Khaled Ahmed","url":"https://khaledahmed.net"},"publisher":{"@type":"Organization","name":"Khaled Ahmed","logo":{"@type":"ImageObject","url":"{{ asset('images/logo.png') }}"}},"mainEntityOfPage":{"@type":"WebPage","@id":"{{ route('blog.show', $post['slug']) }}"},"keywords":@json(implode(', ', $post['tags']))}
+{"@context":"https://schema.org","@type":"BlogPosting","headline":@json($post['title']),"description":@json($post['excerpt']),"datePublished":"{{ $post['date'] }}","dateModified":"{{ $post['updated'] ?? $post['date'] }}","inLanguage":"{{ $isAr ? 'ar' : 'en' }}","wordCount":{{ $khWordCount }},"articleSection":@json($post['category']),"author":{"@type":"Person","name":"Khaled Ahmed","url":"https://khaledahmed.net","jobTitle":"Senior Full Stack Web Developer","sameAs":["https://linkedin.com/in/khaled-ahmed-82368819b","https://github.com/khaled312001"]},"publisher":{"@type":"Organization","name":"Khaled Ahmed","logo":{"@type":"ImageObject","url":"{{ asset('images/logo.png') }}"}},"mainEntityOfPage":{"@type":"WebPage","@id":"{{ route('blog.show', $post['slug']) }}"},"keywords":@json(implode(', ', $post['tags']))}
 </script>
+@if(!empty($post['faq']))
+{{-- FAQPage schema. These are the verbatim question strings the keyword research pulled
+     from People-Also-Ask, which is where a low-authority domain can still win a result. --}}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[@foreach($post['faq'] as $f){"@type":"Question","name":@json($isAr ? ($f['q_ar'] ?? $f['q']) : $f['q']),"acceptedAnswer":{"@type":"Answer","text":@json($isAr ? ($f['a_ar'] ?? $f['a']) : $f['a'])}}@if(!$loop->last),@endif @endforeach]}
+</script>
+@endif
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},{"@type":"ListItem","position":2,"name":"Blog","item":"{{ route('blogs') }}"},{"@type":"ListItem","position":3,"name":@json($post['title']),"item":"{{ route('blog.show', $post['slug']) }}"}]}
 </script>
@@ -71,6 +83,18 @@
     .pd-author__links a:hover { color: var(--brand); border-color: var(--border-3) !important; }
 
     /* Related */
+    /* FAQ accordion — mirrors the FAQPage schema emitted in the head */
+    .pd-faq { margin-top: var(--sp-7); padding-top: var(--sp-6); border-top: 1px solid var(--border-1); }
+    .pd-faq h2 { font-size: 26px; margin: 0 0 var(--sp-5); }
+    .pd-faq details { border: 1px solid var(--border-1); border-radius: var(--r-md); background: var(--surface-1); margin-bottom: 12px; overflow: hidden; transition: border-color .2s ease; }
+    .pd-faq details[open] { border-color: var(--border-3); }
+    .pd-faq summary { cursor: pointer; padding: 16px 20px; font-weight: 650; font-size: 16px; color: var(--text-1); list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 14px; }
+    .pd-faq summary::-webkit-details-marker { display: none; }
+    .pd-faq summary::after { content: '+'; flex-shrink: 0; font-size: 22px; font-weight: 400; color: var(--brand); line-height: 1; transition: transform .2s ease; }
+    .pd-faq details[open] summary::after { content: '\2212'; }
+    .pd-faq summary:hover { color: var(--brand); }
+    .pd-faq .ans { padding: 0 20px 18px; color: var(--text-2); font-size: 15px; line-height: 1.75; }
+
     .pd-related { padding: var(--sp-7) 0; background: rgba(255,255,255,0.02); margin-top: var(--sp-7); }
     .pd-related h2 { text-align: center; margin-bottom: var(--sp-6); }
     .pd-rel-card { display: flex; flex-direction: column; height: 100%; padding: 22px 22px 20px; background: var(--surface-1); border: 1px solid var(--border-1); border-radius: var(--r-md); border-inline-start: 3px solid var(--brand); text-decoration: none; transition: all .2s ease; }
@@ -117,6 +141,18 @@
                     <div class="pd-content" itemprop="articleBody">
                         {!! $post['content'] !!}
                     </div>
+
+                    @if(!empty($post['faq']))
+                    <section class="pd-faq" aria-labelledby="pd-faq-h">
+                        <h2 id="pd-faq-h">{{ $isAr ? 'أسئله شائعه' : 'Frequently asked questions' }}</h2>
+                        @foreach($post['faq'] as $i => $f)
+                            <details @if($i === 0) open @endif>
+                                <summary>{{ $isAr ? ($f['q_ar'] ?? $f['q']) : $f['q'] }}</summary>
+                                <div class="ans">{{ $isAr ? ($f['a_ar'] ?? $f['a']) : $f['a'] }}</div>
+                            </details>
+                        @endforeach
+                    </section>
+                    @endif
 
                     <div class="pd-tags">
                         <strong>{{ $isAr ? 'كلمات مفتاحية' : 'Tags' }}:</strong>
