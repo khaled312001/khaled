@@ -37,6 +37,208 @@ class LandingService
     private static function pages(): array
     {
         return [
+            'web-development-saudi-arabia' => [
+                'slug' => 'web-development-saudi-arabia',
+                'related_posts' => [
+                    'gcc-payment-gateway-integration',
+                    'zatca-einvoicing-laravel-integration',
+                    'website-cost-egypt-gulf',
+                    'kayfa-takhtar-mubarmij-mawaqe',
+                    'ecommerce-website-development-guide',
+                    'how-to-hire-a-web-developer',
+                ],
+                'nav' => 'Saudi Arabia',
+                'nav_ar' => 'السعوديه',
+                'service_type' => 'Custom E-commerce & Web Development for Saudi Arabia',
+                'related_category' => 'E-commerce',
+                'image' => 'site/ecommerce-store.webp',
+                'image_alt' => 'Custom Saudi online store with mada, Tabby and ZATCA e-invoicing integrated',
+                'keywords' => 'متجر مخصص السعوديه, الانتقال من سلة الى متجر مخصص, بديل سلة, قيود سلة, ربط زاتكا, الفاتورة الإلكترونية المرحلة الثانية, ربط مدى, ربط تابي وتمارا, تكلفة متجر الكتروني مخصص السعودية, شركة برمجة ولا مبرمج مستقل, مطور ويب للسوق السعودي',
+                'meta_title' => 'Custom Store vs Salla — An Honest Guide for Saudi Merchants',
+                'meta_title_ar' => 'متجر مخصص أم Salla؟ دليل صريح للتاجر السعودي',
+                'meta_description' => 'When to stay on Salla or Zid and when a custom build actually saves money. SAR numbers, the five platform ceilings, and mada, Tabby and ZATCA integration.',
+                'meta_description_ar' => 'متى تبقى على Salla أو Zid ومتى يوفّر البناء المخصص مالك فعلا. أرقام بالريال، وسقوف المنصات الخمسه، وربط مدى وTabby وزاتكا. من مطور مستقل بلا عمولات منصات.',
+                'h1' => 'Custom Store or Salla? An Honest Guide for Saudi Merchants',
+                'h1_ar' => 'متجر مخصص أم Salla؟ الدليل الصريح للتاجر السعودي',
+                'hero_sub' => 'No platform commissions, no agency markup. 11 projects shipped for Saudi clients, and honest advice about when not to hire me.',
+                'hero_sub_ar' => 'بلا عمولات منصات وبلا هامش وكاله. أحد عشر مشروعا لعملاء سعوديين، ونصيحه صريحه عن الحالات التي لا يجب أن تتعاقد فيها معي.',
+                'intro_html' => <<<'HTML'
+<p class="lead">If you sell online in Saudi Arabia you are probably on Salla or Zid, and for most merchants that is the right call. The question nobody answers honestly is when the platform stops helping and starts being a ceiling. Salla and Zid will never publish that answer, and most Saudi agencies cannot either — they are platform implementation partners earning commission. I have no stake in that.</p>
+
+<p>I am Khaled Ahmed, a freelance Full Stack developer based in Cairo. I have shipped 39+ production projects across 8 countries, 11 of them for Saudi clients, plus 7 apps live on Google Play. I sell no subscriptions and take no platform commission, which means I can tell you the thing nobody else will: <strong>most of the time you should stay on Salla.</strong></p>
+
+<h3>When to stay — and not pay me a riyal</h3>
+<p>Under roughly 2,000 SKUs, under 500 orders a month, no custom fulfilment logic and no ERP to integrate: the platform is cheaper, faster and safer. A few hundred riyals a month buys you payment rails, ZATCA compliance, shipping carriers, hosting and maintenance. Rebuilding that from scratch costs tens of thousands and sells you nothing extra. Anyone telling you otherwise is selling something.</p>
+
+<h3>When staying becomes the expensive option</h3>
+<p>Five specific ceilings actually force migration, and each shows up as a symptom before it shows up as a decision: theme customisation limits, once your design is constrained by what the platform permits; an unmodifiable checkout flow, which is the single highest-leverage step for conversion; no server-side business logic, so you cannot run pricing, discount or inventory rules of your own; per-order transaction economics, which at volume shift from a line item to your largest operating cost; and data and reporting export limits, once inventory or accounting must talk to an outside system.</p>
+
+<p>The practical rule: if monthly transaction fees exceed what maintaining a custom system would cost, or your team manually repeats work every month that the platform will not automate, you have passed the ceiling. Past that point a custom build pays for itself.</p>
+HTML,
+                'intro_html_ar' => <<<'HTML'
+<p class="lead">إن كنت تبيع في السعوديه اليوم فأنت على الأرجح على Salla أو Zid، وهذا قرار صحيح في بدايتك. السؤال الذي لا يجيبك عنه أحد بصدق هو: متى تتوقف المنصه عن كونها مساعدا وتبدأ في كونها سقفا؟ لن تجد الإجابه عند Salla ولا عند Zid، ولن تجدها عند وكاله برمجه سعوديه لأن أغلبها شريك معتمد للمنصه ويأخذ عمولته منها. أنا لست طرفا في هذه المعادله.</p>
+
+<p>أنا خالد أحمد، مطور Full Stack مستقل من القاهره. سلّمت أكثر من 39 مشروعا في بيئه الإنتاج عبر 8 دول، منها 11 مشروعا لعملاء سعوديين، و7 تطبيقات منشوره على Google Play. لا أبيع اشتراكات ولا أتقاضى عمولات منصات، وهذا يعني أنني أستطيع أن أقول لك الشيء الذي لا يقوله لك أحد: <strong>في أغلب الحالات يجب أن تبقى على Salla.</strong></p>
+
+<h3>متى تبقى على المنصه — ولا تدفع لي ريالا</h3>
+<p>إذا كان لديك أقل من ألفي منتج، وأقل من خمسمئه طلب شهريا، ولا تحتاج منطق تنفيذ خاصا، ولا ترتبط بنظام ERP، فالمنصه أرخص وأسرع وأأمن لك. الاشتراك يكلفك مئات الريالات شهريا مقابل بنيه تحتيه كامله: بوابات الدفع، والفاتوره الإلكترونيه، وشركات الشحن، والاستضافه، والصيانه. بناء ذلك من الصفر سيكلفك عشرات الآلاف ولن يعطيك مبيعات إضافيه. من يخبرك بغير ذلك يبيع لك شيئا.</p>
+
+<h3>متى يصبح البقاء هو الخيار المكلف</h3>
+<p>هناك خمسه أسقف محدده تدفع التجار فعليا إلى البناء المخصص، وكلها تظهر كأعراض قبل أن تظهر كقرار: حدود تخصيص القوالب حين يصبح تصميمك مقيدا بما تسمح به المنصه؛ وعدم القدره على تعديل مسار إتمام الطلب رغم أنه أكثر خطوه تؤثر في معدل التحويل؛ وغياب منطق أعمال من جانب الخادم فلا تستطيع تنفيذ تسعير أو خصم أو تخصيص مخزون بقواعدك أنت؛ واقتصاديات رسوم المعاملات التي تتحول مع الحجم من بند صغير إلى أكبر بند تشغيلي لديك؛ وحدود تصدير البيانات والتقارير حين تحتاج ربط مخزونك أو محاسبتك بنظام خارجي.</p>
+
+<p>القاعده العمليه: إذا كنت تدفع رسوم معاملات شهريه تتجاوز تكلفه صيانه نظام مخصص، أو إذا كان فريقك ينفّذ يدويا كل شهر عملا تستطيع المنصه ألا تؤتمته، فقد تجاوزت السقف. عند هذه النقطه يصبح البناء المخصص استثمارا يسترد نفسه، لا ترفا.</p>
+HTML,
+                'deliverables' => [
+                    'Salla / Zid migration with products, orders and customers moved intact',
+                    '301 redirect mapping so you keep the Google rankings you already earned',
+                    'mada, Visa/Mastercard and Apple Pay through one SAMA-licensed gateway',
+                    'Tabby and Tamara BNPL, including the refund and settlement edge cases',
+                    'ZATCA Phase 2: UBL 2.1 XML, cryptographic stamping, QR and clearance API',
+                    'Arabic-first RTL storefront, not an English theme with the direction flipped',
+                    'Saudi carrier integrations and a fulfilment flow that matches how you actually ship',
+                    '36-month total-cost comparison in SAR before you commit to anything',
+                ],
+                'deliverables_ar' => [
+                    'الانتقال من Salla أو Zid مع نقل المنتجات والطلبات والعملاء كامله',
+                    'خريطه تحويلات 301 تحافظ على ترتيبك الحالي في Google بدل أن تخسره',
+                    'ربط mada وVisa وMastercard وApple Pay عبر بوابه واحده مرخصه من ساما',
+                    'ربط Tabby وTamara مع معالجه حالات الاسترداد والتسويه لا الحاله المثاليه فقط',
+                    'الفاتوره الإلكترونيه المرحله الثانيه: UBL 2.1 والختم التشفيري ورمز QR وواجهه المطابقه',
+                    'واجهه عربيه RTL مبنيه عربيا من الأساس، لا قالب إنجليزي معكوس الاتجاه',
+                    'ربط شركات الشحن السعوديه ومسار تنفيذ يطابق طريقه شحنك الفعليه',
+                    'مقارنه تكلفه إجماليه على 36 شهرا بالريال قبل أن تلتزم بأي شيء',
+                ],
+                'why_html' => <<<'HTML'
+<p><strong>No platform affiliation.</strong> I take no commission from Salla, Zid, or any payment provider. When I tell you to stay on the platform I am telling you not to pay me, and in this market that is the only differentiator that matters.</p>
+<p><strong>Eleven projects for Saudi clients.</strong> I know what actually breaks here: mada is not optional, ZATCA is not a later add-on, BNPL has its own refund semantics, and local carriers behave differently from international APIs.</p>
+<p><strong>Cairo is GMT+2</strong> — one hour behind Riyadh. Your working day is my working day, so there is no 24-hour gap between a question and its answer.</p>
+<p><strong>Direct, no intermediaries.</strong> You talk to the person writing the code, not an account manager relaying messages. You own the code outright on delivery, the repository is in your name, and you are not locked to me afterwards.</p>
+HTML,
+                'why_html_ar' => <<<'HTML'
+<p><strong>لست شريكا لأي منصه.</strong> لا أتقاضى عمولات من Salla ولا Zid ولا من أي مزود دفع. حين أنصحك بالبقاء على المنصه فأنا أنصحك بألا تدفع لي، وهذا هو الفرق الوحيد الذي يهم فعلا في هذه السوق.</p>
+<p><strong>أحد عشر مشروعا لعملاء سعوديين.</strong> أعرف ما يكسر فعلا في السوق السعوديه: مدى ليس اختياريا، والفاتوره الإلكترونيه ليست إضافه لاحقه، ومسار الدفع بالتقسيط له منطق استرداد خاص، وشركات الشحن المحليه لها سلوك API مختلف عن العالمي.</p>
+<p><strong>القاهره على توقيت GMT+2.</strong> ساعه واحده فقط خلف الرياض. يوم عملك هو يوم عملي — لا انتظار أربعا وعشرين ساعه بين سؤال وإجابه، ولا فرق مناطق زمنيه يعطّل قرارا.</p>
+<p><strong>تعامل مباشر بلا وسطاء.</strong> تتحدث مع من يكتب الكود، لا مع مدير حساب ينقل رسائلك. الكود ملكك بالكامل عند التسليم، والمستودع باسمك، ولا ارتباط بي بعد ذلك.</p>
+HTML,
+                'tech' => ['Laravel', 'React', 'Next.js', 'MySQL', 'mada', 'Tabby', 'Tamara', 'ZATCA', 'Redis'],
+                'faq' => [
+                    ['q' => 'Should I actually leave Salla?', 'a' => 'Usually not. Under ~2,000 SKUs, under 500 orders a month, no custom fulfilment logic and no ERP, the platform is cheaper and safer than anything I could build you. I will tell you that on the first call rather than after you have paid for a discovery phase.'],
+                    ['q' => 'What does a custom Saudi store cost?', 'a' => 'A serious custom build in this market generally runs in the tens of thousands of SAR, against roughly a few hundred riyals a month for a platform subscription. The honest comparison is not the sticker price but the 36-month total: subscription plus add-ons plus transaction fees versus build plus hosting plus maintenance. I will show you the crossover month before you commit.'],
+                    ['q' => 'Do I lose my Google rankings if I migrate?', 'a' => 'Only if the migration is done carelessly. URL structure is preserved where possible and every changed URL gets a 301 to its new home, so accumulated ranking equity transfers. Losing rankings in a replatform is a preventable mistake, not an inevitable cost.'],
+                    ['q' => 'Is mada really mandatory?', 'a' => 'Not legally, but commercially it is close. mada is the domestic debit scheme on nearly every Saudi bank card and Saudi consumers reach for debit first. A checkout without it loses a large share of customers at the final step.'],
+                    ['q' => 'Do I need ZATCA integration for a custom store?', 'a' => 'If you are VAT-registered in the Kingdom and you issue tax invoices, yes. ZATCA regulates the invoice, not the software category, so a custom storefront that emails a receipt with a VAT line is in scope. Check your wave on the Fatoora portal with your tax advisor — the thresholds have moved repeatedly.'],
+                    ['q' => 'Why hire someone outside Saudi Arabia?', 'a' => 'Cost and access. You get a senior developer directly rather than a junior behind an account manager, at a rate a local agency cannot match, from one hour behind Riyadh. What you do not get is someone who can sit in your office — if that matters more than the work, hire locally.'],
+                ],
+                'faq_ar' => [
+                    ['q' => 'هل يجب أن أترك Salla فعلا؟', 'a' => 'غالبا لا. إن كان لديك أقل من ألفي منتج وأقل من خمسمئه طلب شهريا ولا تحتاج منطق تنفيذ خاصا ولا ربطا بنظام ERP، فالمنصه أرخص وأأمن من أي شيء أستطيع بناءه لك. سأقول لك هذا في أول مكالمه لا بعد أن تدفع مقابل مرحله دراسه.'],
+                    ['q' => 'كم يكلف المتجر المخصص في السعوديه؟', 'a' => 'البناء المخصص الجاد في هذه السوق يقع عاده في نطاق عشرات الآلاف من الريالات، مقابل بضع مئات شهريا لاشتراك منصه. لكن المقارنه الصادقه ليست السعر المعلن بل التكلفه الإجماليه على 36 شهرا: الاشتراك والإضافات ورسوم المعاملات مقابل البناء والاستضافه والصيانه. سأريك شهر التعادل قبل أن تلتزم.'],
+                    ['q' => 'هل أخسر ترتيبي في Google عند الانتقال؟', 'a' => 'فقط إذا نُفّذ الانتقال بإهمال. يُحافظ على بنيه الروابط قدر الإمكان، وكل رابط يتغير يحصل على تحويل 301 إلى موضعه الجديد، فتنتقل قيمه الترتيب المتراكمه معك. خساره الترتيب عند تغيير المنصه خطأ يمكن تفاديه لا تكلفه حتميه.'],
+                    ['q' => 'هل mada إلزاميه فعلا؟', 'a' => 'ليست إلزاميه قانونا لكنها كذلك تجاريا تقريبا. mada هي شبكه الخصم المحليه الموجوده على معظم البطاقات السعوديه، والمستهلك السعودي يبدأ بالخصم لا بالائتمان. مسار دفع بلا mada يخسر شريحه كبيره عند الخطوه الأخيره.'],
+                    ['q' => 'هل أحتاج ربط زاتكا لمتجر مخصص؟', 'a' => 'إن كنت مسجلا في ضريبه القيمه المضافه داخل المملكه وتصدر فواتير ضريبيه فنعم. الهيئه تنظّم الفاتوره لا نوع البرنامج، فالمتجر المخصص الذي يرسل إيصالا يحمل بند ضريبه يقع في النطاق. تحقق من موجتك على بوابه فاتوره مع مستشارك الضريبي، فالحدود تغيّرت أكثر من مره.'],
+                    ['q' => 'لماذا أتعاقد مع مطور خارج السعوديه؟', 'a' => 'التكلفه والوصول المباشر. تحصل على مطور خبير مباشره بدل مبرمج مبتدئ خلف مدير حساب، وبسعر لا تستطيع وكاله محليه مجاراته، من مطور يبعد ساعه واحده عن توقيت الرياض. ما لن تحصل عليه هو شخص يجلس في مكتبك — إن كان هذا أهم من العمل نفسه فتعاقد محليا.'],
+                ],
+            ],
+            'web-development-uae' => [
+                'slug' => 'web-development-uae',
+                'related_posts' => [
+                    'gcc-payment-gateway-integration',
+                    'zatca-einvoicing-laravel-integration',
+                    'multi-tenant-saas-laravel',
+                    'api-design-best-practices-2026',
+                    'who-owns-your-website-code',
+                    'how-to-hire-a-web-developer',
+                ],
+                'nav' => 'UAE',
+                'nav_ar' => 'الإمارات',
+                'service_type' => 'Custom Systems, E-invoicing & Web Development for the UAE',
+                'related_category' => 'Tech / SaaS',
+                'image' => 'site/saas-dashboard.webp',
+                'image_alt' => 'UAE e-invoicing integration dashboard for a custom-built business system',
+                'keywords' => 'UAE e-invoicing developer, Peppol UAE integration, PINT AE, UAE e-invoicing custom system, website development cost UAE, web developer for UAE company, offshore developer UAE, free zone company website, Network International integration, Telr integration, PayTabs UAE, VAT compliant invoicing system UAE',
+                'meta_title' => 'UAE E-invoicing & Custom Systems — Developer Guide',
+                'meta_title_ar' => 'الفاتوره الإلكترونيه الإماراتيه والأنظمه المخصصه',
+                'meta_description' => 'What UAE businesses on custom-built systems must do for Peppol / PINT AE e-invoicing, why free zones are not exempt, and what it costs. From a remote senior developer.',
+                'meta_description_ar' => 'ما تحتاجه المنشآت الإماراتيه ذات الأنظمه المخصصه للامتثال للفاتوره الإلكترونيه Peppol وPINT AE، ولماذا المناطق الحره ليست مستثناه، وكم يكلف ذلك.',
+                'h1' => 'UAE E-invoicing and Custom Systems: What You Actually Have to Do',
+                'h1_ar' => 'الفاتوره الإلكترونيه في الإمارات والأنظمه المخصصه: ما عليك فعله فعلا',
+                'hero_sub' => 'Free zones are not exempt. Neither are non-VAT-registered businesses. If your invoicing is custom-built, someone has to do this work — here is what it involves.',
+                'hero_sub_ar' => 'المناطق الحره ليست مستثناه، ولا المنشآت غير المسجله ضريبيا. إن كانت فوترتك مبنيه خصيصا لك فلا بد لأحد أن ينفّذ هذا العمل — وهذا ما يتضمنه.',
+                'intro_html' => <<<'HTML'
+<p class="lead">The UAE's mandatory e-invoicing system is closer than most business owners think, and three widespread assumptions about it are wrong. Free zone companies are <strong>not</strong> exempt. Businesses below the VAT threshold are <strong>not</strong> exempt. And the deadline that matters to you is not the go-live date — it is the accredited service provider appointment deadline, which lands months earlier.</p>
+
+<p>I am Khaled Ahmed, a freelance Full Stack developer based in Cairo, working remotely for clients across the Gulf and Europe. 39+ production projects across 8 countries, 7 apps live on Google Play. This page is about what UAE businesses running custom-built systems actually need to do, and what it costs.</p>
+
+<h3>What the mandate actually is</h3>
+<p>The UAE Electronic Invoicing System uses a decentralised five-corner Peppol model, with the Federal Tax Authority receiving tax data as invoices move across the network. The format is PINT AE, the UAE extension of Peppol BIS Billing 3.0, serialised as UBL 2.1 XML — a data dictionary of several hundred fields, dozens of them mandatory. It applies to B2B and B2G transactions for any person conducting business in the UAE. B2C is out of scope.</p>
+
+<p>The phasing runs by revenue band, with service-provider appointment deadlines preceding each go-live. Because these dates have already moved once, treat any specific date you read — including here — as something to confirm against the Ministry of Finance rather than to plan a budget around. What has not changed is the direction and the fact that the appointment deadline always precedes the go-live.</p>
+
+<h3>Why this is a development problem, not an accounting one</h3>
+<p>If you run off-the-shelf accounting software, your vendor will handle most of this. If any part of your invoicing is custom — a bespoke ERP, an in-house billing engine, a marketplace that issues invoices on behalf of sellers, or a SaaS product billing UAE customers — then someone has to map your data model onto PINT AE, integrate with an accredited service provider, and handle the failure paths. Penalties are assessed per invoice, so a business issuing a few hundred invoices a month carries exposure that dwarfs the cost of doing it properly.</p>
+HTML,
+                'intro_html_ar' => <<<'HTML'
+<p class="lead">نظام الفاتوره الإلكترونيه الإلزامي في الإمارات أقرب مما يظن أغلب أصحاب الأعمال، وثلاثه افتراضات شائعه عنه خاطئه: شركات المناطق الحره <strong>ليست</strong> مستثناه، والمنشآت تحت حد التسجيل الضريبي <strong>ليست</strong> مستثناه، والموعد الذي يعنيك ليس تاريخ التفعيل بل موعد تعيين مزود الخدمه المعتمد، وهو يسبقه بأشهر.</p>
+
+<p>أنا خالد أحمد، مطور Full Stack مستقل من القاهره، أعمل عن بعد مع عملاء في الخليج وأوروبا. أكثر من 39 مشروعا في بيئه الإنتاج عبر 8 دول، و7 تطبيقات على Google Play. هذه الصفحه عن ما تحتاجه فعلا المنشآت الإماراتيه التي تعمل بأنظمه مخصصه.</p>
+
+<h3>ما هو النظام فعليا</h3>
+<p>يعتمد النظام الإماراتي نموذج Peppol لامركزيا بخمس زوايا، وتتلقى الهيئه الاتحاديه للضرائب البيانات الضريبيه أثناء انتقال الفاتوره عبر الشبكه. الصيغه هي PINT AE، وهي امتداد إماراتي لمعيار Peppol BIS Billing 3.0 بترميز UBL 2.1، بقاموس بيانات يضم مئات الحقول عشرات منها إلزاميه. ينطبق على معاملات B2B وB2G لأي شخص يزاول نشاطا تجاريا في الدوله، أما B2C فخارج النطاق.</p>
+
+<p>يجري التطبيق على مراحل حسب شريحه الإيراد، ويسبق كل تفعيل موعد لتعيين مزود خدمه معتمد. وبما أن هذه المواعيد تغيّرت مره بالفعل، تعامل مع أي تاريخ محدد تقرأه — هنا أو في غيره — كشيء يجب تأكيده من وزاره الماليه لا كأساس لميزانيه.</p>
+
+<h3>لماذا هذه مسأله برمجيه لا محاسبيه</h3>
+<p>إذا كنت تستخدم برنامج محاسبه جاهزا فسيتولى المزود أغلب العمل. أما إذا كان أي جزء من فوترتك مخصصا — نظام ERP مبني لك، أو محرك فوتره داخلي، أو سوق إلكتروني يصدر فواتير نيابه عن البائعين، أو منتج SaaS يفوتر عملاء في الإمارات — فلا بد أن يقوم أحد بمطابقه نموذج بياناتك مع PINT AE، والتكامل مع مزود معتمد، ومعالجه مسارات الفشل. الغرامات تُحتسب على مستوى الفاتوره الواحده، فمنشأه تصدر بضع مئات من الفواتير شهريا تحمل تعرضا يفوق كثيرا تكلفه تنفيذ العمل بشكل صحيح.</p>
+HTML,
+                'deliverables' => [
+                    'Readiness audit: where your current invoicing data falls short of PINT AE',
+                    'Mapping your data model onto the PINT AE / UBL 2.1 schema field by field',
+                    'Integration with an accredited service provider, including sandbox validation',
+                    'Failure handling: rejected invoices, retries, and a reconciliation path that closes',
+                    'Archiving and audit trail that satisfies record-keeping obligations',
+                    'Payment integration — Network International, Telr, PayTabs, Stripe, Apple Pay',
+                    'Arabic RTL interfaces for government-adjacent and enterprise work',
+                    'Custom web apps, SaaS platforms and stores for free zone and mainland companies',
+                ],
+                'deliverables_ar' => [
+                    'تقييم جاهزيه يحدد أين تقصّر بيانات فوترتك الحاليه عن متطلبات PINT AE',
+                    'مطابقه نموذج بياناتك مع مخطط PINT AE وUBL 2.1 حقلا بحقل',
+                    'التكامل مع مزود خدمه معتمد مع التحقق في بيئه الاختبار',
+                    'معالجه حالات الفشل: الفواتير المرفوضه وإعاده المحاوله ومسار تسويه ينتهي فعلا',
+                    'الأرشفه وسجل التدقيق بما يستوفي التزامات حفظ السجلات',
+                    'ربط المدفوعات — Network International وTelr وPayTabs وStripe وApple Pay',
+                    'واجهات عربيه RTL للأعمال الحكوميه والمؤسسيه',
+                    'تطبيقات ويب ومنصات SaaS ومتاجر لشركات المناطق الحره والبر الرئيسي',
+                ],
+                'why_html' => <<<'HTML'
+<p><strong>The English UAE market is open to remote developers, and the SERPs prove it.</strong> The offshore agencies already ranking for UAE cost and comparison queries hold no .ae domain either. What decides the outcome here is depth, not a Dubai address — and unlike an agency, you get the person doing the work.</p>
+<p><strong>Compliance work is where custom systems break.</strong> Most integration guidance assumes you run standard accounting software. If your invoicing is bespoke, the mapping, the service-provider integration and the failure paths are all yours to solve. That is the work I do.</p>
+<p><strong>Cairo is GMT+2</strong> — two hours behind Dubai, so effectively the same working day, with a genuine overlap into European hours if your business spans both.</p>
+<p><strong>You own everything.</strong> Code, repository, servers and accounts are in your name on delivery. No retainer lock-in, no hosting held hostage, no licence you have to keep paying to keep running.</p>
+HTML,
+                'why_html_ar' => <<<'HTML'
+<p><strong>السوق الإماراتي بالإنجليزيه مفتوح للمطورين عن بعد، ونتائج البحث تثبت ذلك.</strong> الشركات التي تتصدر اليوم استعلامات التكلفه والمقارنه الإماراتيه لا تملك نطاقات ae. الذي يحسم الأمر هنا هو العمق لا العنوان في دبي — والفرق أنك تتعامل مع من ينفّذ العمل مباشره.</p>
+<p><strong>أعمال الامتثال هي حيث تنكسر الأنظمه المخصصه.</strong> أغلب الإرشادات تفترض أنك تستخدم برنامج محاسبه قياسيا. أما إذا كانت فوترتك مبنيه خصيصا لك، فمطابقه البيانات والتكامل مع المزود المعتمد ومعالجه الأخطاء كلها مسؤوليتك أنت. هذا هو العمل الذي أقوم به.</p>
+<p><strong>القاهره على توقيت GMT+2</strong> — ساعتان خلف دبي، أي يوم العمل نفسه عمليا، مع تداخل حقيقي مع التوقيت الأوروبي إن كان نشاطك يمتد إليه.</p>
+<p><strong>تملك كل شيء.</strong> الكود والمستودع والخوادم والحسابات باسمك عند التسليم. لا ارتباط باشتراك، ولا استضافه محتجزه، ولا ترخيص تدفعه للأبد كي يستمر النظام في العمل.</p>
+HTML,
+                'tech' => ['Laravel', 'Node.js', 'React', 'Next.js', 'PostgreSQL', 'Peppol', 'UBL 2.1', 'Docker'],
+                'faq' => [
+                    ['q' => 'Is my free zone company exempt from UAE e-invoicing?', 'a' => 'No. The system applies to any person conducting business in the UAE, and free zone entities are in scope regardless of licence jurisdiction. This is the single most common misunderstanding I hear, and it is the one that causes businesses to start late.'],
+                    ['q' => 'I am not VAT-registered. Does it still apply?', 'a' => 'Yes. Scope is not limited to VAT-registered businesses — the obligation attaches to conducting business in the UAE for B2B and B2G transactions. B2C is out of scope.'],
+                    ['q' => 'When do I actually need to be ready?', 'a' => 'Earlier than the go-live date you have in mind, because the deadline to appoint an accredited service provider comes first, and phasing runs by revenue band. These dates have already been revised once, so confirm your own band against the Ministry of Finance rather than any blog — including this one.'],
+                    ['q' => 'What happens if invoices fail validation?', 'a' => 'Penalties are assessed per invoice under the relevant Cabinet Decision, which is what makes this disproportionately expensive at volume: a business issuing a few hundred invoices a month can accumulate exposure far beyond what compliance work costs. Build the failure path properly and it never arises.'],
+                    ['q' => 'Can I hire a developer outside the UAE for this?', 'a' => 'Yes, and the search results already show it: the pages ranking for UAE development cost and comparison queries are largely offshore firms with no .ae domain. What matters is whether the developer understands the schema and the service-provider integration. What you give up is someone who can attend meetings in person.'],
+                    ['q' => 'What does this cost?', 'a' => 'It depends entirely on how custom your invoicing already is. A system that already produces structured invoice data with clean tax fields is a mapping and integration job. One where invoice logic is scattered across templates and manual steps needs that fixed first. I scope it after the readiness audit and quote a fixed fee, not an open-ended hourly.'],
+                ],
+                'faq_ar' => [
+                    ['q' => 'هل شركتي في منطقه حره مستثناه من الفاتوره الإلكترونيه؟', 'a' => 'لا. ينطبق النظام على أي شخص يزاول نشاطا تجاريا في الدوله، وكيانات المناطق الحره داخل النطاق بغض النظر عن جهه الترخيص. هذا أكثر سوء فهم أسمعه، وهو السبب الأول في تأخر المنشآت عن الاستعداد.'],
+                    ['q' => 'لست مسجلا في ضريبه القيمه المضافه. هل ينطبق علي؟', 'a' => 'نعم. النطاق ليس محصورا في المسجلين ضريبيا — الالتزام مرتبط بمزاوله النشاط التجاري في الدوله لمعاملات B2B وB2G. أما B2C فخارج النطاق.'],
+                    ['q' => 'متى يجب أن أكون جاهزا فعلا؟', 'a' => 'أبكر من تاريخ التفعيل الذي في ذهنك، لأن موعد تعيين مزود الخدمه المعتمد يسبقه، والتطبيق يجري على شرائح حسب الإيراد. وقد جرى تعديل هذه المواعيد مره بالفعل، فتحقق من شريحتك لدى وزاره الماليه لا من أي مدونه — بما فيها هذه.'],
+                    ['q' => 'ماذا يحدث إذا رُفضت الفواتير؟', 'a' => 'تُحتسب الغرامات على مستوى الفاتوره الواحده بموجب القرار الوزاري ذي الصله، وهذا ما يجعل الأمر مكلفا بشكل غير متناسب مع الحجم: منشأه تصدر بضع مئات من الفواتير شهريا قد تراكم تعرضا يفوق تكلفه الامتثال نفسها. ومع بناء مسار فشل سليم لا يحدث ذلك أصلا.'],
+                    ['q' => 'هل أستطيع التعاقد مع مطور خارج الإمارات؟', 'a' => 'نعم، ونتائج البحث نفسها تظهر ذلك: الصفحات المتصدره لاستعلامات التكلفه والمقارنه الإماراتيه أغلبها لشركات خارجيه بلا نطاق ae. المهم هو فهم المطور للمخطط وللتكامل مع مزود الخدمه. ما تتنازل عنه هو حضور الاجتماعات شخصيا.'],
+                    ['q' => 'كم يكلف هذا؟', 'a' => 'يعتمد كليا على مدى تخصيص فوترتك الحاليه. النظام الذي ينتج بيانات فواتير منظمه بحقول ضريبيه نظيفه يحتاج عمل مطابقه وتكامل فقط. أما النظام الذي تتوزع فيه منطق الفوتره بين قوالب وخطوات يدويه فيحتاج معالجه ذلك أولا. أحدد النطاق بعد تقييم الجاهزيه وأقدم سعرا ثابتا لا ساعات مفتوحه.'],
+                ],
+            ],
             'hire-laravel-developer' => [
                 'slug' => 'hire-laravel-developer',
                 // Supporting posts for this pillar. These internal links are the main
