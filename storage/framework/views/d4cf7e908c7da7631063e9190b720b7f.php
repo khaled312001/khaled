@@ -1,430 +1,180 @@
-<?php $__env->startSection('title', 'Hire a Senior Full Stack Web Developer | Laravel, React, Node.js — Khaled Ahmed'); ?>
-<?php $__env->startSection('description', 'Hire Khaled Ahmed — Senior Full Stack Web Developer with 5+ years and 25+ shipped projects across 7 countries. Expert in Laravel, React.js, Node.js, Vue.js, and modern web technologies. Free consultation, 24-hour response.'); ?>
-<?php $__env->startSection('keywords', 'hire full stack developer, web developer for hire, senior web developer, Laravel developer, React developer, Node.js developer, freelance web developer, web development services, custom web application, e-commerce developer, SaaS developer, web developer Egypt, Cairo developer, Khaled Ahmed, Barmagly'); ?>
-<?php $__env->startSection('canonical', 'https://khaledahmed.net'); ?>
-<?php $__env->startSection('og_image', asset('images/logo.png')); ?>
-<?php $__env->startSection('og_image_alt', 'Khaled Ahmed — Senior Full Stack Web Developer'); ?>
-
-<?php $__env->startPush('styles'); ?>
-<style>
-    /* === HERO with personal photo + creative animations === */
-    .hero-banner {
-        background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%);
-        padding: 110px 0 60px;
-        min-height: 720px;
-        display: flex;
-        align-items: center;
-    }
-    .hero-banner h1 { color: #fff; font-size: 48px; line-height: 1.2; font-weight: 800; margin-bottom: 18px; }
-    .hero-banner h1 span { color: #60a5fa; }
-    .hero-banner h2 { color: #cbd5e1; font-size: 18px; line-height: 1.6; font-weight: 400; margin-bottom: 30px; max-width: 640px; }
-    .hero-stats { display: flex; gap: 36px; margin: 24px 0; flex-wrap: wrap; }
-    .hero-stats .stat { color: #fff; }
-    .hero-stats .stat .num { font-size: 34px; font-weight: 800; color: #60a5fa; line-height: 1; }
-    .hero-stats .stat .lbl { font-size: 13px; color: #cbd5e1; margin-top: 4px; }
-    .hero-cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 26px; }
-    .hero-cta-row .btn-primary-cta { background: linear-gradient(135deg, #60a5fa, #2563eb) !important; color: #fff !important; padding: 14px 28px; border-radius: 10px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
-    .hero-cta-row .btn-primary-cta:hover { background: linear-gradient(135deg, #3b82f6, #1e40af) !important; transform: translateY(-2px); box-shadow: 0 12px 28px rgba(96,165,250,0.4); }
-    .hero-cta-row .btn-secondary-cta { background: rgba(255,255,255,0.05); color: #fff; border: 2px solid rgba(255,255,255,0.30); padding: 12px 28px; border-radius: 10px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
-    .hero-cta-row .btn-secondary-cta:hover { border-color: #fff; background: rgba(255,255,255,0.12); }
-
-    /* === Photo column === */
-    .hero-photo-wrap {
-        position: relative;
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        height: 100%;
-        min-height: 540px;
-    }
-    /* Animated multi-layer ring */
-    .hero-photo-ring {
-        position: absolute;
-        top: 50%; left: 50%;
-        width: 460px; height: 460px;
-        transform: translate(-50%, -50%);
-        border-radius: 50%;
-        background:
-            conic-gradient(from 0deg, #60a5fa, #7c3aed, #ec4899, #60a5fa);
-        animation: ringSpin 18s linear infinite;
-        opacity: 0.55;
-        filter: blur(2px);
-    }
-    .hero-photo-ring::after {
-        content: '';
-        position: absolute;
-        inset: 8px;
-        background: radial-gradient(circle, #1e3a5f 0%, #0f172a 70%);
-        border-radius: 50%;
-    }
-    .hero-photo-ring-2 {
-        position: absolute;
-        top: 50%; left: 50%;
-        width: 510px; height: 510px;
-        transform: translate(-50%, -50%);
-        border-radius: 50%;
-        border: 1.5px dashed rgba(96,165,250,0.40);
-        animation: ringSpin 28s linear infinite reverse;
-    }
-    @keyframes ringSpin {
-        from { transform: translate(-50%, -50%) rotate(0deg); }
-        to   { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-
-    /* The actual photo */
-    .hero-photo {
-        position: relative;
-        z-index: 2;
-        max-height: 580px;
-        width: auto;
-        filter: drop-shadow(0 30px 50px rgba(0,0,0,0.45));
-        animation: heroFloat 6s ease-in-out infinite;
-    }
-    @keyframes heroFloat {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-14px); }
-    }
-
-    /* Floating tech-stack pills around the photo */
-    .float-pill {
-        position: absolute;
-        background: rgba(255, 255, 255, 0.95);
-        color: #1e293b;
-        padding: 9px 16px;
-        border-radius: 999px;
-        font-size: 13px;
-        font-weight: 700;
-        box-shadow: 0 14px 30px rgba(15,23,42,0.35);
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        z-index: 3;
-        backdrop-filter: blur(6px);
-        animation: pillFloat 6s ease-in-out infinite;
-    }
-    .float-pill i { font-size: 16px; }
-    .float-pill.fp-laravel { top: 8%; left: -10%; animation-delay: 0s; color: #f55247; }
-    .float-pill.fp-react   { top: 22%; right: -8%; animation-delay: 1.2s; color: #61dafb; }
-    .float-pill.fp-node    { bottom: 30%; left: -12%; animation-delay: 2.4s; color: #5fa04e; }
-    .float-pill.fp-mysql   { bottom: 12%; right: -6%; animation-delay: 3.6s; color: #00758f; }
-    @keyframes pillFloat {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-    }
-
-    /* Hero text intro animation */
-    .hero-fadeup { opacity: 0; transform: translateY(28px); animation: heroFadeUp 0.9s cubic-bezier(.2,.8,.2,1) forwards; }
-    .hero-fadeup.d1 { animation-delay: 0.05s; }
-    .hero-fadeup.d2 { animation-delay: 0.20s; }
-    .hero-fadeup.d3 { animation-delay: 0.35s; }
-    .hero-fadeup.d4 { animation-delay: 0.50s; }
-    @keyframes heroFadeUp {
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Other site-wide CSS continues below — kept identical */
-    /* === Trust bar — modern card-based === */
-    .trust-bar {
-        background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
-        padding: 36px 0;
-        border-bottom: 1px solid #e0e7ff;
-        position: relative;
-    }
-    .trust-bar .trust-card {
-        background: #fff;
-        border-radius: 14px;
-        padding: 22px 24px;
-        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
-        border: 1px solid rgba(37, 99, 235, 0.08);
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        height: 100%;
-        transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .trust-bar .trust-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.10);
-    }
-    .trust-bar .trust-icon {
-        width: 48px;
-        height: 48px;
-        border-radius: 12px;
-        background: linear-gradient(135deg, #2563eb, #7c3aed);
-        color: #fff;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        flex-shrink: 0;
-    }
-    .trust-bar .trust-card:nth-child(2) .trust-icon { background: linear-gradient(135deg, #06b6d4, #0891b2); }
-    .trust-bar .trust-card:nth-child(3) .trust-icon { background: linear-gradient(135deg, #10b981, #059669); }
-    .trust-bar .trust-body { flex: 1; min-width: 0; }
-    .trust-bar .label {
-        color: #64748b;
-        font-size: 11.5px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1.2px;
-        margin-bottom: 4px;
-    }
-    .trust-bar .countries {
-        color: #0f172a;
-        font-weight: 600;
-        font-size: 14.5px;
-        line-height: 1.4;
-    }
-    @media (max-width: 768px) {
-        .trust-bar { padding: 24px 0; }
-        .trust-bar .trust-card { padding: 16px 18px; gap: 12px; }
-        .trust-bar .trust-icon { width: 40px; height: 40px; font-size: 16px; }
-        .trust-bar .countries { font-size: 13.5px; }
-    }
-
-    /* === About section — modernized === */
-    #about { padding: 80px 0 !important; background: #fff; }
-    .about-grid {
-        display: grid;
-        grid-template-columns: 1fr 1.6fr;
-        gap: 60px;
-        align-items: center;
-    }
-    @media (max-width: 991px) {
-        .about-grid { grid-template-columns: 1fr; gap: 40px; }
-    }
-    .about-photo-wrap {
-        position: relative;
-        text-align: center;
-    }
-    .about-photo-wrap::before {
-        content: '';
-        position: absolute;
-        top: 50%; left: 50%;
-        width: 90%; aspect-ratio: 1;
-        transform: translate(-50%, -50%);
-        background: linear-gradient(135deg, rgba(37,99,235,0.10), rgba(124,58,237,0.10));
-        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-        animation: blobMorph 12s ease-in-out infinite;
-        z-index: 0;
-    }
-    @keyframes blobMorph {
-        0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-        50% { border-radius: 70% 30% 50% 50% / 50% 70% 30% 50%; }
-    }
-    .about-photo {
-        position: relative;
-        z-index: 1;
-        max-width: 100%;
-        max-height: 480px;
-        width: auto;
-        filter: drop-shadow(0 24px 40px rgba(15, 23, 42, 0.20));
-    }
-    .about-content h2.section-title-h2 {
-        font-size: 32px !important;
-        margin-bottom: 18px;
-    }
-    .about-content p { font-size: 16px; line-height: 1.8; color: #475569; margin-bottom: 16px; }
-    .about-info-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 14px;
-        margin: 24px 0 28px;
-    }
-    @media (max-width: 576px) {
-        .about-info-grid { grid-template-columns: 1fr; }
-    }
-    .about-info-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-        padding: 14px 16px;
-        background: #f8fafc;
-        border: 1px solid #e2e8f0;
-        border-radius: 10px;
-        transition: border-color 0.2s ease, background 0.2s ease;
-    }
-    .about-info-item:hover {
-        border-color: #2563eb;
-        background: #fff;
-        box-shadow: 0 6px 14px rgba(37, 99, 235, 0.06);
-    }
-    .about-info-item .ai-icon {
-        width: 38px; height: 38px;
-        border-radius: 10px;
-        background: linear-gradient(135deg, #2563eb, #1e40af);
-        color: #fff;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 14px;
-        flex-shrink: 0;
-    }
-    .about-info-item:nth-child(2) .ai-icon { background: linear-gradient(135deg, #7c3aed, #5b21b6); }
-    .about-info-item:nth-child(3) .ai-icon { background: linear-gradient(135deg, #06b6d4, #0891b2); }
-    .about-info-item:nth-child(4) .ai-icon { background: linear-gradient(135deg, #10b981, #059669); }
-    .about-info-item:nth-child(5) .ai-icon { background: linear-gradient(135deg, #f97316, #ea580c); }
-    .about-info-item:nth-child(6) .ai-icon { background: linear-gradient(135deg, #ec4899, #db2777); }
-    .about-info-item .ai-body { min-width: 0; flex: 1; }
-    .about-info-item .ai-label {
-        font-size: 11.5px;
-        color: #64748b;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 2px;
-    }
-    .about-info-item .ai-value {
-        font-size: 14px;
-        color: #0f172a;
-        font-weight: 600;
-        line-height: 1.4;
-    }
-    .about-info-item .ai-value a { color: inherit; text-decoration: none; }
-    .about-info-item .ai-value a:hover { color: #2563eb; }
-    .services-grid { padding: 70px 0; }
-    .service-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 28px; transition: all 0.3s; height: 100%; }
-    .service-card:hover { border-color: var(--main-color); transform: translateY(-4px); box-shadow: 0 12px 30px rgba(37,99,235,0.08); }
-    .service-card .icon { width: 56px; height: 56px; background: linear-gradient(135deg, #2563eb, #1e40af); color: #fff; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 18px; }
-    .service-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: #0f172a; }
-    .service-card p { color: #475569; font-size: 14.5px; line-height: 1.65; margin-bottom: 14px; }
-    .service-card .features { list-style: none; padding: 0; margin: 0; }
-    .service-card .features li { font-size: 13.5px; color: #334155; padding: 4px 0 4px 22px; position: relative; }
-    .service-card .features li::before { content: "✓"; color: var(--main-color); font-weight: 700; position: absolute; left: 0; }
-    .why-section { background: #f8fafc; padding: 70px 0; }
-    .why-card { padding: 24px; }
-    .why-card .num { width: 48px; height: 48px; background: var(--main-color); color: #fff; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; margin-bottom: 14px; }
-    .why-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #0f172a; }
-    .why-card p { color: #475569; font-size: 14.5px; line-height: 1.65; }
-    .stack-section { padding: 70px 0; }
-    .stack-pill { display: inline-block; background: #f1f5f9; color: #1e293b; padding: 8px 16px; border-radius: 999px; font-size: 14px; font-weight: 500; margin: 4px; }
-    .stack-pill.primary { background: var(--main-color); color: #fff; }
-    .testimonial-section { padding: 70px 0; background: #f8fafc; }
-    .testimonial-card { background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); height: 100%; }
-    .testimonial-card .stars { color: #fbbf24; margin-bottom: 12px; }
-    .testimonial-card p { color: #334155; font-style: italic; line-height: 1.7; margin-bottom: 16px; }
-    .testimonial-card .author { font-weight: 700; color: #0f172a; }
-    .testimonial-card .role { font-size: 13px; color: #64748b; }
-    .final-cta { background: linear-gradient(135deg, #1e40af 0%, #0f172a 100%); color: #fff; padding: 80px 0; text-align: center; }
-    .final-cta h2 { color: #fff; font-size: 36px; font-weight: 800; margin-bottom: 16px; }
-    .final-cta p { color: #cbd5e1; font-size: 18px; max-width: 640px; margin: 0 auto 30px; }
-    .final-cta .btn-cta { background: #60a5fa; color: #0f172a; padding: 16px 36px; border-radius: 8px; font-weight: 700; font-size: 17px; text-decoration: none; display: inline-block; transition: all 0.2s; }
-    .final-cta .btn-cta:hover { background: #93c5fd; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(96,165,250,0.4); }
-    @media (max-width: 991px) {
-        .hero-banner { min-height: auto !important; padding: 100px 0 50px; }
-        .hero-photo-wrap { display: none !important; }
-    }
-    @media (max-width: 768px) {
-        .hero-banner h1 { font-size: 30px; }
-        .hero-banner h2 { font-size: 16px; }
-        .hero-stats { gap: 24px; }
-        .hero-stats .stat .num { font-size: 26px; }
-        .final-cta h2 { font-size: 26px; }
-        .final-cta p { font-size: 15px; }
-    }
-</style>
-<?php $__env->stopPush(); ?>
+<?php $__env->startSection('title', app()->getLocale() === 'ar' ? 'خالد أحمد — مطور Full Stack مستقل | Laravel و React' : 'Khaled Ahmed — Freelance Full Stack Developer | Laravel & React'); ?>
+<?php $__env->startSection('description', app()->getLocale() === 'ar' ? 'مطور Laravel و React و Next.js من القاهره. 39 مشروعا منشورا في 8 دول، و7 تطبيقات على Google Play. عرض سعر ثابت ورد خلال 24 ساعه.' : 'Senior Laravel, React and Next.js developer in Cairo. 39 products shipped across 8 countries, 7 apps live on Google Play. Fixed-fee quotes, 24-hour reply.'); ?>
+<?php $__env->startSection('keywords', 'freelance full stack developer, freelance laravel developer, freelance react developer, hire web developer, custom web application, SaaS developer, Khaled Ahmed, مطور ويب مستقل, مبرمج مواقع'); ?>
+<?php $__env->startSection('og_image', asset('images/logo.webp')); ?>
+<?php $__env->startSection('lcp_image', asset('images/site/hero-workspace-720w.webp')); ?>
 
 <?php $__env->startSection('structured_data'); ?>
 <script type="application/ld+json">
 {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "serviceType": "Full Stack Web Development",
-    "provider": {
-        "@type": "Person",
-        "name": "Khaled Ahmed",
-        "url": "https://khaledahmed.net"
-    },
-    "areaServed": ["Worldwide"],
-    "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Web Development Services",
-        "itemListElement": [
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Custom Web Application Development"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Laravel Development"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "React.js Development"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Node.js Development"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "E-commerce Development"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "SaaS Development"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "API Development"}},
-            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Website SEO Optimization"}}
-        ]
-    }
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Khaled Ahmed",
+  "url": "https://khaledahmed.net",
+  "jobTitle": "Senior Full Stack Web Developer",
+  "worksFor": {"@type":"Organization","name":"Barmagly","url":"https://barmagly.tech"},
+  "description": "Senior full stack web developer with 5+ years of experience and 25+ shipped projects across 8 countries.",
+  "address": {"@type":"PostalAddress","addressLocality":"Cairo","addressCountry":"EG"},
+  "sameAs": ["https://linkedin.com/in/khaled-ahmed-82368819b","https://github.com/khaled312001"],
+  "knowsAbout": ["Laravel","React","Next.js","Node.js","TypeScript","PHP","MySQL","PostgreSQL","SEO","Web Performance"]
 }
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","url":"https://khaledahmed.net","name":"Khaled Ahmed","potentialAction":{"@type":"SearchAction","target":"https://khaledahmed.net/blogs?q={search_term_string}","query-input":"required name=search_term_string"}}
 </script>
 <?php $__env->stopSection(); ?>
 
-<?php $__env->startSection('content'); ?>
-<section class="hero-banner" data-scroll-index="1">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-7 col-md-12">
-                <h1 class="hero-fadeup d1"><?php echo e(__('site.hero_title_1')); ?> <span><?php echo e(__('site.hero_title_2')); ?></span> <?php echo e(__('site.hero_title_3')); ?></h1>
-                <h2 class="hero-fadeup d2"><?php echo e(__('site.hero_subtitle')); ?></h2>
+<?php $__env->startPush('styles'); ?>
+<style>
+    /* Hero */
+    .home-hero { padding: calc(var(--nav-h) + var(--sp-7)) 0 var(--sp-9); position: relative; overflow: hidden; }
+    .home-hero::before { content:''; position:absolute; inset:0; background: var(--gradient-bg); pointer-events:none; }
+    .home-hero::after { content:''; position:absolute; inset:0; background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 28px 28px; opacity: 0.5; pointer-events: none; }
+    .home-hero > .container { position: relative; z-index: 1; }
+    .home-hero h1 { margin: 0 0 var(--sp-5); opacity: 0; animation: ks-fadeup .7s ease .15s forwards; }
+    .home-hero .home-lead { color: var(--text-2); font-size: 19px; max-width: 680px; margin: 0 0 var(--sp-6); opacity: 0; animation: ks-fadeup .7s ease .25s forwards; }
+    .home-hero .ks-eyebrow { opacity: 0; animation: ks-fadeup .6s ease .05s forwards; margin-bottom: var(--sp-4); }
+    .home-hero .ks-stats { max-width: 720px; margin-bottom: var(--sp-6); opacity: 0; animation: ks-fadeup .7s ease .35s forwards; }
+    .home-hero .home-cta-row { display: flex; gap: 12px; flex-wrap: wrap; opacity: 0; animation: ks-fadeup .7s ease .45s forwards; }
 
-                <div class="hero-stats hero-fadeup d3">
-                    <div class="stat"><div class="num">25+</div><div class="lbl"><?php echo e(__('site.projects_shipped')); ?></div></div>
-                    <div class="stat"><div class="num">7</div><div class="lbl"><?php echo e(__('site.countries_served')); ?></div></div>
-                    <div class="stat"><div class="num">5+</div><div class="lbl"><?php echo e(__('site.years_experience')); ?></div></div>
-                    <div class="stat"><div class="num">24h</div><div class="lbl"><?php echo e(__('site.response_time')); ?></div></div>
+    /* Code card */
+    .home-code { max-width: 480px; margin-inline-start: auto; background: linear-gradient(160deg, #0b1220 0%, #131a2c 100%); border: 1px solid var(--border-3); border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-lg); opacity: 0; animation: ks-fadeup .8s ease .4s forwards; }
+    .home-code__bar { display:flex; align-items:center; gap:8px; padding:12px 16px; background: rgba(255,255,255,0.04); border-bottom: 1px solid var(--border-1); }
+    .home-code__bar i { width: 12px; height: 12px; border-radius: 50%; display:inline-block; }
+    .home-code__bar .r { background: #ef4444; } .home-code__bar .y { background: #f59e0b; } .home-code__bar .g { background: #10b981; }
+    .home-code__file { margin-inline-start: auto; font-family: var(--font-mono); font-size: 12px; color: var(--text-3); }
+    .home-code pre { margin: 0; padding: 22px 26px; font-family: var(--font-mono); font-size: 14.5px; line-height: 1.85; color: var(--text-2); background: transparent; overflow-x: auto; direction: ltr; text-align: left; unicode-bidi: isolate; }
+    .home-code .c { color: #64748b; font-style: italic; } .home-code .k { color: #c084fc; } .home-code .v { color: var(--brand); } .home-code .p { color: #f0abfc; } .home-code .s { color: var(--success); } .home-code .n { color: var(--warning); }
+
+    /* Trust */
+    .home-trust { padding: var(--sp-5) 0; background: rgba(255,255,255,0.02); border-top: 1px solid var(--border-1); border-bottom: 1px solid var(--border-1); }
+    .home-trust-card { display:flex; gap:14px; align-items:center; padding: 16px 20px; background: var(--surface-1); border: 1px solid var(--border-1); border-radius: var(--r-md); transition: border-color .25s ease; }
+    .home-trust-card:hover { border-color: var(--border-3); }
+    .home-trust-card__ico { flex-shrink:0; width: 44px; height: 44px; display:grid; place-items:center; border-radius: var(--r-sm); background: rgba(96,165,250,0.10); color: var(--brand); font-size: 18px; border: 1px solid rgba(96,165,250,0.20); }
+    .home-trust-card .lbl { font-size: 11.5px; color: var(--text-3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+    .home-trust-card .val { font-size: 14.5px; color: var(--text-1); font-weight: 600; line-height: 1.4; }
+
+    /* Service card */
+    .home-svc { padding: 28px 26px; background: linear-gradient(160deg, var(--surface-1) 0%, var(--bg-2) 100%); border: 1px solid var(--border-1); border-radius: var(--r-lg); height: 100%; transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; position: relative; overflow: hidden; }
+    .home-svc::before { content:''; position:absolute; inset:0; background: linear-gradient(135deg, rgba(96,165,250,0.06), transparent 60%); opacity: 0; transition: opacity .3s ease; pointer-events: none; }
+    .home-svc:hover { transform: translateY(-6px); border-color: var(--border-3); box-shadow: var(--shadow-md); }
+    .home-svc:hover::before { opacity: 1; }
+    .home-svc__ico { width: 52px; height: 52px; border-radius: var(--r-md); display:grid; place-items:center; background: linear-gradient(135deg, rgba(96,165,250,0.18), rgba(124,58,237,0.18)); color: var(--brand); font-size: 22px; margin-bottom: 18px; border: 1px solid rgba(96,165,250,0.20); }
+    .home-svc h3 { color: var(--text-1); font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+    .home-svc p { color: var(--text-3); font-size: 14.5px; line-height: 1.65; margin: 0 0 18px; }
+    .home-svc__more { color: var(--brand); font-weight: 700; font-size: 13.5px; text-decoration:none; display:inline-flex; align-items:center; gap: 6px; transition: gap .2s ease; }
+    .home-svc__more:hover { gap: 10px; color: var(--brand-2); }
+
+    /* CTA */
+    .home-cta { padding: 64px 40px; background: radial-gradient(circle at 30% 50%, rgba(96,165,250,0.20) 0%, transparent 60%), linear-gradient(135deg, var(--bg-2) 0%, #1e1b4b 100%); border: 1px solid var(--border-3); border-radius: var(--r-2xl); text-align: center; }
+    .home-cta h2 { margin: 0 0 12px; }
+    .home-cta p { color: var(--text-2); font-size: 17px; max-width: 620px; margin: 0 auto 24px; }
+    .home-cta .home-cta__row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    @media (max-width: 991.98px) {
+        .home-code { margin-top: 36px; max-width: 100%; }
+        .home-hero-img { margin-top: 32px; }
+    }
+
+    /* Hero image */
+    .home-hero-img { position: relative; border-radius: var(--r-xl); overflow: hidden; border: 1px solid var(--border-3); box-shadow: var(--shadow-lg); opacity: 0; animation: ks-fadeup .8s ease .4s forwards; }
+    .home-hero-img::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 0 60px rgba(96,165,250,0.12); border-radius: var(--r-xl); pointer-events: none; }
+    .home-hero-img img { width: 100%; height: auto; display: block; }
+
+    /* Section image (landing / content pages) */
+    .ks-media { position: relative; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border-2); box-shadow: var(--shadow-md); }
+    .ks-media img { width: 100%; height: auto; display: block; }
+
+    /* Rapid delivery band */
+    .home-speed__band { padding: 48px 44px; background: radial-gradient(circle at 15% 20%, rgba(96,165,250,0.12) 0%, transparent 55%), radial-gradient(circle at 85% 90%, rgba(167,139,250,0.12) 0%, transparent 55%), linear-gradient(160deg, var(--surface-1) 0%, var(--bg-2) 100%); border: 1px solid var(--border-3); border-radius: var(--r-2xl); }
+    .home-speed__head { text-align: center; max-width: 760px; margin: 0 auto; }
+    .home-speed__head h2 { margin: 14px 0 12px; }
+    .home-speed__head p { color: var(--text-2); font-size: 16.5px; line-height: 1.7; margin: 0; }
+    .home-speed__card { height: 100%; padding: 24px 22px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-1); border-radius: var(--r-lg); transition: transform .3s ease, border-color .3s ease; }
+    .home-speed__card:hover { transform: translateY(-4px); border-color: var(--border-3); }
+    .home-speed__ico { width: 48px; height: 48px; border-radius: var(--r-md); display: grid; place-items: center; font-size: 20px; color: var(--brand); background: linear-gradient(135deg, rgba(96,165,250,0.18), rgba(124,58,237,0.18)); border: 1px solid rgba(96,165,250,0.20); margin-bottom: 16px; }
+    .home-speed__card h3 { font-size: 16.5px; margin: 0 0 8px; color: var(--text-1); }
+    .home-speed__card p { font-size: 13.5px; line-height: 1.6; color: var(--text-3); margin: 0; }
+    .home-speed__cta { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; margin-top: 32px; padding-top: 26px; border-top: 1px solid var(--border-1); }
+    .home-speed__note { color: var(--text-2); font-size: 15px; font-weight: 500; }
+    @media (max-width: 768px) {
+        .home-speed__band { padding: 32px 22px; }
+        .home-speed__cta { flex-direction: column; align-items: stretch; text-align: center; }
+    }
+</style>
+<?php $__env->stopPush(); ?>
+
+<?php $__env->startSection('content'); ?>
+
+<section class="home-hero">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+                <span class="ks-eyebrow"><span class="ks-dot"></span> <?php echo e(app()->getLocale() === 'ar' ? 'متاح لمشاريع جديدة · رد خلال ساعات' : 'Available now · replies within hours'); ?></span>
+                <h1>
+                    <?php echo e(app()->getLocale() === 'ar' ? 'مطور ويب Full Stack يحوّل فكرتك إلى' : 'A Full Stack developer who turns your idea into a'); ?>
+
+                    <span class="ks-grad-text"><?php echo e(app()->getLocale() === 'ar' ? 'منتج يبيع ويكبر' : 'product that sells & scales'); ?></span>
+                </h1>
+                <p class="home-lead"><?php echo e(app()->getLocale() === 'ar' ? 'أنا خالد أحمد — أبني تطبيقات ويب ومتاجر ومنصات SaaS احترافية في Laravel و React و Node.js. أكثر من 39 مشروعا منشورا في 8 دول، من الفكرة إلى الإطلاق في أيام لا شهور. استشارة مجانية ورد خلال 24 ساعة، وعرض سعر ثابت بلا مفاجآت.' : 'I am Khaled Ahmed — I build professional web apps, online stores, and SaaS platforms in Laravel, React, and Node.js. 39+ shipped projects across 8 countries, from idea to launch in days, not months. Free consultation, 24-hour reply, and a fixed-fee quote with no surprises.'); ?></p>
+
+                <div class="ks-stats">
+                    <div class="ks-stat"><div class="ks-stat__num">39+</div><div class="ks-stat__lbl"><?php echo e(app()->getLocale() === 'ar' ? 'مشروع منشور' : 'Live projects'); ?></div></div>
+                    <div class="ks-stat"><div class="ks-stat__num">8</div><div class="ks-stat__lbl"><?php echo e(app()->getLocale() === 'ar' ? 'دول' : 'Countries'); ?></div></div>
+                    <div class="ks-stat"><div class="ks-stat__num">5+</div><div class="ks-stat__lbl"><?php echo e(app()->getLocale() === 'ar' ? 'سنوات خبرة' : 'Years'); ?></div></div>
+                    <div class="ks-stat"><div class="ks-stat__num">24h</div><div class="ks-stat__lbl"><?php echo e(app()->getLocale() === 'ar' ? 'سرعة الرد' : 'Response'); ?></div></div>
                 </div>
 
-                <div class="hero-cta-row hero-fadeup d4">
-                    <a href="<?php echo e(route('contact')); ?>" class="btn-primary-cta">
-                        <?php echo e(__('site.get_free_consultation')); ?> <i class="fa fa-arrow-right"></i>
-                    </a>
-                    <a href="<?php echo e(route('portfolios')); ?>" class="btn-secondary-cta">
-                        <?php echo e(__('site.view_my_work')); ?> <i class="fa fa-arrow-right"></i>
-                    </a>
+                <div class="home-cta-row">
+                    <a href="<?php echo e(route('contact')); ?>" class="ks-btn ks-btn--primary"><?php echo e(app()->getLocale() === 'ar' ? 'ابدأ مشروعك الآن' : 'Start your project'); ?> <i class="fa fa-arrow-right"></i></a>
+                    <a href="<?php echo e(route('portfolios')); ?>" class="ks-btn ks-btn--ghost"><?php echo e(app()->getLocale() === 'ar' ? 'شاهد نتائج حقيقية' : 'See real results'); ?> <i class="fa fa-arrow-right"></i></a>
                 </div>
             </div>
-            <div class="col-lg-5 d-none d-lg-block">
-                <div class="hero-photo-wrap">
-                    <div class="hero-photo-ring-2"></div>
-                    <div class="hero-photo-ring"></div>
-                    <span class="float-pill fp-laravel"><i class="fab fa-laravel"></i> Laravel</span>
-                    <span class="float-pill fp-react"><i class="fab fa-react"></i> React</span>
-                    <span class="float-pill fp-node"><i class="fab fa-node-js"></i> Node.js</span>
-                    <span class="float-pill fp-mysql"><i class="fas fa-database"></i> MySQL</span>
-                    <img src="<?php echo e(asset('images/khaled-hero.png')); ?>"
-                         alt="Khaled Ahmed — Senior Full Stack Web Developer"
-                         class="hero-photo"
-                         width="490" height="1000"
-                         loading="eager" decoding="async">
+
+            <div class="col-lg-5">
+                <div class="home-hero-img">
+                    <img src="<?php echo e(asset('images/site/hero-workspace-720w.webp')); ?>"
+                         srcset="<?php echo e(asset('images/site/hero-workspace-480w.webp')); ?> 480w,
+                                 <?php echo e(asset('images/site/hero-workspace-720w.webp')); ?> 720w,
+                                 <?php echo e(asset('images/site/hero-workspace-1000w.webp')); ?> 1000w,
+                                 <?php echo e(asset('images/site/hero-workspace.webp')); ?> 1400w"
+                         sizes="(max-width: 991px) calc(100vw - 24px), 480px"
+                         alt="<?php echo e(app()->getLocale() === 'ar' ? 'مطور ويب Full Stack يبني تطبيقات Laravel و React احترافية' : 'Senior full stack developer building professional Laravel and React web applications'); ?>"
+                         width="1400" height="933" loading="eager" decoding="async" fetchpriority="high">getLocale() === 'ar' ? 'مطور ويب Full Stack يبني تطبيقات Laravel و React احترافية' : 'Senior full stack developer building professional Laravel and React web applications' }}"
+                         width="1536" height="1024" loading="eager" decoding="async" fetchpriority="high">
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="trust-bar">
+<section class="home-trust">
     <div class="container">
         <div class="row g-3">
             <div class="col-md-4">
-                <div class="trust-card">
-                    <div class="trust-icon"><i class="fas fa-globe-americas"></i></div>
-                    <div class="trust-body">
-                        <div class="label"><?php echo e(__('site.trust_label_1')); ?></div>
-                        <div class="countries"><?php echo e(__('site.trust_value_1')); ?></div>
+                <div class="home-trust-card">
+                    <div class="home-trust-card__ico"><i class="fas fa-globe"></i></div>
+                    <div>
+                        <div class="lbl"><?php echo e(app()->getLocale() === 'ar' ? 'البلدان' : 'Coverage'); ?></div>
+                        <div class="val"><?php echo e(app()->getLocale() === 'ar' ? 'مصر، المملكة المتحدة، السعودية، الإمارات، سويسرا، ألمانيا، فرنسا، الكويت' : 'Egypt, UK, Saudi, UAE, Switzerland, Germany, France, Kuwait'); ?></div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="trust-card">
-                    <div class="trust-icon"><i class="fas fa-bullseye"></i></div>
-                    <div class="trust-body">
-                        <div class="label"><?php echo e(__('site.trust_label_2')); ?></div>
-                        <div class="countries"><?php echo e(__('site.trust_value_2')); ?></div>
+                <div class="home-trust-card">
+                    <div class="home-trust-card__ico"><i class="fas fa-rocket"></i></div>
+                    <div>
+                        <div class="lbl"><?php echo e(app()->getLocale() === 'ar' ? 'سجل حافل' : 'Proven track record'); ?></div>
+                        <div class="val"><?php echo e(app()->getLocale() === 'ar' ? '39+ مشروع منشور و7 تطبيقات على Google Play' : '39+ live projects & 7 apps on Google Play'); ?></div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="trust-card">
-                    <div class="trust-icon"><i class="fas fa-calendar-check"></i></div>
-                    <div class="trust-body">
-                        <div class="label"><?php echo e(__('site.trust_label_3')); ?></div>
-                        <div class="countries"><?php echo e(__('site.trust_value_3')); ?></div>
+                <div class="home-trust-card">
+                    <div class="home-trust-card__ico"><i class="fas fa-comments"></i></div>
+                    <div>
+                        <div class="lbl"><?php echo e(app()->getLocale() === 'ar' ? 'الرد' : 'Response'); ?></div>
+                        <div class="val"><?php echo e(app()->getLocale() === 'ar' ? 'خلال 24 ساعة وعرض سعر مكتوب' : 'Within 24 hours, written fixed-fee quote'); ?></div>
                     </div>
                 </div>
             </div>
@@ -432,229 +182,161 @@
     </div>
 </section>
 
-<section id="about">
+<section class="ks-section">
     <div class="container">
-        <div class="about-grid">
-            <div class="about-photo-wrap">
-                <img src="<?php echo e(asset('images/khaled-hero.png')); ?>"
-                     alt="<?php echo e(__('site.about_h2')); ?>"
-                     class="about-photo"
-                     loading="lazy" decoding="async">
-            </div>
-            <div class="about-content">
-                <span class="section-badge"><i class="fas fa-user-tie"></i> <?php echo e(__('site.about_me')); ?></span>
-                <h2 class="section-title-h2"><?php echo e(__('site.about_h2')); ?></h2>
-                <p><?php echo e(__('site.about_p1')); ?></p>
-                <p><?php echo __('site.about_p2'); ?></p>
-
-                <div class="about-info-grid">
-                    <div class="about-info-item">
-                        <div class="ai-icon"><i class="fas fa-user"></i></div>
-                        <div class="ai-body">
-                            <div class="ai-label"><?php echo e(__('site.name_label')); ?></div>
-                            <div class="ai-value"><?php echo e(__('site.name_value')); ?></div>
-                        </div>
-                    </div>
-                    <div class="about-info-item">
-                        <div class="ai-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <div class="ai-body">
-                            <div class="ai-label"><?php echo e(__('site.location_label')); ?></div>
-                            <div class="ai-value"><?php echo e(__('site.location_value')); ?></div>
-                        </div>
-                    </div>
-                    <div class="about-info-item">
-                        <div class="ai-icon"><i class="fas fa-graduation-cap"></i></div>
-                        <div class="ai-body">
-                            <div class="ai-label"><?php echo e(__('site.education_label')); ?></div>
-                            <div class="ai-value"><?php echo e(__('site.education_value')); ?></div>
-                        </div>
-                    </div>
-                    <div class="about-info-item">
-                        <div class="ai-icon"><i class="fas fa-language"></i></div>
-                        <div class="ai-body">
-                            <div class="ai-label"><?php echo e(__('site.languages_label')); ?></div>
-                            <div class="ai-value"><?php echo e(__('site.languages_value')); ?></div>
-                        </div>
-                    </div>
-                    <div class="about-info-item">
-                        <div class="ai-icon"><i class="fas fa-briefcase"></i></div>
-                        <div class="ai-body">
-                            <div class="ai-label"><?php echo e(__('site.freelance_label')); ?></div>
-                            <div class="ai-value"><?php echo e(__('site.freelance_value')); ?></div>
-                        </div>
-                    </div>
-                    <div class="about-info-item">
-                        <div class="ai-icon"><i class="fas fa-phone"></i></div>
-                        <div class="ai-body">
-                            <div class="ai-label"><?php echo e(__('site.phone_label')); ?></div>
-                            <div class="ai-value">
-                                <a href="tel:+201204593124">+20 120 459 3124</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="d-flex flex-wrap gap-3">
-                    <a href="<?php echo e(route('contact')); ?>" class="primary-btn">
-                        <span class="text"><?php echo e(__('site.hire_me')); ?></span>
-                        <span class="icon"><i class="fa fa-arrow-right"></i></span>
-                    </a>
-                    <a href="/Khaled_Ahmed.pdf" class="primary-btn primary-btn--outline" download rel="nofollow">
-                        <span class="text"><?php echo e(__('site.download_cv')); ?></span>
-                        <span class="icon"><i class="fa fa-download"></i></span>
-                    </a>
-                </div>
-            </div>
+        <div class="ks-shead ks-fadeup">
+            <span class="ks-eyebrow"><?php echo e(app()->getLocale() === 'ar' ? 'خدمات' : 'Services'); ?></span>
+            <h2><?php echo e(app()->getLocale() === 'ar' ? 'خدمات تبني لك ميزة تنافسية حقيقية' : 'Services that build you a real competitive edge'); ?></h2>
+            <p><?php echo e(app()->getLocale() === 'ar' ? 'من أول سطر كود حتى الإطلاق — مطور واحد خبير مسؤول عن كل شيء، بجودة وكالة وبدون تعقيداتها ولا تكاليفها.' : 'From the first line of code to launch — one senior developer accountable for everything, with agency-grade quality minus the overhead and the cost.'); ?></p>
         </div>
-    </div>
-</section>
-
-<section class="services-grid">
-    <div class="container">
-        <div class="text-center mb-5">
-            <span class="section-badge"><i class="fas fa-bolt"></i> <?php echo e(__('site.what_i_build')); ?></span>
-            <h2 class="section-title-h2"><?php echo e(__('site.web_dev_services')); ?></h2>
-            <p class="section-subtitle"><?php echo e(__('site.web_dev_subtitle')); ?></p>
-        </div>
-
-        <?php
-        $services = [
-            ['fas fa-code', 'srv_custom_title', 'srv_custom_desc', ['srv_custom_f1','srv_custom_f2','srv_custom_f3','srv_custom_f4']],
-            ['fas fa-shopping-cart', 'srv_ecom_title', 'srv_ecom_desc', ['srv_ecom_f1','srv_ecom_f2','srv_ecom_f3','srv_ecom_f4']],
-            ['fas fa-rocket', 'srv_saas_title', 'srv_saas_desc', ['srv_saas_f1','srv_saas_f2','srv_saas_f3','srv_saas_f4']],
-            ['fab fa-laravel', 'srv_laravel_title', 'srv_laravel_desc', ['srv_laravel_f1','srv_laravel_f2','srv_laravel_f3','srv_laravel_f4']],
-            ['fab fa-react', 'srv_react_title', 'srv_react_desc', ['srv_react_f1','srv_react_f2','srv_react_f3','srv_react_f4']],
-            ['fas fa-search', 'srv_seo_title', 'srv_seo_desc', ['srv_seo_f1','srv_seo_f2','srv_seo_f3','srv_seo_f4']],
-            ['fas fa-mobile-alt', 'srv_pwa_title', 'srv_pwa_desc', ['srv_pwa_f1','srv_pwa_f2','srv_pwa_f3','srv_pwa_f4']],
-            ['fas fa-server', 'srv_devops_title', 'srv_devops_desc', ['srv_devops_f1','srv_devops_f2','srv_devops_f3','srv_devops_f4']],
-            ['fas fa-graduation-cap', 'srv_training_title', 'srv_training_desc', ['srv_training_f1','srv_training_f2','srv_training_f3','srv_training_f4']],
-        ];
-        ?>
         <div class="row g-4">
-            <?php $__currentLoopData = $services; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $svc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <div class="col-lg-4 col-md-6">
-                <div class="service-card">
-                    <div class="icon"><i class="<?php echo e($svc[0]); ?>"></i></div>
-                    <h3><?php echo e(__('site.' . $svc[1])); ?></h3>
-                    <p><?php echo e(__('site.' . $svc[2])); ?></p>
-                    <ul class="features">
-                        <?php $__currentLoopData = $svc[3]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $featKey): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <li><?php echo e(__('site.' . $featKey)); ?></li>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    </ul>
+            <?php
+              $services = [
+                ['fab fa-laravel',  app()->getLocale() === 'ar' ? 'تطوير Laravel للخلفية' : 'Laravel Backend',            app()->getLocale() === 'ar' ? 'تطبيقات ويب قوية: واجهات برمجية، مصادقة، طوابير، فوترة، تعدد المستأجرين.' : 'Solid web apps: REST/GraphQL APIs, auth, queues, billing, multi-tenant.'],
+                ['fab fa-react',    app()->getLocale() === 'ar' ? 'React و Next.js للواجهة' : 'React & Next.js Frontend',  app()->getLocale() === 'ar' ? 'واجهات سريعة جاهزة لمحركات البحث بـ Next.js و RSC و TypeScript.' : 'Fast, SEO-ready frontends with Next.js 15, RSC, Tailwind, and TypeScript.'],
+                ['fas fa-rocket',   app()->getLocale() === 'ar' ? 'بناء MVP لـ SaaS' : 'SaaS MVP Development',            app()->getLocale() === 'ar' ? 'إطلاق MVP خلال 8-16 أسبوعا: فوترة Stripe، لوحات تحكم، API، نشر آلي.' : 'Ship your SaaS MVP in 8-16 weeks: Stripe billing, dashboards, API, CI/CD.'],
+                ['fas fa-shopping-cart', app()->getLocale() === 'ar' ? 'متاجر إلكترونية' : 'E-commerce',                  app()->getLocale() === 'ar' ? 'WooCommerce أو Shopify أو متجر Laravel مخصص بدفع وشحن وتكاملات CRM.' : 'WooCommerce, Shopify, or custom Laravel with payment, shipping, CRM.'],
+                ['fas fa-bolt',     app()->getLocale() === 'ar' ? 'أداء وتحسين محركات البحث' : 'Performance & SEO',         app()->getLocale() === 'ar' ? 'تحسين Core Web Vitals، Lighthouse فوق 95، schema، sitemap، canonical.' : 'Core Web Vitals tuning, Lighthouse 95+, structured data, sitemap hygiene.'],
+                ['fas fa-shield-alt', app()->getLocale() === 'ar' ? 'صيانة وأمان' : 'Maintenance & Security',              app()->getLocale() === 'ar' ? 'تعاقد شهري: تحديثات، نسخ احتياطي، مراقبة، إصلاح ثغرات، إضافات صغيرة.' : 'Monthly retainers: updates, backups, monitoring, security patches.'],
+              ];
+            ?>
+            <?php $__currentLoopData = $services; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as [$icon, $title, $desc]): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="col-md-6 col-lg-4 ks-fadeup">
+                    <div class="home-svc">
+                        <div class="home-svc__ico"><i class="<?php echo e($icon); ?>"></i></div>
+                        <h3><?php echo e($title); ?></h3>
+                        <p><?php echo e($desc); ?></p>
+                        <a href="<?php echo e(route('services')); ?>" class="home-svc__more"><?php echo e(app()->getLocale() === 'ar' ? 'التفاصيل' : 'Learn more'); ?><span class="visually-hidden"> <?php echo e(app()->getLocale() === 'ar' ? 'عن ' : 'about '); ?><?php echo e($title); ?></span> <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                    </div>
                 </div>
-            </div>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
+    </div>
+</section>
 
-        <div class="text-center mt-5">
-            <a href="<?php echo e(route('services')); ?>" class="primary-btn">
-                <span class="text"><?php echo e(__('site.view_all_services')); ?></span>
-                <span class="icon"><i class="fa fa-arrow-right"></i></span>
-            </a>
+<section class="ks-section ks-section--tight home-speed">
+    <div class="container">
+        <div class="home-speed__band ks-fadeup">
+            <div class="home-speed__head">
+                <span class="ks-eyebrow"><i class="fas fa-bolt"></i> <?php echo e(app()->getLocale() === 'ar' ? 'سرعة التسليم' : 'Rapid delivery'); ?></span>
+                <h2><?php echo e(app()->getLocale() === 'ar' ? 'من الفكرة إلى الإطلاق في أيام، مش شهور' : 'From idea to launch in days — not months'); ?></h2>
+                <p><?php echo e(app()->getLocale() === 'ar' ? 'أسلّم مشاريع احترافية بسرعة مهما كان حجمها أو توسّعها — بفضل بنية جاهزة، ووحدات قابلة لإعادة الاستخدام، ومطوّر واحد خبير مسؤول عن كل شيء. تشوف نسخة تشتغل من أول أيام، مش بعد شهور.' : 'I ship professional projects fast — whatever the size or scale — thanks to battle-tested architecture, reusable modules, and one senior developer accountable for everything. You see a working version in the first days, not after months.'); ?></p>
+            </div>
+            <div class="row g-4 mt-2">
+                <?php
+                    $isAr = app()->getLocale() === 'ar';
+                    $speed = [
+                        ['fas fa-layer-group', $isAr ? 'بنية جاهزة ومجرّبة' : 'Battle-tested architecture', $isAr ? 'أبدأ من أساس إنتاجي جاهز (مصادقة، فوترة، صلاحيات، API) بدل الصفر — يوفّر أسابيع.' : 'I start from a production-ready foundation (auth, billing, roles, API) instead of scratch — saving weeks.'],
+                        ['fas fa-cubes', $isAr ? 'وحدات قابلة لإعادة الاستخدام' : 'Reusable modules', $isAr ? 'مكتبة مكوّنات ولوحات تحكم بنيتها عبر 39 مشروع، أركّبها وأخصّصها لمشروعك بسرعة.' : 'A library of components and dashboards built across 39 projects, assembled and customized fast for you.'],
+                        ['fas fa-gauge-high', $isAr ? 'نسخة تشتغل من أول يوم' : 'Working build from day one', $isAr ? 'رابط staging حيّ من اليوم الأول وعروض متكرّرة — تتابع التقدّم لحظياً بدل الانتظار.' : 'A live staging URL from day one with frequent demos — you track progress live, no waiting.'],
+                        ['fas fa-user-check', $isAr ? 'مطوّر واحد مسؤول' : 'One accountable senior', $isAr ? 'بدون طبقات وكالة ولا تسليمات بين فرق — قرارات أسرع وتنفيذ مباشر بجودة عالية.' : 'No agency layers or hand-offs between teams — faster decisions and direct, high-quality execution.'],
+                    ];
+                ?>
+                <?php $__currentLoopData = $speed; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as [$icon, $t, $dsc]): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="col-md-6 col-lg-3 ks-fadeup">
+                        <div class="home-speed__card">
+                            <div class="home-speed__ico"><i class="<?php echo e($icon); ?>"></i></div>
+                            <h3><?php echo e($t); ?></h3>
+                            <p><?php echo e($dsc); ?></p>
+                        </div>
+                    </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </div>
+            <div class="home-speed__cta">
+                <span class="home-speed__note"><?php echo e($isAr ? 'موقع تعريفي احترافي؟ أيام. متجر أو MVP؟ أسابيع قليلة بخطة واضحة.' : 'A professional marketing site? Days. A store or an MVP? A few focused weeks with a clear plan.'); ?></span>
+                <a href="<?php echo e(route('contact')); ?>" class="ks-btn ks-btn--primary"><?php echo e($isAr ? 'ابدأ بسرعة' : 'Start fast'); ?> <i class="fa fa-arrow-right"></i></a>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="why-section">
+<section class="ks-section ks-section--tight">
     <div class="container">
-        <div class="text-center mb-5">
-            <span class="section-badge"><i class="fas fa-award"></i> <?php echo e(__('site.why_choose_me')); ?></span>
-            <h2 class="section-title-h2"><?php echo e(__('site.why_clients_hire')); ?></h2>
+        <div class="ks-shead ks-fadeup">
+            <span class="ks-eyebrow"><?php echo e(app()->getLocale() === 'ar' ? 'الأدوات' : 'Tech stack'); ?></span>
+            <h2><?php echo e(app()->getLocale() === 'ar' ? 'تقنيات حديثة وقوية' : 'Modern, production-ready stack'); ?></h2>
+        </div>
+        <div class="d-flex flex-wrap justify-content-center" style="gap:10px; max-width: 900px; margin: 0 auto;">
+            <?php $__currentLoopData = [
+                ['fab fa-laravel', 'Laravel'],
+                ['fab fa-react', 'React'],
+                ['fab fa-node-js', 'Node.js'],
+                ['fab fa-js', 'TypeScript'],
+                ['fab fa-vuejs', 'Vue.js'],
+                ['fab fa-php', 'PHP 8.3'],
+                ['fas fa-database', 'MySQL'],
+                ['fas fa-database', 'PostgreSQL'],
+                ['fas fa-database', 'MongoDB'],
+                ['fas fa-server', 'Redis'],
+                ['fab fa-aws', 'AWS'],
+                ['fab fa-docker', 'Docker'],
+                ['fab fa-git-alt', 'Git / CI'],
+                ['fas fa-credit-card', 'Stripe'],
+            ]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as [$icon, $name]): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <span class="ks-chip"><i class="<?php echo e($icon); ?>"></i> <?php echo e($name); ?></span>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </div>
+    </div>
+</section>
+
+<?php
+    // The homepage is the most-crawled URL on the domain and, until now, linked to no
+    // article at all. These links are the shortest path crawl equity has into the blog,
+    // which is the set of pages Search Console reports as Crawled-not-indexed.
+    $isAr = app()->getLocale() === 'ar';
+    $featuredSlugs = [
+        'how-much-does-website-cost-2026',
+        'freelance-developer-vs-agency',
+        'hire-full-stack-web-developer-egypt',
+        'laravel-vs-nodejs-2026',
+        'build-saas-mvp-laravel-react-2026',
+        'why-your-website-loads-slowly',
+    ];
+    $featured = [];
+    foreach ($featuredSlugs as $fs) {
+        if ($fp = \App\Services\BlogService::find($fs)) { $featured[] = $fp; }
+    }
+?>
+<?php if(count($featured)): ?>
+<section class="ks-section ks-section--tight">
+    <div class="container">
+        <div class="ks-shead ks-fadeup">
+            <span class="ks-eyebrow"><?php echo e($isAr ? 'أدله عمليه' : 'Practical guides'); ?></span>
+            <h2><?php echo e($isAr ? 'اقرأ قبل أن تتعاقد مع أي مطور' : 'Read this before you hire any developer'); ?></h2>
+            <p><?php echo e($isAr ? 'أرقام حقيقيه ومفاضلات صريحه من مطور ينشر في بيئه الإنتاج كل أسبوع — لا لغه تسويقيه.' : 'Real numbers and honest tradeoffs from a developer who ships to production every week — no marketing language.'); ?></p>
         </div>
         <div class="row g-4">
-            <?php for($i = 1; $i <= 6; $i++): ?>
-            <div class="col-lg-4 col-md-6">
-                <div class="why-card">
-                    <div class="num"><?php echo e($i); ?></div>
-                    <h3><?php echo e(__('site.why_' . $i . '_title')); ?></h3>
-                    <p><?php echo e(__('site.why_' . $i . '_desc')); ?></p>
+            <?php $__currentLoopData = $featured; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="col-lg-4 col-md-6 ks-fadeup">
+                    <a href="<?php echo e(route('blog.show', $fp['slug'])); ?>" class="home-svc" style="display:flex;flex-direction:column;text-decoration:none;">
+                        <span class="ks-eyebrow" style="margin-bottom:12px;"><?php echo e($fp['category']); ?> · <?php echo e($fp['read_time']); ?></span>
+                        <h3><?php echo e($fp['title']); ?></h3>
+                        <p style="flex:1;"><?php echo e(\Illuminate\Support\Str::limit(strip_tags($fp['excerpt']), 110)); ?></p>
+                        <span class="home-svc__more"><?php echo e($isAr ? 'اقرأ الدليل' : 'Read the guide'); ?> <i class="fa fa-arrow-<?php echo e($isAr ? 'left' : 'right'); ?>"></i></span>
+                    </a>
                 </div>
-            </div>
-            <?php endfor; ?>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </div>
+        <div class="text-center" style="margin-top:var(--sp-6);">
+            <a href="<?php echo e(route('blogs')); ?>" class="ks-btn ks-btn--ghost"><?php echo e($isAr ? 'كل المقالات' : 'Browse all articles'); ?> <i class="fa fa-arrow-<?php echo e($isAr ? 'left' : 'right'); ?>"></i></a>
         </div>
     </div>
 </section>
+<?php endif; ?>
 
-<section class="stack-section">
+<section class="ks-section ks-section--tight">
     <div class="container">
-        <div class="text-center mb-5">
-            <span class="section-badge"><i class="fas fa-layer-group"></i> <?php echo e(__('site.my_stack')); ?></span>
-            <h2 class="section-title-h2"><?php echo e(__('site.technologies_i_use')); ?></h2>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 mb-4">
-                <h3 style="font-size: 19px; font-weight: 700; margin-bottom: 14px;"><?php echo e(__('site.stack_backend')); ?></h3>
-                <span class="stack-pill primary">Laravel 11</span>
-                <span class="stack-pill primary">PHP 8.3</span>
-                <span class="stack-pill primary">Node.js</span>
-                <span class="stack-pill">Express</span>
-                <span class="stack-pill">NestJS</span>
-                <span class="stack-pill">REST APIs</span>
-                <span class="stack-pill">GraphQL</span>
-                <span class="stack-pill">tRPC</span>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <h3 style="font-size: 19px; font-weight: 700; margin-bottom: 14px;"><?php echo e(__('site.stack_frontend')); ?></h3>
-                <span class="stack-pill primary">React 19</span>
-                <span class="stack-pill primary">Next.js</span>
-                <span class="stack-pill">Vue 3</span>
-                <span class="stack-pill">Nuxt</span>
-                <span class="stack-pill">TypeScript</span>
-                <span class="stack-pill">Tailwind CSS</span>
-                <span class="stack-pill">Inertia.js</span>
-                <span class="stack-pill">Livewire</span>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <h3 style="font-size: 19px; font-weight: 700; margin-bottom: 14px;"><?php echo e(__('site.stack_db_devops')); ?></h3>
-                <span class="stack-pill primary">MySQL</span>
-                <span class="stack-pill primary">PostgreSQL</span>
-                <span class="stack-pill">MongoDB</span>
-                <span class="stack-pill">Redis</span>
-                <span class="stack-pill">Docker</span>
-                <span class="stack-pill">Nginx</span>
-                <span class="stack-pill">DigitalOcean</span>
-                <span class="stack-pill">AWS</span>
-                <span class="stack-pill">Cloudflare</span>
+        <div class="home-cta ks-fadeup">
+            <h2><?php echo e(app()->getLocale() === 'ar' ? 'فكرتك تستحق إطلاقًا احترافيًا — لنبدأ اليوم' : 'Your idea deserves a professional launch — let us start today'); ?></h2>
+            <p><?php echo e(app()->getLocale() === 'ar' ? 'أرسل تفاصيل مشروعك وستحصل على رأي صريح وعرض سعر ثابت وخطة واضحة خلال 24 ساعة. دون التزام، ودون مكالمات مبيعات مزعجة — فقط طريق واضح نحو الإطلاق.' : 'Send your project details and get an honest opinion, a fixed-fee quote, and a clear plan within 24 hours. No commitment, no pushy sales calls — just a clear path to launch.'); ?></p>
+            <div class="home-cta__row">
+                <a href="<?php echo e(route('contact')); ?>" class="ks-btn ks-btn--primary"><?php echo e(app()->getLocale() === 'ar' ? 'تواصل معي' : 'Contact me'); ?> <i class="fa fa-arrow-right"></i></a>
+                <a href="<?php echo e(route('portfolios')); ?>" class="ks-btn ks-btn--ghost"><?php echo e(app()->getLocale() === 'ar' ? 'تصفح المعرض' : 'View portfolio'); ?> <i class="fa fa-arrow-right"></i></a>
             </div>
         </div>
     </div>
 </section>
 
-<section class="testimonial-section">
-    <div class="container">
-        <div class="text-center mb-5">
-            <span class="section-badge"><i class="fas fa-star"></i> <?php echo e(__('site.testimonials')); ?></span>
-            <h2 class="section-title-h2"><?php echo e(__('site.what_clients_say')); ?></h2>
-        </div>
-        <div class="row g-4">
-            <?php for($i = 1; $i <= 3; $i++): ?>
-            <div class="col-lg-4 col-md-6">
-                <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p><?php echo e(__('site.testi_' . $i)); ?></p>
-                    <div class="author"><?php echo e(__('site.testi_' . $i . '_author')); ?></div>
-                    <div class="role"><?php echo e(__('site.testi_' . $i . '_role')); ?></div>
-                </div>
-            </div>
-            <?php endfor; ?>
-        </div>
-    </div>
-</section>
-
-<section class="final-cta">
-    <div class="container">
-        <h2><?php echo e(__('site.ready_to_build')); ?></h2>
-        <p><?php echo e(__('site.ready_subtitle')); ?></p>
-        <a href="<?php echo e(route('contact')); ?>" class="btn-cta"><?php echo e(__('site.book_consultation')); ?> <i class="fa fa-arrow-right ms-2"></i></a>
-        <div style="margin-top: 18px; color: #94a3b8; font-size: 14px;">
-            <i class="far fa-clock"></i> <?php echo e(__('site.reply_24h_chip')); ?> &nbsp; · &nbsp;
-            <i class="fas fa-globe"></i> <?php echo e(__('site.worldwide_remote_chip')); ?> &nbsp; · &nbsp;
-            <i class="fas fa-shield-alt"></i> <?php echo e(__('site.nda_on_request_chip')); ?>
-
-        </div>
-    </div>
-</section>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH F:\Certificates\khaled\resources\views/pages/home.blade.php ENDPATH**/ ?>
