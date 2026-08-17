@@ -36,6 +36,15 @@
     <link rel="canonical" href="@yield('canonical', $khCanonical)">
     <link rel="alternate" hreflang="en" href="{{ $khEnUrl }}">
     <link rel="alternate" hreflang="ar" href="{{ $khArUrl }}">
+    {{-- Region-qualified variants. Several hreflang values may legitimately point at one
+         URL; this tells Google the Arabic version is intended for Saudi, the UAE, Kuwait,
+         Qatar and Egypt, and that the English version also serves the UAE's large
+         English-speaking business population. Both are target markets. --}}
+    @foreach(['ar-SA', 'ar-AE', 'ar-KW', 'ar-QA', 'ar-EG'] as $khRegion)
+        <link rel="alternate" hreflang="{{ $khRegion }}" href="{{ $khArUrl }}">
+    @endforeach
+    <link rel="alternate" hreflang="en-AE" href="{{ $khEnUrl }}">
+    <link rel="alternate" hreflang="en-SA" href="{{ $khEnUrl }}">
     <link rel="alternate" hreflang="x-default" href="{{ $khEnUrl }}">
 
     {{-- Open Graph --}}

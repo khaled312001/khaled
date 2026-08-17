@@ -96,9 +96,13 @@ Route::prefix($khIsArabicTree ? 'ar' : '')->group(function () {
     Route::get('/faqs', [App\Http\Controllers\PageController::class, 'faqs'])->name('faqs');
     Route::get('/plans', [App\Http\Controllers\PageController::class, 'plans'])->name('plans');
 
-    // High-intent SEO landing pages. Constrained to known slugs so this catch-all
-    // style route can never shadow one of the pages above.
+    // High-intent SEO landing pages. The constraint is built from LandingService so a new
+    // page needs only a service entry, not a route edit — but it stays a strict whitelist,
+    // so this catch-all-shaped route can never shadow one of the pages above.
     Route::get('/{landing}', [App\Http\Controllers\PageController::class, 'landing'])
-        ->where('landing', 'hire-laravel-developer|hire-react-developer|saas-development|ecommerce-development|mobile-app-development')
+        ->where('landing', implode('|', array_map(
+            fn ($s) => preg_quote($s, '/'),
+            App\Services\LandingService::slugs()
+        )))
         ->name('landing');
 });
