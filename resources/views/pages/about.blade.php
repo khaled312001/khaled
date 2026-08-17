@@ -100,7 +100,7 @@
 
             <div class="col-lg-5">
                 <div class="ks-media ks-fadeup" style="margin-bottom: 20px;">
-                    <img src="{{ asset('images/site/about-developer.png') }}"
+                    <img src="{{ asset('images/site/about-developer.webp') }}"
                          alt="{{ app()->getLocale() === 'ar' ? 'مساحة عمل مطور ويب خبير — أكواد وشاشات وتصميم معماري' : 'Senior web developer workspace — clean code, multiple monitors, architecture' }}"
                          width="1536" height="1024" loading="lazy" decoding="async">
                 </div>

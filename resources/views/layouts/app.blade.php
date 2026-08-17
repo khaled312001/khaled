@@ -43,7 +43,7 @@
     <meta property="og:url"         content="@yield('canonical', $khCanonical)">
     <meta property="og:title"       content="@yield('og_title', 'Khaled Ahmed — Senior Full Stack Web Developer')">
     <meta property="og:description" content="@yield('og_description', 'Senior full stack web developer. Laravel, React, Node.js. 5+ years, 25+ projects, 7 countries.')">
-    <meta property="og:image"       content="@yield('og_image', asset('images/og-cover.png'))">
+    <meta property="og:image"       content="@yield('og_image', asset('images/og-cover.webp'))">
     <meta property="og:image:width"  content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt"   content="@yield('og_image_alt', 'Khaled Ahmed — Senior Full Stack Web Developer')">
@@ -55,23 +55,43 @@
     <meta name="twitter:url"         content="@yield('canonical', $khCanonical)">
     <meta name="twitter:title"       content="@yield('twitter_title', 'Khaled Ahmed — Senior Full Stack Web Developer')">
     <meta name="twitter:description" content="@yield('twitter_description', 'Senior full stack web developer. Laravel, React, Node.js.')">
-    <meta name="twitter:image"       content="@yield('twitter_image', asset('images/og-cover.png'))">
+    <meta name="twitter:image"       content="@yield('twitter_image', asset('images/og-cover.webp'))">
     <meta name="twitter:image:alt"   content="@yield('twitter_image_alt', 'Khaled Ahmed — Senior Full Stack Web Developer')">
 
     {{-- Favicons --}}
-    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
-    <link rel="apple-touch-icon" href="{{ asset('images/logo.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.webp') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo.webp') }}">
 
-    {{-- Fonts: Inter (EN/UI) + Cairo (AR) — preconnect + display swap --}}
+    {{-- Warm up all three third-party origins before the parser reaches their stylesheets. --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+    {{-- Fonts: Inter (EN/UI) + Cairo (AR). Only the weights actually used are requested —
+         asking for five weights of three families cost several hundred KB for glyphs that
+         never rendered. JetBrains Mono is loaded only where code blocks exist. --}}
+    @php
+        $khFontFamilies = $khLocale === 'ar'
+            ? 'family=Cairo:wght@400;600;700;800&family=Inter:wght@400;600;700'
+            : 'family=Inter:wght@400;500;600;700;800&family=Cairo:wght@400;700';
+    @endphp
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?{{ $khFontFamilies }}&display=swap">
 
     {{-- Bootstrap (grid + utilities only — we override theme via design system) --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
-    {{-- Font Awesome --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    {{-- Font Awesome is decorative only, so it must not block first paint. Loaded as a
+         non-blocking stylesheet with a <noscript> fallback for crawlers and no-JS clients. --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          media="print" onload="this.media='all';this.onload=null;">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
+
+    {{-- Preload the homepage hero: it is the LCP element, so discovering it via CSS-blocked
+         HTML parsing costs roughly a full round trip. --}}
+    @hasSection('lcp_image')
+        <link rel="preload" as="image" href="@yield('lcp_image')" fetchpriority="high">
+    @endif
 
     {{-- =========================================================
          DESIGN SYSTEM — single source of truth. Deep navy dark.
@@ -544,7 +564,7 @@
 <div class="ks-drawer__backdrop" id="ksDrawerBackdrop"></div>
 <aside class="ks-drawer" id="ksDrawer" aria-hidden="true">
     <div class="ks-drawer__head">
-        <a href="{{ route('home') }}" class="ks-nav__brand"><img src="{{ asset('images/logo.png') }}" alt="Khaled Ahmed"></a>
+        <a href="{{ route('home') }}" class="ks-nav__brand"><img src="{{ asset('images/logo.webp') }}" alt="Khaled Ahmed"></a>
         <button type="button" class="ks-drawer__close" id="ksDrawerClose" aria-label="Close menu"><i class="fas fa-times"></i></button>
     </div>
     <ul class="ks-drawer__links">

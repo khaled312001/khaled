@@ -3,7 +3,8 @@
 @section('title', app()->getLocale() === 'ar' ? 'خالد أحمد — مطور Full Stack مستقل | Laravel و React' : 'Khaled Ahmed — Freelance Full Stack Developer | Laravel & React')
 @section('description', app()->getLocale() === 'ar' ? 'مطور Laravel و React و Next.js من القاهره. 39 مشروعا منشورا في 8 دول، و7 تطبيقات على Google Play. عرض سعر ثابت ورد خلال 24 ساعه.' : 'Senior Laravel, React and Next.js developer in Cairo. 39 products shipped across 8 countries, 7 apps live on Google Play. Fixed-fee quotes, 24-hour reply.')
 @section('keywords', 'freelance full stack developer, freelance laravel developer, freelance react developer, hire web developer, custom web application, SaaS developer, Khaled Ahmed, مطور ويب مستقل, مبرمج مواقع')
-@section('og_image', asset('images/logo.png'))
+@section('og_image', asset('images/logo.webp'))
+@section('lcp_image', asset('images/site/hero-workspace.webp'))
 
 @section('structured_data')
 <script type="application/ld+json">
@@ -133,7 +134,7 @@
 
             <div class="col-lg-5">
                 <div class="home-hero-img">
-                    <img src="{{ asset('images/site/hero-workspace.png') }}"
+                    <img src="{{ asset('images/site/hero-workspace.webp') }}"
                          alt="{{ app()->getLocale() === 'ar' ? 'مطور ويب Full Stack يبني تطبيقات Laravel و React احترافية' : 'Senior full stack developer building professional Laravel and React web applications' }}"
                          width="1536" height="1024" loading="eager" decoding="async" fetchpriority="high">
                 </div>

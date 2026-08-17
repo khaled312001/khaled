@@ -7,7 +7,7 @@
         <div class="row g-5">
             <div class="col-lg-3">
                 <div class="ks-foot__brand">
-                    <img src="{{ asset('images/logo.png') }}" alt="Khaled Ahmed" width="180" height="38">
+                    <img src="{{ asset('images/logo.webp') }}" alt="Khaled Ahmed" width="180" height="38">
                 </div>
                 <p class="ks-foot__about">
                     {{ $khLocale === 'ar' ? 'مطور ويب Full Stack خبير في Laravel و React و Node.js. أكثر من خمس سنوات خبرة و25 مشروعا منشورا في ثماني دول.' : 'Senior full stack web developer specialized in Laravel, React, and Node.js. 5+ years of experience and 25+ shipped production projects across 8 countries.' }}

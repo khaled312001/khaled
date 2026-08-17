@@ -269,6 +269,7678 @@ class BlogService
     {
         return [
             [
+                'slug' => 'gcc-payment-gateway-integration',
+                'title' => 'Tabby, Tamara, Mada & PayTabs: Integrating Gulf Payments Into a Custom Store',
+                'title_ar' => 'ربط Tabby و Tamara و Mada و PayTabs في متجر إلكتروني مخصص',
+                'excerpt' => 'The real integration path for Gulf payments: what Tabby, Tamara, mada and PayTabs require before you write code, how their webhooks actually behave under retries and out-of-order delivery, why you cannot use Stripe as a Saudi entity, and what happens to your money between capture and settlement.',
+                'excerpt_ar' => 'المسار الحقيقي لربط المدفوعات الخليجية: ما يطلبه Tabby و Tamara و mada و PayTabs قبل كتابة أي كود، وكيف تتصرف إشعاراتهم فعلياً مع إعادة المحاولة والوصول خارج الترتيب، ولماذا لا يصلح Stripe لكيان سعودي، وماذا يحدث لأموالك بين التحصيل والتسوية.',
+                'category' => 'Platforms',
+                'tags' => ['Payment Gateways', 'Tabby', 'Tamara', 'mada', 'PayTabs', 'BNPL', 'Saudi Arabia', 'Ecommerce'],
+                'image' => '1710768229-blog-img-1.jpg',
+                'date' => '2026-08-16',
+                'read_time' => '19 min read',
+                'meta_title' => 'Tabby, Tamara, Mada & PayTabs Integration Guide',
+                'meta_title_ar' => 'ربط Tabby وTamara وmada وPayTabs في متجر مخصص',
+                'meta_description' => 'A developer\'s guide to integrating Tabby, Tamara, mada and PayTabs into a custom Gulf store: onboarding rules, webhook handling, refunds and settlement.',
+                'meta_description_ar' => 'دليل مطوّر لربط Tabby وTamara وmada وPayTabs في متجر خليجي مخصص: شروط التسجيل، ومعالجة الإشعارات، والاسترداد، والتسوية.',
+                'faq' => [
+                    [
+                        'q' => 'How do I add Tabby and Tamara to a custom-built store?',
+                        'a' => 'There are two tracks and the commercial one is longer. Commercially, both require an approved merchant account: a commercial registration in the market you sell into, a local bank account, category review and a signed agreement with a negotiated rate. Start that on day one. Technically, both follow create-session, customer approves, authorize, capture, refund. For Tabby you create a checkout session server-side including buyer history and order history (which feeds their pre-scoring, so populate it from your own orders table), handle a rejected status by hiding the option, redirect, then capture on shipment. For Tamara you create the session, then you must explicitly call the Authorise Order API after the customer approves — an approved Tamara order is not a collectable one until you do — then capture on shipment. Build a provider abstraction with create-session, retrieve, capture, partial capture, refund and void before you add the second provider.',
+                        'q_ar' => 'كيف أضيف Tabby و Tamara إلى متجر مبني خصيصاً؟',
+                        'a_ar' => 'هناك مساران، والتجاري أطول. تجارياً، كلاهما يشترط حساب تاجر معتمداً: سجل تجاري في السوق الذي تبيع فيه، وحساب بنكي محلي، ومراجعة للتصنيف، واتفاقية موقّعة بنسبة متفاوض عليها. ابدأ هذا من اليوم الأول. تقنياً، كلاهما يتبع: إنشاء جلسة، موافقة العميل، تفويض، تحصيل، استرداد. في Tabby تنشئ جلسة الدفع من الخادم متضمنة سجل المشتري وسجل طلباته — وهي مدخلات التقييم المسبق لديهم فعبّئها من جدول طلباتك — وتعالج حالة rejected بإخفاء الخيار، ثم تحوّل العميل، ثم تحصّل عند الشحن. في Tamara تنشئ الجلسة ثم يجب أن تستدعي صراحة واجهة Authorize Order بعد موافقة العميل، فالطلب المعتمَد ليس قابلاً للتحصيل قبل ذلك، ثم تحصّل عند الشحن. وابنِ طبقة تجريد للمزوّدين تضم إنشاء جلسة واستعلاماً وتحصيلاً وتحصيلاً جزئياً واسترداداً وإلغاءً قبل إضافة المزوّد الثاني.',
+                    ],
+                    [
+                        'q' => 'Does mada require a local Saudi merchant account?',
+                        'a' => 'Effectively yes. mada is a domestic scheme governed by the Saudi Central Bank, and accepting it online requires a merchant ID issued through a Saudi acquirer — in practice a SAMA-licensed gateway such as PayTabs, HyperPay, Moyasar or Tap. The licence sits with the gateway, not with you, so you do not need your own SAMA licence as a merchant. But you do need to be onboardable: a Saudi commercial registration (or a freelance certificate in some cases), a Saudi bank account in the entity\'s name for settlement, identity documents for the owner or authorised signatory, and a live website with pricing, terms, refund policy and contact details. A foreign company with no Saudi entity either registers one or works with an international acquirer that holds Saudi acquiring capability, which is usually reserved for larger volumes. Confirm the exact document list with the provider, because these requirements change.',
+                        'q_ar' => 'هل تتطلب mada حساب تاجر سعودياً محلياً؟',
+                        'a_ar' => 'عملياً نعم. mada شبكة محلية يحكمها البنك المركزي السعودي، وقبولها عبر الإنترنت يتطلب معرّف تاجر صادراً عبر جهة استحواذ سعودية، أي عملياً بوابة مرخّصة من SAMA مثل PayTabs أو HyperPay أو Moyasar أو Tap. الترخيص لدى البوابة لا لديك، فلا تحتاج ترخيصاً خاصاً بك كتاجر. لكنك تحتاج أن تكون مؤهلاً للتسجيل: سجل تجاري سعودي أو وثيقة عمل حر في بعض الحالات، وحساب بنكي سعودي باسم الكيان لأغراض التسوية، وهويات المالك أو المفوّض بالتوقيع، وموقع منشور بأسعار وشروط وسياسة استرداد وبيانات تواصل. الشركة الأجنبية بلا كيان سعودي إما تؤسس كياناً أو تعمل مع جهة استحواذ دولية تملك قدرة استحواذ سعودية، وهذا عادة للأحجام الكبيرة. تحقق من قائمة المستندات الدقيقة مع المزوّد لأن هذه المتطلبات تتغير.',
+                    ],
+                    [
+                        'q' => 'What does BNPL integration cost and how long does it take?',
+                        'a' => 'Three costs. Build: for one provider added to a store that already has a clean order state machine and a payment abstraction, a competent developer needs a handful of working days covering session creation, redirect handling, the webhook endpoint, capture, refunds, the product-page widget and sandbox failure testing. If no abstraction exists, budget to build one first. Elapsed time: the constraint is merchant onboarding, not code — application, document review, category approval, commercial negotiation and key issuance realistically take weeks, so start before development and launch without BNPL if the contract is not signed. Ongoing: BNPL merchant discount rates are substantially higher than card processing, high enough to move your gross margin, and they vary with plan, category and negotiation. Model it against your actual basket mix; with thin margins and a low average order value, BNPL can cost more than the incremental orders are worth.',
+                        'q_ar' => 'كم يكلف ربط التقسيط وكم يستغرق؟',
+                        'a_ar' => 'ثلاث تكاليف. البناء: لإضافة مزوّد واحد إلى متجر لديه بالفعل آلة حالات نظيفة وطبقة تجريد للدفع، يحتاج مطور كفء عدة أيام عمل تغطي إنشاء الجلسة ومعالجة التحويل ونقطة الإشعارات والتحصيل والاسترداد وأداة صفحة المنتج واختبار مسارات الفشل. إن لم توجد طبقة تجريد فخصّص ميزانية لبنائها أولاً. الزمن: القيد هو تسجيل التاجر لا الكود — التقديم ومراجعة المستندات واعتماد التصنيف والتفاوض وإصدار المفاتيح تستغرق أسابيع واقعياً، فابدأ قبل التطوير وأطلق بدون التقسيط إن لم يُوقَّع العقد. المستمرة: نسب خصم التاجر في التقسيط أعلى بشكل ملموس من البطاقات، بما يكفي لتحريك هامشك الإجمالي، وتتغير بحسب الخطة والتصنيف والتفاوض. احسبها على مزيج سلتك الفعلي؛ فمع هامش ضيق ومتوسط طلب منخفض قد يكلفك التقسيط أكثر مما تستحقه الطلبات الإضافية.',
+                    ],
+                    [
+                        'q' => 'Can I use Stripe instead of a Gulf gateway in Saudi Arabia?',
+                        'a' => 'Not as a Saudi-registered business. Saudi Arabia is not among Stripe\'s supported countries for opening a merchant account, so a Saudi entity cannot onboard directly. The common workaround — registering a company in a supported jurisdiction and processing through it — is real but a bad idea for a Saudi store. You get no mada, which is disqualifying on its own since it is the card most of your customers hold. Saudi-issued cards presented to a foreign acquirer decline more often, and you only see that in your conversion rate. Customers face foreign-transaction fees, you take FX losses, and your books stop matching your local tax position, including your ZATCA e-invoicing obligations. Stripe makes sense only if you are registered in a supported country selling digital products globally with Saudi customers as a minority of revenue. The same logic applies to PayPal here: a supplementary method, not a primary rail.',
+                        'q_ar' => 'هل أستطيع استخدام Stripe بدل بوابة خليجية في السعودية؟',
+                        'a_ar' => 'ليس ككيان مسجّل في السعودية. السعودية ليست ضمن الدول المدعومة لفتح حساب تاجر لدى Stripe، فالكيان السعودي لا يستطيع التسجيل مباشرة. والحيلة الشائعة بتسجيل شركة في دولة مدعومة والمعالجة عبرها قائمة فعلاً لكنها فكرة سيئة لمتجر سعودي. لن تحصل على mada، وهذا وحده مانع لأنها البطاقة التي يحملها أغلب عملائك. والبطاقات السعودية المقدَّمة لجهة استحواذ أجنبية تُرفض أكثر، ولن ترى ذلك إلا في نسبة التحويل. والعميل يواجه رسوم عملية دولية، وأنت تخسر على فروق الصرف، وتتوقف دفاترك عن مطابقة وضعك الضريبي المحلي بما في ذلك التزامات الفوترة الإلكترونية لدى ZATCA. Stripe منطقي فقط إن كنت مسجلاً في دولة مدعومة وتبيع منتجات رقمية عالمياً والعملاء السعوديون أقلية من إيرادك. والمنطق نفسه ينطبق على PayPal هنا: وسيلة مكمّلة لا مسار دفع رئيسي.',
+                    ],
+                    [
+                        'q' => 'Which gateway should a Gulf store launch with first?',
+                        'a' => 'Launch with one card gateway, never three. For a Saudi-only store, Moyasar if your team values developer experience and speed to market, or PayTabs if you expect to expand beyond the Kingdom within a year — either gives you mada, cards and Apple Pay through one integration. UAE-first: PayTabs or Checkout.com for cards. Multi-country Gulf from day one: PayTabs, because one contract across most GCC markets removes reconciliation overhead that never appears in a fee comparison. Egypt in scope: Paymob for Egypt, and accept running two card gateways rather than forcing one provider to serve both regions badly. Add BNPL only after the card rail is stable — Tamara first in Saudi Arabia for brand recognition, Tabby first in the UAE for the same reason.',
+                        'q_ar' => 'بأي بوابة يبدأ المتجر الخليجي؟',
+                        'a_ar' => 'أطلق ببوابة بطاقات واحدة لا بثلاث. لمتجر سعودي فقط: Moyasar إن كان فريقك يقدّر تجربة المطور وسرعة الوصول للسوق، أو PayTabs إن كنت تتوقع التوسع خارج المملكة خلال سنة، وكلاهما يمنحك mada والبطاقات و Apple Pay عبر ربط واحد. للإمارات أولاً: PayTabs أو Checkout.com للبطاقات. لمتعدد الدول الخليجية من اليوم الأول: PayTabs، لأن عقداً واحداً عبر أغلب أسواق الخليج يزيل عبء مطابقة حسابية لا يظهر في مقارنة الرسوم. ومع وجود مصر في النطاق: Paymob لمصر، وتقبّل تشغيل بوابتَي بطاقات بدل إجبار مزوّد واحد على خدمة المنطقتين بشكل ضعيف. أضف التقسيط فقط بعد استقرار مسار البطاقات: Tamara أولاً في السعودية لقوة العلامة، و Tabby أولاً في الإمارات للسبب نفسه.',
+                    ],
+                    [
+                        'q' => 'How should I handle payment webhooks so orders never break?',
+                        'a' => 'Four rules. First, reconcile rather than trust: never mutate order or money state from the webhook body — treat the notification only as a signal that something about that payment ID changed, then call the provider\'s retrieve endpoint with your secret key and act on that. This matters most with Tabby, whose webhook custom header is a shared secret rather than a signature over the payload, unlike PayTabs (HMAC of the full body with your server key), Paymob (HMAC over a specific ordered field concatenation) and Tamara (a HS256 JWT notification token). Second, deduplicate on a stable event identifier enforced by a unique database constraint, because every provider retries and a retry is indistinguishable from a duplicate. Third, model payment state as an explicit state machine and reject backwards transitions, because deliveries arrive out of order. Fourth, record the event, return 200 immediately, and do fulfilment on a queue. Then add an hourly job that polls any payment stuck in a non-terminal state.',
+                        'q_ar' => 'كيف أعالج إشعارات الدفع بحيث لا تنكسر الطلبات؟',
+                        'a_ar' => 'أربع قواعد. أولاً، طابِق ولا تثق: لا تغيّر حالة الطلب أو المال اعتماداً على محتوى الإشعار، بل تعامل معه كإشارة بأن شيئاً في عملية الدفع تغيّر، ثم استدعِ endpoint الاستعلام لدى المزوّد بمفتاحك السري وتصرّف بناءً عليه. وهذا أهم ما يكون مع Tabby لأن ترويسته المخصصة سر مشترك لا توقيع على المحتوى، بخلاف PayTabs الذي يرسل HMAC لكامل المحتوى بمفتاح الخادم، و Paymob الذي يحسب HMAC على تسلسل حقول محدد ومرتّب، و Tamara التي ترسل JWT موقّعاً بـ HS256. ثانياً، أزل التكرار بمعرّف حدث مستقر مفروض بقيد فريد في قاعدة البيانات، فكل مزوّد يعيد المحاولة وإعادة المحاولة لا تُميَّز عن التكرار. ثالثاً، مثّل حالة الدفع كآلة حالات صريحة وارفض الانتقالات إلى الوراء، لأن الإشعارات تصل خارج الترتيب. رابعاً، سجّل الحدث وأعِد 200 فوراً ونفّذ العمل في طابور معالجة. ثم أضف مهمة كل ساعة تستعلم عن أي عملية عالقة في حالة غير نهائية.',
+                    ],
+                    [
+                        'q' => 'When should I capture payment, and how does settlement actually work?',
+                        'a' => 'Capture at fulfilment, not at checkout. Authorization, capture and settlement are three different events with three different timestamps. Capturing at checkout for physical goods means holding customer money for items that may be out of stock, which inflates your refund and dispute metrics. If you ship three of five items, capture three items\' worth rather than capturing in full and refunding the difference — those look identical in your database and completely different in the provider\'s reporting and your fee bill. Watch Tamara\'s documented twenty-one-day auto-capture window: an authorised order left uncaptured that long gets captured automatically, which will silently break your books if your fulfilment lead time is longer. Settlement is batched, not per-order: you receive a lump sum on a cycle net of fees, so build a settlement import that maps provider reports to order IDs from launch. And if you are VAT-registered in Saudi Arabia, generate the tax invoice on the capture event, not on order placement.',
+                        'q_ar' => 'متى أحصّل المبلغ، وكيف تعمل التسوية فعلاً؟',
+                        'a_ar' => 'حصّل عند التنفيذ لا عند إتمام الطلب. التفويض والتحصيل والتسوية ثلاثة أحداث مختلفة بثلاثة توقيتات. التحصيل عند إتمام الطلب في البضائع المادية يعني احتجاز مال العميل مقابل أصناف قد تكون نافدة، وهو ما يضخّم مؤشرات الاسترداد والمنازعات لديك. وإن شحنت ثلاثة أصناف من خمسة، حصّل قيمة الثلاثة بدل التحصيل الكامل ثم استرداد الفرق، فالأمران يبدوان متطابقين في قاعدة بياناتك ومختلفين تماماً في تقارير المزوّد وفاتورة رسومك. وانتبه لنافذة التحصيل التلقائي الموثّقة لدى Tamara بعد واحد وعشرين يوماً: الطلب المفوَّض الذي يبقى بلا تحصيل هذه المدة يُحصَّل تلقائياً، وهذا يفسد دفاترك بصمت إن كانت مدة تنفيذك أطول. والتسوية مجمّعة لا لكل طلب: تستلم مبلغاً إجمالياً على دورة صافياً بعد الرسوم، فابنِ استيراداً لتقارير التسوية يربطها بمعرّفات الطلبات من الإطلاق. وإن كنت مسجلاً في ضريبة القيمة المضافة بالسعودية، أصدر الفاتورة الضريبية عند حدث التحصيل لا عند تقديم الطلب.',
+                    ],
+                ],
+                'content' => <<<'HTML'
+<p class="lead">If you are building a custom store for Saudi Arabia or the Gulf, the payment stack is not a plugin decision — it is an architecture decision, and getting it wrong costs you the launch date. Here is the real integration path for Tabby, Tamara, mada and PayTabs: what each provider demands before you write a line of code, how the webhooks actually behave under load, and what happens to your money after the customer taps pay.</p>
+
+<p>I have shipped Gulf checkouts on Laravel, on Node, and on top of other people's half-finished code. The pattern is always the same. The founder assumes payments are the easy part because a plugin exists. Then onboarding takes three weeks, the sandbox behaves nothing like production, a webhook fires twice, and an order gets fulfilled that was never captured.</p>
+
+<p>None of that is in the provider documentation. It is in this article.</p>
+
+<h2>1. The verdict, before the detail</h2>
+
+<p>If you only read one section, read this one.</p>
+
+<p><strong>Launch with one card gateway, not three.</strong> Pick a SAMA-licensed processor that gives you mada, Visa/Mastercard and Apple Pay through a single integration — PayTabs, HyperPay, Moyasar or Tap in Saudi Arabia; PayTabs, Telr or Checkout.com in the UAE; Paymob if Egypt is in scope. One integration, one settlement report, one reconciliation job.</p>
+
+<p><strong>Add BNPL second, not first.</strong> Tabby and Tamara are conversion tools, not payment infrastructure. They are worth adding — Gulf merchants consistently report higher average order values after BNPL goes live — but they are a separate contract, a separate onboarding, a separate webhook contract and a separate refund flow. Do not let them block your launch.</p>
+
+<p><strong>You cannot use Stripe as a Saudi entity.</strong> Not a preference, a fact. More on that in section 7.</p>
+
+<p><strong>mada is not optional.</strong> It is the dominant card in the Kingdom by a very wide margin. A Saudi checkout without mada is a Saudi checkout that loses most of its customers at the last step.</p>
+
+<p><strong>Never trust a webhook payload as the source of truth.</strong> Treat every incoming notification as a hint that something changed, then call the provider's retrieve endpoint and believe that instead. This single rule prevents most of the money-losing bugs I get called in to fix.</p>
+
+<h2>2. What Gulf customers actually pay with</h2>
+
+<p>Published market-share numbers for Saudi checkout vary a lot between sources, so treat any precise percentage you read — including the ones vendors quote at you — as directional rather than measured. What is not in dispute is the ordering.</p>
+
+<p>mada dominates. It is the domestic debit scheme created by the Saudi Central Bank, it sits on almost every Saudi bank card, and Saudi consumers reach for debit first. International Visa and Mastercard credit come second, largely from expatriate and corporate customers. Apple Pay has grown fast enough that it is now a first-class requirement rather than a nice extra. STC Pay holds a meaningful wallet share. BNPL through Tabby and Tamara is a smaller slice of transaction count but a disproportionate slice of basket value. Cash on delivery is shrinking but has not disappeared, especially outside the big cities.</p>
+
+<p>The design implication: your checkout needs mada and Apple Pay on day one, card as the fallback, BNPL as the upsell, and — if your category justifies it — cash on delivery with a reconciliation process that is not a spreadsheet. If you are still at the stage of choosing your overall stack and store architecture, my <a href="/blog/ecommerce-website-development-guide">ecommerce development guide</a> covers the layers underneath this one.</p>
+
+<div class="post-callout">
+<p><strong>The thing nobody tells you about mada online:</strong> mada cards are debit. Debit means the customer's actual bank balance, an OTP on every transaction, and a hard 3D Secure step that you cannot skip. Your checkout must survive a full redirect out to the bank's authentication page and back, on a phone, on a patchy mobile connection, sometimes with the app switching to the banking app for the OTP. If your order state depends on the customer returning to your success URL, you will lose orders. Design for the server-to-server notification as the primary signal and the browser redirect as a convenience.</p>
+</div>
+
+<h2>3. How do I add Tabby and Tamara to a custom-built store?</h2>
+
+<p>This is the question I get most, and the honest answer has two halves: the commercial half takes longer than the technical half.</p>
+
+<h3>Before any code: the commercial track</h3>
+
+<p>Both Tabby and Tamara require you to be an approved merchant before you get production keys. That means a commercial registration in the market you are selling into, a bank account in that market, business details, category review, and in most cases a signed merchant agreement with a negotiated rate. Some categories get declined or priced punitively — high-refund verticals, digital goods, anything that looks like resale of stored value.</p>
+
+<p>You can usually get sandbox credentials quickly to start building. You cannot go live without the contract. Start the commercial track on day one of the project, in parallel with development, or it becomes your critical path.</p>
+
+<h3>The Tabby flow</h3>
+
+<p>Tabby's model is a checkout session followed by a payment object. The lifecycle is worth learning properly because most integration bugs come from misunderstanding it.</p>
+
+<ol>
+<li><strong>Create a checkout session</strong> server-side with the order amount, currency, buyer details, order items, shipping address and — this matters — buyer history and order history.</li>
+<li><strong>Tabby pre-scores the customer.</strong> The response tells you whether the customer is eligible and which installment products are available. If Tabby returns a rejected status, no product is available for that buyer and you must hide or disable the Tabby option gracefully rather than letting them click into a dead end.</li>
+<li><strong>Redirect the customer</strong> to the returned Tabby web URL, where they authenticate and approve the plan.</li>
+<li><strong>The payment becomes authorized.</strong> Money is committed but not yet yours.</li>
+<li><strong>You capture</strong> — fully or partially — when you ship. Full capture closes the payment. That is the final state.</li>
+<li><strong>You refund</strong> against a captured payment, or <strong>void</strong> an authorization you never captured.</li>
+</ol>
+
+<p>The buyer-history payload is the part developers skip and then wonder why approval rates are poor. Tabby uses registration date, previous order count and previous order values as scoring input. If you send an empty history for a five-year customer with forty completed orders, you are throwing away the strongest signal you have. Populate it from your own orders table. It costs you one query.</p>
+
+<pre><code>// Laravel: create a Tabby checkout session
+$payload = [
+    'payment' =&gt; [
+        'amount'      =&gt; number_format($order-&gt;total, 2, '.', ''),
+        'currency'    =&gt; 'SAR',
+        'description' =&gt; "Order #{$order-&gt;reference}",
+        'buyer' =&gt; [
+            'phone' =&gt; $customer-&gt;phone_e164,
+            'email' =&gt; $customer-&gt;email,
+            'name'  =&gt; $customer-&gt;full_name,
+        ],
+        'buyer_history' =&gt; [
+            'registered_since' =&gt; $customer-&gt;created_at-&gt;toIso8601String(),
+            'loyalty_level'    =&gt; $customer-&gt;completed_orders_count,
+        ],
+        'order' =&gt; [
+            'reference_id' =&gt; $order-&gt;reference,
+            'items'        =&gt; $this-&gt;mapItems($order),
+        ],
+        'order_history' =&gt; $this-&gt;lastOrders($customer, 10),
+        'shipping_address' =&gt; [
+            'city'    =&gt; $order-&gt;city,
+            'address' =&gt; $order-&gt;address_line,
+        ],
+    ],
+    'lang'                 =&gt; app()-&gt;getLocale(),
+    'merchant_code'        =&gt; config('tabby.merchant_code'),
+    'merchant_urls' =&gt; [
+        'success' =&gt; route('checkout.tabby.success', $order),
+        'cancel'  =&gt; route('checkout.tabby.cancel', $order),
+        'failure' =&gt; route('checkout.tabby.failure', $order),
+    ],
+];
+
+$response = Http::withToken(config('tabby.public_key'))
+    -&gt;timeout(15)
+    -&gt;post(config('tabby.base_url') . '/api/v2/checkout', $payload)
+    -&gt;throw()
+    -&gt;json();
+
+if (($response['status'] ?? null) === 'rejected') {
+    // No product available for this buyer. Hide Tabby, do not redirect.
+    return back()-&gt;with('bnpl_unavailable', true);
+}
+</code></pre>
+
+<p>Note the regional base URL. Tabby serves the Kingdom and the other Gulf markets from different domains with identical paths, and the environment (test versus live) is determined by which key you authenticate with, not by a flag in the request. Configure the base URL per market and never hardcode it.</p>
+
+<h3>The Tamara flow</h3>
+
+<p>Tamara is structurally similar but with meaningfully different semantics that will bite you if you assume symmetry.</p>
+
+<ol>
+<li><strong>Create a checkout session</strong> with purchase details, consumer data, itemised cart, and your success, failure, cancel and notification URLs.</li>
+<li><strong>Customer approves</strong> at Tamara's hosted checkout. The order moves to approved.</li>
+<li><strong>You must explicitly authorise.</strong> This is the step people miss. An approved Tamara order is not a completed one — you call the Authorise Order API to confirm you received and accepted it. Skip this and the order never becomes collectable.</li>
+<li><strong>You capture on shipment.</strong></li>
+<li><strong>Tamara auto-captures if you do not.</strong> Their documented behaviour is that an authorised order left uncaptured for twenty-one days gets auto-captured and moved to fully captured status.</li>
+</ol>
+
+<p>That auto-capture window is the single most consequential difference between the two providers for anyone selling made-to-order goods, pre-orders, or anything with a long fulfilment tail. If your production lead time is thirty days, Tamara will capture on day twenty-one whether you shipped or not, your ledger will say captured, your warehouse will say nothing has left, and your accountant will find the gap next quarter. Build a scheduled job that flags authorised-but-unshipped orders well before the window closes and forces a human decision.</p>
+
+<p>Tamara's webhook authentication also differs. You register the notification endpoint in their partner portal, choose which order-status events you want, and Tamara signs deliveries with a JWT notification token — passed both as a query parameter and as a bearer token in the authorization header — which you decode with your notification secret to confirm the payload was not tampered with in transit.</p>
+
+<h3>Presenting BNPL correctly on the product page</h3>
+
+<p>Both providers give you promotional snippets or SDK widgets for the "4 payments of X" messaging on product and cart pages. Use them, but render the amount server-side or with a client-side calculation you control, and make sure the widget cannot block first paint. I have seen a third-party BNPL badge script add most of a second to largest contentful paint on a product page — which costs you more conversions than the badge wins. If page speed is already a concern for you, <a href="/blog/why-your-website-loads-slowly">the reasons your site loads slowly</a> usually start with exactly this kind of third-party script.</p>
+
+<h2>4. Does mada require a local Saudi merchant account?</h2>
+
+<p>Yes, effectively — and this is the requirement that most often surprises founders operating from outside the Kingdom.</p>
+
+<p>mada is a domestic scheme governed by the Saudi Central Bank. To accept mada online you need a merchant ID issued through a Saudi acquirer, which in practice means contracting with a SAMA-licensed payment gateway or acquiring bank. The gateway holds the licence; you do not need your own SAMA licence as a merchant. But you do need to be onboardable by a licensed local provider, and their onboarding will ask for:</p>
+
+<ul>
+<li>A Saudi commercial registration, or in some cases a freelance certificate for individual practitioners.</li>
+<li>A Saudi bank account in the registered entity's name for settlement.</li>
+<li>Owner or authorised-signatory identity documents.</li>
+<li>Your website live, with visible pricing, terms, refund policy, contact details and — increasingly — Arabic content.</li>
+<li>Category and volume declarations, sometimes a sample of the checkout flow.</li>
+</ul>
+
+<p>A foreign company with no Saudi entity has two realistic routes: register a Saudi entity, or work with an international acquirer that holds Saudi acquiring capability and can present mada to your merchant account. The second route exists but is generally reserved for larger volumes.</p>
+
+<p>One more practical detail: mada cards issued today are co-badged. Domestically they route over the mada rails; internationally, the Visa or Mastercard side handles it. Your gateway's routing decision affects your interchange cost. If your volumes are material, ask your provider directly how domestic mada transactions are routed and priced versus the co-badged scheme rails — the difference is real money at scale, and it is a question most merchants never ask.</p>
+
+<p>Confirm the exact document list and the current fee schedule with the provider before you commit. Onboarding requirements and pricing in this market change often enough that any specific figure published today should be treated as a starting point for negotiation, not a quote.</p>
+
+<h2>5. Comparing the gateways honestly</h2>
+
+<p>Here is how I actually choose. Fees and settlement timing in this table are described as shapes, not quoted numbers, because every published rate I have seen is a rack rate that moves with volume, category and negotiation. Get your own quote.</p>
+
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Type</th>
+<th>Core markets</th>
+<th>Integration shape</th>
+<th>Fee &amp; settlement shape</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PayTabs</td>
+<td>Card gateway</td>
+<td>KSA, UAE, Egypt, Kuwait, Oman, Bahrain, Qatar, Jordan and neighbours</td>
+<td>Hosted payment page, managed form, or full API; IPN plus per-request callback; body-level HMAC signature</td>
+<td>Percentage plus fixed per transaction; settlement typically a small number of business days, faster in KSA than UAE</td>
+<td>Multi-country Gulf merchants who want one contract across borders</td>
+</tr>
+<tr>
+<td>HyperPay</td>
+<td>Card gateway</td>
+<td>KSA and wider Gulf</td>
+<td>COPYandPAY hosted widget or server-to-server; checkout-ID model; 3D Secure handled for you</td>
+<td>Enterprise-oriented pricing; heavier onboarding and compliance review</td>
+<td>Larger merchants, regulated categories, enterprise procurement</td>
+</tr>
+<tr>
+<td>Moyasar</td>
+<td>Card gateway</td>
+<td>KSA</td>
+<td>Clean REST API, good docs, straightforward mada and Apple Pay support</td>
+<td>Transparent published pricing; fast mada settlement is its standout claim</td>
+<td>Saudi startups and developer-led teams that want to ship this month</td>
+</tr>
+<tr>
+<td>Paymob</td>
+<td>Card gateway</td>
+<td>Egypt, KSA, UAE, Pakistan</td>
+<td>Intention API, integration IDs per method, HMAC on callbacks</td>
+<td>Egypt-competitive pricing; local wallets and instalment partners bundled</td>
+<td>Stores where Egypt is the primary or a major market</td>
+</tr>
+<tr>
+<td>Tabby</td>
+<td>BNPL</td>
+<td>KSA, UAE, Kuwait, Qatar, Bahrain</td>
+<td>Checkout session, pre-scoring, authorize then capture; webhook via shared-secret custom header</td>
+<td>Merchant discount rate materially higher than card; settlement in days, tiered by plan</td>
+<td>Broad Gulf reach and strong UAE presence</td>
+</tr>
+<tr>
+<td>Tamara</td>
+<td>BNPL</td>
+<td>KSA, UAE, Kuwait</td>
+<td>Checkout, explicit authorise step, capture, 21-day auto-capture; JWT-signed notifications</td>
+<td>Merchant discount rate materially higher than card; settlement tiered by plan</td>
+<td>Saudi-first stores; deep brand recognition in the Kingdom</td>
+</tr>
+</tbody>
+</table>
+
+<p>The practical read: card gateways compete on integration quality and settlement speed, and the differences are small enough that developer experience should decide it. BNPL providers compete on approval rate and consumer brand, and the differences there are large enough that many serious Saudi stores run both Tabby and Tamara side by side and let the customer choose.</p>
+
+<h2>6. What does BNPL integration cost and how long does it take?</h2>
+
+<p>Three separate costs, and people only budget for the first.</p>
+
+<h3>Build cost</h3>
+
+<p>For a single BNPL provider added to an existing, well-structured custom store — meaning you already have a clean order state machine and a working payment abstraction — a competent developer needs a handful of working days. That covers session creation, redirect handling, the webhook endpoint, capture on fulfilment, refund handling, the product-page widget, admin visibility, and sandbox testing across the failure paths.</p>
+
+<p>Add the second provider and it is faster, because the abstraction already exists — provided you built one. If you hardcoded the first provider into your checkout controller, the second integration costs the same as the first plus a refactor.</p>
+
+<p>If your store does not already have a clean payment abstraction, budget for building one first. That is not BNPL work, it is the foundation, and skipping it is how stores end up with payment logic scattered across six controllers. The principles in <a href="/blog/api-design-best-practices-2026">API design best practices</a> apply directly here: one interface, provider-specific adapters behind it, no provider names leaking into your domain logic.</p>
+
+<h3>Elapsed time</h3>
+
+<p>The build is not the constraint. Merchant onboarding is. Between application, document review, category approval, commercial negotiation and production key issuance, plan for weeks rather than days, and start it before development. I tell clients to treat BNPL go-live as a milestone that depends on a third party they do not control, and to launch the store without it if the contract is not signed.</p>
+
+<h3>Ongoing cost</h3>
+
+<p>This is the one founders underestimate. BNPL merchant discount rates are substantially higher than card processing — the gap is large enough to move your gross margin, and it varies with your plan, your category and your negotiating position. Published ranges from comparison sites sit well above typical card rates, and both providers negotiate. Model it on your actual basket mix before you commit. If your margin is thin and your average order value is low, BNPL can cost you more than the incremental orders are worth. That is the unprofitable thing I say to clients and it is occasionally not what they want to hear.</p>
+
+<div class="post-callout">
+<p><strong>Run the arithmetic before the integration.</strong> Take last quarter's orders. Assume a plausible share shifts to BNPL. Apply the quoted merchant rate to that share. Compare against a realistic estimate of the incremental revenue from higher basket value and improved conversion. If the answer is close, BNPL is a marketing decision, not a payments decision — and it should be evaluated by whoever owns the marketing budget.</p>
+</div>
+
+<h2>7. Can I use Stripe instead of a Gulf gateway in Saudi Arabia?</h2>
+
+<p>No, not as a Saudi-registered business.</p>
+
+<p>Saudi Arabia is not among Stripe's supported countries for opening a merchant account. A Saudi entity cannot onboard directly. The workaround people describe — register a company in a Stripe-supported jurisdiction and process through that — is legally and operationally real, but it is a bad idea for a Saudi store, for reasons that have nothing to do with Stripe's product quality:</p>
+
+<ul>
+<li><strong>No mada.</strong> This is disqualifying on its own. You would be turning away the card most of your customers hold.</li>
+<li><strong>Cross-border decline rates.</strong> Saudi-issued cards presented to a foreign acquirer decline more often. You do not see this in testing. You see it in your conversion rate.</li>
+<li><strong>Currency and settlement friction.</strong> Customers see foreign-transaction fees, you take FX on the way out, and your books stop matching your local tax position.</li>
+<li><strong>Regulatory exposure.</strong> Selling into the Kingdom while processing through an offshore entity raises questions about your e-invoicing and tax posture that you do not want to answer retroactively. If you are VAT-registered in Saudi Arabia you also have <a href="/blog/zatca-einvoicing-laravel-integration">ZATCA e-invoicing obligations</a> that need to line up with how payments actually settle.</li>
+</ul>
+
+<p>Where Stripe genuinely fits: you are a company registered in a supported jurisdiction, selling digital products globally, and Saudi customers are a minority of revenue. Then Stripe plus a Gulf gateway as a secondary rail can make sense. For a Gulf-first store, it does not.</p>
+
+<p>The same logic applies to PayPal in this region. It is a supplementary method for a specific customer segment, not a primary rail.</p>
+
+<h2>8. Webhooks: the part nobody documents properly</h2>
+
+<p>This is where custom stores actually break, and it is the section I would have wanted five years ago.</p>
+
+<p>Every provider here sends server-to-server notifications, and every provider authenticates them differently:</p>
+
+<ul>
+<li><strong>PayTabs</strong> sends a signature header containing an HMAC of the entire request body, hashed with your profile's server key. You recompute and compare.</li>
+<li><strong>Paymob</strong> sends an HMAC calculated over a specific, ordered concatenation of named fields — not the raw body — which you must build in exactly their documented order. Get the order wrong and every callback fails verification.</li>
+<li><strong>Tamara</strong> sends a JWT notification token, both as a query parameter and as a bearer token, signed with HS256, which you decode and validate.</li>
+<li><strong>Tabby</strong> lets you register a custom header name and value at webhook registration time, and includes that shared secret in deliveries. Note carefully what this is: a shared secret, not a signature over the payload. It proves the request came from a party holding your secret. It does not prove the body is unmodified.</li>
+</ul>
+
+<p>That last distinction is why the following rule exists.</p>
+
+<h3>Rule one: reconcile, do not trust</h3>
+
+<p>Never mutate order or money state directly from webhook body contents. Use the notification only to learn that <em>something about this payment ID changed</em>, then call the provider's retrieve endpoint with your secret key and act on that authoritative response.</p>
+
+<p>This costs you one HTTP call. It buys you immunity from spoofed payloads, replayed bodies, truncated deliveries, and every schema change the provider ships without telling you.</p>
+
+<h3>Rule two: idempotency is mandatory</h3>
+
+<p>Every provider retries. A retry is indistinguishable from a duplicate at your endpoint. Without deduplication you get double fulfilment, double emails, double ledger entries and eventually double refunds.</p>
+
+<p>Deduplicate on a stable identifier — the event ID if the provider sends one, otherwise a hash of payment ID plus resulting status — stored with a unique database constraint. Let the constraint be the enforcement, not an application-level check that races under concurrent delivery.</p>
+
+<h3>Rule three: assume out-of-order delivery</h3>
+
+<p>A captured notification can arrive before the authorized notification it logically follows. Networks are not ordered. If your handler is a sequence of if-statements that assumes a progression, it will corrupt state the first time delivery is reordered.</p>
+
+<p>Model payment state as an explicit state machine with allowed transitions, and reject transitions that would move a payment backwards. A refunded payment receiving a late authorized notification should log and ignore, not regress.</p>
+
+<h3>Rule four: acknowledge fast, process async</h3>
+
+<p>Return 200 as soon as you have durably recorded the event. Do the reconciliation, the fulfilment trigger, the invoice generation and the emails on a queue. If you do fulfilment work inline and your handler takes eight seconds, the provider times out, marks delivery failed, and retries — and now you are doing that work twice concurrently.</p>
+
+<pre><code>// Laravel: a webhook endpoint that behaves under retries
+public function handle(Request $request, string $provider)
+{
+    $verifier = $this-&gt;verifiers-&gt;for($provider);
+
+    if (! $verifier-&gt;verify($request)) {
+        Log::warning('payment.webhook.rejected', ['provider' =&gt; $provider]);
+        return response()-&gt;noContent(401);
+    }
+
+    $eventKey = $verifier-&gt;eventKey($request); // stable per logical event
+
+    try {
+        $event = WebhookEvent::create([
+            'provider'   =&gt; $provider,
+            'event_key'  =&gt; $eventKey,      // UNIQUE (provider, event_key)
+            'payload'    =&gt; $request-&gt;all(),
+        ]);
+    } catch (QueryException $e) {
+        // Already seen. Retry or duplicate. Acknowledge and stop.
+        return response()-&gt;noContent(200);
+    }
+
+    ReconcilePayment::dispatch($provider, $verifier-&gt;paymentId($request), $event-&gt;id);
+
+    return response()-&gt;noContent(200);
+}
+</code></pre>
+
+<p>And the job that does the real work — note that it asks the provider, rather than believing the payload it was handed:</p>
+
+<pre><code>public function handle(PaymentGatewayRegistry $gateways): void
+{
+    $gateway = $gateways-&gt;get($this-&gt;provider);
+
+    // Authoritative read. The webhook was only a hint.
+    $remote = $gateway-&gt;retrievePayment($this-&gt;paymentId);
+
+    DB::transaction(function () use ($remote) {
+        $payment = Payment::where('provider_payment_id', $remote-&gt;id)
+            -&gt;lockForUpdate()
+            -&gt;firstOrFail();
+
+        if (! $payment-&gt;state-&gt;canTransitionTo($remote-&gt;state)) {
+            Log::info('payment.transition.ignored', [
+                'from' =&gt; $payment-&gt;state-&gt;value,
+                'to'   =&gt; $remote-&gt;state-&gt;value,
+            ]);
+            return;
+        }
+
+        $payment-&gt;applyRemoteState($remote);
+        $payment-&gt;save();
+    });
+}
+</code></pre>
+
+<p>Two more things that belong in every production integration. First, log every inbound webhook raw and keep it — when a provider disputes a settlement, the stored payload and your response code is the evidence. Second, treat the webhook endpoint as an unauthenticated public route and secure it accordingly; it belongs on your <a href="/blog/website-security-checklist">website security checklist</a> alongside rate limiting and body-size limits.</p>
+
+<h3>The reconciliation job you will regret not building</h3>
+
+<p>Webhooks fail. Providers have outages, your server has deploys, DNS has bad days. Run a scheduled job — hourly is usually enough — that finds every payment sitting in a non-terminal state older than a threshold and polls the provider for its current status. This catches everything the webhook layer missed, and it is perhaps thirty lines of code. Every mature payment integration I have worked on has one. Most of the broken ones I have been called to fix did not.</p>
+
+<h2>9. Captures, refunds and where the money actually is</h2>
+
+<p>Authorization is not payment. Capture is not settlement. Settlement is not reconciliation. Three distinct events, three distinct timestamps, and your finance team cares about all three.</p>
+
+<p><strong>Capture at fulfilment, not at checkout.</strong> Both BNPL providers and most card gateways support authorize-then-capture. Capturing at checkout for physical goods means you are holding customer money for items that may be out of stock — operationally messy, and in a refund-heavy category it inflates your chargeback and refund metrics for no reason.</p>
+
+<p><strong>Partial captures need partial thinking.</strong> If you ship three of five items, capture three items' worth and handle the remainder explicitly. Do not capture the full amount and refund the difference — it looks identical in your database and completely different in the provider's reporting and your fee bill.</p>
+
+<p><strong>Refunds are not reversals.</strong> A refund on a BNPL order does not simply undo the instalment plan. The provider adjusts the consumer's remaining schedule, and consumer-facing refund timelines run into weeks depending on the receiving bank. Set that expectation in your customer-facing copy, in Arabic, or your support inbox will carry the cost.</p>
+
+<p><strong>Settlement is not per-order.</strong> Providers batch. You receive a lump sum on a cycle, net of fees, covering a window of transactions. Your database has orders; your bank statement has deposits. Nothing reconciles automatically. Build a settlement import that maps provider settlement reports to order IDs from launch, not eighteen months in when someone finally asks why the numbers do not match. This is a data-modelling problem as much as a payments one, and the fundamentals in <a href="/blog/database-design-for-web-apps">database design for web apps</a> apply — payments, captures, refunds and settlements are four related tables, not four columns on the orders table.</p>
+
+<p><strong>Invoice on capture, not on order.</strong> If you are VAT-registered in Saudi Arabia, the timing of your tax invoice matters and it should follow the money, not the click. Wire your invoice generation to the capture event. My write-up on <a href="/blog/zatca-einvoicing-laravel-integration">ZATCA e-invoicing in Laravel</a> covers the compliance side of that in detail.</p>
+
+<h2>10. Which gateway should a Gulf store launch with first?</h2>
+
+<p>My recommendation, stated plainly.</p>
+
+<p><strong>Saudi-only store:</strong> launch with Moyasar if your team values developer experience and speed to market, or PayTabs if you expect to expand beyond the Kingdom within a year. Either gives you mada, cards and Apple Pay through one integration. Add Tamara first for BNPL, because Saudi brand recognition is strongest there, then Tabby once the first is stable.</p>
+
+<p><strong>UAE-first store:</strong> PayTabs or Checkout.com for cards, Tabby first for BNPL given its UAE strength, Tamara after.</p>
+
+<p><strong>Multi-country Gulf from day one:</strong> PayTabs, because one contract spanning most GCC markets removes an enormous amount of operational overhead — separate reconciliation per country is a real cost that does not show up in the fee comparison.</p>
+
+<p><strong>Egypt in scope:</strong> Paymob for the Egyptian side, and accept that you will run two card gateways. Do not try to force one provider to cover both Egypt and the Gulf well.</p>
+
+<p><strong>In every case:</strong> build the provider abstraction before the second provider, not after. The interface you need is small — create session, retrieve payment, capture, partial capture, refund, void — and the discipline of writing it up front is what makes provider number three a two-day job instead of a two-week one.</p>
+
+<div class="post-callout">
+<p><strong>A test plan worth copying.</strong> Before you go live, deliberately exercise: a customer who abandons at the provider's page; a customer who closes the browser after approving but before redirect; a duplicate webhook; a webhook that arrives out of order; a capture that fails; a partial refund followed by a full refund attempt; a session that expires; and a BNPL rejection at pre-scoring. Every one of these happens in the first month of real traffic. Only the last one is documented well by the providers.</p>
+</div>
+
+<h2>11. Mistakes I keep getting hired to fix</h2>
+
+<p><strong>Order state driven by the browser redirect.</strong> The customer's phone loses signal on the way back from the bank OTP page, the success route never fires, the order sits unpaid, and the customer has been charged. Always let the server-to-server notification plus your reconciliation poll own the state.</p>
+
+<p><strong>Payment logic inside the checkout controller.</strong> Four providers, four sets of if-branches, no abstraction, and every change risks all four. This is the single most expensive structural mistake in Gulf ecommerce codebases.</p>
+
+<p><strong>Secret keys in the frontend.</strong> Tabby and most gateways issue separate public and secret keys for a reason. The secret key never leaves your server. I still find them in JavaScript bundles.</p>
+
+<p><strong>No sandbox parity.</strong> Testing only the happy path in sandbox, then discovering in production that 3D Secure adds a redirect your state machine did not anticipate.</p>
+
+<p><strong>Ignoring the Arabic checkout.</strong> Right-to-left layout breaking on the payment step, English-only error messages, and phone-number fields that reject the format Saudi customers actually type. Bilingual is not a translation layer bolted on at the end — it is a checkout requirement in this market.</p>
+
+<p><strong>No idempotency key on outbound calls either.</strong> Webhook deduplication gets attention; outbound retry safety does not. If your capture call times out and you retry without an idempotency key, you may capture twice.</p>
+
+<p><strong>Treating the provider dashboard as the ledger.</strong> It is a reporting view of their data, not your books. Your system needs its own payment records that you can query, audit and reconcile independently.</p>
+
+<h2>12. Where to start</h2>
+
+<p>If you are at the beginning: pick one card gateway, get the merchant application in this week, and build the payment abstraction while you wait for approval. Add BNPL when the contract is signed, not before. Build the reconciliation job on day one because you will never find time for it later.</p>
+
+<p>If you have an existing store that is losing orders at checkout, the diagnosis is usually one of three things: missing mada, a state machine that depends on the browser returning, or a webhook handler that is not idempotent. All three are fixable in days, not months.</p>
+
+<p>I build and repair Gulf payment integrations as part of <a href="/ecommerce-development">custom ecommerce development</a>, usually on Laravel, and I am equally happy to review an existing integration and tell you what is wrong with it than to rebuild it. If you need someone to own this end to end, you can <a href="/hire-laravel-developer">hire me as your Laravel developer</a> — or just <a href="/contact">send me the details of your store</a> and I will tell you honestly whether you have a problem worth paying to solve.</p>
+HTML,
+                'content_ar' => <<<'HTMLAR'
+<p class="lead">إذا كنت تبني متجراً مخصصاً للسعودية أو الخليج، فإن اختيار وسائل الدفع ليس قراراً بإضافة جاهزة، بل قرار معماري، وخطؤه يكلفك موعد الإطلاق نفسه. هنا المسار الحقيقي لربط Tabby و Tamara و mada و PayTabs: ما الذي يطلبه كل مزوّد قبل أن تكتب سطراً واحداً، وكيف تتصرف الـ webhooks فعلياً تحت الضغط، وماذا يحدث لأموالك بعد أن يضغط العميل على زر الدفع.</p>
+
+<p>أطلقت صفحات دفع خليجية على Laravel وعلى Node وفوق أكواد نصف مكتملة كتبها غيري. النمط يتكرر دائماً. المؤسس يفترض أن الدفع هو الجزء السهل لأن هناك إضافة جاهزة. ثم يستغرق التسجيل التجاري ثلاثة أسابيع، وتتصرف بيئة الـ sandbox بشكل مختلف تماماً عن بيئة الإنتاج، ويصل إشعار مرتين، ويُشحن طلب لم يُحصَّل مبلغه أصلاً.</p>
+
+<p>لا شيء من هذا مكتوب في وثائق المزوّدين. هو مكتوب هنا.</p>
+
+<h2>1. الخلاصة قبل التفاصيل</h2>
+
+<p>إن لم تقرأ سوى قسم واحد، فليكن هذا.</p>
+
+<p><strong>أطلق ببوابة بطاقات واحدة، لا بثلاث.</strong> اختر مزوّداً مرخّصاً من SAMA يمنحك mada و Visa/Mastercard و Apple Pay عبر ربط واحد: PayTabs أو HyperPay أو Moyasar أو Tap في السعودية، و PayTabs أو Telr أو Checkout.com في الإمارات، و Paymob إن كانت مصر ضمن نطاقك. ربط واحد، تقرير تسوية واحد، عملية مطابقة حسابية واحدة.</p>
+
+<p><strong>أضف التقسيط ثانياً لا أولاً.</strong> Tabby و Tamara أدوات رفع تحويل، لا بنية تحتية للدفع. تستحق الإضافة — التجار في الخليج يلاحظون باستمرار ارتفاعاً في متوسط قيمة السلة بعد تفعيلها — لكنها عقد منفصل، وتسجيل منفصل، وتعاقد تقني منفصل على الإشعارات، ومسار استرداد منفصل. لا تدع أياً منها يعطّل إطلاقك.</p>
+
+<p><strong>لا يمكنك استخدام Stripe ككيان سعودي.</strong> هذه ليست تفضيلاً بل واقعاً، وسأفصّله في القسم السابع.</p>
+
+<p><strong>mada ليست اختيارية.</strong> هي البطاقة المهيمنة في المملكة بفارق واسع جداً. صفحة دفع سعودية بلا mada هي صفحة تفقد أغلب عملائها عند الخطوة الأخيرة.</p>
+
+<p><strong>لا تثق أبداً بمحتوى الإشعار الوارد كمصدر للحقيقة.</strong> تعامل مع كل إشعار على أنه تلميح بأن شيئاً ما تغيّر، ثم استدعِ endpoint الاستعلام لدى المزوّد وصدّق ما يعود منه. هذه القاعدة وحدها تمنع أغلب الأخطاء التي تكلّف مالاً حقيقياً والتي أُستدعى لإصلاحها.</p>
+
+<h2>2. بماذا يدفع العميل الخليجي فعلاً</h2>
+
+<p>أرقام الحصص السوقية المنشورة عن الدفع في السعودية متفاوتة جداً بين المصادر، لذا تعامل مع أي نسبة دقيقة تقرأها — بما في ذلك ما يقتبسه لك مندوبو المبيعات — كمؤشر اتجاه لا كقياس. ما لا خلاف عليه هو الترتيب.</p>
+
+<p>mada في المقدمة بوضوح. هي شبكة الخصم المحلية التي أنشأها البنك المركزي السعودي، وهي موجودة على بطاقة كل بنك سعودي تقريباً، والمستهلك السعودي يمد يده إلى بطاقة الخصم أولاً. بطاقات Visa و Mastercard الائتمانية الدولية تأتي ثانياً، وغالباً من المقيمين والشركات. Apple Pay نمت بسرعة كافية لتصبح متطلباً أساسياً لا إضافة لطيفة. STC Pay تحتفظ بحصة محفظة معتبرة. التقسيط عبر Tabby و Tamara شريحة أصغر من حيث عدد العمليات لكنها شريحة أكبر بكثير من حيث قيمة السلة. الدفع عند الاستلام يتراجع لكنه لم يختفِ، خصوصاً خارج المدن الكبرى.</p>
+
+<p>الأثر التصميمي: صفحة الدفع تحتاج mada و Apple Pay من اليوم الأول، والبطاقة كبديل، والتقسيط كأداة رفع، والدفع عند الاستلام إن كان تصنيفك يبرره — مع عملية مطابقة حسابية ليست جدول بيانات. إن كنت لا تزال في مرحلة اختيار البنية العامة للمتجر، فإن <a href="/ar/blog/ecommerce-website-development-guide">دليل تطوير المتاجر الإلكترونية</a> يغطي الطبقات التي تقع أسفل هذه الطبقة.</p>
+
+<div class="post-callout">
+<p><strong>ما لا يخبرك به أحد عن mada على الإنترنت:</strong> بطاقات mada بطاقات خصم. الخصم يعني رصيد العميل الفعلي، ورمز تحقق في كل عملية، وخطوة 3D Secure إجبارية لا يمكن تخطيها. صفحة الدفع لديك يجب أن تنجو من تحويل كامل إلى صفحة مصادقة البنك والعودة منها، على هاتف، على اتصال متقطع، وأحياناً مع انتقال العميل إلى تطبيق البنك لالتقاط الرمز. إن كانت حالة الطلب لديك تعتمد على عودة العميل إلى رابط النجاح، فستخسر طلبات. صمّم بحيث يكون الإشعار بين الخوادم هو الإشارة الأساسية، وعودة المتصفح مجرد راحة إضافية.</p>
+</div>
+
+<h2>3. كيف أضيف Tabby و Tamara إلى متجر مبني خصيصاً؟</h2>
+
+<p>هذا أكثر سؤال يصلني، والإجابة الصادقة شقّان: الشق التجاري يستغرق وقتاً أطول من الشق التقني.</p>
+
+<h3>قبل أي كود: المسار التجاري</h3>
+
+<p>كل من Tabby و Tamara يشترط أن تكون تاجراً معتمداً قبل أن تحصل على مفاتيح الإنتاج. هذا يعني سجلاً تجارياً في السوق الذي تبيع فيه، وحساباً بنكياً في ذلك السوق، وبيانات المنشأة، ومراجعة لتصنيف نشاطك، وفي الغالب اتفاقية تاجر موقّعة بنسبة متفاوض عليها. بعض التصنيفات تُرفض أو تُسعّر بقسوة: القطاعات كثيرة الاسترداد، والمنتجات الرقمية، وأي نشاط يبدو كإعادة بيع لقيمة مخزّنة.</p>
+
+<p>يمكنك عادة الحصول على بيانات اعتماد تجريبية بسرعة لتبدأ البناء. لكنك لن تنتقل إلى الإنتاج بلا عقد. ابدأ المسار التجاري في اليوم الأول من المشروع بالتوازي مع التطوير، وإلا صار هو المسار الحرج.</p>
+
+<h3>مسار Tabby</h3>
+
+<p>نموذج Tabby يقوم على جلسة دفع تتبعها عملية دفع لها دورة حياة. تعلّم هذه الدورة جيداً لأن أغلب أخطاء الربط تنبع من سوء فهمها.</p>
+
+<ol>
+<li><strong>أنشئ جلسة دفع</strong> من الخادم لديك، تتضمن قيمة الطلب والعملة وبيانات المشتري وعناصر السلة وعنوان الشحن، والأهم: سجل المشتري وسجل طلباته السابقة.</li>
+<li><strong>يقيّم Tabby العميل مسبقاً.</strong> الاستجابة تخبرك إن كان العميل مؤهلاً وأي خطط تقسيط متاحة له. إن أعادت الحالة rejected فهذا يعني عدم توفر أي منتج لهذا المشتري، وعليك إخفاء خيار Tabby أو تعطيله بلباقة بدلاً من تركه يضغط ليصل إلى طريق مسدود.</li>
+<li><strong>حوّل العميل</strong> إلى الرابط العائد من Tabby ليصادق ويوافق على الخطة.</li>
+<li><strong>تصبح العملية authorized.</strong> المبلغ محجوز والتزام قائم، لكنه ليس ملكك بعد.</li>
+<li><strong>تُحصّل المبلغ</strong> كلياً أو جزئياً عند الشحن. التحصيل الكامل ينقل العملية إلى closed وهي الحالة النهائية.</li>
+<li><strong>تسترد</strong> مقابل عملية محصّلة، أو <strong>تلغي</strong> تفويضاً لم تحصّله.</li>
+</ol>
+
+<p>سجل المشتري هو الجزء الذي يتجاهله المطورون ثم يتساءلون لماذا نسب القبول منخفضة. Tabby يستخدم تاريخ التسجيل وعدد الطلبات السابقة وقيمها كمدخلات تقييم. إن أرسلت سجلاً فارغاً لعميل عمره خمس سنوات لديه أربعون طلباً مكتملاً، فأنت تهدر أقوى إشارة تملكها. عبّئها من جدول الطلبات لديك. تكلفتها استعلام واحد.</p>
+
+<pre><code>// Laravel: إنشاء جلسة دفع Tabby
+$payload = [
+    'payment' =&gt; [
+        'amount'      =&gt; number_format($order-&gt;total, 2, '.', ''),
+        'currency'    =&gt; 'SAR',
+        'description' =&gt; "Order #{$order-&gt;reference}",
+        'buyer' =&gt; [
+            'phone' =&gt; $customer-&gt;phone_e164,
+            'email' =&gt; $customer-&gt;email,
+            'name'  =&gt; $customer-&gt;full_name,
+        ],
+        'buyer_history' =&gt; [
+            'registered_since' =&gt; $customer-&gt;created_at-&gt;toIso8601String(),
+            'loyalty_level'    =&gt; $customer-&gt;completed_orders_count,
+        ],
+        'order' =&gt; [
+            'reference_id' =&gt; $order-&gt;reference,
+            'items'        =&gt; $this-&gt;mapItems($order),
+        ],
+        'order_history' =&gt; $this-&gt;lastOrders($customer, 10),
+    ],
+    'lang'          =&gt; app()-&gt;getLocale(),
+    'merchant_code' =&gt; config('tabby.merchant_code'),
+    'merchant_urls' =&gt; [
+        'success' =&gt; route('checkout.tabby.success', $order),
+        'cancel'  =&gt; route('checkout.tabby.cancel', $order),
+        'failure' =&gt; route('checkout.tabby.failure', $order),
+    ],
+];
+
+$response = Http::withToken(config('tabby.public_key'))
+    -&gt;timeout(15)
+    -&gt;post(config('tabby.base_url') . '/api/v2/checkout', $payload)
+    -&gt;throw()
+    -&gt;json();
+
+if (($response['status'] ?? null) === 'rejected') {
+    // لا توجد خطة متاحة لهذا المشتري: أخفِ الخيار ولا تحوّله
+    return back()-&gt;with('bnpl_unavailable', true);
+}
+</code></pre>
+
+<p>انتبه إلى الرابط الأساسي المختلف حسب السوق. يخدم Tabby المملكة وبقية أسواق الخليج من نطاقات مختلفة بمسارات متطابقة، والبيئة — تجريبية أو إنتاجية — تُحدَّد بالمفتاح الذي تصادق به لا بخانة في الطلب. اجعل الرابط الأساسي إعداداً لكل سوق ولا تكتبه ثابتاً في الكود أبداً.</p>
+
+<h3>مسار Tamara</h3>
+
+<p>Tamara مشابهة في البنية لكنها مختلفة في تفاصيل جوهرية ستؤذيك إن افترضت التماثل.</p>
+
+<ol>
+<li><strong>أنشئ جلسة دفع</strong> ببيانات الشراء وبيانات المستهلك وتفصيل السلة وروابط النجاح والفشل والإلغاء والإشعار.</li>
+<li><strong>يوافق العميل</strong> على صفحة Tamara المستضافة، فينتقل الطلب إلى approved.</li>
+<li><strong>يجب أن تفوّض الطلب صراحة.</strong> هذه الخطوة التي يغفلها الناس. الطلب المعتمَد لدى Tamara ليس طلباً مكتملاً — عليك استدعاء واجهة Authorize Order لتأكيد استلامك وقبولك له. تجاهل هذه الخطوة يعني أن الطلب لن يصبح قابلاً للتحصيل أبداً.</li>
+<li><strong>تُحصّل عند الشحن.</strong></li>
+<li><strong>تحصّل Tamara تلقائياً إن لم تفعل.</strong> السلوك الموثّق لديهم أن الطلب المفوَّض الذي يبقى بلا تحصيل واحداً وعشرين يوماً يُحصَّل تلقائياً وينتقل إلى حالة التحصيل الكامل.</li>
+</ol>
+
+<p>نافذة التحصيل التلقائي هذه هي أهم فرق عملي بين المزوّدَين لمن يبيع منتجات تُصنَّع حسب الطلب أو حجوزات مسبقة أو أي شيء بمدة تنفيذ طويلة. إن كانت مدة إنتاجك ثلاثين يوماً، فستحصّل Tamara في اليوم الحادي والعشرين سواء شحنت أم لا، فتقول دفاترك محصَّل، ويقول المستودع لم يخرج شيء، ويكتشف محاسبك الفجوة في الربع التالي. ابنِ مهمة مجدولة ترصد الطلبات المفوَّضة غير المشحونة قبل إغلاق النافذة بوقت كافٍ وتفرض قراراً بشرياً.</p>
+
+<p>مصادقة إشعارات Tamara مختلفة أيضاً. تسجّل رابط الإشعار في بوابة الشركاء لديهم، وتختار أحداث حالة الطلب التي تريدها، وتوقّع Tamara كل إشعار بـ JWT يُمرَّر كوسيط في الرابط وكـ bearer token في ترويسة التفويض، وتفكّه بمفتاح الإشعار لديك للتأكد أن المحتوى لم يُعبث به أثناء النقل.</p>
+
+<h3>عرض التقسيط على صفحة المنتج بشكل صحيح</h3>
+
+<p>يمنحك المزوّدان مقتطفات ترويجية أو أدوات جاهزة لرسالة «أربع دفعات بقيمة كذا» على صفحات المنتج والسلة. استخدمها، لكن احسب المبلغ من الخادم أو بحساب تتحكم أنت به، وتأكد أن الأداة لا تعطّل أول رسم للصفحة. رأيت شارة تقسيط من طرف ثالث تضيف قرابة ثانية كاملة إلى مؤشر أكبر عنصر مرئي على صفحة منتج — وهذا يكلفك من التحويل أكثر مما تكسبه الشارة. إن كانت سرعة الموقع تشغلك أصلاً، فإن <a href="/ar/blog/why-your-website-loads-slowly">أسباب بطء تحميل موقعك</a> تبدأ عادة من هذا النوع بالضبط من نصوص الأطراف الثالثة.</p>
+
+<h2>4. هل تتطلب mada حساب تاجر سعودياً محلياً؟</h2>
+
+<p>نعم عملياً، وهذا هو المتطلب الذي يفاجئ أغلب المؤسسين العاملين من خارج المملكة.</p>
+
+<p>mada شبكة محلية يحكمها البنك المركزي السعودي. لقبول mada عبر الإنترنت تحتاج معرّف تاجر صادراً عبر جهة استحواذ سعودية، أي عملياً التعاقد مع بوابة دفع أو بنك مرخّص من SAMA. الترخيص يحمله المزوّد، ولست بحاجة إلى ترخيص خاص بك كتاجر. لكنك تحتاج أن تكون مؤهلاً للتسجيل لدى مزوّد محلي مرخّص، وتسجيله سيطلب منك:</p>
+
+<ul>
+<li>سجلاً تجارياً سعودياً، أو في بعض الحالات وثيقة عمل حر للممارسين الأفراد.</li>
+<li>حساباً بنكياً سعودياً باسم الكيان المسجّل لأغراض التسوية.</li>
+<li>هويات المالك أو المفوّض بالتوقيع.</li>
+<li>موقعاً منشوراً بأسعار ظاهرة وشروط وسياسة استرداد وبيانات تواصل، ومحتوى عربي بشكل متزايد.</li>
+<li>إفصاحاً عن التصنيف وحجم المبيعات المتوقع، وأحياناً عرضاً لمسار الدفع لديك.</li>
+</ul>
+
+<p>الشركة الأجنبية بلا كيان سعودي أمامها مساران واقعيان: تأسيس كيان سعودي، أو العمل مع جهة استحواذ دولية تملك قدرة استحواذ سعودية وتستطيع تقديم mada لحسابك. المسار الثاني موجود لكنه عادة محجوز لأحجام كبيرة.</p>
+
+<p>تفصيل عملي إضافي: بطاقات mada المُصدَرة اليوم مزدوجة الشعار. محلياً تمر عبر شبكة mada، ودولياً يتولاها الجانب التابع لـ Visa أو Mastercard. قرار التوجيه لدى بوابتك يؤثر على تكلفتك. إن كانت أحجامك معتبرة، اسأل مزوّدك مباشرة كيف تُوجَّه عمليات mada المحلية وكيف تُسعَّر مقابل الشبكة الدولية — الفرق مال حقيقي عند الحجم، وهو سؤال لا يطرحه أغلب التجار.</p>
+
+<p>تحقق من قائمة المستندات الدقيقة وجدول الرسوم الحالي مع المزوّد قبل الالتزام. متطلبات التسجيل والتسعير في هذا السوق تتغير بوتيرة تجعل أي رقم منشور اليوم نقطة بداية للتفاوض لا عرضاً نهائياً.</p>
+
+<h2>5. مقارنة صادقة بين البوابات</h2>
+
+<p>هكذا أختار فعلاً. الرسوم وتوقيت التسوية في الجدول موصوفة كأشكال عامة لا كأرقام مقتبسة، لأن كل نسبة منشورة رأيتها هي سعر قائمة يتحرك مع الحجم والتصنيف وقوة التفاوض. احصل على عرضك الخاص.</p>
+
+<table>
+<thead>
+<tr>
+<th>المزوّد</th>
+<th>النوع</th>
+<th>الأسواق الأساسية</th>
+<th>شكل الربط</th>
+<th>شكل الرسوم والتسوية</th>
+<th>الأنسب لـ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PayTabs</td>
+<td>بوابة بطاقات</td>
+<td>السعودية والإمارات ومصر والكويت وعُمان والبحرين وقطر والأردن وما جاورها</td>
+<td>صفحة دفع مستضافة أو نموذج مُدار أو واجهة كاملة، مع IPN و callback لكل طلب وتوقيع HMAC على كامل محتوى الطلب</td>
+<td>نسبة مئوية مع مبلغ ثابت لكل عملية، وتسوية خلال أيام عمل قليلة، أسرع في السعودية منها في الإمارات</td>
+<td>التجار متعددو الدول الذين يريدون عقداً واحداً عبر الحدود</td>
+</tr>
+<tr>
+<td>HyperPay</td>
+<td>بوابة بطاقات</td>
+<td>السعودية والخليج</td>
+<td>أداة COPYandPAY المستضافة أو ربط بين الخوادم بنموذج معرّف الدفع، مع إدارة 3D Secure نيابة عنك</td>
+<td>تسعير موجّه للمؤسسات، وتسجيل ومراجعة امتثال أثقل</td>
+<td>التجار الكبار والقطاعات المنظّمة والمشتريات المؤسسية</td>
+</tr>
+<tr>
+<td>Moyasar</td>
+<td>بوابة بطاقات</td>
+<td>السعودية</td>
+<td>واجهة REST نظيفة وتوثيق جيد ودعم مباشر لـ mada و Apple Pay</td>
+<td>تسعير منشور وشفاف، وسرعة تسوية mada هي ميزتها المعلنة الأبرز</td>
+<td>الشركات الناشئة السعودية والفرق التي يقودها المطورون وتريد الإطلاق هذا الشهر</td>
+</tr>
+<tr>
+<td>Paymob</td>
+<td>بوابة بطاقات</td>
+<td>مصر والسعودية والإمارات وباكستان</td>
+<td>واجهة Intention ومعرّفات ربط لكل وسيلة وتحقق HMAC على الإشعارات</td>
+<td>تسعير تنافسي في مصر مع محافظ محلية وشركاء تقسيط مدمجين</td>
+<td>المتاجر التي تكون فيها مصر السوق الأول أو سوقاً رئيسياً</td>
+</tr>
+<tr>
+<td>Tabby</td>
+<td>تقسيط</td>
+<td>السعودية والإمارات والكويت وقطر والبحرين</td>
+<td>جلسة دفع وتقييم مسبق ثم تفويض فتحصيل، وإشعارات بترويسة مخصصة تحمل سراً مشتركاً</td>
+<td>نسبة خصم تاجر أعلى بوضوح من البطاقات، وتسوية خلال أيام بحسب الخطة</td>
+<td>الانتشار الخليجي الواسع وحضور قوي في الإمارات</td>
+</tr>
+<tr>
+<td>Tamara</td>
+<td>تقسيط</td>
+<td>السعودية والإمارات والكويت</td>
+<td>جلسة دفع ثم خطوة تفويض صريحة ثم تحصيل، مع تحصيل تلقائي بعد 21 يوماً وإشعارات موقّعة بـ JWT</td>
+<td>نسبة خصم تاجر أعلى بوضوح من البطاقات، وتسوية متدرجة بحسب الخطة</td>
+<td>المتاجر السعودية أولاً، مع وعي بالعلامة قوي داخل المملكة</td>
+</tr>
+</tbody>
+</table>
+
+<p>القراءة العملية: بوابات البطاقات تتنافس على جودة الربط وسرعة التسوية، والفروق بينها صغيرة بما يكفي لتجعل تجربة المطور هي الفيصل. أما مزوّدو التقسيط فيتنافسون على نسبة القبول ووعي المستهلك بالعلامة، والفروق هناك كبيرة بما يكفي لتجعل كثيراً من المتاجر السعودية الجادة تشغّل Tabby و Tamara معاً وتترك الاختيار للعميل.</p>
+
+<h2>6. كم يكلف ربط التقسيط وكم يستغرق؟</h2>
+
+<p>ثلاث تكاليف منفصلة، والناس يضعون ميزانية للأولى فقط.</p>
+
+<h3>تكلفة البناء</h3>
+
+<p>لإضافة مزوّد تقسيط واحد إلى متجر مخصص قائم ومبني جيداً — أي لديك بالفعل آلة حالات نظيفة للطلب وطبقة تجريد عاملة للدفع — يحتاج مطور كفء عدة أيام عمل. تغطي إنشاء الجلسة ومعالجة التحويل ونقطة استقبال الإشعارات والتحصيل عند التنفيذ ومعالجة الاسترداد وأداة صفحة المنتج وظهور الحالة في لوحة التحكم واختبار مسارات الفشل في البيئة التجريبية.</p>
+
+<p>أضف المزوّد الثاني فتكون أسرع، لأن التجريد موجود — بشرط أنك بنيته. أما إن كنت قد كتبت المزوّد الأول ثابتاً داخل متحكم الدفع، فسيكلفك الربط الثاني مثل الأول زائد إعادة هيكلة.</p>
+
+<p>إن لم يكن لدى متجرك طبقة تجريد نظيفة للدفع، فخصّص ميزانية لبنائها أولاً. هذا ليس عمل تقسيط، بل هو الأساس، وتخطّيه هو السبب في أن تجد منطق الدفع موزعاً على ستة متحكمات. المبادئ في <a href="/ar/blog/api-design-best-practices-2026">أفضل ممارسات تصميم الواجهات البرمجية</a> تنطبق هنا مباشرة: واجهة واحدة، ومحوّلات خاصة بكل مزوّد خلفها، ولا اسم مزوّد يتسرب إلى منطق نطاق عملك.</p>
+
+<h3>الزمن المنقضي</h3>
+
+<p>البناء ليس القيد. تسجيل التاجر هو القيد. بين التقديم ومراجعة المستندات واعتماد التصنيف والتفاوض التجاري وإصدار مفاتيح الإنتاج، خطّط لأسابيع لا لأيام، وابدأ قبل التطوير. أقول لعملائي: تعاملوا مع إطلاق التقسيط كمرحلة تعتمد على طرف ثالث لا تتحكمون فيه، وأطلقوا المتجر بدونه إن لم يُوقَّع العقد.</p>
+
+<h3>التكلفة المستمرة</h3>
+
+<p>هذه هي التي يقلّل المؤسسون من شأنها. نسب خصم التاجر في التقسيط أعلى بشكل ملموس من معالجة البطاقات، والفارق كبير بما يكفي ليحرّك هامشك الإجمالي، وهو يتغير بحسب خطتك وتصنيفك وموقعك التفاوضي. النطاقات المنشورة على مواقع المقارنة تقع فوق أسعار البطاقات المعتادة بوضوح، وكلا المزوّدَين يتفاوض. احسبها على مزيج سلتك الفعلي قبل أن تلتزم. إن كان هامشك ضيقاً ومتوسط قيمة طلبك منخفضاً، فقد يكلفك التقسيط أكثر مما تستحقه الطلبات الإضافية. هذا هو الكلام غير المربح الذي أقوله لعملائي، وأحياناً ليس ما يودون سماعه.</p>
+
+<div class="post-callout">
+<p><strong>احسب قبل أن تربط.</strong> خذ طلبات الربع الماضي. افترض تحوّل حصة معقولة منها إلى التقسيط. طبّق نسبة التاجر المعروضة عليك على تلك الحصة. قارنها بتقدير واقعي للإيراد الإضافي الناتج عن ارتفاع قيمة السلة وتحسّن التحويل. إن كانت النتيجة متقاربة، فالتقسيط قرار تسويقي لا قرار مدفوعات، ويجب أن يقيّمه من يملك ميزانية التسويق.</p>
+</div>
+
+<h2>7. هل أستطيع استخدام Stripe بدل بوابة خليجية في السعودية؟</h2>
+
+<p>لا، ليس ككيان مسجّل في السعودية.</p>
+
+<p>السعودية ليست ضمن الدول المدعومة لفتح حساب تاجر لدى Stripe. الكيان السعودي لا يستطيع التسجيل مباشرة. الحيلة التي يتحدث عنها البعض — تسجيل شركة في دولة مدعومة والمعالجة عبرها — قائمة قانونياً وتشغيلياً، لكنها فكرة سيئة لمتجر سعودي، لأسباب لا علاقة لها بجودة منتج Stripe:</p>
+
+<ul>
+<li><strong>لا mada.</strong> هذا وحده مانع. ستردّ عملاءك حاملي البطاقة الأكثر انتشاراً في السوق.</li>
+<li><strong>نسب رفض عابرة للحدود.</strong> البطاقات السعودية المقدَّمة لجهة استحواذ أجنبية تُرفض أكثر. لن ترى ذلك في الاختبار، بل في نسبة التحويل.</li>
+<li><strong>احتكاك العملة والتسوية.</strong> العميل يرى رسوم عملية دولية، وأنت تخسر على فروق الصرف، ودفاترك تتوقف عن مطابقة وضعك الضريبي المحلي.</li>
+<li><strong>انكشاف تنظيمي.</strong> البيع داخل المملكة مع المعالجة عبر كيان خارجي يفتح أسئلة عن فوترتك الإلكترونية ووضعك الضريبي لا تحب أن تجيب عنها بأثر رجعي. وإن كنت مسجلاً في ضريبة القيمة المضافة بالسعودية فلديك <a href="/ar/blog/zatca-einvoicing-laravel-integration">التزامات الفوترة الإلكترونية لدى ZATCA</a> التي يجب أن تتسق مع طريقة تسوية المدفوعات فعلياً.</li>
+</ul>
+
+<p>أين يصلح Stripe فعلاً: أن تكون شركة مسجلة في دولة مدعومة، تبيع منتجات رقمية عالمياً، والعملاء السعوديون أقلية من إيرادك. عندها Stripe مع بوابة خليجية كمسار ثانوي منطق سليم. أما لمتجر خليجي أولاً فلا.</p>
+
+<p>المنطق نفسه ينطبق على PayPal في هذه المنطقة. هو وسيلة مكمّلة لشريحة عملاء محددة، لا مسار دفع رئيسي.</p>
+
+<h2>8. الإشعارات: الجزء الذي لا يوثّقه أحد جيداً</h2>
+
+<p>هنا تنكسر المتاجر المخصصة فعلاً، وهذا هو القسم الذي كنت أتمنى قراءته قبل خمس سنوات.</p>
+
+<p>كل مزوّد هنا يرسل إشعارات بين الخوادم، وكل مزوّد يصادقها بطريقة مختلفة:</p>
+
+<ul>
+<li><strong>PayTabs</strong> يرسل ترويسة توقيع تحتوي HMAC لكامل محتوى الطلب مجزّأً بمفتاح الخادم الخاص بملفك. تعيد الحساب وتقارن.</li>
+<li><strong>Paymob</strong> يرسل HMAC محسوباً على تسلسل محدد ومرتّب من حقول بعينها، لا على المحتوى الخام، ويجب أن تبنيه بالترتيب الموثّق حرفياً. اخطئ في الترتيب يفشل التحقق في كل إشعار.</li>
+<li><strong>Tamara</strong> ترسل JWT للإشعار كوسيط في الرابط وكـ bearer token، موقّعاً بخوارزمية HS256، تفكّه وتتحقق منه.</li>
+<li><strong>Tabby</strong> يتيح لك تسجيل اسم ترويسة مخصصة وقيمتها عند تسجيل نقطة الإشعار، ويرسل ذلك السر المشترك مع كل إشعار. انتبه جيداً لما هو عليه: سر مشترك، لا توقيع على المحتوى. هو يثبت أن الطلب جاء من طرف يملك سرك، ولا يثبت أن المحتوى لم يُعدَّل.</li>
+</ul>
+
+<p>هذا التمييز الأخير هو سبب وجود القاعدة التالية.</p>
+
+<h3>القاعدة الأولى: طابِق ولا تثق</h3>
+
+<p>لا تغيّر حالة الطلب أو المال مباشرة اعتماداً على محتوى الإشعار. استخدم الإشعار فقط لتعرف أن <em>شيئاً ما في عملية الدفع هذه قد تغيّر</em>، ثم استدعِ endpoint الاستعلام لدى المزوّد بمفتاحك السري وتصرّف بناءً على تلك الاستجابة الموثوقة.</p>
+
+<p>هذا يكلفك طلباً واحداً إضافياً. ويشتري لك مناعة من المحتويات المزوّرة والطلبات المعادة والإشعارات المبتورة وكل تغيير في البنية يشحنه المزوّد دون إخبارك.</p>
+
+<h3>القاعدة الثانية: الـ idempotency إلزامي</h3>
+
+<p>كل مزوّد يعيد المحاولة. وإعادة المحاولة لا تُميَّز عن التكرار عند نقطة الاستقبال لديك. بلا إزالة تكرار ستحصل على تنفيذ مزدوج للطلب ورسائل مزدوجة وقيود محاسبية مزدوجة، وفي النهاية استرداد مزدوج.</p>
+
+<p>أزل التكرار بناءً على معرّف مستقر: معرّف الحدث إن أرسله المزوّد، وإلا فبصمة تجمع معرّف الدفع مع الحالة الناتجة، مخزّنة بقيد فريد في قاعدة البيانات. اجعل القيد هو أداة الفرض، لا فحصاً على مستوى التطبيق يتسابق عند وصول إشعارين متزامنين.</p>
+
+<h3>القاعدة الثالثة: افترض وصولاً خارج الترتيب</h3>
+
+<p>قد يصل إشعار التحصيل قبل إشعار التفويض الذي يسبقه منطقياً. الشبكات ليست مرتبة. إن كانت معالجتك سلسلة شروط تفترض تدرّجاً، فستفسد الحالة أول مرة يختل فيها الترتيب.</p>
+
+<p>مثّل حالة الدفع كآلة حالات صريحة بانتقالات مسموحة، وارفض أي انتقال يعيد العملية إلى الوراء. عملية مستردّة يصلها إشعار تفويض متأخر يجب أن تُسجَّل وتُتجاهل، لا أن تتراجع.</p>
+
+<h3>القاعدة الرابعة: أقرّ بالاستلام بسرعة وعالج بشكل غير متزامن</h3>
+
+<p>أعِد الرمز 200 فور تسجيلك الحدث بشكل دائم. أما المطابقة وتشغيل التنفيذ وإصدار الفاتورة والرسائل فاجعلها في طابور معالجة. إن نفّذت عمل التجهيز داخل المعالجة واستغرقت ثماني ثوانٍ، فسينتهي وقت انتظار المزوّد ويعتبر التسليم فاشلاً ويعيد المحاولة، وتصبح تنفّذ العمل نفسه مرتين بالتوازي.</p>
+
+<pre><code>// Laravel: نقطة استقبال إشعارات تتصرف بشكل صحيح مع إعادة المحاولة
+public function handle(Request $request, string $provider)
+{
+    $verifier = $this-&gt;verifiers-&gt;for($provider);
+
+    if (! $verifier-&gt;verify($request)) {
+        Log::warning('payment.webhook.rejected', ['provider' =&gt; $provider]);
+        return response()-&gt;noContent(401);
+    }
+
+    $eventKey = $verifier-&gt;eventKey($request); // مستقر لكل حدث منطقي
+
+    try {
+        $event = WebhookEvent::create([
+            'provider'  =&gt; $provider,
+            'event_key' =&gt; $eventKey,   // UNIQUE (provider, event_key)
+            'payload'   =&gt; $request-&gt;all(),
+        ]);
+    } catch (QueryException $e) {
+        // مسجّل مسبقاً: إعادة محاولة أو تكرار. أقرّ وتوقف.
+        return response()-&gt;noContent(200);
+    }
+
+    ReconcilePayment::dispatch($provider, $verifier-&gt;paymentId($request), $event-&gt;id);
+
+    return response()-&gt;noContent(200);
+}
+</code></pre>
+
+<p>والمهمة التي تقوم بالعمل الفعلي — لاحظ أنها تسأل المزوّد بدل أن تصدّق ما وصلها:</p>
+
+<pre><code>public function handle(PaymentGatewayRegistry $gateways): void
+{
+    $gateway = $gateways-&gt;get($this-&gt;provider);
+
+    // القراءة الموثوقة. الإشعار كان مجرد تلميح.
+    $remote = $gateway-&gt;retrievePayment($this-&gt;paymentId);
+
+    DB::transaction(function () use ($remote) {
+        $payment = Payment::where('provider_payment_id', $remote-&gt;id)
+            -&gt;lockForUpdate()
+            -&gt;firstOrFail();
+
+        if (! $payment-&gt;state-&gt;canTransitionTo($remote-&gt;state)) {
+            Log::info('payment.transition.ignored', [
+                'from' =&gt; $payment-&gt;state-&gt;value,
+                'to'   =&gt; $remote-&gt;state-&gt;value,
+            ]);
+            return;
+        }
+
+        $payment-&gt;applyRemoteState($remote);
+        $payment-&gt;save();
+    });
+}
+</code></pre>
+
+<p>أمران إضافيان يجب أن يوجدا في كل ربط إنتاجي. أولاً، سجّل كل إشعار وارد بصيغته الخام واحتفظ به — حين ينازعك مزوّد في تسوية، يكون المحتوى المخزَّن ورمز استجابتك هما الدليل. ثانياً، تعامل مع نقطة الإشعار كمسار عام غير مصادَق وأمّنها على هذا الأساس؛ مكانها في <a href="/ar/blog/website-security-checklist">قائمة التحقق من أمان الموقع</a> إلى جانب تحديد المعدل وحد حجم الطلب.</p>
+
+<h3>مهمة المطابقة التي ستندم على عدم بنائها</h3>
+
+<p>الإشعارات تفشل. المزوّدون ينقطعون، وخادمك يمر بعمليات نشر، والـ DNS له أيام سيئة. شغّل مهمة مجدولة — كل ساعة تكفي عادة — تبحث عن كل عملية دفع عالقة في حالة غير نهائية أقدم من حد معين وتستعلم عن حالتها لدى المزوّد. هذه تلتقط كل ما فاتته طبقة الإشعارات، وهي ربما ثلاثون سطراً من الكود. كل ربط دفع ناضج عملت عليه لديه واحدة. أغلب الأنظمة المعطلة التي استُدعيت لإصلاحها لم يكن لديها.</p>
+
+<h2>9. التحصيل والاسترداد وأين يوجد المال فعلاً</h2>
+
+<p>التفويض ليس دفعاً. التحصيل ليس تسوية. التسوية ليست مطابقة. ثلاثة أحداث مختلفة بثلاثة توقيتات مختلفة، وفريقك المالي يهتم بالثلاثة.</p>
+
+<p><strong>حصّل عند التنفيذ لا عند إتمام الطلب.</strong> مزوّدو التقسيط وأغلب بوابات البطاقات يدعمون التفويض ثم التحصيل. التحصيل عند إتمام الطلب في البضائع المادية يعني احتجاز مال العميل مقابل أصناف قد تكون نافدة — فوضى تشغيلية، وفي قطاع كثير الاسترداد يضخّم مؤشرات الاسترداد والمنازعات لديك بلا داعٍ.</p>
+
+<p><strong>التحصيل الجزئي يحتاج تفكيراً جزئياً.</strong> إن شحنت ثلاثة أصناف من خمسة، حصّل قيمة الثلاثة وعالج الباقي صراحة. لا تحصّل المبلغ كاملاً ثم تسترد الفرق — يبدو الأمران متطابقين في قاعدة بياناتك، ومختلفين تماماً في تقارير المزوّد وفي فاتورة رسومك.</p>
+
+<p><strong>الاسترداد ليس إلغاءً.</strong> الاسترداد على طلب تقسيط لا يلغي خطة الأقساط ببساطة. المزوّد يعدّل جدول المستهلك المتبقي، ومدد وصول المبلغ إلى العميل تمتد أسابيع بحسب البنك المستقبِل. اضبط هذا التوقع في نصوصك الموجّهة للعميل بالعربية، وإلا تحمّل فريق الدعم التكلفة.</p>
+
+<p><strong>التسوية ليست لكل طلب.</strong> المزوّدون يجمّعون العمليات. تستلم مبلغاً إجمالياً على دورة، صافياً بعد الرسوم، يغطي نافذة زمنية من العمليات. قاعدة بياناتك فيها طلبات، وكشف حسابك فيه إيداعات، ولا شيء يتطابق تلقائياً. ابنِ استيراداً لتقارير التسوية يربطها بمعرّفات الطلبات من الإطلاق، لا بعد ثمانية عشر شهراً حين يسأل أحدهم أخيراً لماذا لا تتطابق الأرقام. هذه مسألة نمذجة بيانات بقدر ما هي مسألة مدفوعات، وتنطبق عليها أسس <a href="/ar/blog/database-design-for-web-apps">تصميم قواعد بيانات تطبيقات الويب</a>: المدفوعات والتحصيلات والاستردادات والتسويات أربعة جداول مترابطة، لا أربعة أعمدة في جدول الطلبات.</p>
+
+<p><strong>أصدر الفاتورة عند التحصيل لا عند الطلب.</strong> إن كنت مسجلاً في ضريبة القيمة المضافة بالسعودية، فتوقيت فاتورتك الضريبية مهم ويجب أن يتبع المال لا النقرة. اربط إصدار الفاتورة بحدث التحصيل. مقالتي عن <a href="/ar/blog/zatca-einvoicing-laravel-integration">ربط الفوترة الإلكترونية ZATCA مع Laravel</a> تغطي الجانب الامتثالي بالتفصيل.</p>
+
+<h2>10. بأي بوابة يبدأ المتجر الخليجي؟</h2>
+
+<p>توصيتي بوضوح.</p>
+
+<p><strong>متجر سعودي فقط:</strong> ابدأ بـ Moyasar إن كان فريقك يقدّر تجربة المطور وسرعة الوصول للسوق، أو PayTabs إن كنت تتوقع التوسع خارج المملكة خلال سنة. كلاهما يمنحك mada والبطاقات و Apple Pay عبر ربط واحد. أضف Tamara أولاً للتقسيط لأن وعي العلامة السعودي أقوى لديها، ثم Tabby بعد استقرار الأول.</p>
+
+<p><strong>متجر إماراتي أولاً:</strong> PayTabs أو Checkout.com للبطاقات، و Tabby أولاً للتقسيط نظراً لقوته في الإمارات، ثم Tamara.</p>
+
+<p><strong>متعدد الدول الخليجية من اليوم الأول:</strong> PayTabs، لأن عقداً واحداً يغطي أغلب أسواق الخليج يزيل قدراً هائلاً من العبء التشغيلي — مطابقة حسابية منفصلة لكل دولة تكلفة حقيقية لا تظهر في مقارنة الرسوم.</p>
+
+<p><strong>مصر ضمن النطاق:</strong> Paymob للجانب المصري، مع تقبّل أنك ستشغّل بوابتَي بطاقات. لا تحاول إجبار مزوّد واحد على تغطية مصر والخليج معاً بشكل جيد.</p>
+
+<p><strong>في كل الحالات:</strong> ابنِ طبقة التجريد قبل المزوّد الثاني لا بعده. الواجهة التي تحتاجها صغيرة — إنشاء جلسة، استعلام عن دفع، تحصيل، تحصيل جزئي، استرداد، إلغاء — والانضباط بكتابتها مسبقاً هو ما يجعل المزوّد الثالث عمل يومين بدل عمل أسبوعين.</p>
+
+<div class="post-callout">
+<p><strong>خطة اختبار تستحق النسخ.</strong> قبل الإطلاق، اختبر عمداً: عميل يغادر عند صفحة المزوّد؛ عميل يغلق المتصفح بعد الموافقة وقبل العودة؛ إشعار مكرر؛ إشعار يصل خارج الترتيب؛ تحصيل يفشل؛ استرداد جزئي يتبعه محاولة استرداد كامل؛ جلسة تنتهي صلاحيتها؛ ورفض تقسيط عند التقييم المسبق. كل واحدة من هذه تحدث في الشهر الأول من الحركة الحقيقية. الأخيرة وحدها موثّقة جيداً لدى المزوّدين.</p>
+</div>
+
+<h2>11. أخطاء أُستدعى لإصلاحها باستمرار</h2>
+
+<p><strong>حالة الطلب مبنية على عودة المتصفح.</strong> ينقطع اتصال هاتف العميل في طريق العودة من صفحة رمز التحقق البنكي، فلا يُستدعى مسار النجاح، ويبقى الطلب غير مدفوع بينما خُصم المبلغ من العميل. اجعل الإشعار بين الخوادم مع مهمة المطابقة هما مالكا الحالة دائماً.</p>
+
+<p><strong>منطق الدفع داخل متحكم إتمام الطلب.</strong> أربعة مزوّدين وأربع مجموعات من الشروط بلا تجريد، وكل تعديل يهدد الأربعة. هذا أغلى خطأ بنيوي في أكواد التجارة الإلكترونية الخليجية.</p>
+
+<p><strong>المفاتيح السرية في واجهة المستخدم.</strong> Tabby وأغلب البوابات تصدر مفتاحاً عاماً وآخر سرياً لسبب. المفتاح السري لا يغادر خادمك أبداً. ما زلت أجده داخل حزم JavaScript.</p>
+
+<p><strong>غياب التكافؤ مع البيئة التجريبية.</strong> اختبار المسار السعيد وحده، ثم اكتشاف أن 3D Secure في الإنتاج يضيف تحويلاً لم تتوقعه آلة حالاتك.</p>
+
+<p><strong>إهمال صفحة الدفع العربية.</strong> تخطيط من اليمين لليسار ينكسر عند خطوة الدفع، ورسائل خطأ بالإنجليزية فقط، وحقول أرقام هاتف ترفض الصيغة التي يكتبها العميل السعودي فعلاً. ثنائية اللغة ليست طبقة ترجمة تُلصق في النهاية، بل متطلب في صفحة الدفع في هذا السوق.</p>
+
+<p><strong>لا مفتاح idempotency على الطلبات الصادرة أيضاً.</strong> إزالة تكرار الإشعارات تنال الاهتمام، أما أمان إعادة المحاولة الصادرة فلا. إن انتهى وقت انتظار طلب التحصيل وأعدت المحاولة بلا مفتاح idempotency، فقد تحصّل مرتين.</p>
+
+<p><strong>اعتبار لوحة المزوّد دفتر حساباتك.</strong> هي عرض تقريري لبياناتهم، لا دفاترك. نظامك يحتاج سجلات دفع خاصة به تستطيع الاستعلام عنها وتدقيقها ومطابقتها باستقلال.</p>
+
+<h2>12. من أين تبدأ</h2>
+
+<p>إن كنت في البداية: اختر بوابة بطاقات واحدة، وقدّم طلب التاجر هذا الأسبوع، وابنِ طبقة تجريد الدفع بينما تنتظر الموافقة. أضف التقسيط حين يُوقَّع العقد لا قبله. وابنِ مهمة المطابقة في اليوم الأول لأنك لن تجد لها وقتاً لاحقاً.</p>
+
+<p>وإن كان لديك متجر قائم يخسر طلبات عند الدفع، فالتشخيص عادة أحد ثلاثة: غياب mada، أو آلة حالات تعتمد على عودة المتصفح، أو معالج إشعارات غير محصّن ضد التكرار. الثلاثة قابلة للإصلاح في أيام لا شهور.</p>
+
+<p>أبني وأصلح ربط المدفوعات الخليجية ضمن <a href="/ar/ecommerce-development">تطوير المتاجر الإلكترونية المخصصة</a>، غالباً على Laravel، وأنا مستعد لمراجعة ربط قائم وإخبارك بما فيه من خلل بنفس القدر الذي أستعد فيه لإعادة بنائه. إن أردت من يتولى هذا من أوله إلى آخره، يمكنك <a href="/ar/hire-laravel-developer">توظيفي كمطور Laravel</a> — أو ببساطة <a href="/ar/contact">أرسل لي تفاصيل متجرك</a> وسأخبرك بصراحة إن كانت لديك مشكلة تستحق أن تدفع لحلها.</p>
+HTMLAR,
+            ],
+            [
+                'slug' => 'zatca-einvoicing-laravel-integration',
+                'title' => 'ZATCA Phase 2 E-Invoicing in Laravel: A Working Integration Guide',
+                'title_ar' => 'ربط الفاتورة الإلكترونية ZATCA المرحلة الثانية مع Laravel',
+                'excerpt' => 'A developer\'s working guide to ZATCA Phase 2 in Laravel: UBL 2.1 XML, XAdES signing on secp256k1, nine-tag TLV QR codes, CSID onboarding through Fatoora, the clearance and reporting APIs, honest timelines and real cost ranges.',
+                'excerpt_ar' => 'دليل عملي لربط المرحلة الثانية من الفاتورة الإلكترونية مع Laravel: توليد UBL 2.1، والتوقيع بـ XAdES على منحنى secp256k1، ورمز QR بتسعة حقول، والتسجيل في منصة فاتورة، ومسارا الإجازة والإبلاغ، مع جداول زمنية وتكاليف صادقة.',
+                'category' => 'Backend',
+                'tags' => ['ZATCA', 'Laravel', 'E-Invoicing', 'Saudi Arabia', 'Compliance', 'API Integration', 'Ecommerce', 'PHP'],
+                'image' => '1710763075-services-bg-img-1.jpg',
+                'date' => '2026-08-13',
+                'read_time' => '18 min read',
+                'meta_title' => 'ZATCA E-Invoicing Laravel Integration: Phase 2 Guide',
+                'meta_title_ar' => 'ربط الفاتورة الإلكترونية ZATCA مع Laravel: دليل المرحلة 2',
+                'meta_description' => 'Build ZATCA Phase 2 into a Laravel app: XML signing, TLV QR codes, CSID onboarding, clearance and reporting APIs, plus honest timelines and cost ranges.',
+                'meta_description_ar' => 'كيف تربط تطبيق Laravel بالمرحلة الثانية من ZATCA: توليد UBL والتوقيع الرقمي ورمز QR والتسجيل في فاتورة، مع تكاليف ومدد تنفيذ واقعية.',
+                'faq' => [
+                    [
+                        'q' => 'Does my custom-built store legally need ZATCA integration?',
+                        'a' => 'If you are a resident VAT-registered taxpayer in Saudi Arabia and your system issues tax invoices, yes. ZATCA regulates the invoice, not the software category, so a custom Laravel storefront counts as an EGS unit exactly like a commercial accounting product. Your go-live date depends on which revenue wave ZATCA has placed you in, and you are notified at least six months ahead.',
+                        'q_ar' => 'هل متجري المبني خصيصاً ملزم بالربط مع ZATCA؟',
+                        'a_ar' => 'إذا كنت مكلفاً مقيماً ومسجلاً في ضريبة القيمة المضافة في السعودية ونظامك يصدر فواتير ضريبية، فنعم. الهيئة تنظّم الفاتورة لا فئة البرنامج، لذا يُعد متجر Laravel المخصص وحدة EGS تماماً كأي برنامج محاسبة تجاري. وموعد إلزامك يحدده رقم الموجة التي وضعتك فيها الهيئة، وتُبلَّغ قبله بستة أشهر على الأقل.',
+                    ],
+                    [
+                        'q' => 'What is the difference between Phase 1 and Phase 2 compliance?',
+                        'a' => 'Phase 1 requires only that invoices be generated electronically in a structured format, in Arabic, with a five-field QR code on simplified invoices. Phase 2 adds UBL 2.1 XML, a cryptographic stamp signed with a ZATCA-issued certificate, a nine-field QR code, sequential invoice chaining via ICV and PIH, and a live API connection for clearance or reporting.',
+                        'q_ar' => 'ما الفرق بين المرحلة الأولى والمرحلة الثانية؟',
+                        'a_ar' => 'المرحلة الأولى تشترط فقط إصدار الفاتورة إلكترونياً بصيغة منظمة وباللغة العربية، مع رمز QR من خمسة حقول للفواتير المبسطة. أما المرحلة الثانية فتضيف صيغة UBL 2.1، وختماً تشفيرياً موقّعاً بشهادة صادرة من الهيئة، ورمز QR من تسعة حقول، وربط الفواتير في سلسلة عبر ICV و PIH، واتصالاً مباشراً بواجهة برمجية للإجازة أو الإبلاغ.',
+                    ],
+                    [
+                        'q' => 'How do I get a CSID and onboard to Fatoora?',
+                        'a' => 'Four steps per EGS unit. Generate a secp256k1 private key and a CSR carrying your 15-digit VAT number in the subjectAltName UID field, plus the device serial. Get an OTP from the Fatoora portal and post the CSR to the compliance endpoint to receive a compliance CSID. Submit six signed sample documents to the compliance-invoices endpoint. Then exchange your request ID for a production CSID.',
+                        'q_ar' => 'كيف أحصل على CSID وأسجّل في منصة فاتورة؟',
+                        'a_ar' => 'أربع خطوات لكل وحدة EGS. ولّد مفتاحاً خاصاً على منحنى secp256k1 و CSR يحمل رقمك الضريبي المكوّن من 15 خانة في حقل UID داخل subjectAltName، مع الرقم التسلسلي للجهاز. احصل على OTP من منصة فاتورة وأرسل الـ CSR إلى مسار المطابقة لتحصل على Compliance CSID. أرسل ستة مستندات اختبارية موقّعة إلى مسار فحص الفواتير. ثم بادل رقم الطلب بشهادة الإنتاج.',
+                    ],
+                    [
+                        'q' => 'How long does ZATCA integration take on an existing Laravel app?',
+                        'a' => 'Four to eight weeks of focused work — 22 to 38 working days — if the app already issues invoices, has a clean invoice model, and stores money as decimals rather than floats. Multiple branches, VAT groups, multi-currency invoicing, or a legacy schema where invoices span several tables can double that. The most commonly underestimated delay is getting authorised Fatoora portal access at the client.',
+                        'q_ar' => 'كم يستغرق الربط على تطبيق Laravel قائم؟',
+                        'a_ar' => 'من أربعة إلى ثمانية أسابيع عمل مركّز — أي من 22 إلى 38 يوم عمل — إذا كان التطبيق يصدر فواتير بالفعل، ونموذج الفاتورة نظيف، والمبالغ مخزّنة كـ decimal لا كـ float. أما تعدد الفروع أو المجموعات الضريبية أو العملات، أو قاعدة بيانات قديمة يتوزع فيها مفهوم الفاتورة على جداول عدة، فقد يضاعف المدة. وأكثر تأخير يُستهان به هو الحصول على صلاحية دخول معتمدة إلى منصة فاتورة لدى العميل.',
+                    ],
+                    [
+                        'q' => 'What happens if my invoices fail ZATCA validation?',
+                        'a' => 'A 400 response means NOT_CLEARED or NOT_REPORTED and the document is not a legally valid invoice; you must correct and resubmit, never blindly retry. A 202 means accepted with warnings, which is still valid but should be cleaned up before those warnings become blocking errors. A 5xx is a gateway problem, so retry with backoff rather than treating it as rejection.',
+                        'q_ar' => 'ماذا يحدث إذا فشلت فواتيري في التحقق؟',
+                        'a_ar' => 'استجابة 400 تعني NOT_CLEARED أو NOT_REPORTED، والمستند ليس فاتورة نظامية، فعليك تصحيحه وإعادة إرساله لا إعادة المحاولة عمياء. واستجابة 202 تعني القبول مع تحذيرات، وهي صحيحة قانوناً لكن يجب معالجة الملاحظات قبل أن تتحول إلى أخطاء حاجبة. أما 5xx فهي مشكلة في البوابة، فأعد المحاولة تصاعدياً ولا تعتبرها رفضاً.',
+                    ],
+                    [
+                        'q' => 'What is the correct PIH value for the very first invoice?',
+                        'a' => 'It is the fixed constant NWZlY2ViNjZmZmM4NmYzOGQ5NTI3ODZjNmQ2OTZjNzljMmRiYzIzOWRkNGU5MWI0NjcyOWQ3M2EyN2ZiNTdlOQ==. That is the base64 of the 64-character lowercase hex string of SHA-256 over the character 0, not the base64 of the raw digest bytes. Encoding the raw bytes gives X+zrZv/IbzjZUnhsbWlsecLbwjndTpG0ZynXOif7V+k=, which is wrong and fails compliance. Every later PIH is base64 of the raw digest; only the seed differs.',
+                        'q_ar' => 'ما القيمة الصحيحة لـ PIH في أول فاتورة؟',
+                        'a_ar' => 'هي الثابت NWZlY2ViNjZmZmM4NmYzOGQ5NTI3ODZjNmQ2OTZjNzljMmRiYzIzOWRkNGU5MWI0NjcyOWQ3M2EyN2ZiNTdlOQ==، وهو base64 للنص السداسي عشري المكوّن من 64 حرفاً صغيراً لناتج SHA-256 على الحرف 0، وليس base64 لـ bytes الملخّص الخام. لو رمّزت الـ bytes الخام لحصلت على X+zrZv/IbzjZUnhsbWlsecLbwjndTpG0ZynXOif7V+k=، وهي قيمة خاطئة ترسب في فحص المطابقة. وكل PIH لاحق هو base64 للـ bytes الخام؛ الاستثناء هو القيمة الابتدائية وحدها.',
+                    ],
+                    [
+                        'q' => 'Can I use an existing PHP package instead of building from scratch?',
+                        'a' => 'Partly. As of August 2026 the widely used Packagist options are salla/zatca, by far the most downloaded, which covers QR generation plus XAdES invoice signing and CSR generation but not UBL document building, and saleh7/php-zatca-xml and sevaske/zatca-api, which add UBL generation and the clearance and reporting API calls. All are community-maintained and unofficial, so read the source and check the last update against the current spec version before depending on one.',
+                        'q_ar' => 'هل أستخدم حزمة PHP جاهزة بدل البناء من الصفر؟',
+                        'a_ar' => 'جزئياً. حتى أغسطس 2026 تشمل الخيارات المستخدمة على Packagist حزمة salla/zatca وهي الأكثر تحميلاً بفارق كبير، وتغطي توليد QR إضافة إلى التوقيع بـ XAdES وتوليد الـ CSR لكنها لا تبني مستند UBL، ثم حزمتي saleh7/php-zatca-xml و sevaske/zatca-api اللتين تضيفان توليد UBL واستدعاءات الإجازة والإبلاغ. جميعها مجتمعية وغير رسمية، لذا اقرأ الشيفرة وتحقق من تاريخ آخر تحديث مقابل إصدار المواصفة الحالي قبل الاعتماد عليها.',
+                    ],
+                    [
+                        'q' => 'Do I need a separate certificate for each branch?',
+                        'a' => 'Each invoice-generating device or instance is a separate EGS unit, and each EGS unit needs its own CSR, its own production CSID, and its own non-resettable ICV counter. One Laravel application issuing all invoices is a single unit. Twelve branch POS terminals are twelve units. Sharing one certificate across branches may pass sandbox but fails an audit.',
+                        'q_ar' => 'هل أحتاج شهادة منفصلة لكل فرع؟',
+                        'a_ar' => 'كل جهاز أو نسخة تصدر فواتير تُعد وحدة EGS مستقلة، وكل وحدة تحتاج CSR خاصاً بها، وشهادة إنتاج خاصة بها، وعدّاد ICV غير قابل للتصفير خاصاً بها. تطبيق Laravel واحد يصدر كل الفواتير هو وحدة واحدة، واثنتا عشرة نقطة بيع في الفروع هي اثنتا عشرة وحدة. ومشاركة شهادة واحدة بين الفروع قد تمر في بيئة الاختبار لكنها تسقط في التدقيق.',
+                    ],
+                ],
+                'content' => <<<'HTML'
+<p class="lead">If you run a custom-built store or ERP that issues invoices in Saudi Arabia, ZATCA Phase 2 is not a plugin you install. It is a cryptographic signing pipeline, a certificate lifecycle, and a live API dependency sitting between your checkout and your customer's receipt. I'm Khaled Ahmed, a full stack developer in Cairo, and I've built and repaired this integration inside Laravel applications for Saudi clients. Here is the whole flow, honestly, including the parts that break.</p>
+
+<h2>1. Does my custom-built store legally need ZATCA integration?</h2>
+
+<p>Short answer: if you are VAT-registered in Saudi Arabia and you issue tax invoices, yes — and "my developer built it, it isn't an accounting product" is not an exemption.</p>
+
+<p>ZATCA regulates the <strong>invoice</strong>, not the software category. The obligation attaches to the taxable person, and it flows down to whatever system generates their invoices. A Laravel storefront that emails a PDF receipt with a VAT line on it is an E-Invoice Generation Solution (an "EGS unit" in ZATCA's language) whether or not anyone calls it that. So is your point-of-sale. So is the admin panel where your accountant raises a manual invoice.</p>
+
+<p>Two things decide your timing:</p>
+
+<ul>
+<li><strong>Are you VAT-registered in KSA?</strong> Non-resident taxable persons are outside the e-invoicing obligation, but residents are in.</li>
+<li><strong>Which integration wave are you in?</strong> ZATCA phases Phase 2 in by annual VAT-taxable revenue, and it notifies each group at least six months before its go-live date.</li>
+</ul>
+
+<p>The waves have marched steadily downward. Wave 1 covered taxpayers above SAR 3 billion from 1 January 2023. By the end of 2025 the announced thresholds had fallen to roughly the SAR 1 million level, and further waves have continued into 2026. I am writing this in August 2026 and I will be straight with you: <strong>the exact current wave number and threshold is the one fact in this article most likely to be out of date by the time you read it.</strong> Do not take it from a blog — mine included. Check the wave lookup on the Fatoora portal against your own VAT number, and confirm with your tax advisor.</p>
+
+<p>What matters strategically is the direction of travel. SAR 3 billion down to roughly SAR 1 million is a factor of three thousand — about three and a half orders of magnitude in three years. If you are a serious online business in Saudi Arabia, you are either in scope now or you will be shortly, and the notification gives you six months — which sounds generous until you discover your invoice table has no immutable counter and your totals are stored as floats.</p>
+
+<div class="post-callout"><p><strong>The practical test:</strong> If your system can produce a document that a Saudi customer could hand to their accountant to reclaim VAT, that document is in scope. Build for Phase 2 now, even if your wave letter has not arrived.</p></div>
+
+<h2>2. What is the difference between Phase 1 and Phase 2 compliance?</h2>
+
+<p>Phase 1 — "Generation" — has been mandatory for all resident taxpayers since 4 December 2021. It is deliberately undemanding:</p>
+
+<ul>
+<li>Invoices must be <strong>generated electronically</strong> in a structured way. No handwritten invoices, no Word documents, no Excel sheets you edit by hand.</li>
+<li>Arabic is <strong>mandatory</strong> on the invoice. You may add English, but Arabic cannot be missing.</li>
+<li>Simplified (B2C) invoices need a <strong>QR code</strong> carrying five fields: seller name, seller VAT number, timestamp, total including VAT, and VAT amount, encoded as base64 TLV.</li>
+<li>No connection to ZATCA at all. Nothing leaves your server.</li>
+</ul>
+
+<p>Phase 2 — "Integration" — is a different animal. It adds four hard requirements on top:</p>
+
+<ol>
+<li><strong>A specific XML format.</strong> UBL 2.1 with ZATCA's KSA extensions, not "some XML we invented."</li>
+<li><strong>A cryptographic stamp.</strong> Every invoice is signed with a private key that lives on your server, using a certificate issued by ZATCA.</li>
+<li><strong>A live API dependency.</strong> Standard invoices must be cleared by ZATCA <em>before</em> you give them to the buyer. Simplified invoices must be reported within 24 hours.</li>
+<li><strong>Tamper resistance.</strong> No key export, no invoice counter reset, no clock manipulation, no user-editable stamp.</li>
+</ol>
+
+<table>
+<thead>
+<tr><th>Dimension</th><th>Phase 1 (Generation)</th><th>Phase 2 (Integration)</th></tr>
+</thead>
+<tbody>
+<tr><td>In force since</td><td>4 Dec 2021, all resident taxpayers</td><td>1 Jan 2023, by revenue wave</td></tr>
+<tr><td>Invoice format</td><td>Any structured electronic format</td><td>UBL 2.1 XML with KSA extensions</td></tr>
+<tr><td>QR code</td><td>Simplified only, 5 TLV tags</td><td>Simplified: 9 TLV tags including the signature and public key</td></tr>
+<tr><td>Cryptographic signature</td><td>Not required</td><td>XAdES enveloped signature, ECDSA over secp256k1, SHA-256</td></tr>
+<tr><td>Certificate</td><td>None</td><td>Production CSID issued per EGS unit via Fatoora</td></tr>
+<tr><td>Contact with ZATCA</td><td>None</td><td>Clearance (real time) or reporting (within 24h)</td></tr>
+<tr><td>Invoice chaining</td><td>Not required</td><td>Sequential ICV plus previous invoice hash (PIH)</td></tr>
+<tr><td>Typical Laravel build effort</td><td>1–3 days</td><td>4–8 weeks</td></tr>
+</tbody>
+</table>
+
+<p>The gap between those last two rows is where most budgets get destroyed. Teams quote Phase 2 as if it were "add a QR code, plus an API call." It is neither.</p>
+
+<h2>3. Clearance vs reporting: two flows, two very different failure modes</h2>
+
+<p>This is the single most important architectural decision, and getting it wrong is expensive because it changes what happens at your checkout.</p>
+
+<h3>Standard tax invoices (B2B and B2G) — Clearance</h3>
+
+<p>A standard tax invoice is one issued to another VAT-registered business or a government entity. These must be sent to ZATCA <strong>synchronously, before the buyer receives them</strong>. ZATCA validates the XML, applies its own cryptographic stamp and QR, and returns a <em>cleared</em> document. The cleared version is the legally valid invoice. The one your system generated is not.</p>
+
+<p>That means your invoice issuance is now blocking on a third-party HTTP call. If ZATCA is slow, your invoice is slow. If ZATCA is down, you cannot legally issue a standard invoice at that moment. Your design has to queue, retry, and communicate that state to the user honestly.</p>
+
+<h3>Simplified tax invoices (B2C) — Reporting</h3>
+
+<p>A simplified invoice is your normal consumer receipt. You issue it to the customer immediately, complete with your own QR code, and you report the XML to ZATCA <strong>within 24 hours</strong>. This is asynchronous, which is a gift: put it on a queue, retry with backoff, and your checkout never waits on Riyadh.</p>
+
+<p>Most ecommerce stores are overwhelmingly simplified-invoice businesses with a thin B2B tail. If that is you, build the reporting path first and treat clearance as a second, gated flow — the same staged approach I use when planning any <a href="/ecommerce-development">custom ecommerce build</a> where one payment or tax path dominates volume.</p>
+
+<div class="post-callout"><p><strong>Design rule:</strong> Never call ZATCA inline from an HTTP request that a customer is waiting on — not even for clearance. Persist the invoice, dispatch a job, and let the job own the API conversation. Your checkout latency should not be a function of a government gateway's afternoon.</p></div>
+
+<h2>4. What a compliant invoice actually contains</h2>
+
+<p>The document is UBL 2.1. On top of standard UBL, ZATCA defines KSA-specific rules and fields. The ones that trip people up:</p>
+
+<ul>
+<li><strong>UUID</strong> — a v4 UUID per invoice, distinct from your human-readable invoice number.</li>
+<li><strong>ICV (Invoice Counter Value)</strong> — a strictly sequential integer per EGS unit, starting at 1, that <em>can never be reset</em>. Not your primary key if your primary key can gap or be reused. Not a per-branch counter unless that branch is its own registered EGS unit.</li>
+<li><strong>PIH (Previous Invoice Hash)</strong> — the base64 SHA-256 hash of the previous invoice's canonicalized XML, which chains your invoices together like a small private blockchain. The very first invoice uses ZATCA's defined seed value, and you should hard-code it verbatim: <code>NWZlY2ViNjZmZmM4NmYzOGQ5NTI3ODZjNmQ2OTZjNzljMmRiYzIzOWRkNGU5MWI0NjcyOWQ3M2EyN2ZiNTdlOQ==</code>. Look closely at what that constant is, because it is the single most common first-invoice failure: it is the base64 of the 64-character lowercase <em>hex string</em> of SHA-256 over the character <code>0</code> — not the base64 of the raw digest bytes. Encoding the raw bytes instead gives you <code>X+zrZv/IbzjZUnhsbWlsecLbwjndTpG0ZynXOif7V+k=</code>, which is a different value and will fail your compliance check. Every subsequent PIH is the base64 of the raw digest, exactly as the hashing code below computes it; only the seed uses the hex-string form.</li>
+<li><strong>InvoiceTypeCode</strong> — the value is the UBL document type (388 tax invoice, 383 debit note, 381 credit note) and the <code>name</code> attribute is a <strong>seven-character</strong> positional flag string whose first two characters are <code>01</code> for standard and <code>02</code> for simplified, followed by five flags for third-party, nominal, export, summary and self-billed invoices. So a plain standard invoice is <code>name="0100000"</code> and a plain simplified one is <code>name="0200000"</code>. Emit six characters instead of seven and the schema validator rejects the document.</li>
+<li><strong>Tax amount in SAR</strong> — even when the invoice is denominated in another currency, the tax total must also be expressed in SAR.</li>
+<li><strong>Rounding</strong> — two decimals, consistently. Line extension amounts, tax subtotals and the payable amount must reconcile exactly or the validator rejects the document.</li>
+</ul>
+
+<p>That ICV and PIH pair is the reason you cannot bolt this onto a system with a sloppy data layer. You need a durable, gap-free, concurrency-safe counter and a reliable pointer to the last successfully generated invoice. If two workers issue invoice number 4,102 at the same time, your chain is broken and every subsequent invoice inherits the break. I cover the underlying patterns in more depth in my guide to <a href="/blog/database-design-for-web-apps">database design for web apps</a>, but the short version for Laravel is: a dedicated counters table, a <code>SELECT ... FOR UPDATE</code> inside a transaction, and never a <code>MAX(id)+1</code>.</p>
+
+<pre><code>// Concurrency-safe ICV allocation for one EGS unit
+DB::transaction(function () use ($egsUnitId, $invoice) {
+    $counter = DB::table('egs_counters')
+        -&gt;where('egs_unit_id', $egsUnitId)
+        -&gt;lockForUpdate()
+        -&gt;first();
+
+    $icv = $counter-&gt;last_icv + 1;
+
+    DB::table('egs_counters')
+        -&gt;where('egs_unit_id', $egsUnitId)
+        -&gt;update(['last_icv' =&gt; $icv]);
+
+    $invoice-&gt;update([
+        'icv'  =&gt; $icv,
+        'pih'  =&gt; $counter-&gt;last_invoice_hash,
+        'uuid' =&gt; (string) Str::uuid(),
+    ]);
+});</code></pre>
+
+<h2>5. The cryptographic stamp: hashing, signing, and the QR code</h2>
+
+<p>This is where implementations actually fail, and where a generic "we do API integrations" agency will burn three weeks of your money.</p>
+
+<h3>The hash</h3>
+
+<p>The invoice hash is the base64-encoded SHA-256 digest of the canonicalized XML, computed <em>after</em> removing three elements: the <code>ext:UBLExtensions</code> block, the <code>cac:Signature</code> block, and the <code>cac:AdditionalDocumentReference</code> whose <code>cbc:ID</code> is <code>QR</code>. You remove them because they either contain the signature or depend on it.</p>
+
+<p>Canonicalization is where the bodies are buried. ZATCA's specification calls for C14N 1.1, and PHP's <code>DOMDocument::C14N()</code> implements C14N 1.0. In practice, for the element set ZATCA uses, the two produce identical bytes — I have not seen a real divergence — but if your hash mismatches and everything else looks right, this is the first place to look, along with three far more common culprits: <code>formatOutput = true</code> re-indenting your document, a BOM, or Windows line endings sneaking into a template.</p>
+
+<pre><code>$doc = new DOMDocument();
+$doc-&gt;preserveWhiteSpace = true;
+$doc-&gt;formatOutput = false;          // never true
+$doc-&gt;loadXML($invoiceXml);
+
+$xpath = new DOMXPath($doc);
+$xpath-&gt;registerNamespace('ext', 'urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2');
+$xpath-&gt;registerNamespace('cac', 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2');
+$xpath-&gt;registerNamespace('cbc', 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2');
+
+$remove = array_merge(
+    iterator_to_array($xpath-&gt;query('//ext:UBLExtensions')),
+    iterator_to_array($xpath-&gt;query('//cac:Signature')),
+    iterator_to_array($xpath-&gt;query("//cac:AdditionalDocumentReference[cbc:ID='QR']"))
+);
+
+foreach ($remove as $node) {
+    $node-&gt;parentNode-&gt;removeChild($node);
+}
+
+$canonical   = $doc-&gt;C14N(false, false);
+$invoiceHash = base64_encode(hash('sha256', $canonical, true));
+// this value is the PIH for the next invoice.
+// The PIH for the FIRST invoice in the chain is not computed at all —
+// it is ZATCA's fixed seed constant, base64 of the hex string:
+// NWZlY2ViNjZmZmM4NmYzOGQ5NTI3ODZjNmQ2OTZjNzljMmRiYzIzOWRkNGU5MWI0NjcyOWQ3M2EyN2ZiNTdlOQ==</code></pre>
+
+<h3>The signature</h3>
+
+<p>ZATCA uses <strong>ECDSA over the secp256k1 curve with SHA-256</strong>, wrapped in a XAdES enveloped signature. The secp256k1 choice surprises people — it is the Bitcoin curve, not the NIST P-256 that most enterprise PKI uses. Before you promise a delivery date, verify your server actually supports it:</p>
+
+<pre><code>openssl ecparam -list_curves | grep secp256k1</code></pre>
+
+<p>Most mainstream OpenSSL builds include it, but some hardened or minimal container images strip it, and discovering that on the day of go-live is a bad day. Check it in your Docker base image, not just on your laptop.</p>
+
+<p>The second notorious trap is the <code>SignedProperties</code> digest. You must hash the canonicalized <code>xades:SignedProperties</code> block exactly as it will appear in the final document — including its indentation. ZATCA's reference implementation emits that block with specific whitespace, and if your XML writer normalises it, your digest will be computed over different bytes than the validator computes over, and you will get a signature failure that tells you almost nothing. If you are debugging a rejected signature and the hash of the invoice body is already correct, this is the first thing to check — dump the exact bytes you hashed and diff them against the bytes in the final document.</p>
+
+<h3>The QR code</h3>
+
+<p>Phase 2 simplified invoices carry a nine-tag TLV structure, base64-encoded, rendered as a QR image. Tags 1 to 5 are the Phase 1 fields. Tags 6 to 9 are the new ones: the invoice hash, the ECDSA signature, the stamp's public key, and — for simplified invoices — the certificate authority's signature over that public key.</p>
+
+<pre><code>function tlv(int $tag, string $value): string
+{
+    return chr($tag) . chr(strlen($value)) . $value;
+}
+
+// Note: the length is a single byte and ZATCA's TLV specification
+// defines no extended-length form, so nothing may exceed 255 bytes.
+// In practice nothing comes close: tag 6 is 44 bytes, and tags 7 to 9
+// land in the 64-90 byte range. The one that can bite is tag 1, a long
+// Arabic seller name in UTF-8. Assert on strlen(), never truncate.
+$qr = base64_encode(
+      tlv(1, $sellerName)
+    . tlv(2, $vatNumber)
+    . tlv(3, $timestampUtcIso8601)
+    . tlv(4, $totalWithVat)
+    . tlv(5, $vatTotal)
+    . tlv(6, $invoiceHash)
+    . tlv(7, $ecdsaSignature)
+    . tlv(8, $publicKeyDer)
+    . tlv(9, $certificateSignature)
+);</code></pre>
+
+<p>Two details people get wrong: the timestamp must be UTC in ISO 8601, and the amounts are strings formatted to two decimals — not floats, not localised with Arabic-Indic digits.</p>
+
+<h2>6. How do I get a CSID and onboard to Fatoora?</h2>
+
+<p>Onboarding is a four-step handshake per EGS unit. An EGS unit is one invoice-generating device or instance — a branch till, a server, an application node. If you run one Laravel application issuing all invoices, that is one unit. If you run twelve branch POS terminals, that is twelve.</p>
+
+<h3>Step 1 — Generate a CSR and private key</h3>
+
+<p>Locally, on the machine that will sign. The CSR carries ZATCA-specific fields: the 15-digit VAT number, which goes in the <code>UID</code> entry of the <code>subjectAltName</code> and not in the organization (<code>O</code>) field, a serial number in the format <code>1-{ERP name}|2-{model}|3-{device UUID}</code>, the invoice type as a four-digit flag (<code>1100</code> for a unit that issues both standard and simplified invoices), the country <code>SA</code>, the business category, and a custom certificate-template OID whose value differs per environment.</p>
+
+<pre><code># openssl.cnf fragment — the template name changes per environment
+[req]
+prompt             = no
+distinguished_name = dn
+req_extensions     = v3_req
+
+[dn]
+CN = my-egs-unit-01
+OU = Riyadh Branch
+O  = My Company LLC
+C  = SA
+
+[v3_req]
+# TSTZATCA-Code-Signing  = sandbox / developer portal
+# PREZATCA-Code-Signing  = simulation
+# ZATCA-Code-Signing     = production
+1.3.6.1.4.1.311.20.2 = ASN1:UTF8String:PREZATCA-Code-Signing
+subjectAltName       = dirName:alt_names
+
+[alt_names]
+SN = 1-MyERP|2-1.0|3-8f1a2c30-0000-4a00-9f00-1c2d3e4f5a6b
+UID = 300000000000003
+title = 1100
+registeredAddress = King Fahd Road, Riyadh
+businessCategory = Retail</code></pre>
+
+<p>The signing key itself is an EC key on the secp256k1 curve, not RSA:</p>
+
+<pre><code>openssl ecparam -name secp256k1 -genkey -noout -out ec-private.pem
+openssl req -new -sha256 -key ec-private.pem -config openssl.cnf -out egs.csr</code></pre>
+
+<h3>Step 2 — Request a Compliance CSID</h3>
+
+<p>Log into the Fatoora portal, choose to onboard a new solution, and it gives you an OTP that is valid for a short window (about an hour, in my experience — treat it as short). Post the base64 CSR with that OTP:</p>
+
+<pre><code>POST {base}/compliance
+OTP: 123456
+Accept-Version: V2
+Content-Type: application/json
+
+{ "csr": "&lt;base64 of egs.csr&gt;" }</code></pre>
+
+<p>You get back a <code>binarySecurityToken</code> (your compliance CSID), a <code>secret</code>, and a <code>requestID</code>. Store all three. From here on, authentication is HTTP Basic where the username is the binary security token and the password is the secret.</p>
+
+<h3>Step 3 — Pass the compliance checks</h3>
+
+<p>Before ZATCA will issue a production certificate, your unit must successfully submit sample documents to <code>/compliance/invoices</code> — in practice six of them for a unit registered for both types: a standard invoice, credit note and debit note, plus a simplified invoice, credit note and debit note. Each must be correctly signed with the compliance certificate and correctly chained.</p>
+
+<p>This is the real gate. Everything up to here is paperwork; this is where a broken hash or a mangled <code>SignedProperties</code> digest stops you cold.</p>
+
+<h3>Step 4 — Request the Production CSID</h3>
+
+<pre><code>POST {base}/production/csids
+Accept-Version: V2
+Authorization: Basic base64(complianceToken:secret)
+
+{ "compliance_request_id": "1234567890123" }</code></pre>
+
+<p>That returns your production CSID and its own secret. Those are the credentials you use for real clearance and reporting. Renewal is a <code>PATCH</code> to the same path with a fresh CSR and a new OTP. Certificates are commonly cited as valid for five years — but rather than trusting that number, read the <code>notAfter</code> field off your actual certificate and put a calendar alert 60 days before it. An expired CSID stops invoicing entirely.</p>
+
+<h3>The three environments</h3>
+
+<table>
+<thead>
+<tr><th>Environment</th><th>Base path</th><th>Certificate template</th><th>Use it for</th></tr>
+</thead>
+<tbody>
+<tr><td>Developer portal (sandbox)</td><td><code>/e-invoicing/developer-portal</code></td><td><code>TSTZATCA-Code-Signing</code></td><td>Early development. Lenient. Accepts things production will not.</td></tr>
+<tr><td>Simulation</td><td><code>/e-invoicing/simulation</code></td><td><code>PREZATCA-Code-Signing</code></td><td>The real rehearsal. Same validation rules as production, no legal effect.</td></tr>
+<tr><td>Production</td><td><code>/e-invoicing/core</code></td><td><code>ZATCA-Code-Signing</code></td><td>Live invoices.</td></tr>
+</tbody>
+</table>
+
+<p>All three sit under the <code>gw-fatoora.zatca.gov.sa</code> gateway host. <strong>Do not skip simulation.</strong> Sandbox is forgiving in ways that will give you false confidence — I have seen invoices sail through the developer portal and get rejected on the first simulation attempt. Budget a full week in simulation with real production-shaped data.</p>
+
+<h2>7. Wiring it into an existing Laravel app</h2>
+
+<p>The clean architecture is a pipeline with the API call isolated at the very end, behind a queue. In broad strokes:</p>
+
+<ol>
+<li><strong>Persist the invoice first.</strong> Your database is the source of truth, not ZATCA's response.</li>
+<li><strong>Allocate ICV and PIH</strong> inside a locking transaction, as above.</li>
+<li><strong>Build the UBL XML</strong> from a template, with no pretty-printing.</li>
+<li><strong>Hash, sign, build the QR</strong>, and store the signed XML on disk or object storage. Store the hash — you need it as the next invoice's PIH.</li>
+<li><strong>Dispatch a job</strong> that submits to clearance or reporting depending on invoice type.</li>
+<li><strong>Record the response verbatim</strong> — status, warnings, errors, the cleared XML if any — against the invoice row.</li>
+</ol>
+
+<p>Concretely, the submission looks like this:</p>
+
+<pre><code>// Clearance for a standard (B2B) invoice
+$response = Http::withBasicAuth($csid-&gt;token, $csid-&gt;secret)
+    -&gt;withHeaders([
+        'Accept-Version'   =&gt; 'V2',
+        'Accept-Language'  =&gt; 'en',
+        'Clearance-Status' =&gt; '1',
+    ])
+    -&gt;timeout(30)
+    // Retry transport failures and gateway errors ONLY. A bare
+    // retry(3, 2000) also retries 4xx, which resubmits a rejected
+    // invoice three times and then throws — so you never reach
+    // step 6 and never record what ZATCA actually said.
+    -&gt;retry(3, 2000, function (Throwable $e) {
+        return $e instanceof ConnectionException
+            || ($e instanceof RequestException
+                &amp;&amp; $e-&gt;response-&gt;serverError());
+    }, throw: false)
+    -&gt;post($base . '/invoices/clearance/single', [
+        'invoiceHash' =&gt; $invoice-&gt;hash,
+        'uuid'        =&gt; $invoice-&gt;uuid,
+        'invoice'     =&gt; base64_encode($signedXml),
+    ]);</code></pre>
+
+<p>That <code>$when</code> closure is not decoration. Laravel's <code>retry()</code> throws internally between attempts, so the default behaviour treats a 400 NOT_CLEARED — a considered verdict, not a blip — exactly like a dropped connection. And <code>throw: false</code> matters just as much: without it, an exhausted retry chain throws a <code>RequestException</code>, <code>$response</code> is never assigned, and the "record the response verbatim" step below never runs on precisely the invoices you most need the evidence for.</p>
+
+<p>For simplified invoices, the path is <code>/invoices/reporting/single</code> and you drop the <code>Clearance-Status</code> header. The body shape is identical.</p>
+
+<p>A few Laravel-specific notes from doing this repeatedly. Keep the signing logic in a framework-agnostic service class with no Eloquent dependency — you will want to unit-test it against ZATCA's published sample invoices, and you cannot do that comfortably through a model. Use a dedicated queue with a low concurrency so invoices submit in ICV order. And log every request and response body, because when ZATCA rejects something six weeks from now, the error message alone will not tell you what you sent. These are the same discipline points I argue for in my write-up on <a href="/blog/api-design-best-practices-2026">API design best practices</a> — idempotency keys, verbatim response storage, and a clear separation between "we recorded it" and "they accepted it."</p>
+
+<p>Two more things worth budgeting for. The private key must be protected: it is a legal signing credential, and ZATCA's tamper-resistance requirements mean no user-facing export path and no key sitting in your repository. Encrypt it at rest, restrict filesystem permissions, and keep it out of backups that leave the Kingdom. And KSA has data-residency expectations for invoice archives, with VAT record retention generally running to six years for most records and longer for capital assets and property. That is a hosting decision, not a code decision — verify the current retention rules with your tax advisor before choosing a region. My <a href="/blog/website-security-checklist">website security checklist</a> covers the key-handling side in more general terms.</p>
+
+<h2>8. What happens if my invoices fail ZATCA validation?</h2>
+
+<p>Three outcomes, and the difference between them matters legally.</p>
+
+<table>
+<thead>
+<tr><th>Response</th><th>Meaning</th><th>Is the invoice valid?</th><th>What you should do</th></tr>
+</thead>
+<tbody>
+<tr><td>200 — CLEARED / REPORTED</td><td>Accepted with no issues</td><td>Yes</td><td>Store the cleared XML and serve that to the buyer</td></tr>
+<tr><td>202 — accepted with warnings</td><td>Accepted, but ZATCA flagged non-blocking issues</td><td>Yes</td><td>Still valid — but fix the warnings. Warnings become errors in future spec versions.</td></tr>
+<tr><td>400 — NOT_CLEARED / NOT_REPORTED</td><td>Rejected on business or schema rules</td><td><strong>No</strong></td><td>The document is not a legal invoice. Correct and resubmit.</td></tr>
+<tr><td>401</td><td>Bad or expired CSID</td><td>N/A</td><td>Check certificate expiry and Basic auth encoding</td></tr>
+<tr><td>5xx / timeout</td><td>Gateway problem, not yours</td><td>Unknown</td><td>Retry with backoff. Never assume rejection.</td></tr>
+</tbody>
+</table>
+
+<p>The 202 case is the one teams mishandle. It looks like a failure in a naive integration and gets retried into a duplicate, or it gets ignored for a year and then becomes a blocking error when ZATCA tightens the rule. Treat warnings as a backlog, not as noise.</p>
+
+<p>The 400 case is the dangerous one for standard invoices. If clearance fails, you have no legally valid invoice to hand the buyer — you cannot send the uncleared version and sort it out later. Your system needs a visible "pending clearance" state and an operational alert, not a silent failed job.</p>
+
+<p>On penalties: the Saudi VAT framework provides for fines for failing to issue or retain invoices correctly, commonly cited in a range from around SAR 5,000 up to SAR 50,000 depending on the violation and whether it is repeated, and ZATCA has historically applied a notice-and-correct approach for first violations. I am not a tax advisor and the penalty schedule has been adjusted more than once — treat those figures as an order of magnitude and get the current position from a Saudi tax professional. The engineering point stands regardless: a broken integration is not a bug that costs you a support ticket, it is a bug that costs you a fine and a customer who cannot reclaim their VAT.</p>
+
+<div class="post-callout"><p><strong>Build a compliance dashboard on day one.</strong> Every invoice, its submission status, its response code, and a one-click resubmit. Not a nice-to-have. It is the difference between finding out about a systematic failure in twenty minutes and finding out in the quarterly VAT return.</p></div>
+
+<h2>9. How long does ZATCA integration take on an existing Laravel app?</h2>
+
+<p>Assuming a reasonably well-built Laravel application that already issues invoices, has a clean invoice model, and stores totals as decimals rather than floats, my honest estimate is <strong>four to eight weeks of focused work</strong> — that is 22 to 38 working days, and here is where they go:</p>
+
+<ul>
+<li>Discovery and data audit — 3 to 5 days. This is where you find that credit notes were implemented as negative invoices, or that four branches share one invoice sequence.</li>
+<li>Data model changes — ICV counters, PIH storage, UUID column, XML and response archival — 3 to 5 days.</li>
+<li>UBL generation and signing — 5 to 10 days. The bulk of it.</li>
+<li>Onboarding and compliance checks in sandbox and simulation — 5 to 8 days, including waiting on portal access and OTPs.</li>
+<li>Admin tooling, monitoring, retry handling — 3 to 5 days.</li>
+<li>Production onboarding and parallel running — 3 to 5 days.</li>
+</ul>
+
+<p>Add substantially to that if any of the following is true: multiple branches or EGS units, a VAT group structure, multi-currency invoicing, an existing invoice numbering scheme with gaps, credit and debit notes that do not reference their original invoice, or a legacy database where the same "invoice" concept lives in three tables. In a <a href="/blog/multi-tenant-saas-laravel">multi-tenant SaaS</a> where every tenant needs its own certificate and counter, this becomes a platform feature rather than an integration task, and the timeline roughly doubles.</p>
+
+<p>The variable nobody estimates correctly is <strong>portal access</strong>. Getting the right person at the client authorised on Fatoora, with the right VAT credentials, to generate an OTP at the moment your developer needs it, routinely takes longer than writing the signing code. Start it in week one.</p>
+
+<h2>10. What it costs</h2>
+
+<p>Honest ranges, with the assumptions stated. These are the bands I quote from, in SAR with USD equivalents, for work done remotely from Cairo for Saudi clients. Your local agency in Riyadh will typically sit above the top of these ranges; a marketplace freelancer will sit below the bottom and you will usually pay the difference twice.</p>
+
+<table>
+<thead>
+<tr><th>Scope</th><th>Typical range (SAR)</th><th>Typical range (USD)</th><th>Assumptions</th></tr>
+</thead>
+<tbody>
+<tr><td>Phase 1 retrofit only (QR + Arabic + structured generation)</td><td>4,000 – 9,000</td><td>1,050 – 2,400</td><td>Existing clean invoice model, single entity</td></tr>
+<tr><td>Phase 2, single EGS unit, clean Laravel app</td><td>22,000 – 45,000</td><td>5,900 – 12,000</td><td>One VAT number, one branch, simplified + standard, decimals not floats</td></tr>
+<tr><td>Phase 2, multi-branch or multi-entity</td><td>50,000 – 110,000</td><td>13,300 – 29,300</td><td>Several EGS units, per-unit certificates and counters, VAT group possible</td></tr>
+<tr><td>Phase 2 inside a multi-tenant SaaS</td><td>90,000 – 200,000+</td><td>24,000 – 53,300+</td><td>Per-tenant onboarding UX, certificate lifecycle, tenant-level monitoring</td></tr>
+<tr><td>Certified third-party middleware (annual)</td><td>3,000 – 25,000/yr + per-invoice</td><td>800 – 6,700/yr</td><td>Plus the integration work to talk to it, usually 5–15 days</td></tr>
+<tr><td>Ongoing maintenance and spec updates</td><td>500 – 2,000/month</td><td>135 – 535/month</td><td>Certificate renewals, spec version bumps, warning cleanup</td></tr>
+</tbody>
+</table>
+
+<p>Those bands assume you are paying for senior work with a fixed scope, not an hourly open-ended engagement. For a broader view of how these numbers compare to general web work across the region, I've written a full breakdown of <a href="/blog/website-cost-egypt-gulf">what websites actually cost in Egypt and the Gulf</a>.</p>
+
+<h2>11. Build in-house, use a certified provider, or hire a specialist?</h2>
+
+<p>I make money building this, and I will still tell you when not to hire me.</p>
+
+<p><strong>Use a certified ZATCA solution provider</strong> if your invoicing is standard, your volume is modest, and you have no unusual product model. You pay a subscription, they own the spec updates, and you integrate against a much friendlier API than ZATCA's. This is the right answer more often than developers like to admit.</p>
+
+<p><strong>Build it in-house or hire a specialist</strong> when your invoicing logic is genuinely custom — marketplaces with split settlements, subscription products with proration, mixed B2B and B2C flows, per-tenant tax identities — or when a per-invoice fee at your volume outweighs the build cost within eighteen months. Anything where a generic provider forces you to distort your own domain model is a case for building.</p>
+
+<p>If you build, you do not have to start from an empty file. As of August 2026 there are several actively used PHP packages on Packagist. <code>salla/zatca</code> is by far the most downloaded — roughly 470,000 installs against about 23,000 each for the alternatives — and it is worth correcting its reputation as "the QR package": alongside QR generation it ships an <code>InvoiceSign</code> class for XAdES invoice signing and helpers for CSR generation during onboarding, so it reaches into Phase 2 rather than stopping at Phase 1. What it does not do is build your UBL document or wrap the clearance and reporting endpoints for you. <code>saleh7/php-zatca-xml</code> and <code>sevaske/zatca-api</code> go wider, covering UBL generation, XAdES signing and the API calls. All of them are community-maintained and unofficial. Read the source before you depend on one — check when it was last updated against the current spec version, because a stale signing implementation is worse than none.</p>
+
+<p><strong>Do not</strong> hand this to a WordPress generalist or a team whose portfolio is landing pages. The signing pipeline is unforgiving, the error messages are terse, and the debugging loop requires reading a specification, not a Stack Overflow answer. If you need someone who has actually shipped this, that is exactly the scenario I describe on my <a href="/hire-laravel-developer">hire a Laravel developer</a> page.</p>
+
+<p>One more practical note for Saudi and Gulf merchants: ZATCA is rarely the only compliance-shaped integration on the roadmap. It usually lands in the same quarter as the payment stack, and the two interact — refunds create credit notes, and credit notes are ZATCA documents. If that is your situation, read my guide to <a href="/blog/gcc-payment-gateway-integration">GCC payment gateway integration</a> alongside this one and sequence them together rather than paying for two separate discovery phases.</p>
+
+<h2>12. The mistakes that cost the most</h2>
+
+<ul>
+<li><strong>Floats for money.</strong> If your totals are stored as <code>float</code>, ZATCA's arithmetic validation will reject invoices for one-halala discrepancies you cannot see in the UI. Fix this before anything else; it is a migration, not a patch.</li>
+<li><strong>Resettable or gapped counters.</strong> The ICV must never go backwards or repeat, across deployments, database restores and staging refreshes. Restoring a production backup to staging and letting staging submit invoices has broken more than one chain.</li>
+<li><strong>Signing in the request cycle.</strong> ECDSA signing is fast; the ZATCA call is not. Queue it.</li>
+<li><strong>Skipping simulation.</strong> Covered above. Do not do it.</li>
+<li><strong>Not storing the cleared XML.</strong> For standard invoices, ZATCA's returned document is the legal one. If you only keep yours, your archive is not compliant.</li>
+<li><strong>One certificate for everything.</strong> If you have multiple invoice-issuing devices, each is an EGS unit with its own CSID and its own counter. Sharing one certificate across branches will pass sandbox and fail an audit.</li>
+<li><strong>Treating Arabic as optional.</strong> It was mandatory in Phase 1 and it remains mandatory. Arabic seller name, Arabic on the printed document.</li>
+<li><strong>No monitoring.</strong> A queue worker that dies silently is a compliance incident with a delay fuse.</li>
+</ul>
+
+<h2>13. A realistic delivery plan</h2>
+
+<p>If you are starting today with a wave deadline in six months, here is the sequence I would run:</p>
+
+<ol>
+<li><strong>Week 1:</strong> Fatoora portal access secured and tested. Data audit of the invoice model. Decision on build vs certified provider.</li>
+<li><strong>Weeks 2–3:</strong> Data model migration — decimals, ICV counters, PIH, UUIDs, XML archive. Deployed to production behind a flag, generating nothing yet.</li>
+<li><strong>Weeks 4–6:</strong> UBL generation, hashing, signing, QR. Unit-tested against ZATCA's published sample documents before any network call.</li>
+<li><strong>Week 7:</strong> Sandbox onboarding and the six compliance documents.</li>
+<li><strong>Weeks 8–9:</strong> Simulation with production-shaped data. This is where you find the real bugs.</li>
+<li><strong>Week 10:</strong> Production onboarding, parallel run — generate and sign every real invoice, submit them, but keep the old document flow visible internally so you can compare.</li>
+<li><strong>Weeks 11–12:</strong> Cut over. Monitor daily. Clear the warning backlog.</li>
+</ol>
+
+<p>That leaves three months of buffer against a six-month notification, which is roughly the buffer you want, because the thing that delays this project is almost never the code.</p>
+
+<h2>14. Where to go from here</h2>
+
+<p>If you're running a custom Laravel store or ERP in Saudi Arabia and you have a wave deadline in front of you, the useful next step is a short technical review of what you already have: your invoice model, your numbering, your credit note handling, and how many EGS units you actually need. That review takes me an hour or two and it is the difference between a project that lands in eight weeks and one that drags past sixteen.</p>
+
+<p>You can see the kind of work I ship on my <a href="/portfolios">portfolio</a>, and I'll give you a straight answer about whether you should build this or buy it — including telling you to buy it, if that is the right call.</p>
+
+<p><a href="/contact">Send me the details of your setup</a> and I'll come back within 24 hours with a free consultation and a fixed-fee quote. No retainer, no hourly surprises, and a clear statement of what is in scope and what is not.</p>
+HTML,
+                'content_ar' => <<<'HTMLAR'
+<p class="lead">إذا كنت تدير متجراً إلكترونياً أو نظام ERP مبنياً خصيصاً لك ويصدر فواتير داخل السعودية، فاعلم أن المرحلة الثانية من الفاتورة الإلكترونية (ZATCA) ليست إضافة تثبّتها وتنتهي. إنها منظومة توقيع رقمي، ودورة حياة شهادات، واعتماد مباشر على واجهة برمجية حكومية تقف بين نقطة البيع لديك وبين إيصال العميل. أنا خالد أحمد، مطوّر Full Stack من القاهرة، ونفّذت هذا الربط وأصلحته داخل تطبيقات Laravel لعملاء سعوديين. هذا هو المسار كاملاً، بصراحة، بما فيه المواضع التي تنكسر فيها الأمور.</p>
+
+<h2>1. هل متجري المبني خصيصاً ملزم قانوناً بالربط مع ZATCA؟</h2>
+
+<p>الجواب المختصر: إذا كنت مسجلاً في ضريبة القيمة المضافة في السعودية وتُصدر فواتير ضريبية، فنعم — وعبارة «هذا نظام برمجه لي مطوّر، وليس برنامج محاسبة» ليست إعفاءً.</p>
+
+<p>الهيئة تنظّم <strong>الفاتورة</strong>، لا فئة البرنامج. الالتزام يقع على المكلّف، وينتقل تلقائياً إلى أي نظام يولّد فواتيره. متجر مبني على Laravel يرسل إيصال PDF فيه سطر ضريبة يُعد «حل توليد فواتير إلكترونية» — أو ما تسميه الهيئة وحدة EGS — سواء أطلقتَ عليه هذا الاسم أم لا. ونقطة البيع كذلك. ولوحة التحكم التي يصدر منها محاسبك فاتورة يدوية كذلك.</p>
+
+<p>هناك عاملان يحددان توقيتك:</p>
+
+<ul>
+<li><strong>هل أنت مسجل في ضريبة القيمة المضافة داخل المملكة؟</strong> غير المقيمين خارج نطاق الإلزام، أما المقيمون فداخله.</li>
+<li><strong>في أي «موجة» ربط أنت؟</strong> الهيئة تطبّق المرحلة الثانية على مجموعات متتالية بحسب الإيرادات الخاضعة للضريبة سنوياً، وتُبلّغ كل مجموعة قبل موعدها بستة أشهر على الأقل.</li>
+</ul>
+
+<p>الحدود انخفضت بلا توقف. الموجة الأولى شملت من تجاوزت إيراداته 3 مليارات SAR اعتباراً من 1 يناير 2023. ومع نهاية 2025 كانت الحدود المعلنة قد نزلت إلى ما يقارب مليون SAR، واستمرت موجات إضافية خلال 2026.</p>
+
+<p>وأقولها بوضوح لأنني أكتب هذا في أغسطس 2026: <strong>رقم الموجة الحالي وحدّها هو أكثر معلومة في هذا المقال عرضة للتقادم قبل أن تقرأه.</strong> لا تأخذها من مدونة — ولا من مدونتي. افحص رقمك الضريبي في أداة الاستعلام على منصة فاتورة، وأكّد الأمر مع مستشارك الضريبي.</p>
+
+<p>المهم استراتيجياً هو الاتجاه: النزول من 3 مليارات SAR إلى نحو مليون SAR يعني انخفاضاً بمقدار ثلاثة آلاف ضعف — أي نحو ثلاث مراتب عشرية ونصف خلال ثلاث سنوات. إذا كنت نشاطاً تجارياً جاداً على الإنترنت في السعودية فأنت إما داخل النطاق الآن أو ستدخله قريباً. ومهلة الستة أشهر تبدو كريمة حتى تكتشف أن جدول الفواتير لديك لا يحتوي على عدّاد غير قابل للتصفير، وأن المبالغ مخزّنة كأرقام عشرية عائمة.</p>
+
+<div class="post-callout"><p><strong>الاختبار العملي:</strong> إذا كان نظامك قادراً على إنتاج مستند يمكن لعميل سعودي أن يسلّمه لمحاسبه لاسترداد الضريبة، فهذا المستند داخل النطاق. ابنِ للمرحلة الثانية الآن، حتى قبل وصول خطاب الموجة.</p></div>
+
+<h2>2. ما الفرق الحقيقي بين المرحلة الأولى والمرحلة الثانية؟</h2>
+
+<p>المرحلة الأولى — «الإصدار» — إلزامية على جميع المكلفين المقيمين منذ 4 ديسمبر 2021، ومتطلباتها متواضعة عمداً:</p>
+
+<ul>
+<li>أن تُصدر الفاتورة <strong>إلكترونياً</strong> وبصيغة منظمة. لا فواتير مكتوبة بخط اليد، ولا ملفات Word، ولا جداول Excel تُحرَّر يدوياً.</li>
+<li><strong>اللغة العربية إلزامية</strong> على الفاتورة. يمكنك إضافة الإنجليزية، لكن لا يمكن غياب العربية.</li>
+<li>الفواتير المبسطة (للأفراد) تحتاج <strong>QR code</strong> يحمل خمسة حقول: اسم البائع، ورقمه الضريبي، والتاريخ والوقت، والإجمالي شامل الضريبة، وقيمة الضريبة — مُرمَّزة بصيغة TLV ثم base64.</li>
+<li>لا اتصال بالهيئة إطلاقاً. لا شيء يغادر خادمك.</li>
+</ul>
+
+<p>المرحلة الثانية — «الربط والتكامل» — شيء آخر تماماً. تضيف أربعة متطلبات صلبة:</p>
+
+<ol>
+<li><strong>صيغة XML محددة:</strong> معيار UBL 2.1 مع امتدادات الهيئة الخاصة بالمملكة، وليس «XML صممناه بأنفسنا».</li>
+<li><strong>ختم تشفيري:</strong> كل فاتورة تُوقَّع بمفتاح خاص موجود على خادمك، بشهادة صادرة من الهيئة.</li>
+<li><strong>اعتماد مباشر على واجهة برمجية:</strong> الفواتير الضريبية يجب أن تُجاز (Clearance) من الهيئة <em>قبل</em> تسليمها للمشتري، والفواتير المبسطة تُبلَّغ خلال 24 ساعة.</li>
+<li><strong>مقاومة العبث:</strong> لا تصدير للمفتاح، ولا تصفير لعدّاد الفواتير، ولا تلاعب بالساعة، ولا ختم يمكن للمستخدم تعديله.</li>
+</ol>
+
+<table>
+<thead>
+<tr><th>المحور</th><th>المرحلة الأولى (الإصدار)</th><th>المرحلة الثانية (الربط)</th></tr>
+</thead>
+<tbody>
+<tr><td>سارية منذ</td><td>4 ديسمبر 2021 على الجميع</td><td>1 يناير 2023 بنظام الموجات</td></tr>
+<tr><td>صيغة الفاتورة</td><td>أي صيغة إلكترونية منظمة</td><td>UBL 2.1 XML بامتدادات المملكة</td></tr>
+<tr><td>QR code</td><td>للمبسطة فقط، 5 حقول TLV</td><td>للمبسطة، 9 حقول تشمل التوقيع والمفتاح العام</td></tr>
+<tr><td>التوقيع الرقمي</td><td>غير مطلوب</td><td>توقيع XAdES مضمّن، ECDSA على منحنى secp256k1 بخوارزمية SHA-256</td></tr>
+<tr><td>الشهادة</td><td>لا توجد</td><td>Production CSID لكل وحدة EGS عبر منصة فاتورة</td></tr>
+<tr><td>التواصل مع الهيئة</td><td>لا يوجد</td><td>إجازة فورية أو إبلاغ خلال 24 ساعة</td></tr>
+<tr><td>تسلسل الفواتير</td><td>غير مطلوب</td><td>عدّاد ICV متسلسل + hash الفاتورة السابقة (PIH)</td></tr>
+<tr><td>الجهد المعتاد على Laravel</td><td>من يوم إلى ثلاثة</td><td>من 4 إلى 8 أسابيع</td></tr>
+</tbody>
+</table>
+
+<p>الفجوة بين آخر سطرين هي التي تدمّر الميزانيات. كثير من الفرق تسعّر المرحلة الثانية وكأنها «QR code زائد استدعاء API». وهي ليست هذا ولا ذاك.</p>
+
+<h2>3. الإجازة مقابل الإبلاغ: مساران ونمطا فشل مختلفان</h2>
+
+<p>هذا أهم قرار معماري في المشروع، والخطأ فيه مكلف لأنه يغيّر ما يحدث عند إتمام الطلب.</p>
+
+<h3>الفاتورة الضريبية (B2B و B2G) — الإجازة</h3>
+
+<p>الفاتورة الضريبية هي الصادرة إلى منشأة مسجلة في الضريبة أو جهة حكومية. ويجب إرسالها إلى الهيئة <strong>بشكل متزامن، قبل أن يستلمها المشتري</strong>. تتحقق الهيئة من الـ XML، وتضيف ختمها التشفيري و QR الخاص بها، وتعيد لك نسخة <em>مُجازة</em>. النسخة المجازة هي الفاتورة الصحيحة قانوناً؛ أما التي ولّدها نظامك فلا.</p>
+
+<p>معنى ذلك أن إصدار الفاتورة صار معلقاً على استدعاء HTTP لطرف ثالث. إن كانت الهيئة بطيئة فاتورتك بطيئة، وإن كانت متوقفة فلا يمكنك قانوناً إصدار فاتورة ضريبية في تلك اللحظة. تصميمك يجب أن يضع الطلب في طابور، ويعيد المحاولة، ويُظهر الحالة للمستخدم بصدق.</p>
+
+<h3>الفاتورة المبسطة (B2C) — الإبلاغ</h3>
+
+<p>الفاتورة المبسطة هي إيصال المستهلك المعتاد. تسلّمها للعميل فوراً ومعها QR الخاص بك، ثم تُبلّغ الهيئة بالـ XML <strong>خلال 24 ساعة</strong>. هذا المسار غير متزامن، وهذه نعمة: ضعه في queue مع إعادة محاولة تصاعدية، ولن تنتظر عملية الشراء لديك الرياض أبداً.</p>
+
+<p>أغلب المتاجر الإلكترونية أنشطة فواتير مبسطة في جوهرها، مع ذيل B2B رفيع. إن كان هذا حالك، فابنِ مسار الإبلاغ أولاً واجعل الإجازة مساراً ثانياً مُقيَّداً — وهو التدرّج نفسه الذي أتبعه في تخطيط أي <a href="/ar/ecommerce-development">مشروع متجر إلكتروني مخصص</a> يهيمن فيه مسار واحد على حجم المعاملات.</p>
+
+<div class="post-callout"><p><strong>قاعدة تصميم:</strong> لا تستدعِ ZATCA مباشرة داخل طلب HTTP ينتظره عميل — ولا حتى للإجازة. احفظ الفاتورة، وأطلق job، ودع الـ job يتولى الحوار مع الواجهة البرمجية. زمن استجابة متجرك يجب ألا يكون دالة في مزاج بوابة حكومية بعد الظهر.</p></div>
+
+<h2>4. ماذا تحتوي الفاتورة المطابقة فعلياً؟</h2>
+
+<p>المستند بصيغة UBL 2.1، وفوق المعيار القياسي تضيف الهيئة حقولاً وقواعد خاصة بالمملكة. أكثرها إسقاطاً للمشاريع:</p>
+
+<ul>
+<li><strong>UUID</strong> — معرّف من النوع v4 لكل فاتورة، منفصل عن رقم الفاتورة الذي يقرأه الإنسان.</li>
+<li><strong>ICV — عدّاد الفواتير</strong> — رقم صحيح متسلسل تماماً لكل وحدة EGS، يبدأ من 1، و<em>لا يجوز تصفيره أبداً</em>. ليس مفتاحك الأساسي إذا كان مفتاحك يقفز أو يُعاد استخدامه. وليس عدّاداً لكل فرع إلا إذا كان الفرع وحدة EGS مسجلة بذاتها.</li>
+<li><strong>PIH — hash الفاتورة السابقة</strong> — قيمة SHA-256 بترميز base64 لنسخة الـ XML المُقنّنة من الفاتورة السابقة، وهي تربط فواتيرك في سلسلة صغيرة تشبه blockchain خاصاً. أما الفاتورة الأولى فتستخدم القيمة الابتدائية المعرّفة من الهيئة، واكتبها ثابتة حرفياً: <code>NWZlY2ViNjZmZmM4NmYzOGQ5NTI3ODZjNmQ2OTZjNzljMmRiYzIzOWRkNGU5MWI0NjcyOWQ3M2EyN2ZiNTdlOQ==</code>. وتأمّل ما هي هذه القيمة، فهي أشهر سبب لفشل الفاتورة الأولى: إنها base64 <em>للنص السداسي عشري</em> المكوّن من 64 حرفاً صغيراً لناتج SHA-256 على الحرف <code>0</code>، وليست base64 لـ bytes الملخّص الخام. لو رمّزت الـ bytes الخام لحصلت على <code>X+zrZv/IbzjZUnhsbWlsecLbwjndTpG0ZynXOif7V+k=</code>، وهي قيمة مختلفة سترسبك في فحص المطابقة. وكل PIH بعد ذلك هو base64 للـ bytes الخام تماماً كما يحسبه الكود أدناه؛ الاستثناء هو القيمة الابتدائية وحدها.</li>
+<li><strong>InvoiceTypeCode</strong> — القيمة تحدد نوع المستند (388 فاتورة ضريبية، 383 إشعار مدين، 381 إشعار دائن)، أما الخاصية <code>name</code> فهي سلسلة أعلام موضعية من <strong>سبعة محارف</strong>، أول محرفين فيها <code>01</code> للفاتورة الضريبية و<code>02</code> للمبسطة، تتبعهما خمسة أعلام للطرف الثالث والصورية والتصدير والملخّص والفوترة الذاتية. فالفاتورة الضريبية العادية تُكتب <code>name="0100000"</code> والمبسطة العادية <code>name="0200000"</code>. وإن أخرجت ستة محارف بدل سبعة رفض المدقق المستند.</li>
+<li><strong>مبلغ الضريبة بالريال</strong> — حتى لو كانت الفاتورة بعملة أخرى، يجب التعبير عن إجمالي الضريبة بالـ SAR أيضاً.</li>
+<li><strong>التقريب</strong> — منزلتان عشريتان، بثبات. مجاميع البنود والضرائب الفرعية والمبلغ المستحق يجب أن تتطابق حسابياً بدقة وإلا رُفض المستند.</li>
+</ul>
+
+<p>هذا الثنائي — ICV و PIH — هو السبب في استحالة تركيب المرحلة الثانية على نظام طبقة بياناته مهلهلة. أنت بحاجة إلى عدّاد دائم، بلا فجوات، وآمن أمام التزامن، وإلى مؤشر موثوق لآخر فاتورة وُلّدت بنجاح. لو أصدر عاملان الفاتورة رقم 4,102 في اللحظة ذاتها، انكسرت السلسلة وورثت كل فاتورة تالية هذا الكسر. تناولت الأنماط الأساسية بتوسع في دليلي عن <a href="/ar/blog/database-design-for-web-apps">تصميم قواعد البيانات لتطبيقات الويب</a>، لكن الخلاصة في Laravel: جدول عدّادات مستقل، و<code>SELECT ... FOR UPDATE</code> داخل transaction، ولا تستخدم <code>MAX(id)+1</code> أبداً.</p>
+
+<pre><code>// تخصيص ICV آمن أمام التزامن لوحدة EGS واحدة
+DB::transaction(function () use ($egsUnitId, $invoice) {
+    $counter = DB::table('egs_counters')
+        -&gt;where('egs_unit_id', $egsUnitId)
+        -&gt;lockForUpdate()
+        -&gt;first();
+
+    $icv = $counter-&gt;last_icv + 1;
+
+    DB::table('egs_counters')
+        -&gt;where('egs_unit_id', $egsUnitId)
+        -&gt;update(['last_icv' =&gt; $icv]);
+
+    $invoice-&gt;update([
+        'icv'  =&gt; $icv,
+        'pih'  =&gt; $counter-&gt;last_invoice_hash,
+        'uuid' =&gt; (string) Str::uuid(),
+    ]);
+});</code></pre>
+
+<h2>5. الختم التشفيري: الـ hash والتوقيع و QR</h2>
+
+<p>هنا تفشل التنفيذات فعلياً، وهنا تحرق شركة «نحن نعمل تكاملات API» ثلاثة أسابيع من مالك.</p>
+
+<h3>حساب الـ hash</h3>
+
+<p>hash الفاتورة هو SHA-256 بترميز base64 لنسخة الـ XML المُقنّنة (canonicalized)، ويُحسب <em>بعد</em> إزالة ثلاثة عناصر: كتلة <code>ext:UBLExtensions</code>، وكتلة <code>cac:Signature</code>، وعنصر <code>cac:AdditionalDocumentReference</code> الذي قيمة <code>cbc:ID</code> فيه هي <code>QR</code>. تُزال لأنها إما تحتوي التوقيع أو تعتمد عليه.</p>
+
+<p>والتقنين (canonicalization) هو مقبرة المشاريع. مواصفة الهيئة تنص على C14N 1.1، بينما دالة <code>DOMDocument::C14N()</code> في PHP تنفّذ C14N 1.0. عملياً، ولمجموعة العناصر التي تستخدمها الهيئة، تنتج الطريقتان الـ bytes نفسها — لم أصادف اختلافاً حقيقياً — لكن إن اختلف الـ hash لديك وبدا كل شيء آخر سليماً فابدأ من هنا، ومعها ثلاثة أسباب أكثر شيوعاً بكثير: <code>formatOutput = true</code> يعيد ترتيب المسافات، أو وجود BOM، أو تسلل نهايات أسطر Windows إلى القالب.</p>
+
+<pre><code>$doc = new DOMDocument();
+$doc-&gt;preserveWhiteSpace = true;
+$doc-&gt;formatOutput = false;          // لا تجعلها true أبداً
+$doc-&gt;loadXML($invoiceXml);
+
+$xpath = new DOMXPath($doc);
+$xpath-&gt;registerNamespace('ext', 'urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2');
+$xpath-&gt;registerNamespace('cac', 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2');
+$xpath-&gt;registerNamespace('cbc', 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2');
+
+$remove = array_merge(
+    iterator_to_array($xpath-&gt;query('//ext:UBLExtensions')),
+    iterator_to_array($xpath-&gt;query('//cac:Signature')),
+    iterator_to_array($xpath-&gt;query("//cac:AdditionalDocumentReference[cbc:ID='QR']"))
+);
+
+foreach ($remove as $node) {
+    $node-&gt;parentNode-&gt;removeChild($node);
+}
+
+$canonical   = $doc-&gt;C14N(false, false);
+$invoiceHash = base64_encode(hash('sha256', $canonical, true));
+// هذه القيمة هي PIH للفاتورة التالية.
+// أما PIH الفاتورة الأولى في السلسلة فلا يُحسب أصلاً — إنه ثابت
+// الهيئة الابتدائي، وهو base64 للنص السداسي عشري:
+// NWZlY2ViNjZmZmM4NmYzOGQ5NTI3ODZjNmQ2OTZjNzljMmRiYzIzOWRkNGU5MWI0NjcyOWQ3M2EyN2ZiNTdlOQ==</code></pre>
+
+<h3>التوقيع</h3>
+
+<p>تستخدم الهيئة <strong>ECDSA على منحنى secp256k1 مع SHA-256</strong>، داخل توقيع XAdES مضمّن. اختيار secp256k1 يفاجئ الكثيرين لأنه منحنى Bitcoin وليس NIST P-256 المعتاد في البنى المؤسسية. قبل أن تعد بموعد تسليم، تأكد أن خادمك يدعمه فعلاً:</p>
+
+<pre><code>openssl ecparam -list_curves | grep secp256k1</code></pre>
+
+<p>أغلب نسخ OpenSSL الشائعة تتضمنه، لكن بعض صور Docker المصغّرة أو المشددة أمنياً تحذفه، واكتشاف ذلك يوم الإطلاق كارثة. افحصه داخل صورة الحاوية، لا على جهازك فقط.</p>
+
+<p>الفخ الثاني الشهير هو digest كتلة <code>SignedProperties</code>. يجب أن تحسب الـ hash على الكتلة المُقنّنة تماماً كما ستظهر في المستند النهائي، بما في ذلك مسافات الإزاحة. التنفيذ المرجعي لدى الهيئة يُخرج هذه الكتلة بمسافات محددة، فإن قام مُولّد الـ XML لديك بتوحيدها، حُسب الـ digest على bytes مختلفة عن التي يحسبها المدقق، وستحصل على خطأ توقيع لا يخبرك بشيء تقريباً. إذا كنت تصحّح توقيعاً مرفوضاً وكان hash جسم الفاتورة صحيحاً بالفعل، فابدأ من هنا: أخرج الـ bytes التي حسبت عليها الـ digest وقارنها بالـ bytes الموجودة في المستند النهائي.</p>
+
+<h3>رمز QR</h3>
+
+<p>الفاتورة المبسطة في المرحلة الثانية تحمل بنية TLV من تسعة حقول، مُرمَّزة base64، ثم تُحوَّل إلى صورة QR. الحقول من 1 إلى 5 هي حقول المرحلة الأولى، والجديد هو 6 إلى 9: hash الفاتورة، وتوقيع ECDSA، والمفتاح العام للختم، وتوقيع جهة إصدار الشهادات على ذلك المفتاح العام في حالة الفواتير المبسطة.</p>
+
+<pre><code>function tlv(int $tag, string $value): string
+{
+    return chr($tag) . chr(strlen($value)) . $value;
+}
+
+// انتبه: الطول byte واحد، ومواصفة TLV لدى الهيئة لا تعرّف أي
+// ترميز طول ممتد، فلا يجوز أن يتجاوز أي حقل 255 byte. عملياً لا
+// يقترب أي حقل من هذا السقف: الحقل 6 يبلغ 44 byte، والحقول 7 إلى 9
+// بين 64 و90 byte. الحقل الذي قد يفاجئك هو 1، اسم بائع عربي طويل
+// بترميز UTF-8. تحقق بـ strlen() ولا تقتطع القيمة أبداً.
+$qr = base64_encode(
+      tlv(1, $sellerName)
+    . tlv(2, $vatNumber)
+    . tlv(3, $timestampUtcIso8601)
+    . tlv(4, $totalWithVat)
+    . tlv(5, $vatTotal)
+    . tlv(6, $invoiceHash)
+    . tlv(7, $ecdsaSignature)
+    . tlv(8, $publicKeyDer)
+    . tlv(9, $certificateSignature)
+);</code></pre>
+
+<p>تفصيلتان يخطئ فيهما الجميع: التاريخ والوقت يجب أن يكونا بتوقيت UTC وبصيغة ISO 8601، والمبالغ نصوص بمنزلتين عشريتين — لا أرقاماً عائمة، ولا أرقاماً عربية-هندية.</p>
+
+<h2>6. كيف أحصل على CSID وأسجّل الوحدة في منصة فاتورة؟</h2>
+
+<p>التسجيل مصافحة من أربع خطوات لكل وحدة EGS. والوحدة هي جهاز أو نسخة واحدة تصدر الفواتير — جهاز نقطة بيع في فرع، أو خادم، أو عقدة تطبيق. إن كان لديك تطبيق Laravel واحد يصدر كل الفواتير فهذه وحدة واحدة. وإن كان لديك اثنتا عشرة نقطة بيع في الفروع فهذه اثنتا عشرة وحدة.</p>
+
+<h3>الخطوة 1 — توليد CSR ومفتاح خاص</h3>
+
+<p>محلياً، على الجهاز الذي سيوقّع. الـ CSR يحمل حقولاً خاصة بالهيئة: الرقم الضريبي المكوّن من 15 خانة، ومكانه حقل <code>UID</code> داخل <code>subjectAltName</code> لا حقل المنشأة (<code>O</code>)، ورقم تسلسلي بصيغة <code>1-{اسم النظام}|2-{الإصدار}|3-{معرّف الجهاز}</code>، ونوع الفاتورة كأربع خانات (<code>1100</code> لوحدة تصدر النوعين)، والدولة <code>SA</code>، وقطاع النشاط، ومعرّف OID لقالب الشهادة تختلف قيمته باختلاف البيئة.</p>
+
+<pre><code># مقتطف من openssl.cnf — اسم القالب يتغير بحسب البيئة
+[req]
+prompt             = no
+distinguished_name = dn
+req_extensions     = v3_req
+
+[dn]
+CN = my-egs-unit-01
+OU = Riyadh Branch
+O  = My Company LLC
+C  = SA
+
+[v3_req]
+# TSTZATCA-Code-Signing  = بيئة المطورين (sandbox)
+# PREZATCA-Code-Signing  = بيئة المحاكاة (simulation)
+# ZATCA-Code-Signing     = بيئة الإنتاج
+1.3.6.1.4.1.311.20.2 = ASN1:UTF8String:PREZATCA-Code-Signing
+subjectAltName       = dirName:alt_names
+
+[alt_names]
+SN = 1-MyERP|2-1.0|3-8f1a2c30-0000-4a00-9f00-1c2d3e4f5a6b
+UID = 300000000000003
+title = 1100
+registeredAddress = King Fahd Road, Riyadh
+businessCategory = Retail</code></pre>
+
+<pre><code>openssl ecparam -name secp256k1 -genkey -noout -out ec-private.pem
+openssl req -new -sha256 -key ec-private.pem -config openssl.cnf -out egs.csr</code></pre>
+
+<h3>الخطوة 2 — طلب Compliance CSID</h3>
+
+<p>ادخل إلى منصة فاتورة، اختر تسجيل حل جديد، فتمنحك OTP صالحاً لفترة قصيرة (نحو ساعة بحسب تجربتي — تعامل معه كقصير جداً). أرسل الـ CSR بترميز base64 مع ذلك الرمز:</p>
+
+<pre><code>POST {base}/compliance
+OTP: 123456
+Accept-Version: V2
+Content-Type: application/json
+
+{ "csr": "&lt;base64 لملف egs.csr&gt;" }</code></pre>
+
+<p>تعود لك ثلاث قيم: <code>binarySecurityToken</code> وهو Compliance CSID، و<code>secret</code>، و<code>requestID</code>. احفظ الثلاثة. ومن هنا فصاعداً تكون المصادقة HTTP Basic باسم مستخدم هو الـ token وكلمة مرور هي الـ secret.</p>
+
+<h3>الخطوة 3 — اجتياز فحوص المطابقة</h3>
+
+<p>قبل إصدار شهادة الإنتاج، يجب أن ترسل وحدتك مستندات اختبارية بنجاح إلى <code>/compliance/invoices</code> — ستة مستندات عملياً لوحدة مسجلة للنوعين: فاتورة ضريبية وإشعار دائن وإشعار مدين، ثم فاتورة مبسطة وإشعار دائن وإشعار مدين. كل واحدة موقّعة بشهادة المطابقة ومربوطة بالسلسلة بشكل صحيح.</p>
+
+<p>هذه هي البوابة الحقيقية. كل ما قبلها إجراءات ورقية، وهنا يوقفك hash معطوب أو digest مشوّه.</p>
+
+<h3>الخطوة 4 — طلب Production CSID</h3>
+
+<pre><code>POST {base}/production/csids
+Accept-Version: V2
+Authorization: Basic base64(complianceToken:secret)
+
+{ "compliance_request_id": "1234567890123" }</code></pre>
+
+<p>تعود لك شهادة الإنتاج و secret خاص بها، وهما بيانات الاعتماد للإجازة والإبلاغ الحقيقيين. والتجديد يتم بـ <code>PATCH</code> على المسار نفسه مع CSR جديد و OTP جديد. يُتداول أن مدة صلاحية الشهادة خمس سنوات — لكن بدلاً من الوثوق بالرقم، اقرأ حقل <code>notAfter</code> من شهادتك الفعلية واضبط تنبيهاً قبل انتهائها بستين يوماً. انتهاء الشهادة يوقف الفوترة بالكامل.</p>
+
+<h3>البيئات الثلاث</h3>
+
+<table>
+<thead>
+<tr><th>البيئة</th><th>المسار</th><th>قالب الشهادة</th><th>الاستخدام</th></tr>
+</thead>
+<tbody>
+<tr><td>بوابة المطورين (sandbox)</td><td><code>/e-invoicing/developer-portal</code></td><td><code>TSTZATCA-Code-Signing</code></td><td>التطوير المبكر. متساهلة، وتقبل ما سترفضه بيئة الإنتاج.</td></tr>
+<tr><td>المحاكاة (simulation)</td><td><code>/e-invoicing/simulation</code></td><td><code>PREZATCA-Code-Signing</code></td><td>التجربة النهائية الحقيقية. القواعد نفسها بلا أثر قانوني.</td></tr>
+<tr><td>الإنتاج</td><td><code>/e-invoicing/core</code></td><td><code>ZATCA-Code-Signing</code></td><td>الفواتير الحقيقية.</td></tr>
+</tbody>
+</table>
+
+<p>الثلاث تقع تحت بوابة <code>gw-fatoora.zatca.gov.sa</code>. و<strong>لا تتخطَّ بيئة المحاكاة</strong>. بوابة المطورين متسامحة بطريقة تمنحك ثقة كاذبة — رأيت فواتير تمر في بيئة المطورين بسلاسة ثم تُرفض من أول محاولة في المحاكاة. خصّص أسبوعاً كاملاً في المحاكاة ببيانات تشبه بيانات الإنتاج.</p>
+
+<h2>7. الربط داخل تطبيق Laravel قائم</h2>
+
+<p>البنية النظيفة هي خط معالجة يُعزل فيه استدعاء الواجهة البرمجية في آخر خطوة خلف queue. الخطوات إجمالاً:</p>
+
+<ol>
+<li><strong>احفظ الفاتورة أولاً.</strong> قاعدة بياناتك هي مصدر الحقيقة، لا استجابة الهيئة.</li>
+<li><strong>خصّص ICV و PIH</strong> داخل transaction بقفل، كما في المثال السابق.</li>
+<li><strong>ابنِ UBL XML</strong> من قالب، بلا أي تنسيق جمالي.</li>
+<li><strong>احسب الـ hash، ووقّع، وابنِ QR</strong>، ثم خزّن الـ XML الموقّع على القرص أو في object storage، واحفظ الـ hash لأنك ستحتاجه كـ PIH للفاتورة التالية.</li>
+<li><strong>أطلق job</strong> يرسل إلى مسار الإجازة أو الإبلاغ حسب نوع الفاتورة.</li>
+<li><strong>سجّل الاستجابة حرفياً</strong> — الحالة، والتحذيرات، والأخطاء، والـ XML المُجاز إن وُجد — بجانب سجل الفاتورة.</li>
+</ol>
+
+<pre><code>// إجازة فاتورة ضريبية (B2B)
+$response = Http::withBasicAuth($csid-&gt;token, $csid-&gt;secret)
+    -&gt;withHeaders([
+        'Accept-Version'   =&gt; 'V2',
+        'Accept-Language'  =&gt; 'en',
+        'Clearance-Status' =&gt; '1',
+    ])
+    -&gt;timeout(30)
+    // أعد المحاولة على أعطال الشبكة وأخطاء البوابة فقط. استدعاء
+    // retry(3, 2000) المجرد يعيد المحاولة على 4xx أيضاً، فيرسل
+    // فاتورة مرفوضة ثلاث مرات ثم يرمي استثناءً، فلا تصل إلى
+    // الخطوة السادسة ولا تسجّل ما قالته الهيئة فعلاً.
+    -&gt;retry(3, 2000, function (Throwable $e) {
+        return $e instanceof ConnectionException
+            || ($e instanceof RequestException
+                &amp;&amp; $e-&gt;response-&gt;serverError());
+    }, throw: false)
+    -&gt;post($base . '/invoices/clearance/single', [
+        'invoiceHash' =&gt; $invoice-&gt;hash,
+        'uuid'        =&gt; $invoice-&gt;uuid,
+        'invoice'     =&gt; base64_encode($signedXml),
+    ]);</code></pre>
+
+<p>وهذه الدالة الشرطية في <code>retry()</code> ليست زينة. فدالة <code>retry()</code> في Laravel ترمي استثناءً داخلياً بين المحاولات، ما يعني أن السلوك الافتراضي يعامل استجابة 400 NOT_CLEARED — وهي حكم مدروس لا عطل عابر — معاملة انقطاع الاتصال. و<code>throw: false</code> لا تقل أهمية: بدونها يرمي استنفاد المحاولات استثناء <code>RequestException</code>، فلا يُسند <code>$response</code> أصلاً، ولا تُنفَّذ خطوة «سجّل الاستجابة حرفياً» على الفواتير التي تحتاج دليلها أكثر من غيرها.</p>
+
+<p>أما الفاتورة المبسطة فالمسار <code>/invoices/reporting/single</code> مع حذف ترويسة <code>Clearance-Status</code>، وشكل الجسم نفسه.</p>
+
+<p>ملاحظات عملية من التكرار: احتفظ بمنطق التوقيع داخل service class مستقل عن إطار العمل وبلا اعتماد على Eloquent، لأنك ستحتاج اختباره بـ unit tests مقابل نماذج الفواتير المنشورة من الهيئة، وهذا صعب من خلال model. استخدم queue مخصصاً بتزامن منخفض حتى تُرسل الفواتير بترتيب الـ ICV. وسجّل جسم كل طلب واستجابة، لأن رسالة الخطأ وحدها بعد ستة أسابيع لن تخبرك بما أرسلته. هذه هي مبادئ الانضباط نفسها التي أدافع عنها في مقالي عن <a href="/ar/blog/api-design-best-practices-2026">أفضل ممارسات تصميم واجهات API</a>: مفاتيح idempotency، وحفظ الاستجابات حرفياً، وفصل واضح بين «سجّلناها» و«قبلوها».</p>
+
+<p>وأمران يستحقان ميزانية مستقلة. الأول: المفتاح الخاص بيانات اعتماد توقيع قانوني، ومتطلبات مقاومة العبث تعني ألا يوجد مسار تصدير متاح للمستخدم، وألا يقبع المفتاح في مستودع الكود. شفّره في التخزين، وشدّد صلاحيات الملفات، وأبعده عن النسخ الاحتياطية التي تغادر المملكة. والثاني: المملكة لديها متطلبات بشأن مكان حفظ أرشيف الفواتير، ومدد حفظ السجلات الضريبية تمتد عموماً إلى ست سنوات لمعظم السجلات وأطول للأصول الرأسمالية والعقارات. هذا قرار استضافة لا قرار برمجة، وتحقق من المدد السارية مع مستشارك الضريبي قبل اختيار المنطقة. وقد غطيت جانب حماية المفاتيح بصورة أعم في <a href="/ar/blog/website-security-checklist">قائمة فحص أمان الموقع</a>.</p>
+
+<h2>8. ماذا يحدث إذا فشلت فواتيري في التحقق؟</h2>
+
+<p>ثلاث نتائج، والفرق بينها قانوني لا تقني فقط.</p>
+
+<table>
+<thead>
+<tr><th>الاستجابة</th><th>المعنى</th><th>هل الفاتورة صحيحة؟</th><th>ماذا تفعل</th></tr>
+</thead>
+<tbody>
+<tr><td>200 — CLEARED / REPORTED</td><td>قُبلت بلا ملاحظات</td><td>نعم</td><td>احفظ الـ XML المُجاز وسلّمه للمشتري</td></tr>
+<tr><td>202 — قُبلت مع تحذيرات</td><td>مقبولة لكن الهيئة رصدت ملاحظات غير حاجبة</td><td>نعم</td><td>صحيحة قانوناً، لكن عالج التحذيرات — تتحول إلى أخطاء في إصدارات المواصفة اللاحقة</td></tr>
+<tr><td>400 — NOT_CLEARED / NOT_REPORTED</td><td>مرفوضة لمخالفة قواعد العمل أو الصيغة</td><td><strong>لا</strong></td><td>المستند ليس فاتورة نظامية. صحّح وأعد الإرسال</td></tr>
+<tr><td>401</td><td>شهادة غير صالحة أو منتهية</td><td>لا ينطبق</td><td>افحص انتهاء الشهادة وترميز Basic auth</td></tr>
+<tr><td>5xx أو انتهاء المهلة</td><td>مشكلة في البوابة لا لديك</td><td>غير معروف</td><td>أعد المحاولة تصاعدياً، ولا تفترض الرفض أبداً</td></tr>
+</tbody>
+</table>
+
+<p>حالة 202 هي التي تُساء معالجتها أكثر من غيرها. تبدو فشلاً في تنفيذ ساذج فيُعاد إرسالها فتتولد نسخة مكررة، أو تُهمل سنة كاملة ثم تصير خطأ حاجباً حين تشدّد الهيئة القاعدة. تعامل مع التحذيرات كقائمة عمل، لا كضجيج.</p>
+
+<p>وحالة 400 هي الخطرة في الفواتير الضريبية. إن فشلت الإجازة فليس لديك فاتورة نظامية تسلّمها للمشتري، ولا يجوز إرسال النسخة غير المُجازة وتسوية الأمر لاحقاً. نظامك يحتاج حالة ظاهرة اسمها «بانتظار الإجازة» وتنبيهاً تشغيلياً، لا job فاشلاً بصمت.</p>
+
+<p>أما الغرامات: نظام ضريبة القيمة المضافة السعودي ينص على غرامات لعدم إصدار الفواتير أو حفظها بالشكل الصحيح، ويُتداول نطاق يبدأ من نحو 5,000 SAR ويصل إلى 50,000 SAR بحسب المخالفة وتكرارها، وقد اتبعت الهيئة تاريخياً نهج الإنذار والتصحيح في المخالفة الأولى. لست مستشاراً ضريبياً، وجدول الغرامات عُدّل أكثر من مرة، فتعامل مع هذه الأرقام كترتيب حجم واحصل على الوضع الساري من مختص ضريبي سعودي. لكن الخلاصة الهندسية ثابتة: الربط المكسور ليس عطلاً يكلفك تذكرة دعم، بل عطلاً يكلفك غرامة وعميلاً لا يستطيع استرداد ضريبته.</p>
+
+<div class="post-callout"><p><strong>ابنِ لوحة متابعة للمطابقة من اليوم الأول:</strong> كل فاتورة، وحالة إرسالها، ورمز الاستجابة، وزر واحد لإعادة الإرسال. ليست رفاهية. هي الفرق بين اكتشاف خلل منهجي خلال عشرين دقيقة واكتشافه في الإقرار الضريبي الربعي.</p></div>
+
+<h2>9. كم يستغرق الربط على تطبيق Laravel قائم؟</h2>
+
+<p>بافتراض تطبيق Laravel مبني بشكل معقول، يصدر فواتير بالفعل، ونموذج الفاتورة لديه نظيف، والمبالغ مخزّنة كـ decimal لا كـ float، تقديري الصادق هو <strong>من أربعة إلى ثمانية أسابيع عمل مركّز</strong> — أي من 22 إلى 38 يوم عمل، وهذا توزيعها:</p>
+
+<ul>
+<li>الاستكشاف وتدقيق البيانات — من 3 إلى 5 أيام. هنا تكتشف أن الإشعارات الدائنة نُفّذت كفواتير بقيم سالبة، أو أن أربعة فروع تتشارك تسلسلاً واحداً.</li>
+<li>تعديلات نموذج البيانات — عدّادات ICV، وحفظ PIH، وعمود UUID، وأرشفة الـ XML والاستجابات — من 3 إلى 5 أيام.</li>
+<li>توليد UBL والتوقيع — من 5 إلى 10 أيام، وهي الكتلة الأكبر.</li>
+<li>التسجيل وفحوص المطابقة في بيئتي المطورين والمحاكاة — من 5 إلى 8 أيام، شاملة انتظار صلاحيات المنصة ورموز OTP.</li>
+<li>أدوات الإدارة والمراقبة وإعادة المحاولة — من 3 إلى 5 أيام.</li>
+<li>التسجيل في الإنتاج والتشغيل المتوازي — من 3 إلى 5 أيام.</li>
+</ul>
+
+<p>أضف كثيراً إن انطبق أي مما يلي: فروع أو وحدات EGS متعددة، أو مجموعة ضريبية، أو فوترة بعملات متعددة، أو ترقيم فواتير قائم به فجوات، أو إشعارات دائنة ومدينة لا تشير إلى فاتورتها الأصلية، أو قاعدة بيانات قديمة يتوزع فيها مفهوم «الفاتورة» على ثلاثة جداول. وفي <a href="/ar/blog/multi-tenant-saas-laravel">منصة SaaS متعددة المستأجرين</a> حيث يحتاج كل مستأجر شهادته وعدّاده، يتحول الأمر من مهمة ربط إلى خاصية منصة، ويتضاعف الجدول الزمني تقريباً.</p>
+
+<p>والمتغير الذي لا يقدّره أحد بشكل صحيح هو <strong>صلاحية الدخول إلى المنصة</strong>. الحصول على تفويض الشخص المناسب لدى العميل على منصة فاتورة، ببيانات الاعتماد الضريبية الصحيحة، ليولّد OTP في اللحظة التي يحتاجها فيها مطورك — يستغرق عادة وقتاً أطول من كتابة كود التوقيع نفسه. ابدأه في الأسبوع الأول.</p>
+
+<h2>10. التكلفة</h2>
+
+<p>نطاقات صادقة مع ذكر الافتراضات. هذه هي الشرائح التي أسعّر منها، بالريال السعودي مع مقابل بالدولار، لعمل يُنفَّذ عن بُعد من القاهرة لعملاء في السعودية. الشركة المحلية في الرياض تقع عادة فوق سقف هذه النطاقات، والمستقل من منصات العمل الحر يقع تحت أرضيتها وتدفع الفرق مرتين غالباً.</p>
+
+<table>
+<thead>
+<tr><th>النطاق</th><th>المدى (SAR)</th><th>المدى (USD)</th><th>الافتراضات</th></tr>
+</thead>
+<tbody>
+<tr><td>المرحلة الأولى فقط (QR + العربية + الإصدار المنظم)</td><td>4,000 – 9,000</td><td>1,050 – 2,400</td><td>نموذج فاتورة نظيف، منشأة واحدة</td></tr>
+<tr><td>المرحلة الثانية، وحدة EGS واحدة، تطبيق Laravel نظيف</td><td>22,000 – 45,000</td><td>5,900 – 12,000</td><td>رقم ضريبي واحد، فرع واحد، النوعان، decimal لا float</td></tr>
+<tr><td>المرحلة الثانية بفروع أو كيانات متعددة</td><td>50,000 – 110,000</td><td>13,300 – 29,300</td><td>عدة وحدات EGS، شهادة وعدّاد لكل وحدة، احتمال مجموعة ضريبية</td></tr>
+<tr><td>المرحلة الثانية داخل منصة SaaS متعددة المستأجرين</td><td>90,000 – 200,000+</td><td>24,000 – 53,300+</td><td>تجربة تسجيل لكل مستأجر، دورة حياة شهادات، مراقبة على مستوى المستأجر</td></tr>
+<tr><td>وسيط معتمد من الهيئة (سنوياً)</td><td>3,000 – 25,000 سنوياً + رسم لكل فاتورة</td><td>800 – 6,700 سنوياً</td><td>يضاف إليه عمل الربط معه، عادة من 5 إلى 15 يوماً</td></tr>
+<tr><td>الصيانة وتحديثات المواصفة</td><td>500 – 2,000 شهرياً</td><td>135 – 535 شهرياً</td><td>تجديد الشهادات، ترقية إصدار المواصفة، معالجة التحذيرات</td></tr>
+</tbody>
+</table>
+
+<p>هذه الشرائح تفترض أنك تدفع مقابل عمل بمستوى senior وبنطاق ثابت، لا ارتباطاً مفتوحاً بالساعة. ولمقارنة أوسع بين هذه الأرقام وتكاليف أعمال الويب عامة في المنطقة، كتبت تفصيلاً كاملاً عن <a href="/ar/blog/website-cost-egypt-gulf">تكلفة المواقع في مصر والخليج</a>.</p>
+
+<h2>11. أبني داخلياً، أم أشترك مع مزوّد معتمد، أم أوظّف مختصاً؟</h2>
+
+<p>أنا أكسب رزقي من بناء هذا، ومع ذلك سأخبرك متى لا يجب أن توظّفني.</p>
+
+<p><strong>اشترك مع مزوّد حل معتمد من الهيئة</strong> إذا كانت فوترتك نمطية، وحجمك متوسطاً، ولا يوجد في نموذج منتجك شيء غير معتاد. تدفع اشتراكاً، ويتحمل هو تحديثات المواصفة، وتتكامل مع واجهة برمجية أرحم بكثير من واجهة الهيئة المباشرة. وهذا هو الجواب الصحيح أكثر مما يحب المطورون الاعتراف.</p>
+
+<p><strong>ابنِ داخلياً أو وظّف مختصاً</strong> حين يكون منطق فوترتك مخصصاً فعلاً — أسواق إلكترونية بتسويات مقسّمة، أو اشتراكات بحسابات تناسبية، أو خليط من B2B و B2C، أو هويات ضريبية لكل مستأجر — أو حين تتجاوز رسوم الفاتورة الواحدة عند حجمك تكلفة البناء خلال ثمانية عشر شهراً. وكل حالة يجبرك فيها المزوّد العام على تشويه نموذج نطاقك هي حالة بناء.</p>
+
+<p>وإن قررت البناء فلست مضطراً للبدء من ملف فارغ. حتى أغسطس 2026 توجد على Packagist عدة حزم PHP مستخدمة فعلياً. حزمة <code>salla/zatca</code> هي الأكثر تحميلاً بفارق كبير — نحو 470,000 تثبيت مقابل قرابة 23,000 لكل من البديلتين — ويجدر تصحيح سمعتها بوصفها «حزمة QR»: فهي إلى جانب توليد QR تتضمن صنف <code>InvoiceSign</code> للتوقيع بـ XAdES وأدوات لتوليد الـ CSR أثناء التسجيل، أي أنها تمتد إلى المرحلة الثانية ولا تتوقف عند الأولى. لكنها لا تبني مستند UBL نيابة عنك ولا تغلّف مساري الإجازة والإبلاغ. أما <code>saleh7/php-zatca-xml</code> و<code>sevaske/zatca-api</code> فأوسع نطاقاً، إذ تغطيان توليد UBL والتوقيع بـ XAdES واستدعاءات الواجهة البرمجية. جميعها مجتمعية وغير رسمية. اقرأ الشيفرة قبل أن تعتمد على أي منها، وتحقق من آخر تحديث لها مقابل إصدار المواصفة الحالي، لأن تنفيذ توقيع قديم أسوأ من لا شيء.</p>
+
+<p><strong>ولا تسلّم هذا</strong> لعامّي WordPress ولا لفريق معرضه صفحات هبوط. منظومة التوقيع لا ترحم، ورسائل الخطأ مقتضبة، ودورة التصحيح تتطلب قراءة مواصفة فنية لا إجابة على Stack Overflow. إن كنت تحتاج شخصاً نفّذ هذا فعلاً، فهذه بالضبط الحالة التي أصفها في صفحة <a href="/ar/hire-laravel-developer">توظيف مطور Laravel</a>.</p>
+
+<p>وملاحظة عملية أخيرة للتجار في السعودية والخليج: نادراً ما يكون ربط ZATCA هو الربط التنظيمي الوحيد على خارطة الطريق. يأتي عادة في الربع نفسه مع بوابات الدفع، والاثنان يتفاعلان: الاسترداد يولّد إشعاراً دائناً، والإشعار الدائن مستند خاضع لمتطلبات ZATCA. إن كان هذا حالك، فاقرأ دليلي عن <a href="/ar/blog/gcc-payment-gateway-integration">ربط بوابات الدفع الخليجية</a> بجانب هذا المقال، ورتّبهما معاً بدل أن تدفع ثمن مرحلتي استكشاف منفصلتين.</p>
+
+<h2>12. الأخطاء الأغلى ثمناً</h2>
+
+<ul>
+<li><strong>تخزين المبالغ كـ float.</strong> إن كانت مجاميعك مخزّنة كأرقام عائمة، فسيرفض التحقق الحسابي لدى الهيئة فواتير بفروق هللة واحدة لا تراها في الواجهة. عالج هذا قبل أي شيء آخر؛ إنه migration لا patch.</li>
+<li><strong>عدّاد قابل للتصفير أو به فجوات.</strong> يجب ألا يتراجع ICV ولا يتكرر، عبر عمليات النشر واستعادة النسخ الاحتياطية وتحديث بيئة staging. استعادة نسخة إنتاج على staging ثم السماح لها بإرسال فواتير كسرت أكثر من سلسلة.</li>
+<li><strong>التوقيع داخل دورة الطلب.</strong> توقيع ECDSA سريع، أما استدعاء الهيئة فلا. ضعه في queue.</li>
+<li><strong>تخطي بيئة المحاكاة.</strong> سبق شرحه. لا تفعل.</li>
+<li><strong>عدم حفظ الـ XML المُجاز.</strong> في الفواتير الضريبية، المستند العائد من الهيئة هو النظامي. إن احتفظت بنسختك فقط فأرشيفك غير مطابق.</li>
+<li><strong>شهادة واحدة لكل شيء.</strong> إن كان لديك أكثر من جهاز يصدر فواتير فكل واحد وحدة EGS بشهادتها وعدّادها. مشاركة شهادة واحدة بين الفروع تمر في بيئة الاختبار وتسقط في التدقيق.</li>
+<li><strong>اعتبار العربية اختيارية.</strong> كانت إلزامية في المرحلة الأولى ولا تزال. اسم البائع بالعربية، والعربية على المستند المطبوع.</li>
+<li><strong>غياب المراقبة.</strong> عامل queue يموت بصمت هو حادثة مطابقة بفتيل مؤجّل.</li>
+</ul>
+
+<h2>13. خطة تنفيذ واقعية</h2>
+
+<p>إن كنت تبدأ اليوم وأمامك موعد موجة بعد ستة أشهر، فهذا التسلسل الذي أنفّذه:</p>
+
+<ol>
+<li><strong>الأسبوع 1:</strong> تأمين صلاحية الدخول إلى منصة فاتورة واختبارها. تدقيق نموذج الفاتورة. قرار البناء أو الاشتراك مع مزوّد معتمد.</li>
+<li><strong>الأسبوعان 2–3:</strong> migration نموذج البيانات — decimal، وعدّادات ICV، و PIH، و UUID، وأرشيف XML. يُنشر على الإنتاج خلف feature flag دون توليد أي شيء بعد.</li>
+<li><strong>الأسابيع 4–6:</strong> توليد UBL، والـ hash، والتوقيع، و QR. مع اختبارات وحدة مقابل نماذج المستندات المنشورة من الهيئة قبل أي استدعاء شبكي.</li>
+<li><strong>الأسبوع 7:</strong> التسجيل في بيئة المطورين وإرسال المستندات الستة.</li>
+<li><strong>الأسبوعان 8–9:</strong> المحاكاة ببيانات تشبه الإنتاج. هنا تظهر الأخطاء الحقيقية.</li>
+<li><strong>الأسبوع 10:</strong> التسجيل في الإنتاج وتشغيل متوازٍ — ولّد ووقّع وأرسل كل فاتورة حقيقية، مع إبقاء المسار القديم ظاهراً داخلياً للمقارنة.</li>
+<li><strong>الأسبوعان 11–12:</strong> التحويل الكامل. مراقبة يومية. تصفية قائمة التحذيرات.</li>
+</ol>
+
+<p>هذا يترك لك ثلاثة أشهر احتياطية أمام إشعار مدته ستة أشهر، وهو تقريباً الاحتياطي الذي تحتاجه، لأن ما يؤخر هذا المشروع لا يكون الكود إلا نادراً.</p>
+
+<h2>14. الخطوة التالية</h2>
+
+<p>إن كنت تدير متجراً أو نظام ERP مبنياً على Laravel في السعودية وأمامك موعد موجة، فالخطوة المفيدة هي مراجعة فنية قصيرة لما لديك بالفعل: نموذج الفاتورة، والترقيم، ومعالجة الإشعارات الدائنة، وعدد وحدات EGS التي تحتاجها حقاً. تستغرق مني هذه المراجعة ساعة أو ساعتين، وهي الفرق بين مشروع ينتهي في ثمانية أسابيع وآخر يتجاوز الستة عشر.</p>
+
+<p>يمكنك الاطلاع على نوعية ما أنفّذه في <a href="/ar/portfolios">معرض أعمالي</a>، وسأعطيك رأياً صريحاً في ما إذا كان الأفضل أن تبني هذا أو تشتريه — بما في ذلك أن أنصحك بشرائه إن كان هذا هو القرار الصحيح.</p>
+
+<p><a href="/ar/contact">أرسل لي تفاصيل نظامك</a> وسأعود إليك خلال 24 ساعة باستشارة مجانية وعرض سعر ثابت. بلا اشتراك شهري ملزم، وبلا مفاجآت بالساعة، وببيان واضح لما يشمله النطاق وما لا يشمله.</p>
+HTMLAR,
+            ],
+            [
+                'slug' => 'kayfa-takhtar-mubarmij-mawaqe',
+                'title' => 'How to Choose a Web Developer: The Project Owner\'s Guide Before You Sign',
+                'title_ar' => 'كيف تختار مبرمج مواقع محترف: دليل صاحب المشروع قبل التعاقد',
+                'excerpt' => 'Most web projects fail because of who was hired, not which framework was used. Seven verifiable tests, the exact questions to ask, honest price ranges, and the handover list that decides whether you actually own what you paid for.',
+                'excerpt_ar' => 'معظم المشاريع لا تفشل بسبب التقنية بل بسبب اختيار الشخص الخطأ. سبعة اختبارات عملية تنفّذها قبل الدفع، والأسئلة الدقيقة قبل التعاقد، ونطاقات أسعار صادقة، وقائمة التسليم التي تحدد إن كنت تملك فعلاً ما دفعت ثمنه.',
+                'category' => 'Hiring',
+                'tags' => ['كيف اختار مبرمج مواقع', 'التعاقد مع مبرمج', 'مبرمج مستقل أم شركة', 'تسليم المشروع', 'hiring a developer', 'web development contract', 'freelance vs agency', 'project handover'],
+                'image' => '1710766541-portfolio-grid-img-1.jpg',
+                'date' => '2026-08-10',
+                'read_time' => '14 min read',
+                'meta_title' => 'How to Choose a Web Developer Before You Sign',
+                'meta_title_ar' => 'كيف اختار مبرمج مواقع؟ دليل ما قبل التعاقد',
+                'meta_description' => 'Seven tests, ten questions, honest price ranges and the handover list that prove a developer is worth paying — from a Cairo dev who rescues failed projects.',
+                'meta_description_ar' => 'سبعة اختبارات وعشرة أسئلة وقائمة تسليم تكشف مستوى المبرمج قبل أن تدفع. دليل عملي من مطوّر Full Stack سلّم أكثر من 39 مشروعاً في 8 دول.',
+                'faq' => [
+                    [
+                        'q' => 'How do I know a developer is professional before I pay?',
+                        'a' => 'Verify three things. First, they asked detailed questions before quoting. Second, they gave you live URLs you can open on your phone and run through PageSpeed Insights. Third, they will sign a contract covering scope, ownership, and handover. Then add a small paid trial task — three days, limited budget — and you will learn more than any proposal can tell you.',
+                        'q_ar' => 'كيف أعرف أن المبرمج محترف قبل الدفع؟',
+                        'a_ar' => 'تحقّق من ثلاثة أشياء. الأول: أنه سألك أسئلة تفصيلية قبل أن يعطيك سعراً. الثاني: أنه أعطاك روابط حيّة تفتحها على هاتفك وتقيسها بأداة PageSpeed Insights. الثالث: أنه يوقّع عقداً يحدد النطاق والملكية والتسليم. ثم أضف مهمة تجريبية صغيرة مدفوعة لثلاثة أيام؛ ستعلّمك أكثر من أي عرض سعر مكتوب.',
+                    ],
+                    [
+                        'q' => 'What is the difference between a software agency and a freelance developer?',
+                        'a' => 'Neither wins in the abstract. A freelancer is faster and cheaper and you deal directly with whoever writes the code, but is a single point of failure. An agency offers process and continuity, usually at a materially higher price for the same scope, though a junior you never met may do the work. Under three full-time people, a freelancer usually wins.',
+                        'q_ar' => 'ما الفرق بين شركة البرمجة والمبرمج المستقل؟',
+                        'a_ar' => 'لا يوجد أفضل مطلق. المستقل أسرع وأقل تكلفة وتتعامل مباشرة مع من يكتب الكود، لكنه نقطة فشل واحدة. الشركة تعطيك استمرارية ومنهجية، وغالباً بسعر أعلى بشكل ملحوظ لنفس النطاق، مع احتمال أن ينفّذ العمل مطوّر مبتدئ لم تقابله. إن كان المشروع يحتاج أقل من ثلاثة أشخاص بدوام كامل، فالمستقل هو الخيار الأفضل عادةً.',
+                    ],
+                    [
+                        'q' => 'What are the warning signs when hiring a developer?',
+                        'a' => 'The most dangerous is refusing a written contract. Others: a price under half the market average, promising to finish in three days, no staging link during the build, requesting the next payment before delivering its milestone, refusing you repository or hosting access, and using nulled themes or plugins. One sign is a question; three together mean walk away.',
+                        'q_ar' => 'ما هي العلامات التحذيرية عند التعاقد مع مبرمج؟',
+                        'a_ar' => 'أخطرها رفض العقد المكتوب والاكتفاء باتفاق على WhatsApp. ومنها أيضاً: سعر أقل من نصف متوسط السوق، ووعد بإنهاء المشروع في ثلاثة أيام، وغياب رابط staging أثناء التنفيذ، وطلب الدفعة التالية قبل تسليم مرحلتها، ورفض إعطائك وصولاً إلى المستودع أو الاستضافة، واستخدام قوالب أو إضافات مقرصنة. علامة واحدة سؤال، وثلاث علامات تعني الانسحاب.',
+                    ],
+                    [
+                        'q' => 'How much deposit should I pay a web developer?',
+                        'a' => 'Between 30% and 50% upfront is normal, and never 100%. What matters more is tying each payment to a visible deliverable: contract and approved scope, then approved design on staging, then complete functionality, then live deployment. Pick one figure per stage so the schedule totals exactly 100%, and always hold a final 10% or more against full handover of code, credentials, and documentation — not merely against the site working.',
+                        'q_ar' => 'كم دفعة مقدمة يجب أن أدفع؟',
+                        'a_ar' => 'النطاق المعقول بين 30% و50% مقدماً، ولا تدفع 100% أبداً. والأهم من النسبة هو ربط كل دفعة بمخرَج تراه: العقد ووثيقة النطاق، ثم التصميم المعتمد على staging، ثم اكتمال الوظائف، ثم النشر على النطاق الحقيقي. اختر رقماً واحداً لكل مرحلة بحيث يكون المجموع 100% بالضبط، واحتفظ بـ 10% على الأقل معلّقة على التسليم الكامل للكود وبيانات الوصول والتوثيق، لا على مجرد أن الموقع يعمل.',
+                    ],
+                    [
+                        'q' => 'What should I ask for when the project is delivered?',
+                        'a' => 'Demand the domain and hosting registered in your own name, complete source code in a Git repository you own, a database backup with restore instructions, every third-party account under your email, source design files, deployment documentation, licences with invoices, and a short admin training video. The test: could another developer take over within a week?',
+                        'q_ar' => 'ماذا أطلب من المبرمج عند تسليم المشروع؟',
+                        'a_ar' => 'اطلب النطاق والاستضافة باسمك أنت، والكود المصدري كاملاً على مستودع Git تحت حسابك، ونسخة احتياطية لقاعدة البيانات مع تعليمات الاسترجاع، وكل حسابات الطرف الثالث ببريدك، وملفات التصميم المصدرية، وتوثيق النشر، وتراخيص القوالب بفواتيرها، وفيديو تدريبي قصير على لوحة التحكم. والمعيار الحاسم: هل يستطيع مطوّر آخر استلام المشروع خلال أسبوع؟',
+                    ],
+                    [
+                        'q' => 'Is the cheapest developer always the wrong choice?',
+                        'a' => 'Not always, but rarely for the reason you hope. Nobody works at a loss, so an unusually cheap bid recovers the gap somewhere — a pirated template, disappearance after the deposit, or change requests later. In my experience, rebuilding a failed project costs 1.5x to 2.5x the original quote. Compare the middle bids, not the lowest one.',
+                        'q_ar' => 'هل الأرخص دائماً هو الخيار الخاطئ؟',
+                        'a_ar' => 'ليس دائماً، لكن نادراً ما يكون رخيصاً للسبب الذي تتمناه. لا أحد يعمل بخسارة، فالعرض الأرخص بشكل غير طبيعي يُعوَّض في مكان ما: قالب مقرصن، أو اختفاء بعد الدفعة الأولى، أو مطالبات إضافية لاحقاً. وفي تجربتي، إعادة بناء مشروع فاشل تكلّف من 1.5 إلى 2.5 ضعف السعر الأصلي. قارن بين العروض المتوسطة، لا الأدنى.',
+                    ],
+                ],
+                'content' => <<<'HTML'
+<p class="lead">I'm Khaled Ahmed, a freelance Full Stack developer in Cairo. Over 5+ years I've shipped 39+ production projects across eight countries, and a meaningful share of them started as somebody else's rescue job. Here is the verdict up front: projects almost never fail because the wrong framework was chosen. They fail because the wrong person was chosen, and because nothing was written down. This guide gives you the tests, the questions, and the contract terms that expose a developer's real level before you pay anything.</p>
+
+<h2>1. The Verdict First: What Actually Decides Whether Your Project Ships</h2>
+
+<p>If you read one section, read this one.</p>
+
+<p>A professional developer is identifiable by <strong>three things</strong>, all of which you can verify before money changes hands:</p>
+
+<ol>
+  <li><strong>They asked you questions before quoting a price.</strong> Anyone who prices before understanding does not know what they are pricing.</li>
+  <li><strong>They have live work on the internet that you can open right now</strong> — not screenshots, not a beautifully designed PDF.</li>
+  <li><strong>They will put everything in a contract</strong>: scope, timeline, ownership, maintenance, and what happens when a deadline slips.</li>
+</ol>
+
+<p>Everything else in this article is detail hanging off those three. The technology itself — Laravel or Node.js, React or Vue, WordPress or custom — is the least dangerous decision you will make. A clean WordPress build beats a careless build on the newest framework in the market every single time. If you want the technical comparison on its own terms, I wrote <a href="/blog/wordpress-vs-laravel-which-to-choose">WordPress vs Laravel</a> for exactly that.</p>
+
+<div class="post-callout"><p><strong>Rule one:</strong> The price is not the dangerous number in your project. The dangerous number is the <strong>cost of rebuilding</strong> if you pick the wrong person. In my experience, rebuilding a failed project typically runs 1.5x to 2.5x the original quote, because you are paying for lost months, data migration, and a new developer reading someone else's code.</p></div>
+
+<h2>2. How Do I Know a Developer Is Good Before I Pay? Seven Practical Tests</h2>
+
+<p>You can run all seven in an afternoon, with no technical background.</p>
+
+<h3>Test 1: The reverse-questions test</h3>
+
+<p>Send a short, deliberately incomplete description of your project. Then say nothing and watch what comes back.</p>
+
+<p>A professional replies with questions. Who are the users? Is there an admin panel? How many languages? Do you need online payments, and through which gateway? Is there an existing system with data to migrate? Who manages content after launch? What device do most of your visitors use?</p>
+
+<p>An amateur replies with a price and a timeline within minutes. That is not responsiveness — it is evidence that they will build what is in their head rather than what is in yours, and that the price will change later. It always changes later.</p>
+
+<h3>Test 2: Open their work yourself</h3>
+
+<p>Ask for <strong>live URLs</strong>, not images. Then:</p>
+
+<ul>
+  <li>Open them on your phone first, not your laptop. Most of your traffic will be mobile.</li>
+  <li>Run each URL through Google's free <strong>PageSpeed Insights</strong> and read the Mobile score, not Desktop.</li>
+  <li>Actually submit a contact form and see if anything happens.</li>
+  <li>If it is a bilingual site, check that the Arabic RTL layout is not broken — numbers, dates, menus, and mixed Latin/Arabic strings are where sloppy work shows.</li>
+</ul>
+
+<p>Then ask the one question that separates people: <em>"Which specific parts of this did you build?"</em> Recycled portfolios are common in this market — a developer who built one page on a project will present the whole thing as theirs. A professional answers precisely and tells you where their involvement ended. That's why I publish <a href="/portfolios">my work as open, clickable links</a> rather than a deck.</p>
+
+<h3>Test 3: Ask to see a code repository</h3>
+
+<p>Ask for a <strong>GitHub</strong> or <strong>GitLab</strong> profile, or at minimum a screenshot of the commit history on a past project with client details redacted. You do not need to read the code. You need to see:</p>
+
+<ul>
+  <li>Many commits spread over weeks — not a single commit named <code>final</code>.</li>
+  <li>Commit messages that mean something, not <code>update</code> fifty times in a row.</li>
+  <li>A <code>README</code> and a <code>.env.example</code> in the repository root.</li>
+</ul>
+
+<p>Someone who refuses to show any code on any project, ever, citing client confidentiality across the board, usually is not using version control at all. That alone is disqualifying: a project without version history is a project where no mistake can be undone.</p>
+
+<h3>Test 4: Buy a small paid trial</h3>
+
+<p>Do not ask for free work — good developers correctly refuse it. Ask for a small <em>paid</em> task instead: one page, one signup form, or a bug fix on your current site, with a fixed small budget and a three-day deadline. This is the cheapest way in existence to test someone before handing over a six-figure project. A trial tells you what no proposal can: do they hit the date, do they explain themselves, do they vanish over the weekend, do they deliver clean work or something that merely happens to run?</p>
+
+<h3>Test 5: Ask about a project that went badly</h3>
+
+<p>"Tell me about a project that went wrong and what you changed afterwards."</p>
+
+<p>Anyone with five years of work and zero difficult projects either hasn't worked, is lying, or lacks self-criticism. My own answer: I learned the hard way to refuse projects where the actual decision-maker never joins the calls, because review cycles then loop forever and nobody can approve anything.</p>
+
+<h3>Test 6: Probe how they think about security</h3>
+
+<p>Ask: "How will you protect my customers' data?" A professional answer names concrete things — modern password hashing, enforced HTTPS, protection against SQL injection, XSS and CSRF, role-based permissions, rate limiting on login, automated daily off-server backups, and a plan for keeping dependencies patched. A weak answer is "the site will be secure" or "we'll add SSL." I keep the full list in my <a href="/blog/website-security-checklist">website security checklist</a>, and it's a fair thing to hand a candidate and ask them to walk through.</p>
+
+<h3>Test 7: Verify they are who they say they are</h3>
+
+<p>Ask for ID, a commercial registration, or a tax number, and confirm the name matches the bank account or wallet receiving payment. Insist on at least one video call — text-only relationships are where fraud lives. Search their name and phone number. Impersonation in this market does not require sophistication: a WhatsApp number and a stolen portfolio is the entire toolkit.</p>
+
+<div class="post-callout"><p><strong>Practical shortcut:</strong> Tests 1, 2, and 4 alone will eliminate the large majority of weak candidates without requiring you to understand a single line of code.</p></div>
+
+<h2>3. Agency or Freelancer: What's the Real Difference?</h2>
+
+<p>The honest answer is that neither is better in the abstract. One is better for your project size and your tolerance for a specific kind of risk.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Criterion</th>
+      <th>Experienced freelancer</th>
+      <th>Mid-size agency</th>
+      <th>Cheapest bid in the market</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Relative cost</td>
+      <td>Moderate</td>
+      <td>Materially higher for the same scope, in my experience</td>
+      <td>Lowest on paper, highest after the rebuild</td>
+    </tr>
+    <tr>
+      <td>Who writes the code</td>
+      <td>The person you spoke to</td>
+      <td>Often a junior you never met</td>
+      <td>Unknown; sometimes a modified template</td>
+    </tr>
+    <tr>
+      <td>Speed of decisions and changes</td>
+      <td>Very fast</td>
+      <td>Slower, routed through an account manager</td>
+      <td>Unpredictable</td>
+    </tr>
+    <tr>
+      <td>Risk of stoppage (illness, travel)</td>
+      <td>Real and material</td>
+      <td>Low</td>
+      <td>Very high</td>
+    </tr>
+    <tr>
+      <td>Support a year from now</td>
+      <td>Depends on the relationship and contract</td>
+      <td>Better in theory, under a retainer</td>
+      <td>Effectively none</td>
+    </tr>
+    <tr>
+      <td>Best fit</td>
+      <td>Corporate sites, stores, mid-size SaaS</td>
+      <td>Enterprise, multi-team, heavy compliance</td>
+      <td>Nothing your income depends on</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>My working rule: if the project needs fewer than three full-time people, an experienced freelancer gives you better quality, a lower price, and faster iteration. If it needs a full team with a project manager, a QA engineer, and 24/7 support, hire an agency. I broke down the full cost and risk comparison in <a href="/blog/freelance-developer-vs-agency">freelance developer vs agency</a>.</p>
+
+<h3>The risk nobody mentions on either side</h3>
+
+<p>With a freelancer, your real exposure is the <strong>single point of failure</strong> — one person holds all the context. The fix is one contract clause: code is pushed continuously to a Git repository the client owns, and setup documentation is delivered from week one. Then any competent developer can pick it up in days.</p>
+
+<p>With an agency, your real exposure is the <strong>gap between the salesperson and the builder</strong>. A polished pitch wins the deal, then a fresh graduate writes the code. The fix is a different clause: name the lead developer and their experience in the contract, and reserve the right to object to a substitution.</p>
+
+<h2>4. Warning Signs When Hiring a Developer</h2>
+
+<p>This list comes from projects that arrived on my desk after failing somewhere else. One sign is not a verdict. Three together mean walk away.</p>
+
+<h3>During negotiation</h3>
+
+<ul>
+  <li><strong>A price under half the market average.</strong> Nobody works at a loss. The gap gets recovered through a pirated template, disappearance after the deposit, or change requests later.</li>
+  <li><strong>"Your site will be ready in three days."</strong> A real store is not built in three days. Whoever says it is either cloning a template or does not understand what they agreed to.</li>
+  <li><strong>Refusal to sign a written contract</strong> in favour of a "WhatsApp agreement." This is the single most dangerous sign on the list.</li>
+  <li><strong>Time pressure aimed at you:</strong> "This price expires today." Serious developers do not sell like a call centre.</li>
+  <li><strong>Inability to explain a technical idea in plain language.</strong> People who genuinely understand can explain simply. People who bury you in jargon are usually covering a gap.</li>
+  <li><strong>No questions about hosting, domain, or email.</strong> It means they have not thought about handover at all.</li>
+</ul>
+
+<h3>During the build</h3>
+
+<ul>
+  <li><strong>No staging URL</strong> where you can see progress weekly. Working in the dark until "delivery day" is a reliable path to disaster.</li>
+  <li><strong>Repeated disappearances with recurring excuses.</strong> Log them. They get worse after the second payment.</li>
+  <li><strong>Asking for the next payment before delivering the milestone it is tied to.</strong></li>
+  <li><strong>Refusing to give you hosting or repository access</strong> "until it's finished." That is hostage-taking, not methodology.</li>
+  <li><strong>Every small change breaks something else.</strong> A sign of code with no structure, and you will pay for it monthly for years.</li>
+  <li><strong>Nulled or pirated plugins and themes.</strong> This is not just an ethics question — nulled assets are one of the most common backdoors into hacked sites in this region.</li>
+</ul>
+
+<div class="post-callout"><p><strong>Free early-warning signal:</strong> Watch response speed and precision during the pre-sale phase, when a developer is at their most attentive. If they are slow or vague before you've paid anything, picture them after they hold 50% of your budget.</p></div>
+
+<h2>5. Questions to Ask a Developer Before Signing</h2>
+
+<p>Print this and keep it in front of you on the call. Next to each question is what the answer tells you.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Question</th>
+      <th>Answer that reassures you</th>
+      <th>Answer that should worry you</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>What stack will you use and why?</td>
+      <td>Names it, ties it to your needs and to how easily you can find a replacement developer later</td>
+      <td>"The newest technology" with no justification, or something nobody else uses</td>
+    </tr>
+    <tr>
+      <td>Who owns the code after delivery?</td>
+      <td>"You do, entirely, and the repository transfers to your account"</td>
+      <td>Hesitation, or "the code is mine, the site is yours"</td>
+    </tr>
+    <tr>
+      <td>Will the domain and hosting be in my name?</td>
+      <td>"Registered under your account; I get added as a collaborator"</td>
+      <td>"I'll register it and you pay me yearly"</td>
+    </tr>
+    <tr>
+      <td>Exactly what does the price include and exclude?</td>
+      <td>A written deliverables list with revision rounds specified</td>
+      <td>"Everything is included," with no detail</td>
+    </tr>
+    <tr>
+      <td>How many revision rounds are included?</td>
+      <td>A specific number (usually two per phase) plus the price of extras</td>
+      <td>"Unlimited revisions" — a promise that will not survive contact with reality</td>
+    </tr>
+    <tr>
+      <td>What does maintenance cost after launch?</td>
+      <td>A monthly or annual retainer with defined scope</td>
+      <td>"Just message me anytime," with no price</td>
+    </tr>
+    <tr>
+      <td>How will you handle performance and SEO?</td>
+      <td>Mentions Core Web Vitals, image optimisation, URL structure, structured data</td>
+      <td>"We'll do SEO at the end"</td>
+    </tr>
+    <tr>
+      <td>Will the site fully support Arabic and English?</td>
+      <td>Explains RTL, content translation, a bilingual admin panel, hreflang tags</td>
+      <td>"We'll use Google Translate" or "we'll add it later"</td>
+    </tr>
+    <tr>
+      <td>What happens if you miss a deadline?</td>
+      <td>A written delay clause in the contract</td>
+      <td>Irritation at the question itself</td>
+    </tr>
+    <tr>
+      <td>What happens if I'm late sending content?</td>
+      <td>Explains the schedule impact and offers placeholder content</td>
+      <td>Doesn't realise content is your responsibility</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Pay particular attention to the revisions question. "Unlimited revisions" is not a benefit; it is a time bomb. Either the developer walks in month three, or you start feeling guilty every time you ask for a change. A fixed number is kinder to both sides.</p>
+
+<h2>6. What "Professional Website" Actually Means: Acceptance Criteria You Can Write Into a Contract</h2>
+
+<p>"Professional" has no contractual meaning. Convert it into numbers you can measure on delivery day. These are the criteria I put in my own contracts:</p>
+
+<ul>
+  <li><strong>Performance:</strong> Lighthouse mobile Performance score of at least 85 on key pages, with LCP under 2.5s, CLS under 0.1, and INP under 200ms. (Those are Google's Core Web Vitals thresholds as of writing in 2026; Google has revised these metrics before — INP replaced FID in 2024 — so re-check web.dev before you sign.)</li>
+  <li><strong>Responsiveness:</strong> No breakage from 360px width upward, tested on real Chrome and real Safari on an actual iPhone, not only an emulator.</li>
+  <li><strong>Security:</strong> Enforced HTTPS, baseline security headers, bot protection on forms, automated daily backups stored off the server.</li>
+  <li><strong>Technical SEO:</strong> Unique titles and descriptions, sitemap.xml, robots.txt, structured data, and clean readable URLs. The full list is in my <a href="/blog/website-seo-checklist-2026">SEO checklist</a>.</li>
+  <li><strong>Admin panel:</strong> You — not the developer — can edit text, images, prices, and add a new page without code.</li>
+  <li><strong>Compliance:</strong> If you invoice in Saudi Arabia, invoicing must meet ZATCA e-invoicing requirements; in Egypt, the ETA e-invoicing system. Name it explicitly in scope. It is real additional work, not a detail.</li>
+</ul>
+
+<p>Also require that the repository is legible enough to hand to any developer who comes after:</p>
+
+<pre><code>project/
+  README.md          &lt;- how to run it locally, step by step
+  .env.example       &lt;- every required variable, no real secrets
+  database/          &lt;- migrations + seeders
+  docs/deploy.md     &lt;- how a change reaches production
+  tests/             &lt;- even a few, on the critical paths
+</code></pre>
+
+<p>If a project is handed over with no <code>README</code>, no <code>.env.example</code>, and passwords hardcoded into source files, you are looking at amateur work no matter how good the front end looks.</p>
+
+<h2>7. What Should It Cost? Honest Ranges, Not a Fake Quote</h2>
+
+<p>I cannot give you a price without knowing your project, and anyone who does is guessing at your expense. What I can give you is the ranges I see in the market, so you can recognise a suspiciously cheap bid and an inflated one. Assumptions: custom design, two languages, an admin panel, and deployment to real hosting.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Project type</th>
+      <th>Egypt (EGP)</th>
+      <th>Gulf (SAR / AED)</th>
+      <th>Realistic timeline</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Single landing page</td>
+      <td>8,000 – 25,000</td>
+      <td>2,000 – 6,000</td>
+      <td>3 – 7 days</td>
+    </tr>
+    <tr>
+      <td>Corporate site, 5–10 pages with CMS</td>
+      <td>25,000 – 70,000</td>
+      <td>7,000 – 20,000</td>
+      <td>2 – 5 weeks</td>
+    </tr>
+    <tr>
+      <td>E-commerce with payment gateway</td>
+      <td>60,000 – 200,000</td>
+      <td>18,000 – 60,000</td>
+      <td>5 – 12 weeks</td>
+    </tr>
+    <tr>
+      <td>Custom web app / SaaS MVP</td>
+      <td>150,000 – 600,000+</td>
+      <td>45,000 – 180,000+</td>
+      <td>3 – 6 months</td>
+    </tr>
+    <tr>
+      <td>Mobile app with backend</td>
+      <td>200,000 – 700,000+</td>
+      <td>60,000 – 200,000+</td>
+      <td>3 – 7 months</td>
+    </tr>
+    <tr>
+      <td>Monthly maintenance</td>
+      <td>2,000 – 12,000 / month</td>
+      <td>600 – 3,500 / month</td>
+      <td>Ongoing</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>These are market ranges as I observe them in 2026, not quotes, and they move with exchange rates and scope. What drives the number up or down is broken out in <a href="/blog/website-cost-egypt-gulf">website costs in Egypt vs the Gulf</a> and in <a href="/blog/how-much-does-website-cost-2026">how much a website costs in 2026</a>.</p>
+
+<div class="post-callout"><p><strong>Budget rule:</strong> Set aside 15%–20% of the build cost per year for hosting, maintenance, and security updates. A website is not furniture you buy once. It is closer to a vehicle: it gets serviced or it stops.</p></div>
+
+<h2>8. How Much Deposit Should I Pay?</h2>
+
+<p>Short answer: <strong>never pay 100% upfront, and never ask a professional to work with no deposit at all.</strong></p>
+
+<p>The sane range is 30% to 50%. I personally work at 40% upfront on mid-size projects, for a practical reason: accepting your project means turning down someone else's to reserve the time.</p>
+
+<p>But the percentage matters less than the <strong>payment structure</strong>. Tie every payment to something you can see:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Payment</th>
+      <th>Share</th>
+      <th>Released against</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>First</td>
+      <td>30% – 40%</td>
+      <td>Signed contract and approved scope document</td>
+    </tr>
+    <tr>
+      <td>Second</td>
+      <td>25% – 30%</td>
+      <td>Design fully approved + working staging URL for core screens</td>
+    </tr>
+    <tr>
+      <td>Third</td>
+      <td>20% – 25%</td>
+      <td>Functionality complete on staging and passing acceptance tests</td>
+    </tr>
+    <tr>
+      <td>Final</td>
+      <td>10% – 20%</td>
+      <td>Live deployment + full handover of code, access, and documentation</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Those are negotiating bands, not a sum: pick one figure from each row so that the four payments total exactly 100%. Taking the top of every band would come to 115% and the bottom of every band to 85%, so the balancing is yours to do before the contract is signed.</p>
+
+<p>Always hold back at least 10% against <strong>complete handover including access and documentation</strong> — not merely "the site works." That retained 10% is the cheapest insurance policy you will ever buy.</p>
+
+<p>If the developer is entirely new to you, run at least the first payment through a platform that holds funds in escrow — Mostaql or Upwork, for example. You pay a small commission and in exchange you get a dispute mechanism, which a direct bank transfer does not give you.</p>
+
+<h2>9. The Contract: The Minimum You Should Never Waive</h2>
+
+<p>Most disputes I have seen were not caused by bad faith. They were caused by one vague sentence. A written contract is not an accusation of dishonesty; it is the document that saves both sides when two memories diverge three months later.</p>
+
+<p>The minimum any web development contract should contain:</p>
+
+<ol>
+  <li><strong>A detailed scope document</strong> attached as an annex: every page, every function, every third-party integration, and explicitly what is <em>out</em> of scope.</li>
+  <li><strong>A timeline</strong> with milestone dates, plus your own obligations (content, logo, payment gateway credentials) and the schedule impact when you're late.</li>
+  <li><strong>Explicit IP assignment</strong>: code, design, and content belong to the client on full payment, with the developer retaining the right to show the work in a portfolio.</li>
+  <li><strong>Revision rounds</strong> and the price of additional rounds.</li>
+  <li><strong>A handover clause</strong> listing exactly what gets delivered (see the next section).</li>
+  <li><strong>A bug warranty period</strong>, typically 30 to 90 days of free fixes within the agreed scope — with a clear line drawn between a "bug" and a "new request."</li>
+  <li><strong>A termination clause</strong>: what happens if either side walks, how amounts owed are calculated, and who receives the work completed so far.</li>
+  <li><strong>Confidentiality and data protection</strong>, particularly if the project handles customer data. Saudi Arabia has the Personal Data Protection Law (PDPL); Egypt has the Personal Data Protection Law No. 151 of 2020, whose executive regulations were issued in late 2025. State the developer's obligation to handle data securely and delete it when the engagement ends.</li>
+</ol>
+
+<p>Don't start from a blank page. I published an <a href="/blog/namudhaj-aqd-barmajat-mawqe">Arabic web development contract template</a> you can adapt, and covered the ownership question at length in <a href="/blog/who-owns-your-website-code">who actually owns your website code</a>.</p>
+
+<h2>10. What to Demand at Handover</h2>
+
+<p>This is the moment most project owners lose. The site works, so they pay the balance and celebrate — then discover six months later that they own almost nothing.</p>
+
+<p>Here is the handover list I sign with clients. Ask for it verbatim:</p>
+
+<ol>
+  <li><strong>The domain</strong> registered in your name and your email at the registrar, with login credentials. Verify the WHOIS record yourself.</li>
+  <li><strong>Hosting or server account</strong> in your name, with full credentials (control panel and SSH where applicable).</li>
+  <li><strong>Complete source code</strong> in a Git repository under your account — not a ZIP file sent over WhatsApp.</li>
+  <li><strong>The database</strong>: a full backup, the schema, and restore instructions.</li>
+  <li><strong>Every third-party account</strong> registered to your email: payment gateway, transactional email, SMS provider, Google Analytics, Google Search Console, app stores.</li>
+  <li><strong>Source design files</strong> (Figma or equivalent) with edit access.</li>
+  <li><strong>Operations documentation</strong>: how a change is deployed, where settings live, which paid services the project depends on and what they cost monthly.</li>
+  <li><strong>A short training video</strong> on the admin panel. Twenty minutes here saves a hundred messages later.</li>
+  <li><strong>Licences</strong> for every paid theme, plugin, or font, in your name, with invoices.</li>
+</ol>
+
+<div class="post-callout"><p><strong>The real handover test:</strong> After delivery, ask yourself one question — "If this developer vanished tomorrow, could I hand the project to someone else within a week?" If the answer is no, handover is not complete, regardless of what you have paid.</p></div>
+
+<h3>A note specific to mobile apps</h3>
+
+<p>If your project is an app, the Google Play and Apple Developer accounts must be in your company's name, not the developer's, or you lose the app at the first disagreement. Also note that Google requires new personal developer accounts to run a closed test with a minimum number of testers for a set period before public release — a policy that has changed more than once since 2023, so verify the current wording before you schedule a launch date. I covered it in detail in <a href="/blog/google-play-12-testers-requirement">the Google Play 12-testers requirement</a>.</p>
+
+<h2>11. What to Do When It Has Already Gone Wrong</h2>
+
+<p>Assume you've paid 50% and the developer has stalled or disappeared. In order:</p>
+
+<ol>
+  <li><strong>Put everything in writing.</strong> One clear message: what was agreed, what was delivered, what is late, and the deadline you are giving. Send it by email, not only WhatsApp.</li>
+  <li><strong>Demand immediate handover of whatever exists</strong> — current code in a repository, plus access credentials. Even incomplete work has value once you hold it.</li>
+  <li><strong>Do not pay more "to motivate them to continue."</strong> It increases your loss and fixes nothing.</li>
+  <li><strong>Rotate every password</strong> the moment the relationship ends, and remove their access from the repository, hosting, and all connected accounts.</li>
+  <li><strong>If you hired through a platform</strong> with escrow, open a dispute immediately with your written evidence attached.</li>
+  <li><strong>Do the arithmetic calmly</strong> on finishing with a new developer versus pursuing the old one. On most small and mid-size projects, moving forward is cheaper than litigating.</li>
+</ol>
+
+<p>When you look for the replacement, don't repeat the original mistake. Start with a small paid technical audit of the existing code before agreeing to continue it. A serious developer will tell you honestly whether rescuing is cheaper than rebuilding — and sometimes it is not.</p>
+
+<h2>12. A Seven-Day Plan Before You Sign</h2>
+
+<p>If you are days away from signing, do this in order:</p>
+
+<ul>
+  <li><strong>Day 1:</strong> Write one page describing your project: goal, audience, the three most important functions, languages, rough budget, target date.</li>
+  <li><strong>Day 2:</strong> Send it to at least three candidates, one of whom is more expensive than you expect. You need an upper reference point.</li>
+  <li><strong>Day 3:</strong> Rank the replies by <em>quality of questions</em>, not by price.</li>
+  <li><strong>Day 4:</strong> Thirty-minute video call with the top two, using the question table in section 5.</li>
+  <li><strong>Day 5:</strong> Open their work on your phone, test the speed, and ask for one reference you can actually speak to.</li>
+  <li><strong>Day 6:</strong> Request a detailed written proposal with a scope document and a payment schedule.</li>
+  <li><strong>Day 7:</strong> Review the contract, fix the ownership and handover clauses, then sign and pay the deposit through a traceable channel.</li>
+</ul>
+
+<p>Seven days of patience usually saves months of regret. The stalled projects that reach me almost all began with a same-day decision based on the cheapest bid. For the broader hiring process itself, read <a href="/blog/how-to-hire-a-web-developer">how to hire a web developer</a>; if your project is specifically on Laravel, start at <a href="/hire-laravel-developer">hire a Laravel developer</a>.</p>
+
+<h2>13. Bottom Line</h2>
+
+<p>Choosing a developer is a commercial decision, not a technical one. You are not buying code. You are buying a <strong>capacity to deliver and to keep delivering</strong>. Evidence of that capacity always exists before payment: in the quality of their questions, in live work you can open yourself, and in their willingness to sign a contract that defines ownership and handover.</p>
+
+<p>Anyone who refuses one of those three has told you everything you need to know.</p>
+
+<p>If you are close to signing and want a neutral second opinion on the proposal in front of you — or a fixed-fee quote to compare it against — <a href="/contact">get in touch</a>. The first consultation is free, I reply within 24 hours, and I'll tell you plainly if your project doesn't need me.</p>
+HTML,
+                'content_ar' => <<<'HTMLAR'
+<p class="lead">أنا خالد أحمد، مطوّر Full Stack مستقل من القاهرة، أعمل في هذا المجال منذ أكثر من خمس سنوات وسلّمت أكثر من 39 مشروعاً إنتاجياً لعملاء في ثماني دول. والخلاصة التي تعلّمتها من إنقاذ مشاريع سقطت في أيدٍ خاطئة: المشروع نادراً ما يفشل بسبب اختيار التقنية، بل يفشل بسبب اختيار الشخص، وبسبب عقد كُتب بإهمال. هذا الدليل يجيب عن السؤال الذي يصلني كل أسبوع — كيف اختار مبرمج مواقع محترف وأنا لست تقنياً؟ — عبر الاختبارات العملية والأسئلة الدقيقة التي تكشف مستوى المبرمج قبل أن تدفع جنيهاً واحداً.</p>
+
+<h2>1. الخلاصة أولاً: ما الذي يحدد نجاح مشروعك فعلاً</h2>
+
+<p>إذا لم تقرأ من هذا المقال إلا فقرة واحدة، فلتكن هذه.</p>
+
+<p>المبرمج المحترف يُعرف من <strong>ثلاثة أشياء فقط</strong>، وكلها قابلة للتحقق قبل الدفع:</p>
+
+<ol>
+  <li><strong>أنه سألك أسئلة قبل أن يعطيك سعراً.</strong> من يسعّر قبل أن يفهم لا يعرف ما الذي يسعّره.</li>
+  <li><strong>أن لديه أعمالاً حيّة على الإنترنت تفتحها أنت بنفسك الآن</strong> — لا لقطات شاشة، ولا ملف PDF جميل.</li>
+  <li><strong>أنه يقبل أن يُكتب كل شيء في عقد</strong>: النطاق، والمدة، والملكية، والصيانة، وماذا يحدث عند التأخير.</li>
+</ol>
+
+<p>كل ما تبقى في هذا المقال هو تفصيل لهذه الثلاثة. أما التقنية نفسها — Laravel أم Node.js، React أم Vue، WordPress أم كود مخصص — فهي المسألة الأقل خطورة عليك. مشروع مكتوب بشكل نظيف على WordPress أفضل بمراحل من مشروع مكتوب بإهمال على أحدث framework في السوق. إن أردت المقارنة التقنية بذاتها فقد فصّلتها في مقال <a href="/ar/blog/wordpress-vs-laravel-which-to-choose">WordPress أم Laravel: أيهما تختار</a>.</p>
+
+<div class="post-callout"><p><strong>القاعدة الأولى:</strong> السعر ليس أخطر رقم في المشروع. أخطر رقم هو <strong>تكلفة إعادة البناء</strong> إذا اخترت الشخص الخطأ. في تجربتي، إعادة بناء مشروع فاشل تكلّف عادةً ما بين 1.5 و2.5 ضعف السعر الأصلي، لأنك تدفع ثمن الوقت الضائع وثمن ترحيل البيانات وثمن مبرمج جديد يقرأ كوداً كتبه غيره.</p></div>
+
+<h2>2. كيف اختار مبرمج مواقع محترف؟ سبعة اختبارات عملية تكشف مستواه قبل أن تدفع</h2>
+
+<p>هذه اختبارات تستطيع تنفيذها في بضع ساعات، بلا خلفية تقنية.</p>
+
+<h3>الاختبار الأول: اختبار الأسئلة العكسية</h3>
+
+<p>أرسل له وصفاً مختصراً وناقصاً عمداً لمشروعك، ثم اصمت وانظر ماذا يفعل.</p>
+
+<p>المبرمج المحترف سيرد بأسئلة: من هم المستخدمون؟ هل هناك لوحة تحكم؟ كم لغة؟ هل تحتاج دفعاً إلكترونياً ومن أي بوابة؟ هل هناك نظام حالي وبيانات يجب ترحيلها؟ من سيدير المحتوى بعد التسليم؟ ما الجهاز الذي يستخدمه أغلب زوارك؟</p>
+
+<p>غير المحترف سيرد بسعر ومدة خلال دقائق. هذا ليس سرعة استجابة، بل هو دليل على أنه سيبني ما في رأسه هو، لا ما في رأسك أنت، وأن السعر سيتغيّر لاحقاً حتماً.</p>
+
+<h3>الاختبار الثاني: افتح أعماله بنفسك</h3>
+
+<p>اطلب <strong>روابط حيّة</strong>، لا صوراً. ثم افتح كل رابط وافعل الآتي:</p>
+
+<ul>
+  <li>افتحه على هاتفك أولاً، لا على الحاسوب. أغلب زوارك في مصر والخليج على الهاتف.</li>
+  <li>مرّر الرابط في أداة <strong>PageSpeed Insights</strong> المجانية من Google واقرأ نتيجة Mobile لا Desktop.</li>
+  <li>جرّب النموذج (نموذج التواصل مثلاً) وتأكد أنه يعمل فعلاً.</li>
+  <li>إن كان الموقع عربياً، تأكد أن اتجاه RTL سليم، وأن الأرقام والتواريخ والقوائم غير مكسورة.</li>
+</ul>
+
+<p>ثم اسأله سؤالاً واحداً قاتلاً: <em>«ما الجزء الذي كتبته أنت تحديداً في هذا المشروع؟»</em> كثير من معارض الأعمال في السوق العربي معاد تدويرها؛ يعرض المبرمج مشروعاً شارك فيه بصفحة واحدة وكأنه بناه كاملاً. المحترف يجيب بدقة ويقول لك أين انتهى دوره. أنا أعرض <a href="/ar/portfolios">أعمالي بروابط مفتوحة</a> لهذا السبب بالذات.</p>
+
+<h3>الاختبار الثالث: اطلب الوصول إلى مستودع كود</h3>
+
+<p>اطلب رابط حساب <strong>GitHub</strong> أو <strong>GitLab</strong>، أو على الأقل لقطة من سجل الـ commits في مشروع سابق (مع إخفاء بيانات العميل). ليس المطلوب أن تفهم الكود؛ المطلوب أن ترى:</p>
+
+<ul>
+  <li>وجود commits متعددة على مدى أسابيع، لا commit واحد اسمه <code>final</code>.</li>
+  <li>رسائل commit مفهومة بالإنجليزية، لا <code>update</code> مكرّرة خمسين مرة.</li>
+  <li>وجود ملف <code>README</code> وملف <code>.env.example</code>.</li>
+</ul>
+
+<p>من يرفض إظهار أي كود بحجة «سرية العملاء» في كل مشروع دون استثناء، غالباً لا يستخدم Git أصلاً. وهذه وحدها كافية لرفضه، لأن مشروعاً بلا نظام إصدارات هو مشروع لا يمكن التراجع فيه عن خطأ.</p>
+
+<h3>الاختبار الرابع: اطلب مهمة تجريبية مدفوعة صغيرة</h3>
+
+<p>لا تطلب عملاً مجانياً — المحترفون يرفضونه بحق. اطلب مهمة صغيرة مدفوعة: صفحة واحدة، أو نموذج تسجيل، أو تصحيح خطأ في موقعك الحالي، بميزانية محدودة ومدة ثلاثة أيام. هذه أرخص طريقة على الإطلاق لاختبار شخص قبل تسليمه مشروعاً بستة أرقام. ستتعلم من هذه المهمة الصغيرة أشياء لا يقولها أي عرض سعر: هل يلتزم بالموعد؟ هل يشرح؟ هل يختفي في عطلة نهاية الأسبوع؟ هل يسلّم عملاً نظيفاً أم «شغل ماشي»؟</p>
+
+<h3>الاختبار الخامس: اسأله عن مشروع فشل معه</h3>
+
+<p>سؤال بسيط: «حدّثني عن مشروع تعثّر معك وماذا تعلّمت منه؟»</p>
+
+<p>من عمل خمس سنوات ولم يتعثّر مشروع واحد معه إما لم يعمل، أو يكذب، أو لا يملك القدرة على النقد الذاتي. أنا مثلاً تعلّمت بالطريقة الصعبة أن أرفض المشاريع التي يكون فيها صاحب القرار غائباً عن الاجتماعات، لأن المراجعات ستدور في حلقة مفرغة إلى ما لا نهاية.</p>
+
+<h3>الاختبار السادس: تحقّق من كيفية تعامله مع الأمان</h3>
+
+<p>اسأل: «كيف ستحمي بيانات عملائي؟» الإجابة المحترفة تذكر أشياء ملموسة: تشفير كلمات المرور بخوارزمية حديثة، فرض HTTPS على كل الصفحات، حماية من SQL Injection وXSS وCSRF، صلاحيات مستخدمين، تحديد معدل الطلبات على صفحة الدخول، نسخ احتياطي تلقائي يومي مخزَّن خارج الخادم، وتحديث دوري لحزم المشروع. الإجابة الضعيفة هي: «الموقع آمن إن شاء الله» أو «سنضيف SSL». فصّلت المطلوب هنا في <a href="/ar/blog/website-security-checklist">قائمة فحص أمان الموقع</a>.</p>
+
+<h3>الاختبار السابع: تحقّق من هويته الحقيقية</h3>
+
+<p>اطلب صورة بطاقة أو سجل تجاري أو رقم ضريبي، وتحقّق أن الاسم مطابق للحساب البنكي أو المحفظة التي سيستلم عليها. اطلب مكالمة فيديو واحدة على الأقل — لا رسائل نصية فقط. وابحث عن اسمه ورقمه في Google وفي مجموعات المستقلين. الاحتيال في هذا السوق لا يحتاج عبقرية: يكفي رقم WhatsApp ومعرض أعمال مسروق.</p>
+
+<div class="post-callout"><p><strong>نصيحة عملية:</strong> اجمع الاختبارات الأول والثاني والرابع فقط، وستستبعد بها الغالبية العظمى من المتقدمين الضعفاء دون أن تحتاج أي معرفة تقنية.</p></div>
+
+<h2>3. ما الفرق بين شركة البرمجة والمبرمج المستقل؟ وأيهما أفضل لك؟</h2>
+
+<p>الجواب الصادق: لا يوجد «أفضل» مطلق، يوجد «أنسب لحجم مشروعك ودرجة تحمّلك للمخاطر».</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>المعيار</th>
+      <th>مبرمج مستقل محترف</th>
+      <th>شركة برمجة متوسطة</th>
+      <th>أرخص عرض في السوق</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>التكلفة النسبية</td>
+      <td>متوسطة</td>
+      <td>أعلى بشكل ملحوظ لنفس النطاق، بحسب ما أرصده في السوق</td>
+      <td>الأقل ظاهرياً، والأعلى فعلياً بعد إعادة البناء</td>
+    </tr>
+    <tr>
+      <td>من يكتب الكود فعلاً</td>
+      <td>الشخص الذي تحدثت معه</td>
+      <td>غالباً مطوّر مبتدئ لم تقابله</td>
+      <td>مجهول، وأحياناً قوالب جاهزة معدّلة</td>
+    </tr>
+    <tr>
+      <td>سرعة القرار والتعديل</td>
+      <td>عالية جداً</td>
+      <td>بطيئة، تمر عبر مدير حساب</td>
+      <td>غير متوقعة</td>
+    </tr>
+    <tr>
+      <td>خطر التوقف (مرض، سفر، انقطاع)</td>
+      <td>موجود وحقيقي</td>
+      <td>منخفض</td>
+      <td>مرتفع جداً</td>
+    </tr>
+    <tr>
+      <td>استمرارية الصيانة بعد سنة</td>
+      <td>تعتمد على العلاقة والعقد</td>
+      <td>أفضل نظرياً، بعقد صيانة</td>
+      <td>شبه معدومة</td>
+    </tr>
+    <tr>
+      <td>مناسب لـ</td>
+      <td>مشاريع حتى منتج SaaS متوسط، ومواقع الشركات والمتاجر</td>
+      <td>مشاريع مؤسسية، وفرق متعددة، ومتطلبات امتثال ثقيلة</td>
+      <td>لا شيء تعتمد عليه في دخلك</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>القاعدة التي أستخدمها مع من يستشيرني: إن كان المشروع يحتاج أقل من ثلاثة أشخاص بدوام كامل، فالمستقل المحترف يعطيك جودة أعلى وسعراً أقل وسرعة أكبر. وإن كان يحتاج فريقاً كاملاً بمدير مشروع ومختبِر جودة ودعم على مدار الساعة، فاذهب إلى شركة. وضعت المقارنة كاملة بالتكاليف والمخاطر في مقال <a href="/ar/blog/freelance-developer-vs-agency">مبرمج مستقل أم شركة برمجة</a>.</p>
+
+<h3>الخطر الذي لا يذكره أحد في كل من الخيارين</h3>
+
+<p>مع المستقل، خطرك الأكبر هو <strong>نقطة الفشل الواحدة</strong>: شخص واحد يعرف كل شيء. علاجه بند تعاقدي بسيط: الكود يُرفع أولاً بأول على مستودع Git يملكه العميل، وتوثيق التشغيل مسلّم منذ اليوم الأول. عندها يستطيع أي مطوّر آخر استلام المشروع خلال أيام.</p>
+
+<p>مع الشركة، خطرك الأكبر هو <strong>الفجوة بين البائع والمنفّذ</strong>: يقنعك مندوب مبيعات محترف، ثم يُسلَّم المشروع لمطوّر حديث التخرج. علاجه بند آخر: اشترط في العقد معرفة اسم المطوّر المسؤول وسنوات خبرته، وحقّك في الاعتراض على تبديله.</p>
+
+<h2>4. ما هي العلامات التحذيرية عند التعاقد مع مبرمج؟</h2>
+
+<p>هذه قائمة جمعتها من مشاريع وصلتني بعد أن تعثّرت مع غيري. وجود علامة واحدة ليس حكماً نهائياً؛ وجود ثلاث علامات معاً يعني: انسحب.</p>
+
+<h3>علامات أثناء التفاوض</h3>
+
+<ul>
+  <li><strong>سعر أقل من نصف متوسط السوق.</strong> لا أحد يعمل بخسارة. الفرق سيُعوَّض بقالب مسروق، أو باختفاء بعد الدفعة الأولى، أو بمطالبات إضافية لاحقة.</li>
+  <li><strong>«الموقع جاهز في ثلاثة أيام».</strong> المتجر الإلكتروني الحقيقي لا يُبنى في ثلاثة أيام، ومن يقولها إما ينسخ قالباً أو لا يفهم ما وافق عليه.</li>
+  <li><strong>رفض العقد المكتوب</strong> والاكتفاء بـ«اتفاق WhatsApp». هذه أخطر علامة على الإطلاق.</li>
+  <li><strong>الضغط الزمني عليك أنت:</strong> «السعر ينتهي اليوم». المطوّر الجاد لا يبيع بأسلوب المكالمات الترويجية.</li>
+  <li><strong>عجزه عن شرح فكرة تقنية بلغة بسيطة.</strong> من يفهم فعلاً يستطيع الشرح لأمّه. من يغرقك في مصطلحات ليبدو ذكياً غالباً يخفي فجوة.</li>
+  <li><strong>لا يسأل عن الاستضافة ولا عن النطاق ولا عن البريد.</strong> يعني أنه لا يخطط للتسليم أصلاً.</li>
+</ul>
+
+<h3>علامات أثناء التنفيذ</h3>
+
+<ul>
+  <li><strong>لا يوجد رابط staging</strong> تتابع عليه العمل أسبوعياً. العمل في الظلام حتى «يوم التسليم» وصفة مضمونة للكارثة.</li>
+  <li><strong>يختفي أياماً ثم يعود بمبررات متكررة.</strong> سجّل غيابه؛ سيتكرر بعد الدفعة الثانية.</li>
+  <li><strong>يطلب الدفعة التالية قبل تسليم مرحلتها.</strong></li>
+  <li><strong>يرفض إعطاءك وصولاً إلى الاستضافة أو المستودع</strong> «حتى ينتهي». هذا احتجاز رهائن، لا منهجية عمل.</li>
+  <li><strong>كل تعديل صغير «يكسر» شيئاً آخر.</strong> علامة على كود بلا بنية، وستدفع ثمنها كل شهر.</li>
+  <li><strong>يستخدم إضافات أو قوالب مقرصنة (nulled).</strong> هذه ليست مسألة أخلاقية فقط: القوالب المقرصنة أشهر باب خلفي لاختراق المواقع في السوق العربي.</li>
+</ul>
+
+<div class="post-callout"><p><strong>علامة إنذار مبكر مجانية:</strong> راقب سرعة الرد ودقّته في مرحلة ما قبل التعاقد — وهي المرحلة التي يكون فيها المطوّر في أفضل حالاته. إن كان بطيئاً أو غامضاً وأنت لم تدفع بعد، فتخيّل حاله بعد أن يقبض 50%.</p></div>
+
+<h2>5. الأسئلة التي تسألها للمبرمج قبل التعاقد</h2>
+
+<p>اطبع هذه القائمة وضعها أمامك في المكالمة. وبجانب كل سؤال، ما يعنيه الجواب.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>السؤال</th>
+      <th>جواب يطمئنك</th>
+      <th>جواب يقلقك</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ما التقنيات التي ستستخدمها ولماذا؟</td>
+      <td>يسمّي التقنية ويربطها باحتياجك وبسهولة إيجاد مطوّر بديل لاحقاً</td>
+      <td>«أحدث تقنية في العالم» بلا تبرير، أو تقنية لا يعرفها أحد غيره</td>
+    </tr>
+    <tr>
+      <td>من يملك الكود بعد التسليم؟</td>
+      <td>«أنت تملكه بالكامل، وسينتقل المستودع باسمك»</td>
+      <td>تردّد، أو «الكود ملكي والموقع لك»</td>
+    </tr>
+    <tr>
+      <td>هل النطاق والاستضافة باسمي أنا؟</td>
+      <td>«نسجّلهما بحسابك أنت وأنا أدخل كمتعاون»</td>
+      <td>«سجّلها أنا وأنت ادفع لي سنوياً»</td>
+    </tr>
+    <tr>
+      <td>ماذا يشمل السعر بالضبط وماذا لا يشمل؟</td>
+      <td>قائمة مكتوبة بالمخرجات وعدد جولات التعديل</td>
+      <td>«كل شيء شامل» دون تفصيل</td>
+    </tr>
+    <tr>
+      <td>كم جولة تعديل مجانية؟</td>
+      <td>رقم محدد (عادة جولتان لكل مرحلة) وسعر الجولة الإضافية</td>
+      <td>«تعديلات غير محدودة» — وعد لن يُنفَّذ وسيتحول إلى نزاع</td>
+    </tr>
+    <tr>
+      <td>ما خطة الصيانة بعد التسليم وسعرها؟</td>
+      <td>عقد شهري أو سنوي واضح بنطاق محدد</td>
+      <td>«ابعتلي وأنا موجود» بلا سعر</td>
+    </tr>
+    <tr>
+      <td>كيف ستتعامل مع الأداء وSEO؟</td>
+      <td>يذكر Core Web Vitals، والصور المحسّنة، وبنية الروابط، وschema</td>
+      <td>«هنعمل SEO في الآخر»</td>
+    </tr>
+    <tr>
+      <td>هل الموقع سيدعم العربية والإنجليزية بشكل كامل؟</td>
+      <td>يشرح RTL وترجمة المحتوى ولوحة تحكم ثنائية اللغة وروابط hreflang</td>
+      <td>«هنستخدم Google Translate» أو «هنضيفها بعدين»</td>
+    </tr>
+    <tr>
+      <td>ماذا يحدث إذا تأخرت أنت عن الموعد؟</td>
+      <td>بند تأخير مكتوب في العقد</td>
+      <td>انزعاج من السؤال نفسه</td>
+    </tr>
+    <tr>
+      <td>ماذا يحدث إذا تأخرتُ أنا في تسليم المحتوى؟</td>
+      <td>يشرح كيف يؤثر ذلك على الجدول ويقترح محتوى مؤقتاً</td>
+      <td>لا يعرف أن المحتوى مسؤوليتك</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>السؤال الخامس هو الأخطر في السوق العربي تحديداً. «تعديلات غير محدودة» ليست ميزة، بل قنبلة موقوتة: إما أن ينسحب المبرمج في منتصف المشروع، أو أن تجد نفسك تشعر بالذنب كلما طلبت تعديلاً. الرقم المحدد أرحم للطرفين.</p>
+
+<h2>6. مواصفات الموقع الاحترافي: معايير قبول تكتبها في العقد</h2>
+
+<p>«موقع احترافي» كلمة بلا معنى قانوني. حوّلها إلى أرقام يمكن قياسها يوم التسليم. هذه هي المعايير التي أضعها بنفسي في عقودي:</p>
+
+<ul>
+  <li><strong>الأداء:</strong> درجة Performance في Lighthouse على الهاتف لا تقل عن 85 للصفحات الرئيسية، مع LCP أقل من 2.5 ثانية وCLS أقل من 0.1 وINP أقل من 200 مللي ثانية. (هذه هي عتبات Core Web Vitals المعتمدة من Google وقت كتابة هذا المقال في 2026؛ راجع web.dev قبل التوقيع لأن Google عدّلت هذه المقاييس من قبل — INP حلّت محل FID في 2024.)</li>
+  <li><strong>الاستجابة:</strong> يعمل بلا كسر على عرض 360px فأعلى، ويُختبر على متصفح Chrome وSafari على iPhone فعلي لا على محاكي فقط.</li>
+  <li><strong>الأمان:</strong> HTTPS إجباري، ورؤوس أمان أساسية، وحماية النماذج من الإرسال الآلي، ونسخ احتياطي يومي تلقائي مخزَّن خارج الخادم.</li>
+  <li><strong>SEO التقني:</strong> عناوين ووصف لكل صفحة، وsitemap.xml، وrobots.txt، وبيانات منظمة، وروابط نظيفة بالعربية أو بحروف لاتينية مقروءة. القائمة الكاملة في <a href="/ar/blog/website-seo-checklist-2026">قائمة فحص SEO</a>.</li>
+  <li><strong>لوحة التحكم:</strong> تستطيع أنت — لا المبرمج — تعديل النصوص والصور والأسعار وإضافة صفحة جديدة دون كود.</li>
+  <li><strong>التوافق:</strong> إن كنت تبيع في السعودية فالفواتير يجب أن تلتزم بمتطلبات ZATCA للفوترة الإلكترونية، وإن كنت في مصر فمنظومة الفاتورة الإلكترونية لمصلحة الضرائب. اذكر ذلك صراحة في النطاق، فهو عمل إضافي حقيقي وليس تفصيلاً.</li>
+</ul>
+
+<p>واطلب أن يكون شكل المستودع مفهوماً وقابلاً للتسليم لأي مطوّر بعده:</p>
+
+<pre><code>project/
+  README.md          &lt;- كيف تشغّل المشروع محلياً، خطوة بخطوة
+  .env.example       &lt;- كل المتغيرات المطلوبة بلا أسرار حقيقية
+  database/          &lt;- migrations + seeders
+  docs/deploy.md     &lt;- كيف يُنشر التحديث على الخادم
+  tests/             &lt;- ولو اختبارات قليلة على المسارات الحرجة
+</code></pre>
+
+<p>إن رأيت مشروعاً مسلَّماً بلا <code>README</code> ولا <code>.env.example</code> وبكلمات مرور مكتوبة داخل الكود مباشرة، فأنت أمام عمل هاوٍ مهما بدا الشكل الخارجي جميلاً.</p>
+
+<h2>7. كم يجب أن يكلّف المشروع؟ نطاقات صادقة لا عروض وهمية</h2>
+
+<p>لا أستطيع أن أعطيك سعراً دون أن أعرف مشروعك، وأي أحد يفعل ذلك يخدعك. لكن أستطيع أن أعطيك النطاقات التي أراها في السوق حالياً حتى تعرف متى يكون العرض «رخيصاً بشكل مريب» ومتى يكون «مبالغاً فيه». الافتراضات: تصميم مخصص، لغتان، لوحة تحكم، ونشر على استضافة حقيقية.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>نوع المشروع</th>
+      <th>مصر (EGP)</th>
+      <th>الخليج (SAR / AED)</th>
+      <th>المدة المعقولة</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>صفحة هبوط واحدة</td>
+      <td>8,000 – 25,000</td>
+      <td>2,000 – 6,000</td>
+      <td>3 – 7 أيام</td>
+    </tr>
+    <tr>
+      <td>موقع شركة 5 – 10 صفحات بلوحة تحكم</td>
+      <td>25,000 – 70,000</td>
+      <td>7,000 – 20,000</td>
+      <td>2 – 5 أسابيع</td>
+    </tr>
+    <tr>
+      <td>متجر إلكتروني مع بوابة دفع</td>
+      <td>60,000 – 200,000</td>
+      <td>18,000 – 60,000</td>
+      <td>5 – 12 أسبوعاً</td>
+    </tr>
+    <tr>
+      <td>تطبيق ويب مخصص / SaaS MVP</td>
+      <td>150,000 – 600,000+</td>
+      <td>45,000 – 180,000+</td>
+      <td>3 – 6 أشهر</td>
+    </tr>
+    <tr>
+      <td>تطبيق جوال مع backend</td>
+      <td>200,000 – 700,000+</td>
+      <td>60,000 – 200,000+</td>
+      <td>3 – 7 أشهر</td>
+    </tr>
+    <tr>
+      <td>صيانة شهرية</td>
+      <td>2,000 – 12,000 / شهر</td>
+      <td>600 – 3,500 / شهر</td>
+      <td>مستمر</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>هذه نطاقات سوق عامة كما أرصدها في 2026، لا عروض أسعار، وتتحرك مع سعر الصرف وحجم النطاق. التفصيل الكامل لما يرفع السعر ولما يخفضه موجود في <a href="/ar/blog/website-cost-egypt-gulf">تكلفة الموقع بين مصر والخليج</a> و<a href="/ar/blog/how-much-does-website-cost-2026">كم يكلف الموقع في 2026</a>.</p>
+
+<div class="post-callout"><p><strong>قاعدة الميزانية:</strong> خصّص 15% إلى 20% من ميزانية البناء سنوياً للاستضافة والصيانة والتحديثات الأمنية. الموقع ليس شراء أثاث، بل أقرب إلى سيارة: يحتاج صيانة أو يتوقف.</p></div>
+
+<h2>8. كم دفعة مقدمة يجب أن أدفع؟</h2>
+
+<p>الجواب المختصر: <strong>لا تدفع 100% مقدماً أبداً، ولا تطلب من محترف أن يعمل بلا مقدَّم.</strong></p>
+
+<p>النطاق المعقول للمقدَّم في السوق هو 30% إلى 50%. أنا شخصياً أعمل بـ 40% مقدماً في المشاريع المتوسطة، والسبب عملي: أرفض مشروعاً آخر لأحجز لك الوقت.</p>
+
+<p>لكن الرقم أقل أهمية من <strong>هيكل الدفعات</strong>. اربط كل دفعة بمخرَج ملموس تراه بعينك:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>الدفعة</th>
+      <th>النسبة</th>
+      <th>ترتبط بـ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>الأولى</td>
+      <td>30% – 40%</td>
+      <td>توقيع العقد واعتماد وثيقة النطاق</td>
+    </tr>
+    <tr>
+      <td>الثانية</td>
+      <td>25% – 30%</td>
+      <td>اعتماد التصميم كاملاً + رابط staging يعمل للواجهات الأساسية</td>
+    </tr>
+    <tr>
+      <td>الثالثة</td>
+      <td>20% – 25%</td>
+      <td>اكتمال الوظائف على staging واجتياز اختبار القبول</td>
+    </tr>
+    <tr>
+      <td>الأخيرة</td>
+      <td>10% – 20%</td>
+      <td>النشر على النطاق الحقيقي + تسليم الكود والوصول والتوثيق</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>هذه نطاقات تفاوض لا أرقام تُجمع: اختر رقماً واحداً من كل صف بحيث يكون مجموع الدفعات الأربع 100% بالضبط. فلو أخذت الحد الأعلى في كل صف لبلغ المجموع 115%، ولو أخذت الحد الأدنى في كل صف لبلغ 85% — والموازنة مسؤوليتك أنت قبل التوقيع.</p>
+
+<p>احتفظ دائماً بدفعة أخيرة لا تقل عن 10% معلّقة على <strong>التسليم الكامل بما فيه الوصول والتوثيق</strong>، لا على «الموقع اشتغل». هذه الـ 10% هي أرخص بوليصة تأمين ستشتريها في حياتك.</p>
+
+<p>وإذا كان المبرمج جديداً عليك تماماً، استخدم منصة وسيطة تحتفظ بالمبلغ في حساب ضمان (escrow) مثل <strong>مستقل</strong> أو <strong>Upwork</strong> للدفعة الأولى على الأقل. تدفع عمولة صغيرة، وتشتري بها آلية فض نزاع لا تملكها في تحويل بنكي مباشر.</p>
+
+<h2>9. العقد: الحد الأدنى الذي لا تتنازل عنه</h2>
+
+<p>معظم النزاعات التي رأيتها لم تكن بسبب سوء نية، بل بسبب جملة غامضة. العقد المكتوب ليس تعبيراً عن انعدام الثقة، بل هو الوثيقة التي تحمي الطرفين حين تختلف الذاكرتان بعد ثلاثة أشهر.</p>
+
+<p>الحد الأدنى الذي يجب أن يحتويه أي عقد برمجة:</p>
+
+<ol>
+  <li><strong>وثيقة نطاق مفصّلة</strong> ملحقة بالعقد: كل صفحة، كل وظيفة، كل تكامل خارجي، وما هو <em>خارج</em> النطاق صراحة.</li>
+  <li><strong>الجدول الزمني</strong> مع تواريخ المراحل، ومسؤولياتك أنت (المحتوى، الشعار، بيانات بوابة الدفع) وأثر تأخرك عليها.</li>
+  <li><strong>ملكية فكرية</strong> صريحة: الكود والتصميم والمحتوى ملك للعميل عند سداد كامل المبلغ، مع حق المطوّر في عرض المشروع في معرض أعماله.</li>
+  <li><strong>عدد جولات التعديل</strong> وسعر الجولة الإضافية.</li>
+  <li><strong>بند التسليم</strong>: قائمة محددة بما يُسلَّم (سنراها في القسم التالي).</li>
+  <li><strong>فترة ضمان الأخطاء</strong>: عادة 30 إلى 90 يوماً يُصلح فيها المطوّر أي خلل في النطاق المتفق عليه مجاناً — مع تمييز واضح بين «خطأ» و«طلب جديد».</li>
+  <li><strong>بند الإنهاء</strong>: ماذا يحدث إن انسحب أي طرف، وكيف تُحتسب المستحقات، ومن يستلم ما أُنجز.</li>
+  <li><strong>السرية وحماية البيانات</strong>، خصوصاً إن كان المشروع يعالج بيانات عملاء. في السعودية هناك نظام حماية البيانات الشخصية (PDPL)، وفي مصر قانون حماية البيانات الشخصية رقم 151 لسنة 2020 الذي صدرت لائحته التنفيذية أواخر 2025؛ اذكر التزام المطوّر بالتعامل مع البيانات بأمان وحذفها عند انتهاء العلاقة.</li>
+</ol>
+
+<p>لا تبدأ من صفحة بيضاء. جهّزت <a href="/ar/blog/namudhaj-aqd-barmajat-mawqe">نموذج عقد برمجة موقع جاهزاً بالعربية</a> يمكنك تعديله، وشرحت مسألة الملكية بتوسّع في <a href="/ar/blog/who-owns-your-website-code">من يملك كود موقعك فعلاً</a>.</p>
+
+<h2>10. ماذا أطلب من المبرمج عند تسليم المشروع؟</h2>
+
+<p>هذه هي اللحظة التي يخسر فيها معظم أصحاب المشاريع. الموقع يعمل، فيدفعون الباقي ويفرحون، ثم يكتشفون بعد ستة أشهر أنهم لا يملكون شيئاً.</p>
+
+<p>قائمة التسليم التي أوقّعها مع عملائي، اطلبها حرفياً:</p>
+
+<ol>
+  <li><strong>النطاق (domain)</strong> مسجّل باسمك أنت وبريدك أنت في حساب المسجّل، مع بيانات الدخول. تحقّق بنفسك من بيانات WHOIS.</li>
+  <li><strong>حساب الاستضافة أو الخادم</strong> باسمك، ببيانات دخول كاملة (لوحة التحكم وSSH إن وُجد).</li>
+  <li><strong>الكود المصدري كاملاً</strong> على مستودع Git تحت حسابك أنت، لا نسخة مضغوطة على WhatsApp.</li>
+  <li><strong>قاعدة البيانات</strong>: نسخة احتياطية كاملة، ومخطط الجداول، وتعليمات الاسترجاع.</li>
+  <li><strong>حسابات الطرف الثالث</strong> كلها مسجّلة ببريدك أنت: بوابة الدفع، خدمة إرسال البريد، خدمة الرسائل، Google Analytics، Google Search Console، متاجر التطبيقات.</li>
+  <li><strong>ملفات التصميم المصدرية</strong> (Figma أو ما يعادلها) بصلاحية تعديل.</li>
+  <li><strong>توثيق تشغيل</strong>: كيف يُنشر تحديث، وأين تُغيَّر الإعدادات، وما الخدمات التي يعتمد عليها المشروع وتكلفتها الشهرية.</li>
+  <li><strong>فيديو تدريبي قصير</strong> على لوحة التحكم — عشرون دقيقة تختصر عليك مئة رسالة لاحقاً.</li>
+  <li><strong>تراخيص</strong> كل قالب أو إضافة أو خط مدفوع، باسمك، وفواتيرها.</li>
+</ol>
+
+<div class="post-callout"><p><strong>اختبار التسليم الحقيقي:</strong> بعد التسليم، اسأل نفسك سؤالاً واحداً: «لو اختفى هذا المبرمج غداً تماماً، هل أستطيع تسليم المشروع لمطوّر آخر خلال أسبوع؟» إن كان الجواب لا، فالتسليم لم يكتمل بعد مهما دفعت.</p></div>
+
+<h3>ملاحظة خاصة بتطبيقات الجوال</h3>
+
+<p>إن كان مشروعك تطبيقاً، فحساب Google Play وحساب Apple Developer يجب أن يكونا باسم شركتك أنت، لا باسم المبرمج، وإلا فقدت التطبيق مع أول خلاف. وانتبه أيضاً إلى أن Google تفرض على حسابات المطوّرين الفردية الجديدة اختباراً مغلقاً بعدد أدنى من المختبِرين ولمدة محددة قبل السماح بالنشر العام — وهي سياسة تغيّرت أكثر من مرة منذ 2023، فتحقّق من صيغتها الحالية قبل جدولة موعد الإطلاق. شرحتها بالتفصيل في <a href="/ar/blog/google-play-12-testers-requirement">شرط 12 مختبِراً في Google Play</a>.</p>
+
+<h2>11. ماذا تفعل إذا ساءت الأمور بالفعل؟</h2>
+
+<p>افترض أنك دفعت 50% واختفى المطوّر أو تعثّر. الترتيب العملي:</p>
+
+<ol>
+  <li><strong>وثّق كل شيء كتابةً.</strong> لخّص الوضع في رسالة واحدة واضحة: ما اتفقنا عليه، ما سُلّم، ما تأخّر، والمهلة التي تمنحها. أرسلها على البريد لا على WhatsApp فقط.</li>
+  <li><strong>اطلب تسليم ما أُنجز فوراً</strong> — الكود الحالي على مستودع وبيانات الوصول. حتى العمل الناقص له قيمة إن استلمته.</li>
+  <li><strong>لا تدفع دفعة جديدة «لتحفيزه على الاستمرار».</strong> هذا يزيد خسارتك ولا يحل شيئاً.</li>
+  <li><strong>غيّر كل كلمات المرور</strong> فور انتهاء العلاقة، وأزل صلاحياته من المستودع والاستضافة والحسابات.</li>
+  <li><strong>إن كان التعاقد عبر منصة</strong> بحساب ضمان، افتح نزاعاً فوراً مع أدلتك الكتابية.</li>
+  <li><strong>احسب بهدوء</strong> تكلفة إكمال المشروع مع مطوّر جديد مقابل تكلفة ملاحقة الأول. في أغلب المشاريع الصغيرة والمتوسطة، المضي قدماً أرخص من التقاضي.</li>
+</ol>
+
+<p>وحين تبحث عن البديل، لا تكرّر الخطأ نفسه: ابدأ بمراجعة تقنية مدفوعة صغيرة للكود الحالي قبل الاتفاق على استكمال. المطوّر الجاد سيخبرك بصراحة إن كان الإنقاذ أرخص من إعادة البناء.</p>
+
+<h2>12. خطة سبعة أيام قبل أن توقّع</h2>
+
+<p>إن كنت على بعد أيام من التوقيع، افعل هذا بالترتيب:</p>
+
+<ul>
+  <li><strong>اليوم الأول:</strong> اكتب صفحة واحدة تصف مشروعك: الهدف، الجمهور، أهم ثلاث وظائف، اللغات، الميزانية التقريبية، والموعد المطلوب.</li>
+  <li><strong>اليوم الثاني:</strong> أرسلها إلى ثلاثة مرشحين على الأقل، واحد منهم أغلى مما تتوقع. تحتاج نقطة مقارنة عليا.</li>
+  <li><strong>اليوم الثالث:</strong> رتّب الردود حسب <em>جودة الأسئلة</em> لا حسب السعر.</li>
+  <li><strong>اليوم الرابع:</strong> مكالمة فيديو 30 دقيقة مع أفضل مرشحَين، بقائمة الأسئلة في القسم الخامس.</li>
+  <li><strong>اليوم الخامس:</strong> افتح أعمالهما على هاتفك واختبر السرعة، واطلب مرجعاً واحداً تتحدث معه.</li>
+  <li><strong>اليوم السادس:</strong> اطلب عرضاً مكتوباً مفصّلاً بوثيقة نطاق وجدول دفعات.</li>
+  <li><strong>اليوم السابع:</strong> راجع العقد، وعدّل بنود الملكية والتسليم، ثم وقّع وادفع المقدَّم عبر وسيلة موثّقة.</li>
+</ul>
+
+<p>سبعة أيام من التمهّل توفّر عليك عادةً شهوراً من الندم. المشاريع التي أراها متعثّرة تكاد كلها تكون قد بدأت بقرار اتُّخذ في نفس اليوم بناءً على أرخص عرض. إن أردت الإطار الأشمل لعملية التوظيف نفسها، اقرأ <a href="/ar/blog/how-to-hire-a-web-developer">كيف توظّف مطوّر ويب</a>، وإن كان مشروعك على Laravel تحديداً فهذه <a href="/ar/hire-laravel-developer">صفحة توظيف مطوّر Laravel</a>.</p>
+
+<h2>13. الخلاصة</h2>
+
+<p>اختيار المبرمج قرار تجاري، لا قرار تقني. أنت لا تشتري كوداً، بل تشتري <strong>قدرة على التسليم والاستمرار</strong>. والدليل على تلك القدرة موجود دائماً قبل الدفع: في جودة أسئلته، وفي أعمال حيّة تفتحها بنفسك، وفي استعداده لتوقيع عقد يحدد الملكية والتسليم.</p>
+
+<p>ومن يرفض واحداً من هذه الثلاثة، أخبرك بكل ما تحتاج معرفته.</p>
+
+<p>إن كنت على وشك التعاقد وتريد رأياً محايداً في العرض الذي بين يديك — أو تريد عرضاً بسعر ثابت مقابله — <a href="/ar/contact">راسلني عبر صفحة التواصل</a>. الاستشارة الأولى مجانية، والرد خلال 24 ساعة، وسأخبرك بصراحة إن كان مشروعك لا يحتاجني أصلاً.</p>
+HTMLAR,
+            ],
+            [
+                'slug' => 'google-play-12-testers-requirement',
+                'title' => 'Google Play\'s 12-Tester Rule: How to Pass Closed Testing and Ship',
+                'title_ar' => 'شرط 12 مختبرًا في Google Play: كيف تجتاز الاختبار المغلق وتنشر تطبيقك',
+                'excerpt' => 'Google Play blocks new personal developer accounts from production until 12 testers stay opted in for 14 straight days. Here is the exact policy wording, a recruiting plan that actually holds, and honest timelines from someone with seven apps live.',
+                'excerpt_ar' => 'يمنع Google Play الحسابات الشخصية الجديدة من النشر في Production قبل بقاء 12 مختبرًا مشتركين 14 يومًا متصلة. إليك النص الحرفي للسياسة، وخطة استقطاب واقعية، وجداول زمنية صادقة من مطوّر لديه سبعة تطبيقات منشورة.',
+                'category' => 'Platforms',
+                'tags' => ['Google Play', 'Android', 'Mobile Apps', 'App Publishing', 'Closed Testing', 'Play Console'],
+                'image' => '1710767681-team-img-1.jpg',
+                'date' => '2026-08-07',
+                'read_time' => '14 min read',
+                'meta_title' => 'Google Play 12-Tester Rule: Pass Closed Testing 2026',
+                'meta_title_ar' => 'شرط 12 مختبرًا في Google Play: كيف تنشر تطبيقك 2026',
+                'meta_description' => 'The 12 testers / 14 days rule explained by a developer with 7 apps live on Play: exact policy wording, a recruiting plan that works, real timelines.',
+                'meta_description_ar' => 'شرح دقيق لشرط 12 مختبرًا و14 يومًا في Google Play: نص السياسة، وكيف تجمع مختبرين حقيقيين، والمدة الفعلية حتى الموافقة على النشر.',
+                'faq' => [
+                    [
+                        'q' => 'Do the 12 testers have to be active for all 14 days?',
+                        'a' => 'They must be opted in continuously for all 14 days, not necessarily opening the app daily. But Google\'s production access form asks about tester engagement, and "insufficient tester engagement" is a stated rejection reason. Twelve dormant installs can satisfy the counter and still fail review. Ask each tester to complete your main flow at least once during the fortnight.',
+                        'q_ar' => 'هل يجب أن يكون المختبرون نشطين طوال الأربعة عشر يومًا؟',
+                        'a_ar' => 'يجب أن يكونوا مشتركين بشكل متصل طوال الأربعة عشر يومًا، لا أن يفتحوا التطبيق يوميًا. لكن نموذج طلب النشر يسأل عن تفاعل المختبرين، و"ضعف التفاعل" سبب رفض معلن لدى Google. اثنا عشر تثبيتًا خاملًا قد يرضي العدّاد ويسقط في المراجعة. اطلب من كل مختبر إتمام المسار الأساسي مرة على الأقل خلال المدة.',
+                    ],
+                    [
+                        'q' => 'Can I use my own devices or family accounts as testers?',
+                        'a' => 'Google\'s published documentation does not explicitly ban relatives, and each tester is simply a distinct Google account. But twelve accounts you control produce no feedback, cluster on the same devices and IP, and make the application\'s engagement questions unanswerable. A few friends among nine genuine testers is fine. Building all twelve from accounts you own risks account termination.',
+                        'q_ar' => 'هل أستطيع استخدام أجهزتي أو حسابات عائلتي كمختبرين؟',
+                        'a_ar' => 'لا تمنع وثائق Google المنشورة الأقارب صراحةً، وكل مختبر هو ببساطة حساب Google مستقل. لكن اثني عشر حسابًا تسيطر عليها لا تنتج ملاحظات، وتتجمّع على الأجهزة وعنوان IP نفسه، وتجعل أسئلة التفاعل بلا إجابة. وجود صديقين أو ثلاثة ضمن تسعة مختبرين حقيقيين مقبول تمامًا. أما بناء الاثني عشر كلهم من حساباتك فيعرّض حسابك للإيقاف.',
+                    ],
+                    [
+                        'q' => 'What happens if a tester opts out mid-way?',
+                        'a' => 'Their 14-day counter resets to zero rather than pausing. Google states that if a tester opts out and opts back in later, the 14 days must be consecutive to count toward the minimum requirement. Uninstalling, switching phones, or a factory reset can all break continuity silently. Recruit 17 or 18 testers instead of 12 and track opt-in dates yourself in a spreadsheet.',
+                        'q_ar' => 'ماذا يحدث إذا انسحب أحد المختبرين في منتصف المدة؟',
+                        'a_ar' => 'يُصفَّر عدّاده من جديد ولا يتوقّف مؤقتًا. تنصّ Google على أن من ينسحب ثم يعود يجب أن تكون أيامه الأربعة عشر متتالية حتى تُحتسب ضمن الحد الأدنى. وحذف التطبيق أو تغيير الهاتف أو إعادة ضبط المصنع كلها تكسر الاستمرارية بصمت. استقطب 17 أو 18 مختبرًا بدل 12، وسجّل تواريخ الاشتراك بنفسك في جدول.',
+                    ],
+                    [
+                        'q' => 'How long after closed testing until production approval?',
+                        'a' => 'Google says the production access review usually takes seven days or less, though it can take longer. That is only the access review. Your first production release then goes through normal app review, which for a new developer commonly takes a few days to two weeks. Budget five to eight weeks end to end from account creation.',
+                        'q_ar' => 'كم يستغرق الأمر بعد الاختبار المغلق حتى الموافقة على النشر؟',
+                        'a_ar' => 'تقول Google إن مراجعة طلب الوصول إلى Production تستغرق عادةً سبعة أيام أو أقل، وقد تطول أحيانًا. وهذه مراجعة الإذن فقط؛ ثم يمرّ أول إصدار إنتاجي بمراجعة التطبيق المعتادة، وهي للمطوّر الجديد تستغرق عادةً من أيام إلى أسبوعين. خطّط لخمسة إلى ثمانية أسابيع من إنشاء الحساب حتى الإطلاق.',
+                    ],
+                    [
+                        'q' => 'Is the 12-tester rule the same for company accounts?',
+                        'a' => 'As written, no. Google\'s requirement names personal developer accounts created after 13 November 2023 and does not extend the closed testing gate to organization accounts. But an organization account needs a D-U-N-S number, which can take 30 days or more to obtain, so registering as a company purely to skip 14 days often costs more calendar time.',
+                        'q_ar' => 'هل ينطبق شرط 12 مختبرًا على حسابات الشركات؟',
+                        'a_ar' => 'حسب النص المنشور: لا. يخصّ الشرط الحسابات الشخصية المنشأة بعد 13 نوفمبر 2023، ولا يمتدّ في الوثائق إلى حسابات المؤسسات. لكن حساب المؤسسة يتطلّب رقم D-U-N-S الذي قد يستغرق 30 يومًا أو أكثر، فالتسجيل كشركة لمجرد تفادي أربعة عشر يومًا يكلّفك غالبًا وقتًا أطول.',
+                    ],
+                    [
+                        'q' => 'Does internal testing count toward the 12-tester requirement?',
+                        'a' => 'No. The policy specifically requires a closed test. Internal testing supports up to 100 testers and gets builds out in minutes, which makes it excellent for crash hunting before you start, but none of that time counts. Your 14-day clock begins only when real testers opt in to the closed track through the opt-in URL.',
+                        'q_ar' => 'هل يُحتسب الاختبار الداخلي ضمن شرط 12 مختبرًا؟',
+                        'a_ar' => 'لا. تنصّ السياسة على اختبار مغلق تحديدًا. يتّسع الاختبار الداخلي لمئة مختبر ويوصل النسخة خلال دقائق، وهو ممتاز لاصطياد الأعطال قبل البدء، لكن مدته لا تُحتسب إطلاقًا. يبدأ عدّ الأربعة عشر يومًا فقط حين يشترك مختبرون حقيقيون في المسار المغلق عبر رابط الاشتراك.',
+                    ],
+                    [
+                        'q' => 'Where do I send testers to join the closed test?',
+                        'a' => 'Send the Play opt-in URL, which looks like play.google.com/apps/testing/your.package.name. It only appears once the track status is Published, and Google notes it can take a few hours to activate. Tell testers to use the same Google account that is signed in on their phone, otherwise they will not see the app in the Play Store.',
+                        'q_ar' => 'أين أرسل المختبرين للانضمام إلى الاختبار المغلق؟',
+                        'a_ar' => 'أرسل رابط الاشتراك من Google Play وشكله play.google.com/apps/testing/your.package.name. لا يظهر هذا الرابط إلا بعد أن تصبح حالة المسار Published، وتشير Google إلى أن تفعيله قد يستغرق بضع ساعات. ونبّه المختبرين إلى استخدام حساب Google نفسه المسجّل على هواتفهم، وإلا فلن يظهر التطبيق لهم في المتجر.',
+                    ],
+                ],
+                'content' => <<<'HTML'
+<p class="lead">Google Play's closed testing gate is real, it is not appealable, and almost every founder who gets stuck on it gets stuck for the same two reasons: the 14-day clock started later than they think, and a third of their testers quietly uninstalled. I'm Khaled Ahmed, a full stack developer in Cairo with seven apps live on Google Play. Here is exactly what the policy says as of August 2026, how to clear it in about three weeks, and which shortcuts will cost you the account.</p>
+
+<h2>1. The rule, stated exactly</h2>
+
+<p>If you created a <strong>personal</strong> Google Play developer account after <strong>13 November 2023</strong>, you cannot publish to production until you have run a closed test that meets a specific numeric bar. Google's own help documentation states it plainly.</p>
+
+<div class="post-callout"><p><strong>The policy, in Google's words:</strong> "At least 12 testers must be opted in to your closed test when you apply for production access, and they must have been opted in continuously for the preceding 14 days." The same page summarises the bar as "at least 12 testers who have been opted in continuously for at least 14 days". Google further clarifies that "testers who opt in, test for fewer than 14 days, and then opt out do not count toward the requirement," and that if a tester opts out and opts back in later, "the 14 days must be consecutive to count toward the minimum requirement."</p></div>
+
+<p>Three phrases in that sentence do all the damage, and most people skim past them:</p>
+
+<ul>
+<li><strong>"At least 12"</strong> — this is the floor at the moment you press <em>Apply for production</em>, not an average over the fortnight. Eleven at the wrong minute and you are still waiting.</li>
+<li><strong>"Opted in"</strong> — not "invited", not "sent the link", not "downloaded the APK you WhatsApped them". They must have clicked your opt-in URL with a Google account and installed from the Play Store.</li>
+<li><strong>"Continuously for the preceding 14 days"</strong> — the same twelve people, unbroken. A tester who joins on day 9 resets to zero of 14 for that slot.</li>
+</ul>
+
+<p>One honest caveat before you plan anything around this. The requirement originally launched at <strong>20 testers</strong> and Google later reduced it to 12. I cannot source the exact announcement date from Google's current help pages — they only document the number that is live today — so treat "12" as accurate as of August 2026 and re-read the help page yourself before you commit a launch date to a client. This is a policy Google has already moved once.</p>
+
+<h2>2. Does the rule apply to company accounts?</h2>
+
+<p>As written, no. Google's requirement names <strong>personal developer accounts created after 13 November 2023</strong>. The published requirement does not extend the 12-tester gate to organization accounts, and in practice this is the single biggest structural difference between the two account types today.</p>
+
+<p>That sounds like a loophole. It mostly is not, for a reason nobody mentions until you are three weeks in.</p>
+
+<p>An organization account requires a <strong>D-U-N-S number</strong> from Dun &amp; Bradstreet, plus a verified organization name, address, phone number and website. Getting a D-U-N-S number takes <strong>up to 30 days</strong>, and in Egypt and parts of the Gulf it routinely takes longer than the optimistic estimate because the records need to be created from scratch rather than looked up. So the "shortcut" of registering as a company to skip a 14-day testing window can easily cost you more calendar time than the testing window itself, plus a company registration you may not have.</p>
+
+<p>My rule of thumb: if you already have a registered company with a D-U-N-S number or can get one issued quickly, open an organization account — it is the better long-term posture anyway, because the developer name shown on the store listing is the company. If you are a solo founder shipping your first product, take the personal account and the 14 days. It is faster and you were going to need testers regardless.</p>
+
+<h2>3. Do the 12 testers have to be active for all 14 days?</h2>
+
+<p>They have to be <strong>opted in</strong> for all 14 days. That is a different thing from being active, and the distinction is where the frustration comes from.</p>
+
+<p>The mechanical requirement is continuous enrolment: the account remains in your closed test, and the app remains installed. Nobody has to open it daily. But the numeric bar is not the whole review. When you submit the production access application, Google asks you three sets of questions, and one of them is explicitly about engagement — whether testers used all available features and whether tester usage matched what you expect from real production users. Google's own list of rejection reasons includes <strong>"insufficient tester engagement"</strong> alongside "fewer than 12 opted-in testers".</p>
+
+<p>So the honest answer is: twelve dormant installs will satisfy the counter and can still fail the review. In my experience the applications that sail through are the ones where testers actually completed the core loop — signed up, did the main action the app exists for, hit a paywall or a submit button — and where the developer can describe that in two specific sentences rather than "they tested the app and it worked".</p>
+
+<p>Practically, ask each tester for three things over the fortnight: install and register on day one, complete the main flow once in the first week, and open it once more in the second week. That is roughly ten minutes of their life and it makes the application answerable.</p>
+
+<h2>4. Can I use my own devices or family accounts as testers?</h2>
+
+<p>Technically nothing in the published documentation says your testers must be strangers. Each tester is a distinct Google account, and Google does not publish a rule stating that relatives are ineligible. I am telling you plainly what the documentation does and does not say, because plenty of blog posts assert a prohibition that is not written down.</p>
+
+<p>Now the judgement, which is worth more than the letter of the rule: <strong>do not build your twelve out of accounts you control.</strong></p>
+
+<p>Three reasons, in order of how much they will hurt.</p>
+
+<ul>
+<li><strong>It is a review, not a script.</strong> The production access form asks how you recruited testers, how difficult recruitment was, and what you changed based on their feedback. Twelve accounts on two devices produce no feedback, and the answers you write will read like exactly what they are.</li>
+<li><strong>Signals cluster.</strong> Twelve accounts created in the same week, on the same handful of devices, on one IP, all opting in within an hour of each other, none of which ever opens the app. You do not need to know Google's exact heuristics to know that is a pattern.</li>
+<li><strong>The downside is asymmetric.</strong> The upside of faking it is saving a week of asking people for favours. The downside is a terminated developer account, which on Play is associated with your identity and is very hard to come back from. That is a terrible trade for a week.</li>
+</ul>
+
+<p>A reasonable middle: your own second Google account, your co-founder, and two or three genuine friends who will actually use the thing are fine and normal. Nine strangers who care about the problem you are solving are what make the application strong. Mixing is fine. Fabricating is not.</p>
+
+<h2>5. What happens if a tester opts out mid-way?</h2>
+
+<p>Their counter resets. Not pauses — resets. Google is explicit that if someone opts out and opts back in later, the 14 days must be consecutive to count toward the minimum.</p>
+
+<p>Worse, "opting out" is not always a deliberate act. These are the ways I have watched the count silently drop:</p>
+
+<ul>
+<li>The tester uninstalls the app to free space. On most devices this does not remove them from the tester list, but it removes the install, and you should not gamble on the distinction.</li>
+<li>They factory-reset or switch phones and never reinstall.</li>
+<li>They tap the opt-out link on the testing page out of curiosity.</li>
+<li>They joined with a different Google account than the one on their device, installed nothing, and were never really in.</li>
+<li>You edited the email list and accidentally removed someone while re-saving.</li>
+</ul>
+
+<p>The defence is redundancy and a spreadsheet. Recruit <strong>17 or 18 testers, not 12</strong>. Assume attrition of 20–25% over two weeks, which is roughly what I plan for — at that rate eighteen recruits still leave you comfortably above the bar, and twelve recruits leave you below it. And keep your own record, because the Play Console tester count widget has changed more than once and you should not be discovering a shortfall on the day you intended to apply.</p>
+
+<pre><code>tester_email,invited_on,opted_in_on,day14_eligible_on,confirmed_installed,notes
+a@example.com,2026-09-01,2026-09-01,2026-09-15,yes,completed signup
+b@example.com,2026-09-01,2026-09-02,2026-09-16,yes,
+c@example.com,2026-09-01,,,no,never clicked link - chase
+</code></pre>
+
+<p>The <code>day14_eligible_on</code> column is the only date that matters. Your application date is the fourteenth day of your <em>twelfth-earliest</em> tester, not the day you published the track.</p>
+
+<h2>6. Setting up the closed test so the clock actually starts</h2>
+
+<p>This is where most of the lost time hides. People believe their 14 days started when they uploaded the AAB. It started when a real human opted in.</p>
+
+<h3>Use a Google Group, not an email list</h3>
+
+<p>Play Console lets you invite testers by email list or by Google Group. Both work; the limits are generous either way — you can create up to 200 lists in total, each holding up to 2,000 users, with a maximum of 50 lists per track.</p>
+
+<p>Use the Google Group. With an email list, every change to the tester roster is a change to the track that you save and publish, which adds friction and gives you another chance to break something. With a group (<code>your-testers@googlegroups.com</code>), you add and remove members in the Groups admin and the track configuration never changes. When a tester tells you on day 6 that they used a different Gmail, that is a ten-second fix instead of a re-publish.</p>
+
+<h3>The track must be published before the opt-in link exists</h3>
+
+<p>The opt-in URL only appears once the app's status is <strong>Published</strong> on that track. While it is in Draft or Pending publication, there is no link to send. Google also notes it may take <strong>a few hours</strong> for a newly published test link to become available to testers, and several hours for subsequent updates. Plan a buffer day; do not schedule your recruitment blast for the same hour you hit publish.</p>
+
+<p>Your opt-in URL takes this shape:</p>
+
+<pre><code>https://play.google.com/apps/testing/com.yourcompany.yourapp</code></pre>
+
+<p>Send that link, not a Play Store search link. A tester who searches for your app will not find it — closed testing builds are invisible to anyone who has not opted in through that URL with the same Google account they use on their phone. Say that last part explicitly in your invitation message, because it is the single most common reason a willing tester ends up not counting.</p>
+
+<h3>Run an internal test first</h3>
+
+<p>Internal testing takes up to 100 testers, skips the full review queue, and gets a build in front of people within minutes rather than hours. Google describes it as optional but recommended, and I would treat it as mandatory for your own sake. Find your crashes there. Every bug you ship into the closed track costs you a re-upload and risks a tester giving up on you.</p>
+
+<p>What internal testing does <em>not</em> do is count toward the twelve. The policy names a closed test. Do not spend a week in internal testing thinking the clock is running.</p>
+
+<h3>Freeze your backend</h3>
+
+<p>Two weeks is long enough for you to break your own test. If the app talks to an API you are still building — and on most of the <a href="/mobile-app-development">mobile app projects</a> I take on, it does — version the endpoints before the closed track goes live and stop making breaking changes to them until you have production access. A tester who opens the app on day 9 and sees a blank screen because you renamed a field is a tester you have lost. This is exactly the discipline I describe in my notes on <a href="/blog/api-design-best-practices-2026">API design that survives contact with real clients</a>: additive changes only, never rename or remove a field a shipped client depends on.</p>
+
+<h2>7. How to actually recruit 12 testers who stay</h2>
+
+<p>Nobody tells you this part, so here is what has worked, in descending order of reliability.</p>
+
+<ol>
+<li><strong>People with a stake in the product.</strong> If you are building for a niche — clinics, tutors, delivery drivers, gym owners — ten minutes of asking prospective customers beats a hundred anonymous volunteers. They also give you feedback worth reading, which is what the application form is asking about.</li>
+<li><strong>Your existing WhatsApp and Telegram circles, asked individually.</strong> In my experience a broadcast to a group of 200 gets you two or three testers, while twelve individual messages get you eight or nine. People respond to being asked, not announced at.</li>
+<li><strong>Colleagues and former colleagues.</strong> Developers understand what opting in means and will not need three follow-ups.</li>
+<li><strong>University groups and local tech communities.</strong> Slower, and higher churn, but real people with real devices.</li>
+<li><strong>Reddit and Discord tester-swap groups.</strong> Last resort. They work, technically. The testers install once and never open the app again, which gets you past the counter and straight into an "insufficient tester engagement" rejection. And you are trusting a stranger's account to stay opted in for fourteen days.</li>
+</ol>
+
+<p>Write the invitation so that the recipient can complete it without asking you a question. Mine looks roughly like this:</p>
+
+<div class="post-callout"><p><strong>Invite template:</strong> "I need 14 days of help to get my app approved on Google Play. On your Android phone, open [opt-in link], tap Become a tester, then install from the Play Store. Two things: use the same Google account that is on your phone, and please leave it installed for two weeks — if you uninstall it, my application resets. If you can spend five minutes trying [the main feature] this week I'd owe you one."</p></div>
+
+<p>Explicitly asking them not to uninstall is worth two or three saved slots. Nobody realises it matters unless you tell them.</p>
+
+<h2>8. Testing tracks, side by side</h2>
+
+<table>
+<thead>
+<tr><th>Track</th><th>Max testers</th><th>Counts toward the 12/14 rule</th><th>Build visible in minutes or hours</th><th>Use it for</th></tr>
+</thead>
+<tbody>
+<tr><td>Internal testing</td><td>100</td><td>No</td><td>Minutes</td><td>Crash hunting, QA, paid-app checks</td></tr>
+<tr><td>Closed testing</td><td>Up to 200 lists, 2,000 users per list, 50 lists per track</td><td>Yes — this is the gate</td><td>Hours after first publish</td><td>The 12 testers / 14 days requirement</td></tr>
+<tr><td>Open testing</td><td>Unlimited (optional 1,000 minimum)</td><td>No — the policy names a closed test</td><td>Hours</td><td>Scale testing after production access</td></tr>
+<tr><td>Production</td><td>Everyone</td><td>The thing you are unlocking</td><td>Review dependent</td><td>Launch</td></tr>
+</tbody>
+</table>
+
+<h2>9. What to write in the production access application</h2>
+
+<p>Once your twelve have held for fourteen days, the Dashboard shows an <strong>Apply for production</strong> task. The form has three parts, and each one is a short-answer question that a human reads.</p>
+
+<h3>About your closed test</h3>
+<p>How you recruited testers, how hard it was, whether testers used all available features, and whether their usage matched expected production behaviour. Be specific and be willing to admit friction. An answer in this shape works: "recruited 17, 13 remained opted in at day 14, mostly small clinic owners from my existing network; 9 completed the full booking flow, 4 only registered." That reads as true because it admits friction and reports a number that is not perfect. A flawless-sounding answer reads worse than an honest one.</p>
+
+<h3>About your app or game</h3>
+<p>Target audience, the value proposition, and expected installs — the form asks you to select an estimated install range for the app's <strong>first year</strong>, not for month one. Give a realistic number. If you pick 100,000 installs in year one for a niche B2B tool, you have told the reviewer you do not understand your own market.</p>
+
+<h3>About your production readiness</h3>
+<p>What you changed because of testing, and why you believe the app is ready. This is the part that separates a real closed test from a formality. If your answer is "no changes were needed", you have effectively told Google that fourteen days of testing produced nothing — which either means the test was not real, or the app is trivial. Even small changes count: a confusing button label, a missing Arabic translation, a crash on Android 13, a slow first load.</p>
+
+<p>Keep a running notes file during the fortnight. Every tester complaint, every fix, dated. Writing this form takes twenty minutes if you did that and two hours of invention if you did not — and the invented version is the one that gets rejected.</p>
+
+<h2>10. How long after closed testing until production approval?</h2>
+
+<p>Google states that review of the production access application "usually takes seven days or less, but can occasionally take longer." That is a review of your <em>access</em>, not of the release itself — after you are granted production access, your first production release still goes through the normal app review, and first releases from new developers are not fast.</p>
+
+<p>Here is the timeline I actually quote clients, end to end, assuming the developer account already exists and is verified.</p>
+
+<table>
+<thead>
+<tr><th>Stage</th><th>Realistic elapsed time</th><th>What makes it slower</th></tr>
+</thead>
+<tbody>
+<tr><td>Account creation and identity verification</td><td>2–14 days (personal); up to 30+ days if you need a D-U-N-S number</td><td>Documents that don't match the account name</td></tr>
+<tr><td>Internal test, crash fixing</td><td>3–7 days</td><td>Finding real bugs, which is the point</td></tr>
+<tr><td>Closed track published, opt-in link live</td><td>Same day to +1 day</td><td>Link takes a few hours to activate</td></tr>
+<tr><td>Recruiting 17–18 testers to opted-in state</td><td>2–5 days</td><td>People say yes and don't click; chase individually</td></tr>
+<tr><td>The 14-day continuous window</td><td>14 days, counted from your 12th tester</td><td>Attrition — this is why you recruit 17+</td></tr>
+<tr><td>Production access review</td><td>Usually ≤ 7 days</td><td>Weak engagement answers; policy issues</td></tr>
+<tr><td>First production release review</td><td>A few days to 2 weeks</td><td>Data safety mismatches, sensitive permissions, first-time developer</td></tr>
+<tr><td><strong>Total, realistic</strong></td><td><strong>5–8 weeks from zero</strong></td><td>—</td></tr>
+</tbody>
+</table>
+
+<p>If someone has promised you "on the store next week", that promise was made by someone who has not published on Play since 2023.</p>
+
+<h2>11. The requirements that will still block you after you pass</h2>
+
+<p>Clearing the 12/14 gate unlocks the door. It does not mean your release is approved. As of August 2026, these are the ones I see catch people.</p>
+
+<ul>
+<li><strong>Target API level.</strong> From <strong>31 August 2026</strong>, new apps and app updates must target <strong>Android 16 (API level 36)</strong> or higher. Wear OS and Android Automotive must target API 35 or higher; Android TV and Android XR, API 34 or higher. Google says an extension to 1 November 2026 can be requested, with the extension forms becoming accessible in Play Console later in 2026 — they are not live yet. Check the current page before you build; this deadline moves every August.</li>
+<li><strong>Data safety form.</strong> It must match what your app actually does. If your SDKs collect an advertising ID and your form says you collect nothing, that is a rejection, and it is the most common one I see. Enumerate every third-party SDK before you fill it in.</li>
+<li><strong>Sensitive permissions.</strong> Location in the background, SMS, call log, accessibility services, and all-files access each need a declaration and a justification, and often a demo video. Budget a day.</li>
+<li><strong>Account deletion.</strong> If your app has accounts, you must offer in-app deletion and a web URL where a user can request deletion without reinstalling. Build the web endpoint; people forget it.</li>
+<li><strong>Privacy policy.</strong> A live URL, reachable, matching your data safety declarations. Not a PDF, not a page behind a login.</li>
+<li><strong>Payments.</strong> Digital goods consumed inside the app generally must use Google Play Billing. Physical goods and services do not. Get this wrong in either direction and you either lose 15–30% you did not need to lose, or you get removed.</li>
+</ul>
+
+<p>If your app touches user accounts, tokens or payments, the fortnight of closed testing is a good moment to run the same hardening pass I use on web projects — the same categories in my <a href="/blog/website-security-checklist">website security checklist</a> apply almost one-to-one to a mobile backend.</p>
+
+<h2>12. What I would tell you not to do</h2>
+
+<p><strong>Do not buy testers.</strong> There is an entire cottage industry selling "12 verified testers, 14 days, guaranteed". Sometimes they deliver installs. What they cannot deliver is engagement, and engagement is a stated rejection reason. You will pay, wait two weeks, and get told to keep testing — with a paper trail linking your account to a service that sells this.</p>
+
+<p><strong>Do not restart the track to "fix" something.</strong> Unpublishing and republishing a closed track is the fastest way to destroy fourteen days of accumulated continuity. If you must ship a fix, upload a new build to the same track. The opt-in state persists; the track identity is what matters.</p>
+
+<p><strong>Do not apply on day 14 at 11pm.</strong> Apply on day 15 or 16, with 13 or 14 testers showing, so a single unlucky uninstall does not invalidate the submission.</p>
+
+<p><strong>Do not wait on this gate if you have a web product to launch.</strong> This is the advice that costs me money and I give it anyway. If your app is essentially a wrapper around a responsive web experience, a <a href="/blog/progressive-web-apps-2026">progressive web app</a> puts you in front of users this week with no store review at all, and you can run the Play submission in parallel as a distribution channel rather than a dependency. I have shipped both; for a meaningful class of products the PWA is the better first move and the native app is the second.</p>
+
+<p><strong>Do not treat the fortnight as dead time.</strong> Two weeks is enough to finish your onboarding, write your store listing properly, get your screenshots done, and set up analytics. Founders who idle through the window arrive at production access with an app that is technically approved and commercially unready.</p>
+
+<h2>13. The verdict</h2>
+
+<p>The 12-tester rule is annoying, it is not hard, and it is not the thing that will decide whether your app succeeds. It is a two-to-three week tax on a personal developer account, and the only way to fail it is to start late, recruit exactly twelve, or fake it.</p>
+
+<p>Do these five things and you will pass on the first attempt:</p>
+
+<ol>
+<li>Recruit <strong>17 or 18</strong>, not 12.</li>
+<li>Use a Google Group so roster changes cost nothing.</li>
+<li>Tell every tester, in writing, not to uninstall.</li>
+<li>Keep a dated log of feedback and fixes, so the application writes itself.</li>
+<li>Apply on day 15, not day 14.</li>
+</ol>
+
+<p>I have taken seven apps through Google Play across Egyptian, Gulf and European clients, and you can see the range of work on my <a href="/portfolios">portfolio</a>. The pattern I keep seeing is that the store gate is never the real bottleneck — the real bottleneck is a backend that was not ready for fourteen days of real users, which is why I plan the API and the data model before the first screen gets designed, the same way I approach <a href="/blog/build-saas-mvp-laravel-react-2026">building a SaaS MVP</a>.</p>
+
+<p>If you are blocked at this gate right now, or you would rather hand the whole publishing process to someone who has done it repeatedly, take a look at how I structure <a href="/services">development engagements</a> and then <a href="/contact">send me the details of where you're stuck</a>. Free consultation, a fixed-fee quote, and I reply within 24 hours.</p>
+HTML,
+                'content_ar' => <<<'HTMLAR'
+<p class="lead">شرط الاختبار المغلق في Google Play حقيقي ولا يقبل الاستئناف، ومعظم من يتعثّر عنده يتعثّر لسببين فقط: بدأ عدّ الأربعة عشر يومًا متأخرًا عمّا يظن، وثلث المختبرين حذفوا التطبيق بصمت. أنا خالد أحمد، مطوّر Full Stack من القاهرة، ولديّ سبعة تطبيقات منشورة فعليًا على Google Play. في هذا الدليل النص الحرفي للسياسة كما هو في أغسطس 2026، وكيف تجتاز الشرط خلال ثلاثة أسابيع، وأي اختصار سيكلّفك حسابك كاملًا.</p>
+
+<h2>1. نص الشرط كما كتبته Google</h2>
+
+<p>إذا أنشأت حساب مطوّر <strong>شخصيًا</strong> على Google Play بعد <strong>13 نوفمبر 2023</strong>، فلن تستطيع النشر في Production قبل تشغيل اختبار مغلق يستوفي حدًا رقميًا محددًا. النص في صفحات المساعدة الرسمية واضح.</p>
+
+<div class="post-callout"><p><strong>نص السياسة كما ورد في صفحة مساعدة Google:</strong> "At least 12 testers must be opted in to your closed test when you apply for production access, and they must have been opted in continuously for the preceding 14 days." وترجمته: يجب أن يكون <strong>12 مختبرًا على الأقل</strong> مشتركين في الاختبار المغلق لحظة تقديم طلب الوصول إلى Production، وأن يكونوا مشتركين <strong>بشكل متصل خلال الأربعة عشر يومًا السابقة</strong>. وتضيف Google أن من يشترك ثم يختبر أقل من 14 يومًا ثم ينسحب لا يُحتسب، وأن من ينسحب ثم يعود يجب أن تكون الأربعة عشر يومًا متتالية حتى تُحتسب ضمن الحد الأدنى.</p></div>
+
+<p>ثلاث عبارات في هذه الجملة هي مصدر كل المشكلات، وأغلب الناس يمرّون عليها مرور الكرام:</p>
+
+<ul>
+<li><strong>"12 على الأقل"</strong> — هذا هو الحد لحظة الضغط على زر التقديم، لا متوسطًا على مدى الأسبوعين. أحد عشر مختبرًا في اللحظة الخطأ يعني أنك لا تزال تنتظر.</li>
+<li><strong>"مشتركون"</strong> — لا "مدعوّون"، ولا "أرسلتُ لهم الرابط"، ولا "حمّلوا ملف APK أرسلتُه عبر WhatsApp". يجب أن يفتح المختبر رابط الاشتراك بحساب Google ويثبّت التطبيق من متجر Play نفسه.</li>
+<li><strong>"بشكل متصل خلال 14 يومًا"</strong> — الأشخاص الاثنا عشر أنفسهم، دون انقطاع. من ينضم في اليوم التاسع يبدأ عدّاده من الصفر.</li>
+</ul>
+
+<p>وملاحظة صادقة قبل أن تبني جدولك الزمني على هذا: بدأ الشرط أصلًا عند <strong>20 مختبرًا</strong> ثم خفّضته Google إلى 12. لم أتمكّن من توثيق تاريخ الإعلان الدقيق من صفحات المساعدة الحالية، لأنها توثّق الرقم المعمول به اليوم فقط. لذا اعتبر الرقم 12 صحيحًا حتى أغسطس 2026، وراجع الصفحة بنفسك قبل أن تعد عميلًا بتاريخ إطلاق. هذه سياسة سبق أن تغيّرت مرة.</p>
+
+<h2>2. هل ينطبق الشرط على حسابات الشركات؟</h2>
+
+<p>حسب النص المنشور: لا. الشرط يخصّ <strong>الحسابات الشخصية المنشأة بعد 13 نوفمبر 2023</strong>، ولا يمتدّ في الوثائق إلى حسابات المؤسسات (Organization). وهذا عمليًا أكبر فرق بنيوي بين نوعَي الحساب اليوم.</p>
+
+<p>يبدو الأمر ثغرة. وهو في الغالب ليس كذلك، لسبب لا يذكره أحد إلا بعد أن تكون قد أضعت ثلاثة أسابيع.</p>
+
+<p>حساب المؤسسة يتطلّب رقم <strong>D-U-N-S</strong> من Dun &amp; Bradstreet، إضافةً إلى اسم الشركة وعنوانها ورقم هاتفها وموقعها الإلكتروني، كلها موثّقة. واستخراج رقم D-U-N-S قد يستغرق <strong>حتى 30 يومًا</strong>، وفي مصر وبعض دول الخليج يستغرق عادةً أكثر من ذلك لأن السجل يُنشأ من الصفر بدل أن يُستدعى من قاعدة بيانات قائمة. أي أن "الاختصار" المتمثّل في التسجيل كشركة لتفادي أسبوعين من الاختبار قد يكلّفك وقتًا أطول من الاختبار نفسه، فضلًا عن سجل تجاري قد لا يكون لديك أصلًا.</p>
+
+<p>القاعدة التي أعمل بها: إن كانت لديك شركة مسجّلة ورقم D-U-N-S جاهز أو سريع الاستخراج، افتح حساب مؤسسة — فهو الخيار الأفضل على المدى الطويل لأن الاسم الظاهر في المتجر سيكون اسم الشركة، وهذا يفرق كثيرًا مع العملاء في السعودية والإمارات. أما إن كنت مؤسسًا منفردًا تطلق منتجك الأول، فخذ الحساب الشخصي والأربعة عشر يومًا. هو أسرع، وأنت محتاج إلى مختبرين على أي حال.</p>
+
+<h2>3. هل يجب أن يكون المختبرون نشطين طوال الأربعة عشر يومًا؟</h2>
+
+<p>يجب أن يكونوا <strong>مشتركين</strong> طوال المدة. وهذا شيء مختلف عن كونهم نشطين، والفرق بين الأمرين هو مصدر أغلب الإحباط.</p>
+
+<p>الشرط الميكانيكي هو استمرار الاشتراك: بقاء الحساب داخل الاختبار المغلق وبقاء التطبيق مثبّتًا. لا أحد مُلزَم بفتح التطبيق يوميًا. لكن الرقم ليس كل المراجعة. عند تقديم الطلب تسألك Google ثلاث مجموعات من الأسئلة، إحداها عن التفاعل صراحةً: هل استخدم المختبرون كل الميزات المتاحة؟ وهل تطابق استخدامهم مع سلوك المستخدم الحقيقي المتوقّع؟ ومن بين أسباب الرفض التي تذكرها Google نفسها: <strong>ضعف تفاعل المختبرين</strong>، إلى جانب انخفاض العدد عن 12.</p>
+
+<p>فالجواب الصادق: اثنا عشر تثبيتًا خاملًا يُرضي العدّاد وقد يسقط في المراجعة. الطلبات التي تمرّ بسلاسة — بحسب ما رأيته — هي التي أكمل فيها المختبرون الدورة الأساسية فعلًا: التسجيل، ثم الإجراء الرئيسي الذي وُجد التطبيق من أجله، ثم الوصول إلى شاشة الدفع أو الإرسال. ويستطيع المطوّر وصف ذلك في جملتين محددتين بدل عبارة "جرّبوا التطبيق وعمل جيدًا".</p>
+
+<p>عمليًا، اطلب من كل مختبر ثلاثة أشياء خلال الأسبوعين: التثبيت والتسجيل في اليوم الأول، إتمام المسار الرئيسي مرة واحدة في الأسبوع الأول، وفتحه مرة أخرى في الأسبوع الثاني. عشر دقائق من وقته، وتجعل الطلب قابلًا للإجابة.</p>
+
+<h2>4. هل أستطيع استخدام أجهزتي أو حسابات عائلتي؟</h2>
+
+<p>تقنيًا، لا يوجد في الوثائق المنشورة نص يشترط أن يكون المختبرون غرباء. كل مختبر هو حساب Google مستقل، ولا تنشر Google قاعدة تستبعد الأقارب. أقول لك بوضوح ما تقوله الوثيقة وما لا تقوله، لأن كثيرًا من المقالات العربية تؤكّد وجود منعٍ غير مكتوب.</p>
+
+<p>أما الحكم المهني، وهو أهم من حرفية النص: <strong>لا تبنِ الاثني عشر من حسابات تسيطر عليها أنت.</strong></p>
+
+<ul>
+<li><strong>هذه مراجعة يقرأها بشر.</strong> النموذج يسألك كيف استقطبت المختبرين، وكم كان ذلك صعبًا، وماذا غيّرت بناءً على ملاحظاتهم. اثنا عشر حسابًا على جهازين لا ينتجون ملاحظات، وإجاباتك ستُقرأ على حقيقتها.</li>
+<li><strong>الإشارات تتجمّع.</strong> اثنا عشر حسابًا أُنشئت في الأسبوع نفسه، على عدد قليل من الأجهزة، من عنوان IP واحد، اشتركت جميعها خلال ساعة، ولم يفتح أيٌّ منها التطبيق بعدها. لا تحتاج إلى معرفة خوارزميات Google لتعرف أن هذا نمط.</li>
+<li><strong>الخسارة غير متكافئة.</strong> المكسب من التحايل هو توفير أسبوع من طلب المعروف. والخسارة هي إيقاف حساب مطوّر مرتبط بهويتك الشخصية، والعودة منه صعبة جدًا. صفقة سيئة مقابل أسبوع.</li>
+</ul>
+
+<p>الحل الوسط المعقول: حسابك الثاني، وشريكك في التأسيس، وصديقان أو ثلاثة سيستخدمون التطبيق فعلًا — هذا طبيعي تمامًا. وتسعة أشخاص يهتمون بالمشكلة التي تحلّها هم ما يجعل الطلب قويًا. الخلط مقبول. الاختلاق لا.</p>
+
+<h2>5. ماذا يحدث إذا انسحب مختبر في المنتصف؟</h2>
+
+<p>يُصفَّر عدّاده. لا يتوقّف مؤقتًا — يُصفَّر. Google صريحة في أن من ينسحب ثم يعود يجب أن تكون أيامه الأربعة عشر متتالية.</p>
+
+<p>والأسوأ أن "الانسحاب" ليس دائمًا فعلًا متعمّدًا. هذه هي الطرق التي رأيت بها العدد ينخفض بصمت:</p>
+
+<ul>
+<li>يحذف المختبر التطبيق لتوفير مساحة على هاتفه. وحذف التطبيق وحده لا يُخرجه من قائمة المختبرين على أغلب الأجهزة، لكنه يلغي التثبيت، ولا يصحّ أن تراهن على هذا الفرق.</li>
+<li>يعيد ضبط الجهاز أو يغيّر هاتفه ولا يعيد التثبيت أبدًا.</li>
+<li>يضغط على رابط إلغاء الاشتراك في صفحة الاختبار بدافع الفضول.</li>
+<li>اشترك بحساب Google مختلف عن الحساب الموجود على جهازه، فلم يثبّت شيئًا ولم يدخل الاختبار أصلًا.</li>
+<li>عدّلتَ أنت قائمة البريد وحذفتَ أحدهم بالخطأ أثناء إعادة الحفظ.</li>
+</ul>
+
+<p>الدفاع هو الاحتياطي وجدول متابعة. استقطب <strong>17 أو 18 مختبرًا لا 12</strong>. افترض تسرّبًا بنسبة 20 إلى 25 بالمئة خلال أسبوعين، وهي النسبة التي أخطّط على أساسها — وبهذا المعدل يبقى ثمانية عشر مرشحًا فوق الحد بمسافة مريحة، بينما اثنا عشر يسقطون تحته. واحتفظ بسجلك الخاص، لأن واجهة عدّ المختبرين في Play Console تغيّرت أكثر من مرة، ولا يصحّ أن تكتشف النقص في اليوم الذي نويت التقديم فيه.</p>
+
+<pre><code>email,invited_on,opted_in_on,day14_on,installed,notes
+a@example.com,2026-09-01,2026-09-01,2026-09-15,yes,أتمّ التسجيل
+b@example.com,2026-09-01,2026-09-02,2026-09-16,yes,
+c@example.com,2026-09-01,,,no,لم يفتح الرابط - يحتاج متابعة
+</code></pre>
+
+<p>العمود الوحيد المهم هو <code>day14_on</code>. تاريخ تقديمك هو اليوم الرابع عشر لـ<strong>المختبر الثاني عشر من حيث الأسبقية</strong>، لا اليوم الذي نشرت فيه المسار.</p>
+
+<h2>6. إعداد الاختبار المغلق حتى يبدأ العدّ فعلًا</h2>
+
+<p>هنا يضيع أغلب الوقت. الناس يظنون أن الأربعة عشر يومًا بدأت لحظة رفع ملف AAB. هي تبدأ لحظة اشتراك إنسان حقيقي.</p>
+
+<h3>استخدم Google Group لا قائمة بريد</h3>
+
+<p>يتيح Play Console دعوة المختبرين عبر قوائم بريد أو عبر Google Groups. كلاهما يعمل، والحدود سخيّة: يمكنك إنشاء ما يصل إلى 200 قائمة إجمالًا، كل قائمة تتّسع لـ2000 مستخدم، بحد أقصى 50 قائمة لكل مسار.</p>
+
+<p>استخدم Google Group. مع قائمة البريد، كل تعديل على المختبرين هو تعديل على المسار يجب حفظه ونشره، وهذا احتكاك إضافي وفرصة إضافية لكسر شيء. أما مع المجموعة (<code>your-testers@googlegroups.com</code>) فأنت تضيف وتحذف الأعضاء من إدارة Groups دون المساس بإعدادات المسار إطلاقًا. وحين يخبرك مختبر في اليوم السادس أنه استخدم بريدًا آخر، يصبح الأمر تعديلًا يستغرق عشر ثوانٍ بدل إعادة نشر.</p>
+
+<h3>لا يوجد رابط اشتراك قبل نشر المسار</h3>
+
+<p>لا يظهر رابط الاشتراك إلا بعد أن تصبح حالة التطبيق <strong>Published</strong> على ذلك المسار. وما دام في حالة Draft أو Pending publication فلا رابط لترسله. وتشير Google إلى أن ظهور الرابط للمختبرين قد يستغرق <strong>بضع ساعات</strong> بعد النشر الأول، وعدة ساعات مع التحديثات اللاحقة. خصّص يومًا احتياطيًا، ولا تحدّد موعد حملة الاستقطاب في الساعة نفسها التي تضغط فيها زر النشر.</p>
+
+<p>شكل رابط الاشتراك:</p>
+
+<pre><code>https://play.google.com/apps/testing/com.yourcompany.yourapp</code></pre>
+
+<p>أرسل هذا الرابط تحديدًا، لا رابط بحث في المتجر. من يبحث عن اسم تطبيقك لن يجده: نسخ الاختبار المغلق غير مرئية لمن لم يشترك عبر ذلك الرابط بالحساب نفسه الموجود على هاتفه. اذكر هذه الجملة الأخيرة صراحةً في رسالة الدعوة، فهي السبب الأول في أن مختبرًا متعاونًا ينتهي به الأمر خارج العدّ.</p>
+
+<h3>شغّل اختبارًا داخليًا أولًا</h3>
+
+<p>يتّسع الاختبار الداخلي (Internal testing) لـ100 مختبر، ويتجاوز طابور المراجعة الكاملة، ويضع النسخة أمام الناس خلال دقائق لا ساعات. تصفه Google بأنه اختياري لكنه موصى به، وأنا أعامله كإلزامي لمصلحتك أنت. اعثر على الأعطال هناك. كل خطأ يصل إلى المسار المغلق يكلّفك رفعة جديدة ويخاطر بأن يفقد المختبر حماسه.</p>
+
+<p>ما لا يفعله الاختبار الداخلي هو الاحتساب ضمن الاثني عشر. السياسة تنصّ على اختبار <strong>مغلق</strong>. لا تقضِ أسبوعًا في Internal testing ظنًا منك أن العدّاد يعمل.</p>
+
+<h3>جمّد الواجهة الخلفية</h3>
+
+<p>أسبوعان مدة كافية لتكسر اختبارك بنفسك. إن كان التطبيق يتحدث إلى API لا تزال تبنيه — وهذا حال أغلب <a href="/ar/mobile-app-development">مشاريع تطبيقات الجوال</a> التي أعمل عليها — فأصدر نسخة من المسارات قبل نشر المسار المغلق، وتوقّف عن التغييرات الكاسرة حتى تحصل على إذن النشر. المختبر الذي يفتح التطبيق في اليوم التاسع فيجد شاشة فارغة لأنك غيّرت اسم حقل هو مختبر خسرته. هذا بالضبط الانضباط الذي أشرحه في مقالي عن <a href="/ar/blog/api-design-best-practices-2026">تصميم واجهات API التي تصمد أمام الاستخدام الحقيقي</a>: إضافة الحقول مسموحة، وإعادة تسميتها أو حذفها ممنوعة ما دام هناك عميل منشور يعتمد عليها.</p>
+
+<h2>7. كيف تجمع 12 مختبرًا يبقون فعلًا</h2>
+
+<p>هذا الجزء لا يشرحه أحد، فإليك ما نجح معي مرتّبًا من الأعلى موثوقية إلى الأدنى.</p>
+
+<ol>
+<li><strong>أصحاب المصلحة في المنتج.</strong> إن كنت تبني لقطاع محدد — عيادات، معلمين خصوصيين، مندوبي توصيل، أصحاب صالات رياضية — فعشر دقائق من سؤال عملاء محتملين تتفوّق على مئة متطوّع مجهول. وهؤلاء يعطونك ملاحظات تستحق القراءة، وهي بالضبط ما يسأل عنه النموذج.</li>
+<li><strong>دوائرك في WhatsApp وTelegram، بالمراسلة الفردية.</strong> في تجربتي، رسالة جماعية في مجموعة من 200 شخص تعطيك مختبرَين أو ثلاثة، بينما اثنتا عشرة رسالة فردية تعطيك ثمانية أو تسعة. الناس تستجيب لمن يسألها، لا لمن يعلن عليها.</li>
+<li><strong>الزملاء الحاليون والسابقون.</strong> المطوّرون يفهمون معنى الاشتراك ولن يحتاجوا إلى ثلاث متابعات.</li>
+<li><strong>مجموعات الجامعات ومجتمعات التقنية المحلية.</strong> أبطأ، ونسبة التسرّب فيها أعلى، لكنهم أشخاص حقيقيون بأجهزة حقيقية.</li>
+<li><strong>مجموعات تبادل المختبرين على Reddit وDiscord.</strong> الملاذ الأخير. تعمل تقنيًا. المختبر يثبّت مرة ولا يفتح التطبيق بعدها أبدًا، فتعبر العدّاد وتسقط مباشرةً في رفض بسبب "ضعف التفاعل". وأنت تراهن على بقاء حساب شخص غريب مشتركًا أربعة عشر يومًا.</li>
+</ol>
+
+<p>اكتب الدعوة بحيث ينفّذها المستلم دون أن يسألك سؤالًا. نصّي تقريبًا:</p>
+
+<div class="post-callout"><p><strong>نموذج دعوة:</strong> "محتاج مساعدتك 14 يوم عشان أقدر أنشر التطبيق على Google Play. من هاتف Android: افتح [الرابط]، اضغط Become a tester، ثم ثبّت التطبيق من المتجر. نقطتان مهمتان: استخدم حساب Google نفسه الموجود على هاتفك، ومن فضلك اترك التطبيق مثبّتًا أسبوعين — لو حذفته يتصفّر طلبي من البداية. ولو تعطيني خمس دقائق تجرّب فيها [الميزة الأساسية] هذا الأسبوع، أكون شاكرًا."</p></div>
+
+<p>مجرّد طلب عدم الحذف صراحةً يوفّر عليك مقعدين أو ثلاثة. لا أحد يدرك أن ذلك مهم ما لم تخبره.</p>
+
+<h2>8. مقارنة مسارات الاختبار</h2>
+
+<table>
+<thead>
+<tr><th>المسار</th><th>الحد الأقصى للمختبرين</th><th>يُحتسب ضمن شرط 12/14؟</th><th>سرعة وصول النسخة</th><th>الاستخدام المناسب</th></tr>
+</thead>
+<tbody>
+<tr><td>Internal testing</td><td>100</td><td>لا</td><td>دقائق</td><td>اصطياد الأعطال وفحص الجودة</td></tr>
+<tr><td>Closed testing</td><td>حتى 200 قائمة، 2000 مستخدم لكل قائمة، 50 قائمة لكل مسار</td><td>نعم — هذه هي البوابة</td><td>ساعات بعد النشر الأول</td><td>استيفاء شرط 12 مختبرًا و14 يومًا</td></tr>
+<tr><td>Open testing</td><td>غير محدود (يمكن ضبط حد أدنى 1000)</td><td>لا — النص يذكر اختبارًا مغلقًا</td><td>ساعات</td><td>اختبار على نطاق أوسع بعد الحصول على الإذن</td></tr>
+<tr><td>Production</td><td>الجميع</td><td>هو ما تسعى لفتحه</td><td>حسب المراجعة</td><td>الإطلاق</td></tr>
+</tbody>
+</table>
+
+<h2>9. ماذا تكتب في طلب الوصول إلى Production</h2>
+
+<p>بعد اكتمال أربعة عشر يومًا لاثني عشر مختبرًا، تظهر في لوحة Play Console مهمة <strong>Apply for production</strong>. النموذج ثلاثة أقسام، وكل سؤال فيه إجابة قصيرة يقرأها مراجع بشري.</p>
+
+<h3>عن الاختبار المغلق</h3>
+<p>كيف استقطبت المختبرين، وكم كان ذلك صعبًا، وهل استخدموا كل الميزات، وهل طابق استخدامهم السلوك المتوقّع في Production. كن محددًا ولا تتردّد في الاعتراف بالصعوبة. إجابة على هذه الشاكلة تفي بالغرض: "استقطبت 17، بقي 13 مشتركين حتى اليوم الرابع عشر، أغلبهم أصحاب عيادات صغيرة من شبكة معارفي؛ أكمل 9 منهم مسار الحجز كاملًا، و4 اكتفوا بالتسجيل". هذه الصيغة تُقرأ كأنها صادقة لأنها تعترف بالنقص وتذكر رقمًا غير مثالي. والإجابة المصقولة أكثر من اللازم تبدو أسوأ من الإجابة الصادقة.</p>
+
+<h3>عن التطبيق</h3>
+<p>الجمهور المستهدف، وقيمة المنتج، وحجم التنزيلات المتوقّع — والنموذج يطلب اختيار نطاق تقديري للتنزيلات خلال <strong>السنة الأولى</strong>، لا خلال الشهر الأول. اكتب رقمًا واقعيًا. إن اخترت 100 ألف تنزيل في السنة الأولى لأداة B2B متخصصة، فأنت تخبر المراجع أنك لا تفهم سوقك.</p>
+
+<h3>عن الجاهزية للنشر</h3>
+<p>ما الذي غيّرته بسبب الاختبار، ولماذا تعتقد أن التطبيق جاهز. هذا القسم هو ما يفصل بين اختبار حقيقي وإجراء شكلي. إن كانت إجابتك "لم يلزم أي تغيير"، فأنت تخبر Google أن أربعة عشر يومًا لم تنتج شيئًا — وهذا يعني إما أن الاختبار لم يكن حقيقيًا، أو أن التطبيق تافه. حتى التغييرات الصغيرة تُحتسب: تسمية زر مربكة، ترجمة عربية ناقصة، انهيار على Android 13، بطء في التحميل الأول.</p>
+
+<p>احتفظ بملف ملاحظات يومي طوال الأسبوعين: كل شكوى مختبر، وكل إصلاح، بتاريخه. كتابة هذا النموذج تستغرق عشرين دقيقة إن فعلت ذلك، وساعتين من التأليف إن لم تفعل — والنسخة المؤلَّفة هي التي تُرفض.</p>
+
+<h2>10. كم يستغرق الأمر حتى الموافقة النهائية؟</h2>
+
+<p>تقول Google إن مراجعة طلب الوصول إلى Production تستغرق عادةً <strong>سبعة أيام أو أقل، وقد تطول أحيانًا</strong>. وهذه مراجعة لـ<em>الإذن</em> لا للإصدار نفسه؛ فبعد منحك الإذن، يمرّ أول إصدار إنتاجي بمراجعة التطبيق المعتادة، ومراجعات المطوّرين الجدد ليست سريعة.</p>
+
+<p>هذا هو الجدول الذي أعطيه لعملائي من البداية إلى النهاية، بافتراض أن حساب المطوّر موجود وموثّق.</p>
+
+<table>
+<thead>
+<tr><th>المرحلة</th><th>المدة الواقعية</th><th>ما الذي يبطئها</th></tr>
+</thead>
+<tbody>
+<tr><td>إنشاء الحساب وتوثيق الهوية</td><td>2–14 يومًا (شخصي)؛ 30 يومًا أو أكثر إن لزم رقم D-U-N-S</td><td>عدم تطابق اسم المستندات مع اسم الحساب</td></tr>
+<tr><td>الاختبار الداخلي وإصلاح الأعطال</td><td>3–7 أيام</td><td>اكتشاف أخطاء حقيقية، وهذا هو المقصود</td></tr>
+<tr><td>نشر المسار المغلق وتفعيل الرابط</td><td>اليوم نفسه إلى يوم إضافي</td><td>الرابط يحتاج بضع ساعات ليعمل</td></tr>
+<tr><td>استقطاب 17–18 مختبرًا حتى الاشتراك الفعلي</td><td>2–5 أيام</td><td>الناس توافق ولا تضغط الرابط؛ تابع فرديًا</td></tr>
+<tr><td>نافذة الأربعة عشر يومًا المتصلة</td><td>14 يومًا تُحسب من المختبر الثاني عشر</td><td>التسرّب — ولهذا تستقطب 17 فأكثر</td></tr>
+<tr><td>مراجعة طلب الوصول إلى Production</td><td>عادةً 7 أيام أو أقل</td><td>ضعف إجابات التفاعل، أو مخالفات سياسات</td></tr>
+<tr><td>مراجعة أول إصدار إنتاجي</td><td>أيام إلى أسبوعين</td><td>تعارض نموذج Data safety، أذونات حسّاسة، مطوّر جديد</td></tr>
+<tr><td><strong>الإجمالي الواقعي</strong></td><td><strong>5 إلى 8 أسابيع من الصفر</strong></td><td>—</td></tr>
+</tbody>
+</table>
+
+<p>إذا وعدك أحدهم بأن التطبيق سيكون على المتجر الأسبوع القادم، فهو لم ينشر على Google Play منذ 2023.</p>
+
+<h2>11. عقبات تنتظرك بعد اجتياز الشرط</h2>
+
+<p>اجتياز بوابة 12/14 يفتح الباب فقط. لا يعني أن إصدارك مقبول. حتى أغسطس 2026، هذه هي العقبات التي أراها توقف الناس:</p>
+
+<ul>
+<li><strong>مستوى API المستهدف.</strong> اعتبارًا من <strong>31 أغسطس 2026</strong>، يجب أن تستهدف التطبيقات الجديدة وتحديثاتها <strong>Android 16 (API 36)</strong> أو أعلى. أما Wear OS وAndroid Automotive فـAPI 35 أو أعلى، وAndroid TV وAndroid XR فـAPI 34 أو أعلى. وتقول Google إنه يمكن طلب تمديد حتى 1 نوفمبر 2026، على أن تتاح نماذج التمديد في Play Console لاحقًا خلال 2026 — أي أنها ليست متاحة بعد. راجع الصفحة قبل البناء؛ هذا الموعد يتحرّك كل أغسطس.</li>
+<li><strong>نموذج Data safety.</strong> يجب أن يطابق ما يفعله تطبيقك فعلًا. إذا كانت مكتبات الطرف الثالث لديك تجمع معرّف الإعلانات ونموذجك يقول إنك لا تجمع شيئًا، فهذا رفض مؤكد، وهو الأكثر شيوعًا في تجربتي. أحصِ كل SDK قبل ملء النموذج.</li>
+<li><strong>الأذونات الحسّاسة.</strong> الموقع في الخلفية، والرسائل، وسجل المكالمات، وخدمات إمكانية الوصول، والوصول إلى كل الملفات — كلٌّ منها يحتاج إقرارًا وتبريرًا، وغالبًا مقطع فيديو توضيحيًا. خصّص لها يومًا.</li>
+<li><strong>حذف الحساب.</strong> إن كان تطبيقك يتضمّن حسابات مستخدمين، فعليك توفير حذف الحساب داخل التطبيق ورابط ويب يطلب منه المستخدم الحذف دون إعادة التثبيت. ابنِ صفحة الويب؛ الناس تنساها.</li>
+<li><strong>سياسة الخصوصية.</strong> رابط حي يعمل، مطابق لإقرارات Data safety. ليس ملف PDF، وليس صفحة خلف تسجيل دخول.</li>
+<li><strong>المدفوعات.</strong> السلع الرقمية المستهلكة داخل التطبيق يجب أن تمرّ عبر Google Play Billing عمومًا، أما السلع والخدمات المادية فلا. الخطأ في أي من الاتجاهين يعني إما خسارة 15 إلى 30 بالمئة بلا داعٍ، وإما إزالة التطبيق.</li>
+</ul>
+
+<p>إن كان تطبيقك يتعامل مع حسابات أو رموز مصادقة أو مدفوعات، فأسبوعا الاختبار المغلق فرصة ممتازة لإجراء نفس جولة التحصين التي أطبّقها على مشاريع الويب — فبنود <a href="/ar/blog/website-security-checklist">قائمة أمان الموقع</a> تنطبق على الواجهة الخلفية للتطبيق بنسبة تكاد تكون كاملة.</p>
+
+<h2>12. ما الذي أنصحك بعدم فعله</h2>
+
+<p><strong>لا تشترِ مختبرين.</strong> هناك سوق كاملة تبيع "12 مختبرًا موثّقًا، 14 يومًا، بضمان". أحيانًا يسلّمون تثبيتات فعلية. لكن ما لا يستطيعون تسليمه هو التفاعل، والتفاعل سبب رفض معلن. ستدفع، وتنتظر أسبوعين، ثم يُطلب منك مواصلة الاختبار — مع أثر رقمي يربط حسابك بخدمة تبيع هذا.</p>
+
+<p><strong>لا تعِد نشر المسار لإصلاح شيء.</strong> إلغاء نشر مسار مغلق ثم إعادة نشره أسرع طريقة لتدمير أربعة عشر يومًا من الاستمرارية المتراكمة. إن اضطررت لإصلاح، ارفع نسخة جديدة على المسار نفسه. حالة الاشتراك تبقى؛ هوية المسار هي المهمة.</p>
+
+<p><strong>لا تقدّم الطلب في اليوم الرابع عشر الساعة الحادية عشرة ليلًا.</strong> قدّمه في اليوم الخامس عشر أو السادس عشر، ولديك 13 أو 14 مختبرًا، حتى لا يُبطل حذفٌ واحد غير محظوظ طلبك كله.</p>
+
+<p><strong>لا تنتظر هذه البوابة إن كان لديك منتج ويب جاهز للإطلاق.</strong> هذه نصيحة تكلّفني مالًا وأقولها على أي حال. إن كان تطبيقك في جوهره غلافًا حول تجربة ويب متجاوبة، فإن <a href="/ar/blog/progressive-web-apps-2026">تطبيق الويب التقدّمي (PWA)</a> يضعك أمام المستخدمين هذا الأسبوع بلا مراجعة متجر إطلاقًا، ويمكنك تشغيل مسار Google Play بالتوازي كقناة توزيع لا كشرط مسبق. نشرت الاثنين، ولفئة معتبرة من المنتجات يكون PWA هو الخطوة الأولى الأصح، والتطبيق الأصلي هو الثانية.</p>
+
+<p><strong>لا تعامل الأسبوعين كوقت ميت.</strong> أسبوعان تكفيان لإنهاء تجربة الإعداد (onboarding)، وكتابة وصف المتجر كما يجب، وتجهيز لقطات الشاشة، وضبط التحليلات. المؤسسون الذين يمرّون على النافذة خاملين يصلون إلى إذن النشر بتطبيق مقبول تقنيًا وغير جاهز تجاريًا.</p>
+
+<h2>13. الخلاصة</h2>
+
+<p>شرط الاثني عشر مختبرًا مزعج، لكنه ليس صعبًا، وليس هو ما سيقرّر نجاح تطبيقك. هو ضريبة أسبوعين إلى ثلاثة على حساب مطوّر شخصي، والطريقة الوحيدة للسقوط فيه هي أن تبدأ متأخرًا، أو تستقطب اثني عشر بالضبط، أو تتحايل.</p>
+
+<p>افعل هذه الخمسة وستمرّ من المحاولة الأولى:</p>
+
+<ol>
+<li>استقطب <strong>17 أو 18</strong>، لا 12.</li>
+<li>استخدم Google Group حتى لا يكلّفك تعديل القائمة شيئًا.</li>
+<li>اطلب من كل مختبر كتابةً ألا يحذف التطبيق.</li>
+<li>احتفظ بسجل مؤرّخ للملاحظات والإصلاحات، فيكتب الطلب نفسه بنفسه.</li>
+<li>قدّم في اليوم الخامس عشر لا الرابع عشر.</li>
+</ol>
+
+<p>أوصلت سبعة تطبيقات إلى Google Play لعملاء في مصر والخليج وأوروبا، ويمكنك الاطلاع على نماذج من العمل في <a href="/ar/portfolios">معرض المشاريع</a>. النمط الذي أراه يتكرّر أن بوابة المتجر ليست العائق الحقيقي أبدًا؛ العائق الحقيقي واجهة خلفية لم تكن مستعدة لأربعة عشر يومًا من مستخدمين حقيقيين. ولهذا أخطّط الـAPI ونموذج البيانات قبل أن تُصمَّم أول شاشة، بنفس المنهج الذي أشرحه في <a href="/ar/blog/build-saas-mvp-laravel-react-2026">بناء منتج SaaS أولي</a>.</p>
+
+<p>إن كنت متوقفًا عند هذه البوابة الآن، أو تفضّل تسليم عملية النشر كاملة لمن مرّ بها مرارًا، اطّلع على طريقة تنظيمي لـ<a href="/ar/services">مشاريع التطوير</a> ثم <a href="/ar/contact">أرسل لي تفاصيل ما تعطّلت عنده</a>. استشارة مجانية، وعرض سعر ثابت، ورد خلال 24 ساعة.</p>
+HTMLAR,
+            ],
+            [
+                'slug' => 'namudhaj-aqd-barmajat-mawqe',
+                'title' => 'Arabic Web Development Contract: Every Clause Explained',
+                'title_ar' => 'نموذج عقد برمجة موقع إلكتروني: شرح كل بند قبل أن توقّع',
+                'excerpt' => 'The full clause set for a web development contract, written out in usable language: scope, IP ownership, milestone payments, delay penalties, warranty, handover assets and termination — with what each clause protects and what happens when it is missing.',
+                'excerpt_ar' => 'بنود عقد برمجة موقع إلكتروني كاملة بصيغتها النصية: نطاق العمل، وملكية الكود، وتقسيم الدفعات، وغرامة التأخير، والضمان، وقائمة الأصول، وبند اختفاء المبرمج، مع شرح ما يحميه كل بند وما يحدث فعلياً حين يغيب من العقد.',
+                'category' => 'Platforms',
+                'tags' => ['عقود البرمجة', 'نموذج عقد تصميم موقع', 'ملكية الكود', 'العمل الحر', 'إدارة المشاريع', 'Contracts', 'Freelancing'],
+                'image' => '1710768229-blog-img-1.jpg',
+                'date' => '2026-08-04',
+                'read_time' => '15 min read',
+                'meta_title' => 'Web Development Contract: Every Clause Explained',
+                'meta_title_ar' => 'نموذج عقد تصميم موقع الكتروني: شرح كل بند',
+                'meta_description' => 'The full clause text for a web development contract: scope, code ownership, milestone payments, delay penalties, warranty and handover — from a developer who signs them.',
+                'meta_description_ar' => 'نموذج عقد تصميم موقع الكتروني ببنوده كاملة: النطاق، ملكية الكود، الدفعات، الغرامة، الضمان، والتسليم. شرح عملي من مطوّر يوقّع هذه العقود.',
+                'faq' => [
+                    [
+                        'q' => 'What clauses must a web development contract contain?',
+                        'a' => 'Fourteen: parties and legal status, scope with a specification annex, technical specification, timeline with client obligations, fee and milestone schedule, IP ownership, change requests, acceptance criteria, warranty, maintenance, confidentiality, the handover asset list, termination, and governing law. Each one should answer a single question: what happens if this part goes wrong?',
+                        'q_ar' => 'ما البنود التي يجب أن يتضمنها عقد برمجة الموقع؟',
+                        'a_ar' => 'أربعة عشر بنداً: الأطراف، نطاق العمل مع كراسة شروط ملحقة، المواصفات التقنية، الجدول الزمني والتزامات العميل، القيمة وجدول الدفعات، ملكية الكود، التعديلات خارج النطاق، معايير القبول، الضمان، الصيانة، السرية، قائمة الأصول عند التسليم، الإنهاء، والقانون الواجب التطبيق. كل بند يجب أن يجيب عن سؤال: ماذا يحدث لو ساءت الأمور هنا؟',
+                    ],
+                    [
+                        'q' => 'Who owns the code after the project is delivered?',
+                        'a' => 'By default the developer holds copyright in what they wrote; paying an invoice does not transfer ownership without an express written clause. Add a clause transferring full economic rights on payment of the full contract value, worldwide and for the full term of protection, plus a perpetual licence for any pre-existing components the developer reused, and a portfolio-display right.',
+                        'q_ar' => 'من يملك الكود بعد تسليم المشروع؟',
+                        'a_ar' => 'في الأصل يملك المبرمج حق المؤلف على ما كتبه، ودفع المقابل المالي لا ينقل الملكية تلقائياً دون نص صريح. اكتب بنداً ينقل حقوق الاستغلال المالي الكاملة عند سداد كامل قيمة العقد، لكافة أنحاء العالم وطوال مدة الحماية القانونية، مع ترخيص دائم لأي مكوّنات سابقة الوجود استخدمها المطوّر، وإذن له بعرض المشروع ضمن أعماله بعد إطلاقه.',
+                    ],
+                    [
+                        'q' => 'How should I split payments across milestones?',
+                        'a' => 'Tie every payment to a reviewable deliverable, never to elapsed time. A balanced split is 25% on signature, 15% on design approval, 25% on core functions working in staging, 20% on passing acceptance criteria, and 15% on launch and asset handover. Never pay less than 20% up front; treat a third as the sensible ceiling and 40% as the absolute limit.',
+                        'q_ar' => 'كيف أقسّم الدفعات على مراحل التسليم؟',
+                        'a_ar' => 'اربط كل دفعة بمخرَج قابل للمعاينة لا بمرور الوقت. التقسيم المتوازن: 25% عند التوقيع، 15% عند اعتماد التصاميم، 25% عند عمل الوظائف الجوهرية على staging، 20% عند اجتياز معايير القبول، و15% عند الإطلاق وتسليم الأصول. لا تدفع مقدماً أقل من 20%، واعتبر الثلث هو الحد الأعلى المعقول و40% هو الحد الأقصى المطلق.',
+                    ],
+                    [
+                        'q' => 'What do I do if the developer disappears before delivery?',
+                        'a' => 'Prevention is the answer: require weekly code pushes to a repository you own and administer, keep hosting on your account, and never pay ahead of delivered work. Then add a termination-for-default clause: ten working days of silence triggers a five-day written notice, after which the contract ends, ownership of completed work passes to you, and any overpayment is refunded.',
+                        'q_ar' => 'ماذا أفعل إذا اختفى المبرمج قبل التسليم؟',
+                        'a_ar' => 'الحل وقائي: اشترط رفع الكود أسبوعياً إلى مستودع Git تملكه أنت وتديره، واجعل الاستضافة على حسابك، ولا تسبق دفعاتك العمل المنجز. ثم أضف بند الإنهاء للتقصير: انقطاع عشرة أيام عمل يتبعه إنذار كتابي بمهلة خمسة أيام، ثم يُفسخ العقد وتنتقل إليك ملكية ما أُنجز مع ردّ ما زاد عن قيمة العمل الفعلي.',
+                    ],
+                    [
+                        'q' => 'Do I need a separate NDA?',
+                        'a' => 'Usually not. For brochure sites and stores a strong confidentiality clause inside the contract is enough, because the idea is rarely the secret. A separate NDA is justified when you hand over real customer, financial or health records, when pricing logic or an algorithm is the competitive advantage, when policy requires it, or when the work touches a live system with real user data.',
+                        'q_ar' => 'هل أحتاج اتفاقية عدم إفصاح NDA؟',
+                        'a_ar' => 'غالباً لا. في المواقع التعريفية والمتاجر يكفي بند سرية قوي داخل العقد، لأن الفكرة وحدها نادراً ما تكون السر. تصبح الـ NDA المنفصلة ضرورية إذا سلّمت بيانات عملاء أو ملفات مالية أو صحية حقيقية، أو كان منطق التسعير أو خوارزمية ما هو ميزتك التنافسية، أو ألزمتك سياسة جهة كبرى، أو شمل العمل نظاماً حياً فيه بيانات مستخدمين.',
+                    ],
+                    [
+                        'q' => 'Which assets must be handed over at the end?',
+                        'a' => 'Ten items: the domain registered in your name, hosting credentials, the full repository with commit history in your account, a final SQL dump with schema documentation, .env.example with the environment variable list, all third-party service keys, source design files with edit rights, Google Analytics and Search Console at owner level, a short deploy-and-restore runbook, and a signed dated handover record.',
+                        'q_ar' => 'ما الأصول التي يجب تسليمها في النهاية؟',
+                        'a_ar' => 'عشرة عناصر: النطاق مسجَّلاً باسمك، وبيانات دخول الاستضافة، والمستودع كاملاً بتاريخ الـ commits على حسابك، ونسخة SQL نهائية مع مخطط الجداول، وملف .env.example وقائمة متغيرات البيئة، ومفاتيح كل الخدمات الخارجية، وملفات التصميم المصدرية مع صلاحية التحرير، وحسابات Google Analytics و Search Console بصلاحية مالك، ودليل نشر واستعادة مختصر، ومحضر تسليم موقّع ومؤرَّخ.',
+                    ],
+                    [
+                        'q' => 'Is a delay penalty clause fair?',
+                        'a' => 'Only if it is symmetrical. A common structure is 0.5% of contract value per working day of delay, capped at 10%, combined with automatic suspension of the clock while the developer is waiting on client responses, materials or approvals. A one-sided penalty is refused by good developers and signed by weak ones, so you end up with a strong clause and a weak builder.',
+                        'q_ar' => 'هل بند غرامة التأخير عادل؟',
+                        'a_ar' => 'عادل فقط إذا كان متوازناً. الصيغة الشائعة: 0.5% من قيمة العقد عن كل يوم عمل تأخير بحد أقصى 10%، مع إيقاف احتساب المدة تلقائياً خلال فترات انتظار ردود العميل أو مواده أو موافقاته موثّقةً كتابةً. الغرامة من طرف واحد يرفضها المطوّرون الجيدون ويقبلها الضعفاء، فينتهي بك الأمر إلى بند قوي على الورق ومطوّر ضعيف على الأرض.',
+                    ],
+                ],
+                'content' => <<<'HTML'
+<p class="lead">Almost every client-developer dispute I have seen started with a missing clause, not with bad faith. I am Khaled Ahmed, a freelance Full Stack developer in Cairo. Across 5+ years and 39+ shipped production projects in eight countries, I have signed contracts with individuals, agencies and large organisations. This article gives you the full clause set for a web development contract, written out in usable language, with what each clause actually protects and what happens when it is missing.</p>
+
+<h2>1. The verdict first: a contract is an exit map, not a trust ritual</h2>
+
+<p>Most clients treat the contract as paperwork that happens before the real work. That is an expensive misunderstanding. A good contract is not read on signing day. It is read on the day something goes wrong: the delivery slips, the client asks for something outside scope, the developer vanishes after milestone two, or an account closes and the entire chat history goes with it.</p>
+
+<p>The rule I work by: <strong>every clause must answer the question "what happens if this goes wrong?"</strong> If a clause has no answer to that question, it is filler. If a realistic failure has no clause covering it, your contract is incomplete no matter how many pages it runs to.</p>
+
+<p>Three failures I see repeatedly in the Egyptian and Gulf market, and they are the same three in the UK and EU:</p>
+
+<ul>
+  <li><strong>Agreeing to "a website" with no written specification.</strong> That word covers a landing page and a multi-tenant platform, and the gap between the two is at least tenfold in cost. Missing detail is the root of most of the disputes clients have described to me.</li>
+  <li><strong>Paying 100% up front or 100% on delivery.</strong> The first kills the incentive to finish. The second makes the developer work without security, so they slow down or hold the code hostage.</li>
+  <li><strong>Never naming the code owner.</strong> That single clause deserves its own read: <a href="/blog/who-owns-your-website-code">who actually owns your website code after handover</a>.</li>
+</ul>
+
+<div class="post-callout"><p><strong>Necessary disclaimer:</strong> I am a developer, not a lawyer. The wording below comes from real projects and is current as I write this in August 2026. It is a strong starting point for a small or mid-size engagement. For a high-value project, sensitive personal data, or parties in different jurisdictions, have a licensed lawyer in your country review it. Copyright and contract detail differ between Egypt, Saudi Arabia, the UAE, the UK and the EU, and the detail can change.</p></div>
+
+<h2>2. What clauses must a web development contract contain?</h2>
+
+<p>These are the fourteen clauses I will not sign without, and the real-world consequence of each omission. The right-hand column is the price of skipping it.</p>
+
+<table>
+  <thead>
+    <tr><th>#</th><th>Clause</th><th>What happens when it is missing</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Parties and legal status</td><td>You discover you contracted an individual, not a company, and there is no entity to pursue</td></tr>
+    <tr><td>2</td><td>Scope of work and specification annex</td><td>Endless argument over whether the admin panel was ever included</td></tr>
+    <tr><td>3</td><td>Technical specification and environment</td><td>You are handed a build on an outdated PHP version or shared hosting that cannot carry the load</td></tr>
+    <tr><td>4</td><td>Timeline and client obligations</td><td>Three months late and nobody can prove whose fault it was</td></tr>
+    <tr><td>5</td><td>Fee and payment schedule</td><td>You pay 70% of the money for 30% of the work</td></tr>
+    <tr><td>6</td><td>IP ownership and transfer</td><td>The repository is never handed over, or your system is resold to a competitor</td></tr>
+    <tr><td>7</td><td>Change requests and out-of-scope work</td><td>Scope inflates for free until the developer stops replying</td></tr>
+    <tr><td>8</td><td>Acceptance criteria</td><td>"Delivered" to them, "it does not work" to you</td></tr>
+    <tr><td>9</td><td>Warranty and bug fixing</td><td>You pay twice to fix a defect that shipped on day one</td></tr>
+    <tr><td>10</td><td>Maintenance and support</td><td>Nobody answers when the site goes down in peak season</td></tr>
+    <tr><td>11</td><td>Confidentiality and data protection</td><td>Your product logic or customer database leaks</td></tr>
+    <tr><td>12</td><td>Final handover and asset list</td><td>You own the site but not the domain or the API keys</td></tr>
+    <tr><td>13</td><td>Termination</td><td>You are stuck with a half-built project and no legal right to the code</td></tr>
+    <tr><td>14</td><td>Governing law and dispute resolution</td><td>A Cairo-Riyadh dispute with no agreed forum</td></tr>
+  </tbody>
+</table>
+
+<h2>3. Clauses one and two: parties and scope</h2>
+
+<h3>Identifying the parties</h3>
+
+<p>Name who is contracting with whom, precisely. For a freelancer: full legal name, national ID or passport number, address, email, phone. For a company: trading name, commercial registration number, tax number, and the name and title of the signing representative. Ask for a copy of the document and check the name matches the bank account that will receive the money. That single check is the cheapest fraud screen available to you.</p>
+
+<div class="post-callout"><p><strong>Clause text:</strong> "This Agreement is made on ___/___/2026 between: the First Party (Client): ______, registration no. ______, represented by ______ in their capacity as ______, address ______, email ______; and the Second Party (Developer): ______, ID no. ______, address ______, email ______. Both parties confirm their legal capacity to contract and agree as follows."</p></div>
+
+<p>One detail that is almost always skipped: <strong>make the email addresses in the contract the formal notice channel</strong>. Add: "Notice sent to the email addresses stated above constitutes valid service. Each party must notify the other in writing of any change within three days." That sentence saves you the fight over whether a warning was ever delivered.</p>
+
+<h3>Scope: the annex is the real contract</h3>
+
+<p>Keep the scope clause in the body short and point it at an annex. The annex is the specification, and it is what settles every later disagreement. Do not accept "a professional responsive website". That is marketing copy, not a specification.</p>
+
+<ol>
+  <li><strong>A numbered list of pages or screens</strong>, with the sections inside each one.</li>
+  <li><strong>Functions written as user stories:</strong> "a registered user can upload a PDF up to 10 MB and delete it within 24 hours."</li>
+  <li><strong>The admin panel</strong> and exactly what the client can edit alone. This is the single most misread item in the market: the client assumes everything, the developer assumes text only.</li>
+  <li><strong>Languages</strong>, who supplies translation, who supplies copy and images, and whether RTL support covers the admin panel as well as the front end.</li>
+  <li><strong>Named third-party integrations:</strong> payment gateway, shipping, invoicing, SMS, and who pays the account and transaction fees.</li>
+  <li><strong>An explicit out-of-scope list.</strong> This is the most valuable list in the document. For example: "This contract does not include copywriting, product photography, paid ad campaigns, a mobile app, ongoing SEO after handover, or paid licences for third-party tools."</li>
+</ol>
+
+<p>If you are building a store, pull the function list out of my <a href="/blog/ecommerce-website-development-guide">ecommerce development guide</a> before you write the annex. It will stop you forgetting inventory, returns and discount codes, which are the three that always arrive late and unpriced.</p>
+
+<h2>4. Who owns the code after delivery?</h2>
+
+<p>Short answer: <strong>by default the developer holds copyright in the code they wrote, unless the contract transfers the rights in writing</strong>. Copyright law in Egypt and the Gulf treats software as a protected work, and paying an invoice does not automatically transfer ownership without an express clause. The detail differs by jurisdiction and can change, so have a local lawyer confirm the wording on a large engagement.</p>
+
+<div class="post-callout"><p><strong>Clause text:</strong> "Full and exclusive ownership of the economic rights in the source code, designs, database schema and documentation produced specifically for this project transfers to the First Party <strong>upon payment of the full contract value</strong>, worldwide and for the full term of legal protection. This includes the right to modify, copy, distribute and assign to third parties without further permission. The Second Party shall not resell or license the delivered system as such to any third party."</p></div>
+
+<p>Three deliberate details in that wording:</p>
+
+<ul>
+  <li><strong>"upon payment of the full contract value"</strong> protects the developer. Any contract transferring ownership at signature will be refused by a serious developer, because it removes their last leverage to get paid.</li>
+  <li><strong>"produced specifically for this project"</strong> is realistic. Developers reuse internal libraries and components across clients and cannot assign those to you. Cover it with a sub-clause: "The Second Party grants the First Party a perpetual, irrevocable, non-exclusive, royalty-free licence to use any pre-existing components embedded in the project, including the right to modify them for this project."</li>
+  <li><strong>"as such"</strong> keeps the non-resale promise fair. Do not demand that the developer never builds anything similar again — that is unenforceable in practice and blocks them from working. Demand only that they do not resell your build.</li>
+</ul>
+
+<p><strong>Do not drop the "worldwide and for the full term" wording.</strong> Egyptian copyright law expects a written assignment to name each transferred right expressly and to state its scope, purpose, duration and territory of exploitation. Several Gulf statutes are drafted the same way. A clause that lists the rights but leaves duration and territory blank can end up narrower than either party intended, which is exactly the ambiguity you signed a contract to avoid. Name the rights, then name where and for how long.</p>
+
+<p>Add a portfolio clause: "The Second Party may display the project in their portfolio after public launch unless notified otherwise in writing." Most serious developers need this, and removing it without reason usually raises the price, because you are taking away marketing value.</p>
+
+<h2>5. How do I split payments across milestones?</h2>
+
+<p>The rule: <strong>every payment must attach to a reviewable deliverable, never to elapsed time</strong>. "Second payment after one month" is bad drafting. "Second payment on approval of the UI designs for all screens" is good drafting, because it is provable.</p>
+
+<table>
+  <thead>
+    <tr><th>Milestone</th><th>Reviewable deliverable</th><th>Share</th><th>Example on a USD 4,000 contract</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Signature</td><td>Contract signed, specification annex approved</td><td>25%</td><td>1,000</td></tr>
+    <tr><td>Design</td><td>UI/UX approved for all screens</td><td>15%</td><td>600</td></tr>
+    <tr><td>Core build</td><td>Core functions working on staging</td><td>25%</td><td>1,000</td></tr>
+    <tr><td>Testing and acceptance</td><td>Acceptance criteria passed, test report delivered</td><td>20%</td><td>800</td></tr>
+    <tr><td>Launch and handover</td><td>Deployed to production, asset list handed over</td><td>15%</td><td>600</td></tr>
+  </tbody>
+</table>
+
+<p>Practical notes on that table:</p>
+
+<ul>
+  <li>Never go below a 20% deposit. Anyone accepting 5% up front is either desperate or planning to drop you for a better offer.</li>
+  <li>Treat a third as the sensible ceiling and 40% as the absolute limit, not the target. Past that point you are financing the developer's cash flow rather than buying delivered work.</li>
+  <li><strong>Hold 10-15% against final handover.</strong> That retention is what gets the last ten small bugs closed instead of the developer drifting away once the site "basically works".</li>
+  <li>Put a payment deadline on yourself too: "The First Party shall pay within five working days of notification that a milestone is met, failing which the timeline extends by the period of delay." Late client payment stalls more projects than slow developers do.</li>
+  <li>State the currency, who absorbs transfer fees, and whether the figure is VAT-inclusive. Ambiguity here costs 5-15% of contract value in a later argument.</li>
+</ul>
+
+<p>To sanity-check the total before you negotiate, read <a href="/blog/how-much-does-website-cost-2026">how much a website costs in 2026</a> or look at my published <a href="/plans">packages</a> to see what each price band actually buys.</p>
+
+<h3>Escrow, bank transfer, or platform?</h3>
+
+<table>
+  <thead>
+    <tr><th>Method</th><th>Protection</th><th>Cost</th><th>When I recommend it</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Freelance platform escrow</td><td>High for both sides</td><td>Fees on both sides: a commission deducted from the freelancer, a client-side service fee on top of the invoice, plus withdrawal fees</td><td>First engagement, or a small project with someone unproven</td></tr>
+    <tr><td>Bank transfer</td><td>None beyond the contract</td><td>Near zero domestically; correspondent-bank fees apply cross-border</td><td>A developer with a verifiable track record and a signed contract</td></tr>
+    <tr><td>Wise</td><td>Moderate</td><td>Typically under 2% all-in on the corridors I use, converted at the mid-market rate with the fee shown separately</td><td>Cross-border work between Egypt, the Gulf and Europe</td></tr>
+    <tr><td>PayPal</td><td>Moderate, with chargeback exposure for the developer</td><td>Commonly 6-8% all-in: a cross-border commercial fee around 4.4-5% plus a currency-conversion spread of roughly 3-4% over the mid-market rate</td><td>Only when the client insists on it — and price the fee into the quote</td></tr>
+    <tr><td>Lawyer-held escrow</td><td>Highest</td><td>Fixed fee or a percentage</td><td>Large builds and long-term partnerships</td></tr>
+  </tbody>
+</table>
+
+<h2>6. Timeline, delay and liquidated damages</h2>
+
+<p>The delay clause is where most contracts turn one-sided, which is self-defeating: good developers refuse it and weak ones sign it, so you end up with a strong clause and a weak builder. Make it symmetrical.</p>
+
+<div class="post-callout"><p><strong>Clause text:</strong> "The delivery period is ______ working days, starting from receipt of the first payment and of all materials required from the First Party. If final delivery is late for reasons attributable to the Second Party, the First Party is entitled to 0.5% of the contract value per working day of delay, capped at 10% of the contract value. The clock is automatically suspended during any period spent waiting for responses, materials or approvals from the First Party, provided such periods are documented in writing."</p></div>
+
+<p>That last sentence is what makes the clause signable. In my experience more than half of all delays trace back to waiting on client content or approval, not to slow development. Add a response deadline too: "The First Party shall respond to approval requests within three working days; failure to respond after two written reminders constitutes acceptance of that milestone."</p>
+
+<h2>7. Change requests: the clause that saves the project</h2>
+
+<p>Scope creep is the silent killer. It starts with "just add a share button" and ends at double the budget and double the timeline. The fix is not refusal, it is immediate transparent pricing.</p>
+
+<div class="post-callout"><p><strong>Clause text:</strong> "Anything not stated in Annex 1 is additional work. The Second Party shall provide a written estimate of hours and timeline impact within two working days of the request. Work begins only on written approval from the First Party. The additional hourly rate is ______, invoiced with the next milestone payment."</p></div>
+
+<p>Fix the hourly rate inside the contract. Without it, every small request becomes a fresh negotiation. Typical professional freelance rates as of 2026 run roughly 300-1,500 EGP per hour in Egypt, 80-250 SAR per hour in the Gulf, and USD 40-90 per hour for experienced remote developers serving UK and EU clients — with wide variation by specialism, and with senior specialists on complex platform work sitting above the top of each band. Also grant a small, defined free allowance, such as two design revision rounds and ten hours of in-build tweaks, so the relationship is not invoiced to death.</p>
+
+<h2>8. Acceptance criteria: defining the word "done"</h2>
+
+<p>"The site is ready" has no enforceable meaning. Define it. I put an objective checklist in every contract that a neutral third party could verify:</p>
+
+<pre><code>Final acceptance criteria
+1. All functions in Annex 1 work in production without HTTP 500 errors.
+2. No Critical or High severity issues open in the final test report.
+3. Works on the two latest versions of Chrome, Safari, Firefox and Edge.
+4. Responsive layout intact at 360px, 768px and 1440px widths.
+5. Lighthouse mobile performance score of at least 70 on key pages.
+6. SSL installed and HTTP redirected to HTTPS.
+7. Daily automated off-server backups of database and files enabled.
+8. Credentials handed over for every account listed in Annex 2.</code></pre>
+
+<p>Item five prevents the most common post-launch argument, but do not set an impossible threshold on a video-heavy site. Understand what actually moves that number first — <a href="/blog/why-your-website-loads-slowly">why your website loads slowly</a> explains the levers — then set the bar.</p>
+
+<p>Keep two numbers separate in your head: the <strong>contractual floor</strong> and the <strong>target</strong>. Seventy is the generic minimum I would accept as an enforceable, provable threshold in a contract with an unknown counterparty, because it is achievable on almost any content-heavy build and nobody can argue about the measurement. It is not what I aim for — my own <a href="/plans">packages</a> commit to Lighthouse 95+, because that is the standard I build to. Write the floor you are genuinely willing to enforce into the contract, then agree the target you actually want in the specification annex. Setting the contractual number at your dream figure just gives you a clause you will never invoke.</p>
+
+<p>Add an inspection window: "The First Party shall submit comments within seven working days of delivery notice, failing which the project is deemed accepted." That protects the developer from a client who disappears for two months and returns with a new list, and it protects you by guaranteeing a real review period.</p>
+
+<h2>9. Warranty and maintenance are not the same thing</h2>
+
+<ul>
+  <li><strong>Warranty</strong> is free repair of a defect in delivered work. Thirty to ninety days from acceptance is normal, and the length usually scales with the size of the engagement. Wording: "The Second Party shall fix any defect in the delivered functionality free of charge for ______ days from acceptance. The warranty excludes faults caused by modifications made by the First Party or a third party, by changes in external services, by hosting issues, or by new requirements."</li>
+  <li><strong>Maintenance</strong> is a separate paid agreement: security patching, dependency updates, backups, monitoring and a monthly block of development hours. Typical annual spend runs 5-15% of the original build cost, driven mostly by the response time you need rather than by code size.</li>
+</ul>
+
+<p>If the site is commercial, put response times in writing: four working hours for critical outages affecting the site or payments, 48 hours for normal issues. And treat patching as contractual, not optional — turn my <a href="/blog/website-security-checklist">website security checklist</a> into named line items in the maintenance agreement.</p>
+
+<h2>10. Handover: the asset list you actually own</h2>
+
+<p>I have met clients with a successful site who could not change a line of it, because everything was registered in the developer's name. Make Annex 2 a literal asset list, signed on handover:</p>
+
+<ol>
+  <li>Domain registered <strong>in the client's name and email</strong>, not the developer's.</li>
+  <li>Hosting or server account with full credentials.</li>
+  <li>Complete GitHub or GitLab repository transferred to the client's account, with commit history intact.</li>
+  <li>Final SQL dump and schema documentation.</li>
+  <li><code>.env.example</code> and a list of every required environment variable.</li>
+  <li>Keys for every third-party service: payments, email, SMS, maps, cloud storage.</li>
+  <li>Source design files in Figma or equivalent, with edit rights.</li>
+  <li>Google Analytics and Search Console with owner-level access for the client.</li>
+  <li>A short runbook: how to deploy, how to restore a backup.</li>
+  <li>A signed handover record, dated, describing what was delivered.</li>
+</ol>
+
+<div class="post-callout"><p><strong>Golden rule:</strong> register the domain and hosting yourself on day one, then grant the developer access. The reverse order is the easiest way to lose control of an asset you paid for, and the hardest to unwind later.</p></div>
+
+<h2>11. Do I need an NDA?</h2>
+
+<p>An honest answer that will not please everyone: <strong>for most brochure sites and stores, a separate NDA is unnecessary</strong> and a strong confidentiality clause inside the contract is enough. The idea alone is rarely the secret; execution is. Clients who demand an NDA before describing the project usually lose a week signing a document that protects nothing.</p>
+
+<p>A separate NDA genuinely earns its place in four cases: you are handing over real customer, financial or health records before contracting; the product is a SaaS platform whose pricing logic or algorithm is the competitive advantage, as with the tenancy models in <a href="/blog/multi-tenant-saas-laravel">multi-tenant SaaS with Laravel</a>; your organisation's policy requires one; or the work involves access to a live system holding real user data.</p>
+
+<div class="post-callout"><p><strong>Confidentiality clause text:</strong> "Each party shall keep confidential all technical, commercial, financial and user data disclosed in connection with this Agreement, and shall not disclose or use it for any purpose other than the project, during the term and for two years afterwards. This does not apply to information already public or required to be disclosed by law. The Second Party shall delete all copies of production data from their devices within thirty days of final handover."</p></div>
+
+<p>That deletion sentence matters more than it looks. Database dumps sit on developer laptops for years, and that is one of the most common and least discussed sources of customer data leaking.</p>
+
+<h2>12. What if the developer disappears before delivery?</h2>
+
+<p>This is the question I am asked most, and almost everyone asking it omitted the clause that would have solved it. The solution starts before the disappearance, not after.</p>
+
+<h3>Prevention: three clauses that make vanishing pointless</h3>
+
+<ol>
+  <li><strong>Weekly pushes:</strong> "The Second Party shall push code weekly to a Git repository owned and administered by the First Party, who grants the Second Party push access for the duration of the project and retains full administrative control throughout." This one clause turns a disaster into an inconvenience, because you always hold the latest working build and any other developer can continue from it.</li>
+  <li><strong>Client-owned environments:</strong> hosting and staging live on your account, not on the developer's personal server.</li>
+  <li><strong>Pay against reviewable deliverables</strong>, per the milestone table above, so your money never runs ahead of the work.</li>
+</ol>
+
+<h3>Cure: the termination-for-default clause</h3>
+
+<div class="post-callout"><p><strong>Clause text:</strong> "If the Second Party ceases work or fails to communicate for more than ten consecutive working days without acceptable cause, the First Party may give written notice allowing five working days to resume. If that period lapses, the Agreement is terminated without further formality. The Second Party shall deliver all completed code, designs and credentials within five days and refund any amount received in excess of the value of work actually completed. Ownership of the completed work passes to the First Party on termination."</p></div>
+
+<p>That final sentence is decisive. Without it you can end up holding half a project you have no legal right to hand to anyone else, having already paid half the budget.</p>
+
+<h3>If it has already happened and there is no contract</h3>
+
+<ul>
+  <li>Document everything now: chats, transfer receipts, links, agreed dates, with timestamped screenshots.</li>
+  <li>If you hired through a freelance platform, open a dispute there first — escrow systems handle this case well and can freeze held funds.</li>
+  <li>Send a formal written demand to the registered email and phone with a clear deadline and a specific demand: deliver the code or refund.</li>
+  <li>Price the loss honestly before litigating. Chasing USD 600 through a court in another country will cost more than the sum and months of your attention.</li>
+  <li>Start technical recovery immediately: pull the latest copy from hosting, assess what is salvageable, then pick the replacement carefully using <a href="/blog/how-to-hire-a-web-developer">how to hire a web developer</a>.</li>
+</ul>
+
+<h2>13. Governing law and dispute resolution</h2>
+
+<p>When the client is in Riyadh or Dubai and the developer is in Cairo, do not leave this blank. Fix three things: governing law, the forum, and the controlling language.</p>
+
+<div class="post-callout"><p><strong>Clause text:</strong> "This Agreement is governed by and construed under the laws of ______. In the event of a dispute the parties shall attempt amicable resolution within thirty days; failing that, the dispute shall be referred to ______ (the competent court or the agreed arbitration centre). This Agreement is executed in two counterparts. In the event of discrepancy, the ______ language version prevails."</p></div>
+
+<p>Three practical notes. On small cross-border projects, international arbitration costs more than the project is worth, so rely on escrow and a tight milestone structure instead. If the contract is bilingual, name one controlling version or the translation gap becomes its own dispute. And ask yourself honestly whether you would ever travel to enforce a judgment — if the answer is no, your real protection is the payment structure and asset ownership, not the dispute clause.</p>
+
+<h2>14. The full contract structure, as a final checklist</h2>
+
+<p>Here is the complete running order, section by section, as a recap checklist. The clause language itself is in sections 3 to 13 above, where each piece is explained before you use it; run down this list to confirm nothing is missing from your document before you sign. There is deliberately no download, because a contract you have not read does not protect you.</p>
+
+<ol>
+  <li><strong>Preamble and parties</strong>, capacity, and email as the notice channel.</li>
+  <li><strong>Subject:</strong> "design, development and delivery of a website per the specification in Annex 1, signed by both parties and forming an integral part of this Agreement."</li>
+  <li><strong>Technical specification:</strong> framework and version, database, hosting environment, supported languages, performance thresholds.</li>
+  <li><strong>Term and timeline</strong>, including clock suspension for client delay.</li>
+  <li><strong>Fee and payment schedule</strong>, in figures and words, with currency, transfer fees and tax treatment.</li>
+  <li><strong>Client obligations:</strong> content, images, accounts, responses within stated windows.</li>
+  <li><strong>Developer obligations:</strong> professional standards, weekly code pushes, blockers reported within 48 hours.</li>
+  <li><strong>Change requests:</strong> request, estimate, approval, hourly rate.</li>
+  <li><strong>Acceptance criteria</strong> and the inspection window.</li>
+  <li><strong>Intellectual property:</strong> transfer on full payment, territory and term of the assignment, licence for pre-existing components, portfolio rights.</li>
+  <li><strong>Confidentiality and data protection</strong>, with survival period and deletion duty.</li>
+  <li><strong>Warranty:</strong> duration, scope, exclusions.</li>
+  <li><strong>Termination:</strong> by agreement and for default, with the effect of each on payments and ownership.</li>
+  <li><strong>Force majeure</strong>, defined realistically to include major cloud outages and national internet disruption.</li>
+  <li><strong>Governing law, dispute resolution, controlling language.</strong></li>
+  <li><strong>Annexes:</strong> (1) specification, (2) asset and account list, (3) payment schedule, (4) change request form.</li>
+</ol>
+
+<h2>15. Common mistakes</h2>
+
+<ul>
+  <li><strong>A three-line agreement over WhatsApp.</strong> Messages may serve as evidence, but they do not substitute for a specification and they never settle ownership.</li>
+  <li><strong>Reusing a construction contract and swapping "building" for "website".</strong> I have literally seen this. Acceptance logic in software is nothing like acceptance on a build site.</li>
+  <li><strong>A one-sided delay penalty.</strong> You pay for it either in the price or in the calibre of whoever agrees to sign.</li>
+  <li><strong>Silence on tax.</strong> State whether the fee is VAT-inclusive, particularly with companies in Saudi Arabia and the UAE.</li>
+  <li><strong>No allocation of third-party fees.</strong> Hosting, domain, payment gateway and SMS are recurring client costs; write them down with estimates.</li>
+  <li><strong>No asset annex.</strong> See section ten — this is what clients regret a year after launch.</li>
+  <li><strong>Choosing the counterparty without verification.</strong> A contract limits damage; it does not create a good developer. The tradeoffs are laid out in <a href="/blog/freelance-developer-vs-agency">freelance developer vs agency</a>.</li>
+</ul>
+
+<h2>16. How I contract</h2>
+
+<p>For transparency, my own process: a free diagnostic call, then a fixed-fee proposal built on a written specification, then a six-to-ten page contract using the clauses above, milestone-linked payments, a Git repository in the client's name from day one, full ownership on final payment, and a warranty of 30, 60 or 90 days depending on the package tier. I do not start before signature, even with repeat clients — not out of distrust, but because the written document removes weeks of later argument and protects both sides equally.</p>
+
+<p>If you have a contract in front of you and want a blunt second opinion, or you want a fixed-fee quote for your build, reach me through the <a href="/contact">contact page</a>. The first consultation is free and I reply within 24 hours with a clear scope and price, no obligation.</p>
+HTML,
+                'content_ar' => <<<'HTMLAR'
+<p class="lead">أكثر النزاعات التي رأيتها بين عميل ومبرمج لم تبدأ بسوء نية، بل ببند ناقص. أنا خالد أحمد، مطوّر Full Stack مستقل من القاهرة، سلّمت أكثر من 39 مشروعاً إنتاجياً في ثماني دول خلال أكثر من خمس سنوات، ووقّعت عقوداً مع أفراد وشركات وجهات كبرى. في هذا المقال أضع لك بنود عقد برمجة موقع إلكتروني كاملة، بنداً بنداً، بصيغتها النصية، مع شرح ما يحميه كل بند وما يحدث فعلياً حين يغيب.</p>
+
+<h2>1. الخلاصة أولاً: العقد ليس ورقة ثقة، بل خريطة خروج</h2>
+
+<p>معظم العملاء يتعاملون مع العقد باعتباره طقساً شكلياً يسبق بدء العمل. هذا خطأ مكلف. العقد الجيد لا يُقرأ يوم التوقيع، بل يُقرأ يوم الخلاف: حين يتأخر التسليم، أو يطلب العميل تعديلاً خارج النطاق، أو يختفي المبرمج بعد قبض الدفعة الثانية، أو يُغلق حسابه على المنصة وتختفي معه المحادثات.</p>
+
+<p>القاعدة التي أعمل بها: <strong>كل بند في العقد يجب أن يجيب عن سؤال «ماذا يحدث لو ساءت الأمور هنا؟»</strong>. إن لم يكن للبند إجابة عن هذا السؤال فهو حشو. وإن كان هناك احتمال خلاف لا يغطيه أي بند، فالعقد ناقص مهما بدا طويلاً.</p>
+
+<p>ثلاثة أخطاء أراها متكررة في السوق المصري والخليجي، وهي نفسها الثلاثة في السوق البريطاني والأوروبي:</p>
+
+<ul>
+  <li><strong>الاتفاق على «موقع إلكتروني» دون كراسة شروط.</strong> كلمة «موقع» تحتمل صفحة هبوط واحدة، وتحتمل منصة SaaS متعددة المستأجرين تفصل بينهما عشرة أضعاف في التكلفة على الأقل. غياب الوصف التفصيلي هو أصل أغلب الخلافات التي وصفها لي عملاء.</li>
+  <li><strong>الدفع مقدماً بالكامل، أو الدفع بالكامل عند التسليم.</strong> الأول يقتل حافز المبرمج على الإنهاء، والثاني يجعله يعمل بلا أمان فيؤخّر التسليم أو يحتجز الكود.</li>
+  <li><strong>عدم تحديد مالك الكود.</strong> هذا البند وحده يستحق قراءة مستقلة لأنه الأكثر إثارة للنزاع، اقرأ <a href="/ar/blog/who-owns-your-website-code">من يملك كود موقعك بعد التسليم</a> قبل أن توقّع أي شيء.</li>
+</ul>
+
+<div class="post-callout"><p><strong>تنبيه ضروري:</strong> أنا مطوّر ولست محامياً. الصيغ الواردة هنا مستمدة من ممارسة عملية في مشاريع حقيقية حتى تاريخ كتابة هذا المقال (أغسطس 2026)، وهي نقطة بداية قوية لعقد صغير أو متوسط. أما إذا كان المشروع كبير القيمة، أو يتضمن بيانات حساسة، أو أطرافه في دول مختلفة، فاعرض النص على محامٍ مرخّص في بلدك قبل التوقيع. تفاصيل القوانين تختلف بين مصر والسعودية والإمارات والمملكة المتحدة والاتحاد الأوروبي، وقد تتغيّر.</p></div>
+
+<h2>2. ما البنود التي يجب أن يتضمنها عقد برمجة الموقع؟</h2>
+
+<p>هذه هي البنود الأربعة عشر التي لا أوقّع عقداً بدونها، ومعها ما يحدث فعلياً حين يغيب كل بند. اقرأ العمود الأخير بعناية، فهو ثمن الإهمال.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>البند</th>
+      <th>ما يحدث حين يغيب</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>الأطراف والصفة القانونية</td><td>تكتشف أنك تعاقدت مع شخص طبيعي لا شركة، فلا تجد كياناً تطالبه</td></tr>
+    <tr><td>2</td><td>نطاق العمل وكراسة الشروط</td><td>خلاف لا ينتهي حول «هل لوحة التحكم كانت داخل الاتفاق؟»</td></tr>
+    <tr><td>3</td><td>المواصفات التقنية والبيئة</td><td>يُسلَّم المشروع على إصدار PHP قديم أو استضافة مشتركة لا تحتمل الحمل</td></tr>
+    <tr><td>4</td><td>الجدول الزمني ومسؤوليات العميل</td><td>يتأخر المشروع ثلاثة أشهر ولا أحد يستطيع تحديد المتسبّب</td></tr>
+    <tr><td>5</td><td>القيمة وجدول الدفعات</td><td>تدفع 70% من المال مقابل 30% من العمل</td></tr>
+    <tr><td>6</td><td>ملكية الكود ونقل الحقوق</td><td>يرفض المبرمج تسليم المستودع، أو يعيد بيع نظامك لمنافسك</td></tr>
+    <tr><td>7</td><td>التعديلات خارج النطاق</td><td>يتضخم المشروع بلا مقابل حتى يتوقف المبرمج عن الرد</td></tr>
+    <tr><td>8</td><td>معايير القبول والاختبار</td><td>«تم التسليم» في نظره، «لم يعمل» في نظرك</td></tr>
+    <tr><td>9</td><td>الضمان وإصلاح الأخطاء</td><td>تدفع مرة ثانية لإصلاح خلل كان موجوداً يوم التسليم</td></tr>
+    <tr><td>10</td><td>الصيانة والدعم بعد الإطلاق</td><td>لا تجد أحداً يوم يتعطل الموقع في ذروة الموسم</td></tr>
+    <tr><td>11</td><td>السرية وحماية البيانات</td><td>تتسرب فكرة المنتج أو قاعدة بيانات عملائك</td></tr>
+    <tr><td>12</td><td>التسليم النهائي وقائمة الأصول</td><td>تملك الموقع ولا تملك النطاق ولا مفاتيح الـ API</td></tr>
+    <tr><td>13</td><td>الإنهاء والانسحاب</td><td>تعلق بمشروع نصف منجز بلا حق قانوني في الكود</td></tr>
+    <tr><td>14</td><td>القانون الواجب التطبيق وفض النزاع</td><td>نزاع بين القاهرة والرياض بلا مرجع متفق عليه</td></tr>
+  </tbody>
+</table>
+
+<h2>3. البند الأول والثاني: الأطراف ونطاق العمل</h2>
+
+<h3>تحديد الأطراف</h3>
+
+<p>ابدأ بتحديد من يتعاقد مع من بدقة. إذا كان الطرف الثاني مستقلاً فاذكر اسمه الرباعي ورقم بطاقة الرقم القومي أو الهوية الوطنية وعنوانه وبريده الإلكتروني ورقم هاتفه. وإذا كان شركة فاذكر الاسم التجاري ورقم السجل التجاري والرقم الضريبي واسم الممثل القانوني وصفته. اطلب صورة من المستند وقارن الاسم بالحساب البنكي الذي سيستلم عليه، فتطابق الاسم هو أرخص فحص احتيال متاح لك.</p>
+
+<div class="post-callout"><p><strong>صيغة البند:</strong> «أُبرم هذا العقد في يوم ______ الموافق ___/___/2026 بين كل من: الطرف الأول (العميل): ______، سجل تجاري رقم ______، ويمثله ______ بصفته ______، وعنوانه ______، وبريده الإلكتروني ______. والطرف الثاني (المطوّر): ______، رقم قومي/هوية ______، وعنوانه ______، وبريده الإلكتروني ______. وقد أقرّ الطرفان بأهليتهما القانونية للتعاقد، واتفقا على ما يلي.»</p></div>
+
+<p>نقطة عملية كثيراً ما تُهمَل: <strong>اعتمِد البريد الإلكتروني الوارد في العقد وسيلةَ إخطار رسمية</strong>. أضف جملة: «يُعدّ الإخطار على البريد الإلكتروني المذكور أعلاه إخطاراً صحيحاً ومنتجاً لآثاره، ويلتزم كل طرف بإخطار الآخر كتابةً بأي تغيير خلال ثلاثة أيام». هذه الجملة وحدها توفّر عليك لاحقاً معركة إثبات أنك أرسلت وأنه تسلّم.</p>
+
+<h3>نطاق العمل: كراسة الشروط هي العقد الحقيقي</h3>
+
+<p>البند في متن العقد يجب أن يكون قصيراً ويحيل إلى ملحق. الملحق هو كراسة الشروط، وهو المستند الذي سيحسم كل خلاف لاحق. لا تقبل عبارات مثل «تصميم موقع احترافي متجاوب مع جميع الأجهزة». هذه ليست مواصفة، بل جملة تسويقية.</p>
+
+<p>كراسة الشروط الجيدة تحتوي على:</p>
+
+<ol>
+  <li><strong>قائمة الصفحات أو الشاشات</strong> مرقّمة بالاسم، مع عدد الأقسام داخل كل صفحة.</li>
+  <li><strong>قائمة الوظائف</strong> مكتوبة كقصص استخدام: «يستطيع المستخدم المسجَّل رفع ملف PDF بحد أقصى 10 MB وحذفه خلال 24 ساعة».</li>
+  <li><strong>لوحة التحكم</strong> وما الذي يستطيع العميل تعديله بنفسه بالضبط. هذا أكثر بند يُساء فهمه: العميل يفترض أنه سيعدّل كل شيء، والمطوّر يفترض أنه سيعدّل النصوص فقط.</li>
+  <li><strong>اللغات</strong>: من يوفّر الترجمة، ومن يوفّر المحتوى والصور، وهل الموقع يدعم RTL دعماً كاملاً في كل الشاشات أم في الواجهة العامة فقط.</li>
+  <li><strong>التكاملات الخارجية</strong> بالاسم: بوابة الدفع، شركة الشحن، نظام الفوترة، خدمة الرسائل النصية، ومن يتحمّل رسوم فتح الحسابات ورسوم العمليات.</li>
+  <li><strong>ما هو خارج النطاق صراحةً.</strong> هذه أهم قائمة في المستند كله. اكتب مثلاً: «لا يشمل هذا العقد كتابة المحتوى، ولا تصوير المنتجات، ولا الحملات الإعلانية، ولا تطبيق الهاتف، ولا خدمات تحسين محركات البحث المستمرة بعد التسليم، ولا تراخيص الأدوات الخارجية المدفوعة».</li>
+</ol>
+
+<p>إذا كان مشروعك متجراً إلكترونياً فراجع <a href="/ar/blog/ecommerce-website-development-guide">دليل تطوير المتاجر الإلكترونية</a> واستخرج منه قائمة الوظائف قبل كتابة الكراسة، فهو يوفّر عليك نصف العمل ويمنعك من نسيان أشياء مثل إدارة المخزون والمرتجعات وأكواد الخصم.</p>
+
+<h2>4. من يملك الكود بعد تسليم المشروع؟</h2>
+
+<p>الإجابة المختصرة: <strong>في الأصل يكون المبرمج هو صاحب حق المؤلف على الكود الذي كتبه، ما لم ينص العقد كتابةً على نقل حقوق الاستغلال</strong>. قوانين حقوق المؤلف في مصر ودول الخليج تعامل برامج الحاسب معاملة المصنفات المحمية، ودفعُك المقابلَ المالي لا ينقل الملكية تلقائياً في غياب نص صريح. التفاصيل والاستثناءات تختلف بين الدول وقد تتغيّر، لذا تحقّق من الصياغة مع محامٍ محلي إن كان المشروع كبيراً.</p>
+
+<p>ما تحتاجه عملياً ثلاث فقرات: بند نقل حقوق الاستغلال، وبند ترخيص المكوّنات سابقة الوجود، وبند العرض ضمن الأعمال السابقة. نبدأ بالأولى:</p>
+
+<div class="post-callout"><p><strong>صيغة البند:</strong> «تنتقل إلى الطرف الأول الملكية الكاملة والحصرية لكافة حقوق الاستغلال المالي للكود المصدري والتصاميم وقواعد البيانات والوثائق المُنتَجة خصيصاً لهذا المشروع، وذلك <strong>اعتباراً من تاريخ سداد كامل قيمة العقد</strong>، لكافة أنحاء العالم وطوال مدة الحماية القانونية المقررة. ويشمل ذلك حق التعديل والنسخ والتوزيع والتنازل للغير دون حاجة إلى إذن لاحق من الطرف الثاني. ويلتزم الطرف الثاني بعدم إعادة بيع أو ترخيص النظام المُسلَّم بذاته لأي طرف ثالث.»</p></div>
+
+<p>لاحظ ثلاثة تفاصيل مقصودة في هذه الصيغة:</p>
+
+<ul>
+  <li><strong>«اعتباراً من تاريخ سداد كامل قيمة العقد»:</strong> هذا يحمي المطوّر. أي عقد ينقل الملكية فور التوقيع سيرفضه أي مطوّر محترف، لأنه يفقد آخر ضمانة لتحصيل مستحقاته.</li>
+  <li><strong>«المُنتَجة خصيصاً لهذا المشروع»:</strong> المطوّر يستخدم عادةً مكتبات ومكوّنات داخلية سبق أن كتبها ويستخدمها في مشاريع أخرى، ولا يستطيع نقل ملكيتها لك. الحل بند فرعي: «يمنح الطرف الثاني الطرف الأول ترخيصاً دائماً غير قابل للإلغاء، غير حصري، بلا مقابل إضافي، لاستخدام أي مكوّنات سابقة الوجود مدمجة في المشروع، بما يشمل حق التعديل عليها لأغراض هذا المشروع».</li>
+  <li><strong>«عدم إعادة بيع النظام بذاته»:</strong> صياغة منصفة. لا تطلب من المطوّر ألا يبني أبداً نظاماً مشابهاً، فهذا شرط تعجيزي يمنعه من ممارسة مهنته وغالباً لن يوقّعه. اطلب فقط ألا يعيد بيع مشروعك نفسه.</li>
+</ul>
+
+<p><strong>لا تحذف عبارة «لكافة أنحاء العالم وطوال مدة الحماية».</strong> القانون المصري لحماية الملكية الفكرية يشترط في التصرف الكتابي في حقوق المؤلف أن يُذكر كل حق منقول على حدة، وأن يُبيَّن مدى هذا الحق والغرض منه ومدته ومكان الاستغلال. وعدد من قوانين دول الخليج مصاغ على النهج نفسه. البند الذي يسمّي الحقوق ويترك المدة والنطاق الجغرافي فراغاً قد يخرج أضيق مما قصده الطرفان، وهذا بالضبط الغموض الذي وقّعت العقد لتتجنبه: سمِّ الحقوق، ثم حدّد أين ولكم من الوقت.</p>
+
+<p>وأضف بند العرض ضمن الأعمال السابقة: «يحتفظ الطرف الثاني بحقه في عرض المشروع ضمن أعماله السابقة بعد إطلاقه علنياً، ما لم يخطره الطرف الأول كتابةً بخلاف ذلك». وانتبه إلى تسمية هذا البند بدقة: الحقوق الأدبية للمؤلف في القانون المصري أبدية ولا تقبل التنازل ولا التقادم، فهذا البند ليس إنشاءً لها ولا تنازلاً عنها، بل إذن تعاقدي بالعرض فقط. معظم المطوّرين الجادّين يحتاجون هذا الإذن، ومنعهم منه بلا سبب يرفع السعر عادةً لأنك تحرمهم من قيمة تسويقية.</p>
+
+<h2>5. كيف أقسّم الدفعات على مراحل التسليم؟</h2>
+
+<p>القاعدة: <strong>كل دفعة يجب أن ترتبط بمخرَج قابل للمعاينة، لا بمرور الوقت</strong>. «الدفعة الثانية بعد شهر» صياغة سيئة. «الدفعة الثانية بعد اعتماد تصاميم الواجهة لكل الشاشات» صياغة جيدة، لأنها قابلة للإثبات.</p>
+
+<p>هذا هو الجدول الذي أستخدمه في المشاريع المتوسطة، وهو متوازن بين حماية الطرفين. استخدمت الدولار في عمود المثال لأن أغلب هذه المشاريع عابرة للحدود، وحوّل الأرقام إلى عملتك المحلية بسعر يوم التوقيع:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>المرحلة</th>
+      <th>المخرَج القابل للمعاينة</th>
+      <th>النسبة</th>
+      <th>مثال على عقد بقيمة 4,000 USD</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>التعاقد</td><td>توقيع العقد واعتماد كراسة الشروط</td><td>25%</td><td>1,000</td></tr>
+    <tr><td>التصميم</td><td>اعتماد تصاميم UI/UX لجميع الشاشات</td><td>15%</td><td>600</td></tr>
+    <tr><td>التطوير الأساسي</td><td>عمل الوظائف الجوهرية على بيئة staging</td><td>25%</td><td>1,000</td></tr>
+    <tr><td>الاختبار والقبول</td><td>اجتياز معايير القبول وتسليم تقرير الاختبار</td><td>20%</td><td>800</td></tr>
+    <tr><td>الإطلاق والتسليم</td><td>النشر على الخادم الفعلي وتسليم قائمة الأصول</td><td>15%</td><td>600</td></tr>
+  </tbody>
+</table>
+
+<p>ملاحظات من واقع التطبيق:</p>
+
+<ul>
+  <li>لا تجعل الدفعة المقدمة أقل من 20%. من يقبل 5% مقدماً إما مضطر جداً أو ينوي ترك المشروع عند أول عرض أفضل.</li>
+  <li>واعتبر الثلث هو الحد الأعلى المعقول، و40% هو الحد الأقصى المطلق لا الهدف. ما بعد ذلك أنت تموّل السيولة النقدية للمطوّر لا تشتري عملاً مُسلَّماً.</li>
+  <li><strong>احتفظ بـ 10 إلى 15% مرتبطة بالتسليم النهائي.</strong> هذه هي الورقة التي تضمن إغلاق آخر عشرة أخطاء صغيرة، بدلاً من أن يختفي المطوّر بعد أن «يعمل الموقع تقريباً».</li>
+  <li>حدّد مهلة السداد من جانبك أيضاً: «يلتزم الطرف الأول بسداد الدفعة خلال خمسة أيام عمل من إخطاره باستيفاء المرحلة، وإلا امتدّ الجدول الزمني بمقدار مدة التأخير». تأخير العميل في الدفع سبب تعطّل مشاريع أكثر مما يتصور العملاء.</li>
+  <li>اذكر العملة صراحةً، ومن يتحمّل رسوم التحويل، وهل المبلغ شامل ضريبة القيمة المضافة. الغموض هنا يكلّف 5 إلى 15% من قيمة العقد في نزاع لاحق.</li>
+</ul>
+
+<p>لتقدير القيمة الإجمالية قبل التفاوض، راجع تفصيل الأسعار في <a href="/ar/blog/website-cost-egypt-gulf">تكلفة الموقع الإلكتروني بين مصر والخليج</a>، أو اطّلع على <a href="/ar/plans">الباقات المعلنة</a> لتعرف ما الذي يقابل كل نطاق سعري فعلياً.</p>
+
+<h3>هل أستخدم منصة وسيطة أم تحويلاً بنكياً؟</h3>
+
+<table>
+  <thead>
+    <tr><th>الطريقة</th><th>مستوى الحماية</th><th>التكلفة</th><th>متى أوصي بها</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>خدمة الضمان في منصات العمل الحر</td><td>عالية للطرفين</td><td>رسوم على الطرفين: عمولة تُقتطع من المستقل، ورسوم خدمة تُضاف على العميل فوق قيمة الفاتورة، ورسوم سحب</td><td>أول تعامل، أو مشروع صغير مع شخص لا تعرفه</td></tr>
+    <tr><td>تحويل بنكي أو Instapay</td><td>لا حماية سوى العقد</td><td>شبه معدومة محلياً، وتُضاف رسوم بنوك مراسلة في التحويلات الدولية</td><td>مطوّر بسمعة موثّقة ومع عقد مكتوب. ملاحظة مهمة: Instapay شبكة محلية بالجنيه المصري فقط ولا تستقبل تحويلات من الخليج أو أوروبا</td></tr>
+    <tr><td>Wise</td><td>متوسطة</td><td>أقل من 2% إجمالاً في العادة على المسارات التي أستخدمها، بسعر الصرف الوسطي مع إظهار الرسوم منفصلة</td><td>التعامل عبر الحدود بين مصر والخليج أو أوروبا</td></tr>
+    <tr><td>PayPal</td><td>متوسطة، مع تعرّض المطوّر لخطر استرداد المبلغ</td><td>غالباً 6 إلى 8% إجمالاً: رسوم معاملة تجارية عابرة للحدود نحو 4.4 إلى 5%، يضاف إليها هامش تحويل عملة يتراوح تقريباً بين 3 و4% فوق السعر الوسطي</td><td>فقط حين يصرّ العميل عليها، مع احتساب الرسوم داخل عرض السعر</td></tr>
+    <tr><td>حساب أمانة لدى محامٍ</td><td>الأعلى</td><td>أتعاب ثابتة أو نسبة</td><td>المشاريع الكبيرة والشراكات طويلة الأمد</td></tr>
+  </tbody>
+</table>
+
+<h2>6. الجدول الزمني والتأخير والغرامة</h2>
+
+<p>أخطر بند في العقود العربية هو بند الغرامة، لأن معظم العملاء يكتبونه من جانب واحد، فيرفضه المطوّرون الجيدون ويقبله الضعفاء، فينتهي بك الأمر إلى بند قوي على الورق ومطوّر ضعيف على الأرض. الغرامة العادلة تكون متبادلة الأثر.</p>
+
+<div class="post-callout"><p><strong>صيغة البند:</strong> «مدة تنفيذ المشروع ______ يوم عمل، تبدأ من تاريخ سداد الدفعة الأولى واستلام الطرف الثاني كامل المواد المطلوبة من الطرف الأول. وفي حال تأخر الطرف الثاني عن التسليم النهائي لأسباب ترجع إليه، يستحق الطرف الأول غرامة قدرها 0.5% من قيمة العقد عن كل يوم عمل تأخير، بحد أقصى 10% من قيمة العقد. ويُوقف احتساب المدة تلقائياً خلال فترات انتظار ردود أو مواد أو موافقات من الطرف الأول، على أن تُوثَّق هذه الفترات كتابةً.»</p></div>
+
+<p>الجملة الأخيرة هي التي تجعل البند قابلاً للتوقيع من مطوّر محترف. في تجربتي، أكثر من نصف حالات التأخير سببها انتظار المحتوى أو الموافقة من العميل، لا بطء المطوّر. أضف كذلك سقفاً لزمن الرد: «يلتزم الطرف الأول بالرد على طلبات الاعتماد خلال ثلاثة أيام عمل، ويُعدّ عدم الرد بعد إخطارين مكتوبين قبولاً ضمنياً للمرحلة». بلا هذه الجملة يمكن لعميل مشغول أن يجمّد مشروعاً شهرين ثم يطالب بغرامة تأخير.</p>
+
+<h2>7. التعديلات خارج النطاق: البند الذي ينقذ المشروع</h2>
+
+<p>تضخّم النطاق هو القاتل الصامت لمشاريع البرمجة. يبدأ بطلب صغير «فقط أضف زر مشاركة»، وينتهي بمشروع تجاوز ميزانيته ومدته مرتين. الحل ليس الرفض، بل التسعير الفوري والشفاف.</p>
+
+<div class="post-callout"><p><strong>صيغة البند:</strong> «كل ما لم يرد في الملحق رقم (1) يُعدّ عملاً إضافياً. يقدّم الطرف الثاني للطرف الأول تقديراً كتابياً لساعات العمل وأثرها على الجدول الزمني خلال يومَي عمل من تلقّي الطلب، ولا يبدأ التنفيذ إلا بموافقة كتابية من الطرف الأول. سعر ساعة العمل الإضافي ______، وتُسدَّد قيمة العمل الإضافي مع أقرب دفعة تالية.»</p></div>
+
+<p>حدّد سعر الساعة داخل العقد نفسه. غيابه يعني تفاوضاً جديداً مع كل طلب صغير وتوتراً لا لزوم له. الشائع في السوق المصري للمستقل المحترف نطاق يتراوح تقريباً بين 300 و1,500 EGP للساعة، وفي الخليج بين 80 و250 SAR للساعة، وبين 40 و90 USD للساعة للمطوّرين ذوي الخبرة الذين يعملون عن بُعد مع عملاء في المملكة المتحدة وأوروبا، ويختلف كثيراً حسب الخبرة والتخصص وحجم المشروع، ويتجاوز المتخصصون في المنصات المعقّدة أعلى كل نطاق. وضع كذلك «رصيد تعديلات مجاني» صغيراً ومحدداً، مثل جولتَي مراجعة على التصاميم وعشر ساعات تعديلات أثناء التطوير، حتى يكون الاتفاق واقعياً ولا يتحوّل كل تفصيل إلى فاتورة.</p>
+
+<h2>8. معايير القبول: تعريف كلمة «تمّ»</h2>
+
+<p>«الموقع جاهز» عبارة بلا معنى قابل للتنفيذ. عرّفها. أنا أضع في كل عقد قائمة قبول موضوعية يستطيع أي طرف ثالث التحقق منها:</p>
+
+<pre><code>معايير القبول للتسليم النهائي
+1. تعمل جميع الوظائف المذكورة في الملحق (1) على بيئة الإنتاج دون خطأ 500.
+2. لا توجد أخطاء مصنّفة Critical أو High في تقرير الاختبار النهائي.
+3. يعمل الموقع على أحدث إصدارين من Chrome و Safari و Firefox و Edge.
+4. يعمل التصميم المتجاوب على عرض 360px و 768px و 1440px دون كسر في التخطيط.
+5. نتيجة Lighthouse للأداء على الجوال لا تقل عن 70 في الصفحات الرئيسية.
+6. تثبيت شهادة SSL وإعادة توجيه HTTP إلى HTTPS.
+7. تفعيل نسخ احتياطي يومي آلي لقاعدة البيانات والملفات مخزَّن خارج الخادم.
+8. تسليم بيانات الدخول لجميع الحسابات المذكورة في الملحق (2).</code></pre>
+
+<p>البند الخامس تحديداً يمنع خلافاً شائعاً حول الأداء. لكن لا تشترط رقماً مستحيلاً على موقع مليء بالفيديو والخطوط الخارجية؛ افهم أولاً ما الذي يرفع الرقم أو يخفضه من <a href="/ar/blog/why-your-website-loads-slowly">لماذا يفتح موقعك ببطء</a>، ثم حدّد العتبة.</p>
+
+<p>وافصل في ذهنك بين رقمين: <strong>الحد الأدنى التعاقدي</strong> و<strong>الهدف</strong>. الرقم 70 هو الحد الأدنى العام الذي أقبله في عقد مع طرف لا أعرفه، لأنه قابل للتحقيق على أي موقع ثقيل المحتوى وقابل للقياس دون جدال. وهو ليس ما أطمح إليه: <a href="/ar/plans">باقاتي المعلنة</a> تلتزم بنتيجة Lighthouse 95+ لأن هذا هو المستوى الذي أبني عليه. اكتب في العقد العتبة التي أنت مستعد فعلاً للتمسك بها، ثم اتفق على الهدف الأعلى داخل كراسة الشروط. وضع رقم أحلامك في بند تعاقدي يعني بنداً لن تستطيع تفعيله.</p>
+
+<p>وأضف مهلة قبول تحمي الطرفين: «يُخطر الطرف الأول بملاحظاته خلال سبعة أيام عمل من الإخطار بالتسليم، وإلا اعتُبر المشروع مقبولاً». هذا يحمي المطوّر من عميل يختفي شهرين ثم يعود بقائمة ملاحظات جديدة، ويحمي العميل بمنحه نافذة فحص واضحة.</p>
+
+<h2>9. الضمان والصيانة: لا تخلط بينهما</h2>
+
+<p>الضمان ليس صيانة، والخلط بينهما سبب نصف الخلافات بعد الإطلاق.</p>
+
+<ul>
+  <li><strong>الضمان</strong> إصلاح مجاني لعيب في العمل المُسلَّم. المعتاد 30 إلى 90 يوماً من تاريخ القبول، وتطول المدة عادةً بحجم التعاقد. الصيغة: «يلتزم الطرف الثاني بإصلاح أي خلل برمجي في الوظائف المُسلَّمة دون مقابل لمدة ______ يوماً من تاريخ القبول، ولا يشمل الضمان الأعطال الناتجة عن تعديل الطرف الأول أو طرف ثالث على الكود، أو عن تغيّر في خدمات خارجية، أو عن مشكلات في الاستضافة، أو عن طلبات جديدة».</li>
+  <li><strong>الصيانة</strong> عقد منفصل مدفوع يشمل التحديثات الأمنية وتحديث الحزم والنسخ الاحتياطي والمراقبة وساعات تطوير شهرية. النطاق السنوي المعتاد يتراوح بين 5 و15% من قيمة المشروع الأصلية، ويعتمد أساساً على مستوى الاستجابة المطلوب لا على حجم الكود.</li>
+</ul>
+
+<p>حدّد زمن الاستجابة صراحةً إن كان الموقع تجارياً: «يلتزم الطرف الثاني بالرد خلال 4 ساعات عمل على الأعطال الحرجة التي توقف الموقع أو عمليات الدفع، وخلال 48 ساعة على الملاحظات العادية». وتذكّر أن التحديثات الأمنية ليست رفاهية؛ راجع <a href="/ar/blog/website-security-checklist">قائمة فحص أمان الموقع</a> واجعل بنودها جزءاً مكتوباً من عقد الصيانة بدل أن تتركها لحسن النية.</p>
+
+<h2>10. التسليم النهائي: قائمة الأصول التي تملكها فعلاً</h2>
+
+<p>رأيت عملاء يملكون موقعاً ناجحاً ولا يستطيعون تغيير سطر فيه، لأن كل شيء مسجَّل باسم المطوّر. اجعل الملحق رقم (2) قائمة أصول حرفية يُوقَّع عليها عند التسليم:</p>
+
+<ol>
+  <li>اسم النطاق مسجَّلاً <strong>باسم العميل وببريده</strong>، لا ببريد المطوّر.</li>
+  <li>حساب الاستضافة أو الخادم مع بيانات الدخول الكاملة.</li>
+  <li>المستودع كاملاً على GitHub أو GitLab منقولاً إلى حساب العميل مع تاريخ الـ commits.</li>
+  <li>نسخة SQL نهائية من قاعدة البيانات، ومخطط الجداول.</li>
+  <li>ملف <code>.env.example</code> وقائمة بكل متغيرات البيئة المطلوبة للتشغيل.</li>
+  <li>مفاتيح كل الخدمات الخارجية: بوابة الدفع، البريد، الرسائل النصية، الخرائط، التخزين السحابي.</li>
+  <li>ملفات التصميم المصدرية على Figma أو ما يعادلها مع صلاحية التحرير.</li>
+  <li>حسابات Google Analytics و Search Console بصلاحية مالك للعميل.</li>
+  <li>دليل تشغيل مختصر: كيف تُنشر نسخة جديدة، وكيف تُستعاد نسخة احتياطية.</li>
+  <li>محضر تسليم موقّع من الطرفين بتاريخ ووصف لما سُلّم.</li>
+</ol>
+
+<div class="post-callout"><p><strong>القاعدة الذهبية:</strong> سجّل النطاق والاستضافة بنفسك وبحسابك من اليوم الأول، ثم امنح المطوّر صلاحية وصول. الترتيب العكسي هو أسهل طريقة لتفقد السيطرة على أصل تملكه، وأصعب طريقة لاستعادته لاحقاً.</p></div>
+
+<h2>11. هل أحتاج اتفاقية عدم إفصاح NDA؟</h2>
+
+<p>إجابة صريحة قد لا تعجب الجميع: <strong>في أغلب مشاريع المواقع التعريفية والمتاجر، الـ NDA المنفصلة غير ضرورية</strong>، ويكفي بند سرية قوي داخل العقد. الفكرة وحدها نادراً ما تكون سراً يستحق مستنداً مستقلاً، والتنفيذ هو ما يصنع الفارق. كثير من العملاء يطلبون NDA قبل أن يشرحوا المشروع أصلاً، فيخسرون أسبوعاً في توقيع مستند لا يحمي شيئاً.</p>
+
+<p>لكن الـ NDA المنفصلة تصبح ضرورية فعلاً في أربع حالات:</p>
+
+<ul>
+  <li>أن تعرض على المطوّر بيانات حقيقية لعملائك أو ملفات مالية أو سجلات صحية قبل التعاقد.</li>
+  <li>أن يكون المنتج منصة SaaS بمنطق تسعير أو خوارزمية تشكّل ميزتك التنافسية، وهو ما أتناوله في <a href="/ar/blog/multi-tenant-saas-laravel">بناء منصة SaaS متعددة المستأجرين بـ Laravel</a>.</li>
+  <li>أن تكون جهة حكومية أو شركة كبرى تُلزمك سياستها الداخلية بذلك.</li>
+  <li>أن يشمل المشروع وصولاً إلى نظام قائم فيه بيانات مستخدمين حقيقية.</li>
+</ul>
+
+<div class="post-callout"><p><strong>صيغة بند السرية داخل العقد:</strong> «يلتزم كل طرف بالحفاظ على سرية كافة المعلومات التقنية والتجارية والمالية وبيانات المستخدمين التي يطّلع عليها بمناسبة تنفيذ هذا العقد، وبعدم إفشائها أو استخدامها لغير أغراض المشروع، أثناء سريان العقد ولمدة سنتين بعد انتهائه. ولا يشمل هذا الالتزام المعلومات المتاحة للعامة أو التي يفرض القانون إفشاءها. ويلتزم الطرف الثاني بحذف نسخ بيانات الإنتاج من أجهزته خلال ثلاثين يوماً من التسليم النهائي.»</p></div>
+
+<p>جملة الحذف الأخيرة أهم عملياً مما تبدو، لأن نسخ قواعد البيانات تبقى على أجهزة المطوّرين سنوات في العادة، وهي أكثر مصادر تسرّب بيانات العملاء شيوعاً وأقلها ذكراً.</p>
+
+<h2>12. ماذا أفعل إذا اختفى المبرمج قبل التسليم؟</h2>
+
+<p>هذا أكثر سؤال يصلني، وأغلب من يسألونه لم يضعوا في عقدهم البند الذي كان سيحلّه. الحل يبدأ قبل الاختفاء لا بعده.</p>
+
+<h3>الوقاية: ثلاثة بنود تجعل الاختفاء غير مجدٍ</h3>
+
+<ol>
+  <li><strong>الرفع الدوري للكود:</strong> «يلتزم الطرف الثاني برفع الكود أسبوعياً إلى مستودع Git مملوك للطرف الأول ومُدار منه، يمنح فيه الطرف الأول للطرف الثاني صلاحية الرفع طوال مدة المشروع، ويحتفظ لنفسه بصلاحية الإدارة الكاملة عليه في كل وقت». هذا البند وحده يحوّل الاختفاء من كارثة إلى إزعاج، لأنك تملك آخر نسخة عاملة ويستطيع أي مطوّر آخر أن يكمل منها.</li>
+  <li><strong>العمل على بيئة العميل:</strong> اجعل الاستضافة وبيئة staging على حسابك أنت، لا على خادم المطوّر الشخصي.</li>
+  <li><strong>الدفع مقابل مخرَج قابل للمعاينة</strong> كما في جدول الدفعات أعلاه، فلا تسبق مدفوعاتك العمل المنجز أبداً.</li>
+</ol>
+
+<h3>العلاج: بند الإنهاء للتقصير</h3>
+
+<div class="post-callout"><p><strong>صيغة البند:</strong> «إذا توقف الطرف الثاني عن العمل أو انقطع عن التواصل مدة تتجاوز عشرة أيام عمل متصلة دون عذر مقبول، جاز للطرف الأول إخطاره كتابةً بمنحه مهلة خمسة أيام عمل لاستئناف العمل. فإذا انقضت المهلة، عُدّ العقد مفسوخاً دون حاجة إلى تنبيه أو إجراء آخر، والتزم الطرف الثاني بتسليم كامل ما أُنجز من كود وتصاميم وبيانات دخول خلال خمسة أيام، مع ردّ ما قبضه زائداً عن قيمة الأعمال المنجزة فعلياً. وتنتقل ملكية الأعمال المنجزة إلى الطرف الأول بمجرد الفسخ.»</p></div>
+
+<p>الجملة الأخيرة حاسمة: بدونها قد تجد نفسك تملك نصف مشروع لا يحق لك قانوناً تسليمه لمطوّر آخر ليكمله، فتعود إلى نقطة الصفر وقد دفعت نصف الميزانية.</p>
+
+<h3>وإذا وقع الاختفاء فعلاً ولا يوجد عقد؟</h3>
+
+<ul>
+  <li>وثّق كل شيء فوراً: المحادثات، إيصالات التحويل، الروابط، المواعيد المتفق عليها، مع لقطات شاشة مؤرَّخة.</li>
+  <li>إن كان التعاقد عبر منصة عمل حر فافتح نزاعاً داخلها قبل أي خطوة أخرى، فأنظمة الضمان تعمل جيداً في هذه الحالة وتوقف صرف المبالغ المحتجزة.</li>
+  <li>أرسل إنذاراً كتابياً رسمياً على البريد المسجَّل وعلى رقم الهاتف، وحدّد فيه مهلة واضحة ومطلباً محدداً: تسليم الكود أو ردّ المبلغ.</li>
+  <li>قدّر خسارتك بواقعية قبل التفكير في التقاضي. تكلفة مقاضاة مبلغ 30,000 EGP عبر محكمة في بلد آخر قد تتجاوز المبلغ نفسه ومعها أشهر من وقتك.</li>
+  <li>ابدأ التعافي التقني فوراً: احصل على آخر نسخة من الاستضافة، وقيّم ما يمكن إنقاذه. واختر البديل بعناية هذه المرة بدءاً من <a href="/ar/blog/kayfa-takhtar-mubarmij-mawaqe">كيف تختار مبرمج مواقع محترف</a>.</li>
+</ul>
+
+<h2>13. القانون الواجب التطبيق وفض النزاع</h2>
+
+<p>حين يكون العميل في الرياض أو دبي والمطوّر في القاهرة، لا تترك هذا البند فارغاً. حدّد ثلاثة أشياء: القانون الحاكم، وجهة الفصل في النزاع، ولغة العقد المعتمدة.</p>
+
+<div class="post-callout"><p><strong>صيغة البند:</strong> «يخضع هذا العقد ويُفسَّر وفقاً لقوانين ______. وفي حال نشوء أي نزاع يسعى الطرفان لحلّه ودياً خلال ثلاثين يوماً، فإن تعذّر ذلك يُحال إلى ______ (المحكمة المختصة أو مركز التحكيم المتفق عليه). وحُرّر هذا العقد من نسختين بيد كل طرف نسخة، ولغته المعتمدة عند الاختلاف هي اللغة العربية.»</p></div>
+
+<p>ثلاث ملاحظات عملية. أولاً، في المشاريع الصغيرة العابرة للحدود يكون التحكيم الدولي أغلى من قيمة المشروع نفسه، فاعتمد بدلاً منه على منصة ضمان وعلى تقسيم دفعات محكم. ثانياً، إن كان العقد ثنائي اللغة فحدّد نسخة معتمدة واحدة، وإلا صار اختلاف الترجمة نزاعاً بذاته. ثالثاً، اسأل نفسك بصراحة: هل سأسافر فعلاً لأقاضيه؟ إن كانت الإجابة لا، فحمايتك الحقيقية هي هيكل الدفع وملكية الأصول، لا بند التقاضي.</p>
+
+<h2>14. الهيكل الكامل للعقد: قائمة مراجعة نهائية</h2>
+
+<p>هذه هي بنود العقد مرتبةً بترتيبها النهائي، بنداً بنداً، كقائمة مراجعة. الصيغ النصية نفسها موجودة في البنود من 3 إلى 13 أعلاه حيث شُرح كل بند قبل استخدامه، واستخدم هذه القائمة للتأكد من أن مستندك لا ينقصه شيء قبل التوقيع. لا يوجد ملف للتحميل عمداً؛ النص كله منشور هنا لتقرأه قبل أن تستخدمه، فالعقد الذي لا تفهمه لا يحميك:</p>
+
+<ol>
+  <li><strong>التمهيد والأطراف:</strong> بيانات الطرفين وصفتهما والإقرار بالأهلية واعتماد البريد الإلكتروني وسيلةَ إخطار.</li>
+  <li><strong>موضوع العقد:</strong> «تصميم وبرمجة وتسليم موقع إلكتروني وفقاً للمواصفات الواردة في الملحق (1) المُوقَّع من الطرفين، والذي يُعدّ جزءاً لا يتجزأ من هذا العقد».</li>
+  <li><strong>المواصفات التقنية:</strong> إطار العمل وإصداره، قاعدة البيانات، بيئة الاستضافة، اللغات المدعومة، عتبات الأداء.</li>
+  <li><strong>المدة والجدول الزمني:</strong> مع بند إيقاف احتساب المدة عند تأخر العميل.</li>
+  <li><strong>القيمة وجدول الدفعات:</strong> بالأرقام وبالحروف، مع العملة ورسوم التحويل والموقف الضريبي.</li>
+  <li><strong>التزامات الطرف الأول:</strong> توفير المحتوى والصور والحسابات والردود خلال المهل المحددة.</li>
+  <li><strong>التزامات الطرف الثاني:</strong> التنفيذ وفق الأصول المهنية، الرفع الأسبوعي للكود، الإبلاغ عن أي معوّق خلال 48 ساعة.</li>
+  <li><strong>التعديلات خارج النطاق:</strong> آلية الطلب والتقدير والموافقة وسعر الساعة.</li>
+  <li><strong>معايير القبول:</strong> القائمة الموضوعية ومهلة إبداء الملاحظات.</li>
+  <li><strong>الملكية الفكرية:</strong> نقل الحقوق عند السداد الكامل، والنطاق الجغرافي ومدة النقل، وترخيص المكوّنات السابقة، وحق العرض ضمن الأعمال السابقة.</li>
+  <li><strong>السرية وحماية البيانات:</strong> مع مدة السريان بعد الانتهاء والتزام الحذف.</li>
+  <li><strong>الضمان:</strong> مدته ونطاقه واستثناءاته.</li>
+  <li><strong>الإنهاء:</strong> بالتراضي وللتقصير، وأثر كل حالة على الدفعات والملكية.</li>
+  <li><strong>القوة القاهرة:</strong> بتعريف واقعي يشمل انقطاع الخدمات السحابية الكبرى وانقطاع الإنترنت العام.</li>
+  <li><strong>القانون وفض النزاع واللغة المعتمدة.</strong></li>
+  <li><strong>الملاحق:</strong> (1) كراسة الشروط، (2) قائمة الأصول والحسابات، (3) جدول الدفعات، (4) نموذج طلب تعديل.</li>
+</ol>
+
+<h2>15. أخطاء شائعة في عقود البرمجة العربية</h2>
+
+<ul>
+  <li><strong>عقد من ثلاثة أسطر على WhatsApp.</strong> الرسائل قد تصلح قرينة إثبات، لكنها لا تعوّض غياب كراسة شروط ولا تحدد ملكية الكود.</li>
+  <li><strong>نسخ عقد مقاولات وتعديل كلمة «مبنى» إلى «موقع».</strong> رأيت هذا حرفياً. البرمجة ليست إنشاءات، ومعايير القبول ومنطق التسليم مختلفان تماماً.</li>
+  <li><strong>غرامة تأخير من طرف واحد.</strong> ستدفع ثمنها في السعر أو في مستوى من يقبل التوقيع.</li>
+  <li><strong>إغفال الضريبة.</strong> حدّد هل المبلغ شامل ضريبة القيمة المضافة أم لا، خصوصاً مع الشركات في السعودية والإمارات.</li>
+  <li><strong>عدم تحديد من يدفع رسوم الخدمات الخارجية.</strong> الاستضافة والنطاق وبوابة الدفع والرسائل النصية تكاليف مستمرة على العميل غالباً، فاكتبها بالأرقام التقديرية.</li>
+  <li><strong>عقد بلا ملحق أصول.</strong> راجع البند العاشر، فهذا أكثر ما يندم عليه العملاء بعد عام من الإطلاق.</li>
+  <li><strong>اختيار الطرف الآخر بلا تحقّق.</strong> العقد يقلّل الضرر لكنه لا يصنع مطوّراً جيداً. والفرق بين التعاقد مع مستقل وشركة يستحق قراءة مستقلة في <a href="/ar/blog/freelance-developer-vs-agency">مطوّر مستقل أم شركة برمجة</a>.</li>
+</ul>
+
+<h2>16. كيف أتعاقد أنا</h2>
+
+<p>للشفافية، هذه طريقتي: مكالمة تشخيص مجانية، ثم عرض سعر ثابت مبني على كراسة شروط مكتوبة، ثم عقد من ست إلى عشر صفحات بالبنود أعلاه، ثم دفعات مرتبطة بمخرَجات، ومستودع Git باسم العميل من اليوم الأول، وملكية كاملة عند السداد النهائي، وضمان مدته 30 أو 60 أو 90 يوماً بحسب مستوى الباقة. لا أبدأ العمل قبل التوقيع حتى مع العملاء المتكررين، ليس لانعدام الثقة بل لأن الوثيقة المكتوبة تختصر أسابيع من النقاش لاحقاً وتحمي الطرفين بالقدر نفسه.</p>
+
+<p>إن كان بين يديك عقد الآن وتريد رأياً صريحاً فيه، أو تريد عرض سعر ثابتاً لمشروعك، تواصل معي عبر <a href="/ar/contact">صفحة التواصل</a>. الاستشارة الأولى مجانية، وأرد خلال 24 ساعة بعرض واضح دون التزام.</p>
+HTMLAR,
+            ],
+            [
+                'slug' => 'multi-tenant-saas-laravel',
+                'title' => 'Multi-Tenant SaaS in Laravel: Single DB vs Database-Per-Tenant',
+                'title_ar' => 'بناء نظام SaaS متعدد المستأجرين بـ Laravel: قاعدة واحدة أم قاعدة لكل عميل؟',
+                'excerpt' => 'Most founders ask for a database per tenant and do not need one. Here is the honest engineering comparison — isolation, scale limits, package choices, permission scoping, and what multi-tenancy really adds to your build cost.',
+                'excerpt_ar' => 'أغلب المؤسسين يطلبون قاعدة بيانات لكل عميل وهم لا يحتاجونها فعلاً. هنا المقارنة الهندسية الصريحة: العزل، حدود التوسع، اختيار الحزمة، الصلاحيات، والتكلفة الحقيقية التي يضيفها تعدد المستأجرين على مشروعك.',
+                'category' => 'Backend',
+                'tags' => ['Laravel', 'SaaS', 'Multi-Tenancy', 'Database Design', 'Architecture', 'PostgreSQL', 'MySQL', 'Scalability'],
+                'image' => '1710763075-services-bg-img-1.jpg',
+                'date' => '2026-08-01',
+                'read_time' => '17 min read',
+                'meta_title' => 'Multi-Tenant SaaS in Laravel: One DB or DB Per Tenant?',
+                'meta_title_ar' => 'SaaS متعدد المستأجرين بـ Laravel: قاعدة واحدة أم لكل عميل؟',
+                'meta_description' => 'Single database or database-per-tenant in Laravel? A senior developer\'s decision framework, real scale limits, isolation techniques, and honest cost ranges.',
+                'meta_description_ar' => 'قاعدة واحدة أم قاعدة لكل مستأجر في Laravel؟ إطار قرار عملي، حدود التوسع الحقيقية، طرق العزل الآمن، ونطاقات تكلفة صريحة من مطوّر محترف.',
+                'faq' => [
+                    [
+                        'q' => 'Should I use one database or a database per tenant in Laravel?',
+                        'a' => 'Start with one database and a tenant_id column unless a signed contract, per-customer data residency, per-tenant point-in-time restore, extreme data skew, or per-tenant schema divergence forces otherwise. Single-database tenancy provisions in milliseconds, migrates once, and backs up once. You can extract individual tenants into their own database later in days, not months.',
+                        'q_ar' => 'هل أستخدم قاعدة بيانات واحدة أم قاعدة لكل مستأجر في Laravel؟',
+                        'a_ar' => 'ابدأ بقاعدة واحدة وعمود tenant_id إلا إذا فرض العكس عقد موقّع، أو اشتراط تخزين بيانات كل عميل في دولة محددة، أو حاجة لاستعادة نسخة لعميل بعينه، أو تفاوت حاد في الأحجام، أو اختلاف في بنية الجداول. القاعدة الواحدة تُجهّز في أجزاء من الثانية وتُرحَّل مرة واحدة، ويمكن استخراج عميل منها لاحقاً في أيام لا شهور.',
+                    ],
+                    [
+                        'q' => 'How do I guarantee tenant data isolation in Laravel?',
+                        'a' => 'Use a fail-closed global scope that returns zero rows when no tenant is bound, never one that returns everything. Then close the seven gaps the scope misses: raw DB queries, unique and exists validation rules, unique indexes, withoutGlobalScope calls, queued jobs, cache keys, and file storage paths. Finally, add a CI test asserting zero cross-tenant visibility on every model.',
+                        'q_ar' => 'كيف أضمن عزل بيانات المستأجرين في Laravel؟',
+                        'a_ar' => 'استخدم global scope يمنع افتراضياً ويُرجع صفراً من الصفوف عند غياب المستأجر، لا واحداً يُرجع كل شيء. ثم أغلق الثغرات السبع التي لا يصلها: الاستعلامات المباشرة، وقواعد unique وexists، والفهارس الفريدة، واستدعاءات withoutGlobalScope، والمهام في الطابور، ومفاتيح الـ cache، ومسارات الملفات. وأضف اختباراً في CI يثبت انعدام الرؤية المتقاطعة.',
+                    ],
+                    [
+                        'q' => 'At how many tenants does single-database tenancy break?',
+                        'a' => 'It does not break at a tenant count, it breaks at row count and skew. Below 10 million rows in your hottest table nothing happens. Between 100 and 500 million, schema changes and maintenance windows start hurting. Shared-schema tenancy comfortably handles tens of thousands of tenants; database-per-tenant hits connection and file-descriptor walls around 200 to 500 tenants per server.',
+                        'q_ar' => 'عند كم مستأجر ينهار نموذج القاعدة الواحدة؟',
+                        'a_ar' => 'لا ينهار عند عدد مستأجرين بل عند عدد الصفوف وتفاوت الأحجام. تحت عشرة ملايين صف في جدولك الأنشط لا يحدث شيء. بين مئة وخمسمئة مليون تبدأ تعديلات البنية ونوافذ الصيانة في الإيلام. القاعدة المشتركة تستوعب عشرات الآلاف من المستأجرين، بينما نموذج القاعدة لكل عميل يصطدم بحدود الاتصالات وواصفات الملفات عند 200 إلى 500 عميل لكل خادم.',
+                    ],
+                    [
+                        'q' => 'How much does multi-tenancy add to a SaaS build cost?',
+                        'a' => 'In my quoting, hand-rolled single-database tenancy adds roughly 25 to 45 hours, or USD 1,000 to 2,200. A full database-per-tenant setup with queued provisioning and migration orchestration runs 90 to 150 hours, or USD 3,600 to 7,500, plus USD 80 to 400 per month in extra infrastructure before your first paying customer.',
+                        'q_ar' => 'كم يضيف تعدد المستأجرين إلى تكلفة بناء المنتج؟',
+                        'a_ar' => 'في تسعيري، تعدد المستأجرين على قاعدة واحدة بتنفيذ يدوي يضيف نحو 25 إلى 45 ساعة، أي 1,000 إلى 2,200 دولار. أما نموذج القاعدة لكل عميل بتجهيز في طابور وتنسيق ترحيلات فيتراوح بين 90 و150 ساعة، أي 3,600 إلى 7,500 دولار، إضافة إلى 80 إلى 400 دولار شهرياً في البنية التحتية قبل أول عميل يدفع.',
+                    ],
+                    [
+                        'q' => 'How do I handle tenant-scoped roles and permissions?',
+                        'a' => 'On a shared database use spatie/laravel-permission with teams enabled, but set teams to true before your initial migration since retrofitting it needs a manual schema change. Call setPermissionsTeamId in middleware that runs before SubstituteBindings, and when switching tenants mid-request call unsetRelation on roles and permissions or you get the previous tenant\'s answer.',
+                        'q_ar' => 'كيف أتعامل مع الأدوار والصلاحيات المقيّدة بكل مستأجر؟',
+                        'a_ar' => 'على قاعدة مشتركة استخدم spatie/laravel-permission مع تفعيل teams، لكن فعّلها قبل الترحيل الأول لأن إضافتها لاحقاً تتطلب تعديل بنية يدوياً. استدعِ setPermissionsTeamId داخل middleware يعمل قبل SubstituteBindings، وعند تبديل المستأجر داخل الطلب نفسه استدعِ unsetRelation على roles وpermissions وإلا حصلت على إجابة المستأجر السابق.',
+                    ],
+                    [
+                        'q' => 'Which package is better, stancl/tenancy or spatie/laravel-multitenancy?',
+                        'a' => 'As of August 2026, stancl/tenancy v3.10.1 supports Laravel 10 to 13 and is the stronger choice for database-per-tenant, shipping bootstrappers for cache, queue, filesystem and Redis. spatie/laravel-multitenancy v4.2.0 requires PHP 8.2 and Laravel 11 to 13, and is deliberately unopinionated. Pick spatie when the client\'s team will maintain the code.',
+                        'q_ar' => 'أيهما أفضل: stancl/tenancy أم spatie/laravel-multitenancy؟',
+                        'a_ar' => 'حتى أغسطس 2026، حزمة stancl/tenancy بإصدار v3.10.1 تدعم Laravel من 10 إلى 13 وهي الخيار الأقوى لنموذج القاعدة لكل عميل، إذ تقدّم bootstrappers جاهزة للـ cache والطابور والملفات وRedis. أما spatie/laravel-multitenancy بإصدار v4.2.0 فتتطلب PHP 8.2 وLaravel من 11 إلى 13 وهي محايدة عن قصد، واخترها حين يتولى فريق العميل صيانة الكود.',
+                    ],
+                    [
+                        'q' => 'Can I migrate from a single database to a database per tenant later?',
+                        'a' => 'Yes, and it is straightforward if you plan for it. Use ULID tenant keys, put tenant_id on every tenant-owned table, never foreign-key across tenants, keep central tables separate, and namespace storage and cache by tenant from the first commit. Extraction then becomes a scripted copy plus a short maintenance window for that one customer.',
+                        'q_ar' => 'هل يمكنني الانتقال من قاعدة واحدة إلى قاعدة لكل عميل لاحقاً؟',
+                        'a_ar' => 'نعم، والأمر مباشر إن خططت له. استخدم مفاتيح ULID للمستأجرين، وضع tenant_id في كل جدول يخصهم، ولا تربط مفتاحاً خارجياً بين مستأجرين، وافصل الجداول المركزية، وافصل مسارات التخزين ومفاتيح الـ cache لكل مستأجر من أول commit. عندها يصبح الاستخراج نسخاً مؤتمتاً مع نافذة صيانة قصيرة لذلك العميل وحده.',
+                    ],
+                ],
+                'content' => <<<'HTML'
+<p class="lead">Start with a single database and a <strong>tenant_id</strong> column. I have built and inherited enough Laravel SaaS products to say that plainly: most founders who ask me for a database per tenant do not need one in year one, and the ones who build it anyway spend their runway paying an operations tax instead of finding product-market fit. I am Khaled Ahmed, a full stack developer in Cairo with five-plus years and 39-plus shipped projects. Here is the whole decision, with the numbers behind it.</p>
+
+<h2>1. The Verdict First, Then the Justification</h2>
+
+<p>There are exactly three sane architectures for a Laravel SaaS, and only three:</p>
+
+<ol>
+<li><strong>Shared database, shared schema.</strong> One database, one set of tables, every tenant-owned row carries a <code>tenant_id</code> foreign key. Isolation is enforced in application code.</li>
+<li><strong>Shared database, separate schema.</strong> One PostgreSQL database, one schema per tenant. Isolation is enforced by the <code>search_path</code>.</li>
+<li><strong>Database per tenant.</strong> One physical database per customer, possibly on shared or separate servers. Isolation is enforced by the connection.</li>
+</ol>
+
+<p>My default is number one. I move to number three only when a specific, named, present-tense requirement forces it — not because a board member said "enterprise clients will want it".</p>
+
+<p>The five conditions that legitimately override the default:</p>
+
+<ul>
+<li><strong>A contract that names it.</strong> A signed enterprise agreement or a public-sector tender that specifies physically separate storage. This is real and it happens, especially in Gulf government and healthcare procurement.</li>
+<li><strong>Data residency per customer.</strong> One customer's data must sit in Saudi Arabia, another's in Germany. You cannot satisfy that with one shared table.</li>
+<li><strong>Per-tenant restore.</strong> A customer needs to be rolled back to yesterday 3pm without touching anyone else. Doing that from a shared table is surgery; from a separate database it is a restore.</li>
+<li><strong>Extreme data skew.</strong> One tenant holds 60% of your rows and their queries are starving everyone else's.</li>
+<li><strong>Per-tenant schema divergence.</strong> Enterprise clients get custom columns or custom tables. Rare, usually a product mistake, but occasionally the business model.</li>
+</ul>
+
+<p>If none of those five is true today, build single-database. You can migrate later — I will show you how in section 11 — and the migration is far cheaper than the eighteen months of operational overhead you would have paid in the meantime.</p>
+
+<div class="post-callout"><p><strong>The uncomfortable truth:</strong> database-per-tenant does not make your app more secure. It moves the isolation boundary from your code to your connection resolver. If your tenant resolver has a bug, you leak an entire customer's database instead of a few rows. I have seen both failures. The second one is worse.</p></div>
+
+<h2>2. What the Three Architectures Actually Cost You</h2>
+
+<h3>Shared database, shared schema</h3>
+
+<p>Every query needs a <code>where tenant_id = ?</code>. In Laravel you enforce this with a global scope so nobody has to remember. Migrations run once. Backups are one job. Adding a tenant is a single <code>INSERT</code> — sub-second, which means self-serve signup works with no provisioning queue.</p>
+
+<p>The cost is that a single forgotten scope is a cross-tenant data leak, and your largest table is the sum of all tenants.</p>
+
+<h3>Shared database, separate schema (PostgreSQL)</h3>
+
+<p>This is the underrated middle option and almost nobody writes about it honestly. Each tenant gets a PostgreSQL schema; you switch with <code>SET search_path</code>. You get real namespace separation and per-tenant <code>pg_dump</code> without paying for a separate database handle per tenant.</p>
+
+<p>The cost: it is PostgreSQL-only, your migration fan-out problem is identical to database-per-tenant, and PostgreSQL's catalog gets heavy well before you would expect. Thousands of schemas each holding forty tables means hundreds of thousands of catalog rows, and operations like <code>pg_dump</code> of the whole cluster or a naive <code>\dt</code> start to crawl.</p>
+
+<h3>Database per tenant</h3>
+
+<p>Cleanest mental model, highest operational bill. Migrations must run N times. Backups are N jobs. Restores are trivially per-tenant. Analytics across all tenants becomes a genuine engineering project rather than a <code>GROUP BY</code>.</p>
+
+<table>
+<thead>
+<tr><th>Dimension</th><th>Shared DB, shared schema</th><th>Schema per tenant (PG)</th><th>Database per tenant</th></tr>
+</thead>
+<tbody>
+<tr><td>Isolation enforced by</td><td>Application code (global scopes)</td><td><code>search_path</code></td><td>Connection / credentials</td></tr>
+<tr><td>Blast radius of one bug</td><td>Some rows</td><td>One tenant's tables</td><td>One whole tenant DB</td></tr>
+<tr><td>Tenant provisioning time</td><td>Milliseconds</td><td>1–10 seconds</td><td>5–60 seconds (often queued)</td></tr>
+<tr><td>Migration cost at 1,000 tenants</td><td>One run</td><td>1,000 runs</td><td>1,000 runs</td></tr>
+<tr><td>Per-tenant point-in-time restore</td><td>Painful, custom tooling</td><td>Straightforward</td><td>Trivial</td></tr>
+<tr><td>Cross-tenant reporting</td><td>Trivial SQL</td><td>Hard (UNION over schemas)</td><td>Hard (needs a warehouse)</td></tr>
+<tr><td>Connection pool pressure</td><td>Low</td><td>Low</td><td>High — see section 6</td></tr>
+<tr><td>Data residency per tenant</td><td>Not possible</td><td>Not possible</td><td>Yes</td></tr>
+<tr><td>DevOps hours per month (my estimate)</td><td>2–5</td><td>6–12</td><td>10–30</td></tr>
+<tr><td>Good default for</td><td>B2B SaaS, self-serve, &lt; 5k tenants</td><td>Mid-market PG shops</td><td>Enterprise, regulated, few large tenants</td></tr>
+</tbody>
+</table>
+
+<h2>3. Should I Use One Database or a Database Per Tenant?</h2>
+
+<p>Answer the following six questions honestly. Score one point each time the description in the right-hand column is the one that actually fits you.</p>
+
+<table>
+<thead>
+<tr><th>Question</th><th>Points to shared DB</th><th>Points to DB-per-tenant</th></tr>
+</thead>
+<tbody>
+<tr><td>How do customers sign up?</td><td>Self-serve, credit card, instant</td><td>Sales-led, contract, onboarding call</td></tr>
+<tr><td>How many tenants in 24 months?</td><td>Hundreds to thousands</td><td>Dozens to low hundreds</td></tr>
+<tr><td>Average revenue per tenant?</td><td>Under $200 / SAR 750 per month</td><td>Over $2,000 / SAR 7,500 per month</td></tr>
+<tr><td>Does any signed contract mention data separation?</td><td>No</td><td>Yes</td></tr>
+<tr><td>Do you need cross-tenant analytics in-product?</td><td>Yes (benchmarks, admin dashboards)</td><td>No</td></tr>
+<tr><td>Do you have a DevOps person or budget for one?</td><td>No</td><td>Yes</td></tr>
+</tbody>
+</table>
+
+<p>Four or more on the right and database-per-tenant is defensible. Three or fewer and you are buying a problem. The pattern I see over and over in <a href="/saas-development">SaaS builds</a> is a two-person team choosing database-per-tenant for a $49/month product with a target of 3,000 customers. That combination cannot work — the provisioning, migration and backup overhead per tenant exceeds the gross margin per tenant.</p>
+
+<p>There is also a hybrid worth knowing: <strong>shared by default, dedicated on request</strong>. Everyone lands in the shared database; enterprise accounts get moved to their own. This is what most mature SaaS products actually run, and it is the reason section 11 on the migration path matters more than the initial choice.</p>
+
+<h2>4. How Do I Guarantee Tenant Data Isolation in Laravel?</h2>
+
+<p>You do not guarantee it with a trait. You guarantee it with a default-deny posture plus a test suite that tries to break it. Here is the full checklist of leak paths, in the order I find them in real codebases.</p>
+
+<h3>4.1 The global scope is the floor, not the ceiling</h3>
+
+<p>In current Laravel (the <code>ScopedBy</code> attribute has been the recommended registration style since Laravel 10 and remains so in Laravel 13, released 17 March 2026), the base setup looks like this:</p>
+
+<pre><code>&lt;?php
+
+namespace App\Models\Scopes;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Scope;
+
+class TenantScope implements Scope
+{
+    public function apply(Builder $builder, Model $model): void
+    {
+        if (! app()-&gt;bound('currentTenant')) {
+            // Fail closed. Never return unscoped rows.
+            $builder-&gt;whereRaw('1 = 0');
+            return;
+        }
+
+        $builder-&gt;where(
+            $model-&gt;qualifyColumn('tenant_id'),
+            app('currentTenant')-&gt;id
+        );
+    }
+}</code></pre>
+
+<p>Note the <code>whereRaw('1 = 0')</code>. Most tutorials write <code>if (tenant()) { ... }</code> and silently return everything when there is no tenant. That is the single most common cross-tenant leak I get called in to fix. Fail closed, then explicitly opt out in the few central-admin queries that genuinely need all rows.</p>
+
+<pre><code>use Illuminate\Database\Eloquent\Attributes\ScopedBy;
+
+#[ScopedBy([TenantScope::class])]
+class Invoice extends Model
+{
+    protected static function booted(): void
+    {
+        static::creating(function (Invoice $invoice) {
+            $invoice-&gt;tenant_id ??= app('currentTenant')-&gt;id;
+        });
+    }
+}</code></pre>
+
+<h3>4.2 The seven places the scope does not reach</h3>
+
+<ul>
+<li><strong>Raw queries.</strong> <code>DB::table('invoices')</code> and <code>DB::select(...)</code> bypass Eloquent entirely. The stancl/tenancy documentation says this plainly about its own single-database mode: the package can only scope the Eloquent abstraction, not low-level database queries. Ban raw queries outside a small, reviewed <code>Reporting</code> namespace.</li>
+<li><strong>Validation rules.</strong> <code>Rule::unique('posts', 'slug')</code> checks the whole table. Tenant A creating a slug that tenant B already used gets a validation error that reveals tenant B exists. You must write <code>Rule::unique('posts', 'slug')-&gt;where('tenant_id', tenant('id'))</code> every time, and the same for <code>exists</code>.</li>
+<li><strong>Unique indexes.</strong> A plain <code>$table-&gt;unique('slug')</code> is a global uniqueness constraint. It must be <code>$table-&gt;unique(['tenant_id', 'slug'])</code>. This is a schema decision you cannot cheaply undo later — one of many reasons I treat <a href="/blog/database-design-for-web-apps">database design</a> as the highest-leverage hour of a SaaS build.</li>
+<li><strong>Route model binding.</strong> <code>Route::get('/invoices/{invoice}')</code> resolves via the model, so the global scope does apply — good. But the moment someone writes <code>Invoice::withoutGlobalScopes()-&gt;findOrFail($id)</code> in a controller "just to debug something", you have an IDOR. Grep for <code>withoutGlobalScope</code> in code review, every time.</li>
+<li><strong>Queued jobs.</strong> A job serialised with <code>SerializesModels</code> stores the model's key and re-resolves it on the worker, where there is no HTTP request and therefore no tenant context. Either pass the tenant ID explicitly into the job and re-bind it in <code>handle()</code>, or use a package that injects it into the payload for you.</li>
+<li><strong>Cache and Redis keys.</strong> <code>Cache::remember('dashboard_stats', ...)</code> with no tenant prefix serves tenant A's numbers to tenant B. Prefix every key.</li>
+<li><strong>File storage, exports and PDFs.</strong> Uploads landing in a shared <code>storage/app/invoices/</code> with predictable filenames are a leak even if the database is perfect. Namespace the disk path by tenant and never serve files by guessable path. This overlaps heavily with the broader <a href="/blog/website-security-checklist">website security checklist</a>.</li>
+</ul>
+
+<h3>4.3 The isolation test that actually catches things</h3>
+
+<p>Write one test, run it against every tenant-owned model, and make it part of CI:</p>
+
+<pre><code>it('never returns another tenant\'s rows', function () {
+    $a = Tenant::factory()-&gt;create();
+    $b = Tenant::factory()-&gt;create();
+
+    app()-&gt;instance('currentTenant', $a);
+    $mine = Invoice::factory()-&gt;count(3)-&gt;create();
+
+    app()-&gt;instance('currentTenant', $b);
+    expect(Invoice::count())-&gt;toBe(0);
+    expect(Invoice::find($mine-&gt;first()-&gt;id))-&gt;toBeNull();
+});</code></pre>
+
+<p>Note that the test binds the same container key the scope in 4.1 reads. Drive the test through whatever actually sets tenant context in your app — if you are using stancl/tenancy rather than the hand-rolled scope above, swap those two lines for <code>tenancy()-&gt;initialize($a)</code> and <code>tenancy()-&gt;initialize($b)</code>. A test that initialises tenancy one way while the scope reads another is a test that passes without proving anything, which is worse than no test at all.</p>
+
+<p>Then add a smoke test that hits every route as tenant B with tenant A's IDs in the URL and asserts 403 or 404 — never 200. This is boring, it takes a day to write, and it is the difference between a SaaS you can sell to a bank and one you cannot.</p>
+
+<h3>4.4 If you want isolation the database enforces</h3>
+
+<p>PostgreSQL Row Level Security gives you belt-and-braces on a shared schema. Two caveats the PostgreSQL manual is explicit about and most blog posts omit: <strong>superusers and roles with <code>BYPASSRLS</code> always bypass row security</strong>, and <strong>the table owner normally bypasses it too</strong> unless you run <code>ALTER TABLE ... FORCE ROW LEVEL SECURITY</code>. So your Laravel connection must use a non-owner, non-superuser role, or RLS is decoration.</p>
+
+<pre><code>ALTER TABLE invoices ENABLE ROW LEVEL SECURITY;
+ALTER TABLE invoices FORCE ROW LEVEL SECURITY;
+
+CREATE POLICY tenant_isolation ON invoices
+    USING (tenant_id = current_setting('app.tenant_id')::bigint);</code></pre>
+
+<p>You then issue <code>SET LOCAL app.tenant_id = '...'</code> at the start of each request's transaction. One practical warning, and most write-ups get this backwards: <code>SET LOCAL</code> is transaction-scoped, which is precisely why it is safe under PgBouncer's transaction pooling — the value dies when the transaction ends. The dangerous combination is a plain <code>SET</code> under transaction pooling: the server connection goes back into the pool with <code>app.tenant_id</code> still set on it, and whichever tenant's transaction is handed that connection next inherits the previous tenant's value. PgBouncer only runs <code>DISCARD ALL</code> between transactions if you explicitly enable <code>server_reset_query_always</code>, so do not assume it is being cleaned up for you. Test this under load, not on your laptop.</p>
+
+<h2>5. stancl/tenancy vs spatie/laravel-multitenancy vs Rolling Your Own</h2>
+
+<p>Both mainstream packages are healthy as of August 2026. Versions and constraints, taken from Packagist at the time of writing — check before you commit, these move:</p>
+
+<table>
+<thead>
+<tr><th></th><th>stancl/tenancy</th><th>spatie/laravel-multitenancy</th><th>Hand-rolled</th></tr>
+</thead>
+<tbody>
+<tr><td>Latest stable (Aug 2026)</td><td>v3.10.1, released 5 Aug 2026</td><td>v4.2.0, released 7 Aug 2026</td><td>—</td></tr>
+<tr><td>PHP / Laravel</td><td>PHP ^8.0; Laravel 10–13</td><td>PHP ^8.2; Laravel 11–13</td><td>Yours</td></tr>
+<tr><td>Philosophy</td><td>Automatic, batteries included</td><td>Deliberately unopinionated</td><td>Explicit</td></tr>
+<tr><td>Multi-database</td><td>First class, auto-provisioning</td><td>Supported, you wire the task</td><td>You build it</td></tr>
+<tr><td>Single-database</td><td>Supported via <code>BelongsToTenant</code></td><td>Supported, you write the scope</td><td>You build it</td></tr>
+<tr><td>Cache / queue / filesystem awareness</td><td>Built-in bootstrappers</td><td>Built-in tasks</td><td>You build it</td></tr>
+<tr><td>Best when</td><td>DB-per-tenant, want it to just work</td><td>You want to understand every moving part</td><td>Simple single-DB, few models</td></tr>
+</tbody>
+</table>
+
+<p><strong>stancl/tenancy</strong> ships five bootstrappers that solve most of section 4.2 for you: the database bootstrapper switches the default connection (note: <em>only</em> the default connection — explicitly named connections are untouched, which surprises people); the cache bootstrapper tags cache entries with the tenant ID; the filesystem bootstrapper suffixes storage paths and makes the <code>Storage</code> facade tenant-aware; the queue bootstrapper embeds the tenant ID in the job payload and re-initialises tenancy when the job runs; and the Redis bootstrapper changes the Redis prefix per tenant — that last one requires phpredis, not Predis.</p>
+
+<p>Setup is genuinely short:</p>
+
+<pre><code>composer require stancl/tenancy
+php artisan tenancy:install
+php artisan migrate
+# then register TenancyServiceProvider in bootstrap/providers.php
+# and move tenant tables into database/migrations/tenant/</code></pre>
+
+<p><strong>spatie/laravel-multitenancy</strong> takes the opposite stance: it determines the current tenant and lets you define what happens when one becomes current, through "tasks". It will not surprise you, but it will also not do your homework. I reach for it when the client's team will maintain the code and I want them to understand every line.</p>
+
+<p><strong>Rolling your own</strong> is entirely reasonable for single-database tenancy with fewer than about fifteen tenant-owned models. A scope class, a trait, a middleware that binds <code>currentTenant</code>, and the CI test from 4.3. That is roughly 200 lines and no upgrade treadmill. I have shipped this more often than either package, and it is what I usually recommend inside a first <a href="/blog/build-saas-mvp-laravel-react-2026">Laravel + React SaaS MVP</a>.</p>
+
+<div class="post-callout"><p><strong>Version note:</strong> Laravel 12 stopped receiving bug fixes on 13 August 2026 and continues to receive security fixes only until 24 February 2027. Laravel 13 (17 March 2026) requires PHP 8.3 minimum. If you are starting a multi-tenant build now, start on 13 — retrofitting tenancy during a framework upgrade is the worst of both jobs.</p></div>
+
+<h2>6. At How Many Tenants Does Single-Database Tenancy Break?</h2>
+
+<p>Wrong question, and it is the question everyone asks. Single-database tenancy does not break at a tenant count. It breaks at a <strong>row count in your hottest table</strong>, and at <strong>skew</strong>.</p>
+
+<p>The rough thresholds I work to, on a well-indexed MySQL 8 or PostgreSQL 16+ instance with adequate memory:</p>
+
+<table>
+<thead>
+<tr><th>Hot table size</th><th>What happens</th><th>What to do</th></tr>
+</thead>
+<tbody>
+<tr><td>Under 10M rows</td><td>Nothing. A composite index on <code>(tenant_id, created_at)</code> handles everything.</td><td>Ignore the problem.</td></tr>
+<tr><td>10M–100M rows</td><td>Slow aggregates, slow <code>COUNT(*)</code>, index bloat.</td><td>Composite indexes, materialised counters, read replica for reports.</td></tr>
+<tr><td>100M–500M rows</td><td>Maintenance windows hurt. Adding a column locks or takes hours.</td><td>Partition by <code>tenant_id</code> range or hash; archive cold tenants.</td></tr>
+<tr><td>Over 500M rows</td><td>Backups and restores become the constraint, not queries.</td><td>Shard by tenant into pods, or move whales to their own DB.</td></tr>
+</tbody>
+</table>
+
+<p>Skew matters more than the total. If your top tenant is 100× your median tenant, their table scans will evict everyone else's pages from the buffer pool and your p95 will be terrible for customers who are doing nothing wrong. Watch for that ratio in your metrics from month one.</p>
+
+<h3>Where database-per-tenant breaks — and this one is a hard wall</h3>
+
+<p>Connections. Each distinct database name is a separate connection Laravel opens, and neither PHP nor Laravel has a connection pool to amortise them — that is exactly why this bites. With PHP-FPM, every worker that touches a tenant DB holds an open connection to it for the life of that worker.</p>
+
+<p>Amazon RDS sets the default MySQL <code>max_connections</code> to <code>{DBInstanceClassMemory/12582880}</code> — roughly memory-in-MB divided by 12. PostgreSQL uses <code>LEAST({DBInstanceClassMemory/9531392}, 5000)</code>. In practice a MySQL instance on a db.t3.micro gets about 60 connections, and even a modest 8 GiB class lands around 630. Run 40 PHP-FPM workers across two app servers, each serving requests for different tenants, and you can exhaust a small instance's connection budget with fewer than a hundred active tenants. You then need RDS Proxy or PgBouncer, which is another moving part, another failure mode and another bill.</p>
+
+<p>Second wall: MySQL's <code>table_open_cache</code> and <code>open_files_limit</code>. Five hundred tenants × forty tables is 20,000 tables. The MySQL manual is direct about the consequence of setting <code>table_open_cache</code> too high: the server runs out of file descriptors and starts refusing connections or failing queries. You will be tuning OS-level file descriptor limits, which is not what your seed round was for.</p>
+
+<p>Third wall: migration fan-out. A migration that takes two seconds takes 33 minutes across 1,000 tenants if you run it serially, and you must handle the tenants that fail halfway. Every deployment becomes a distributed transaction you are managing by hand.</p>
+
+<p>My honest numbers: database-per-tenant is comfortable to about <strong>200–500 tenants on one server</strong>. Past that you are building tenant pods — groups of tenants per database server — and you have become an infrastructure company. Shared-schema tenancy on decent hardware handles <strong>tens of thousands of tenants</strong> before the row counts above become the binding constraint.</p>
+
+<h2>7. The Operational Bill Nobody Quotes You</h2>
+
+<p>When a developer quotes you for "multi-tenant with a database per tenant", ask them which of these is included. In my experience most quotes include the first item and none of the rest.</p>
+
+<ul>
+<li><strong>Provisioning.</strong> Creating the database, running migrations, seeding defaults, and handling the failure halfway through. This must be a queued job with retries and a visible status in your admin panel, not an inline HTTP request.</li>
+<li><strong>Deprovisioning.</strong> Deleting a tenant's database on cancellation, after a retention window, with a final export. Getting this wrong is a GDPR and PDPL problem, not just a housekeeping one.</li>
+<li><strong>Migration orchestration.</strong> Running migrations across N databases, in parallel batches, with per-tenant success tracking and a resume path.</li>
+<li><strong>Backups.</strong> N backup jobs, N restore tests. An untested backup is not a backup.</li>
+<li><strong>Monitoring.</strong> Per-tenant slow query visibility, per-tenant disk usage, alerts before a tenant DB fills.</li>
+<li><strong>Cross-tenant reporting.</strong> Your own business metrics — MRR, churn, feature adoption — now require an ETL into a warehouse.</li>
+<li><strong>Support tooling.</strong> Impersonation, read-only support access, and an audit log of who looked at what.</li>
+</ul>
+
+<p>That list is 60–120 hours of engineering before you write a single product feature. It is also the reason I am careful about <a href="/blog/choosing-web-hosting-2026">hosting choices</a> on these projects — a $12/month shared plan cannot host database-per-tenant tenancy, and finding that out in month four is expensive.</p>
+
+<h2>8. How Do I Handle Tenant-Scoped Roles and Permissions?</h2>
+
+<p>This is the question that catches out teams who got the data layer right.</p>
+
+<p>If you are on database-per-tenant, this is nearly free: <code>spatie/laravel-permission</code> runs inside each tenant database and roles are naturally scoped. Watch only for the permission cache, which must be namespaced per tenant or you will serve tenant A's permission map to tenant B.</p>
+
+<p>If you are on a shared database, use the package's <strong>teams</strong> feature, and read these caveats before you migrate anything:</p>
+
+<ul>
+<li><code>'teams' =&gt; true</code> must be set in <code>config/permission.php</code> <strong>before the initial migration</strong>. Turning it on afterwards means a manual schema migration and a data backfill. Decide on day one.</li>
+<li>You set the active team with <code>setPermissionsTeamId($tenantId)</code> in middleware. That middleware must run <strong>before</strong> Laravel's <code>SubstituteBindings</code>, otherwise route model binding fails first and your user gets a 404 where a 403 was correct.</li>
+<li>When you switch team context inside a single request — an admin viewing two tenants, a queued job iterating tenants — you must clear the cached relations yourself: <code>$user-&gt;unsetRelation('roles')-&gt;unsetRelation('permissions')</code>. Skip this and the second tenant's check silently returns the first tenant's answer.</li>
+<li>Roles created with <code>team_id =&gt; null</code> are global. Use that for your own staff roles, not for tenant roles.</li>
+<li>If you use Livewire, register the team middleware as persistent or the context is lost on component updates.</li>
+</ul>
+
+<p>A pattern I now use by default: a separate <code>Membership</code> model joining users to tenants, carrying the role. One user, many tenants, one row per relationship. It makes agency accounts and "invite your accountant" flows possible without a rewrite, and it keeps the permission layer honest about the fact that <em>a user is not owned by a tenant — a membership is</em>.</p>
+
+<h2>9. Tenant Identification: Domain, Subdomain, or Path?</h2>
+
+<p>Three options, and the choice has security consequences.</p>
+
+<table>
+<thead>
+<tr><th>Method</th><th>Example</th><th>Pros</th><th>Watch out for</th></tr>
+</thead>
+<tbody>
+<tr><td>Subdomain</td><td>acme.yourapp.com</td><td>Clean, cookie isolation possible, standard</td><td>Wildcard DNS + wildcard TLS cert required</td></tr>
+<tr><td>Custom domain</td><td>portal.acme.com</td><td>White-label, enterprise-friendly</td><td>Per-domain certificate automation; real ops work</td></tr>
+<tr><td>Path prefix</td><td>yourapp.com/acme</td><td>Zero DNS work, simplest</td><td>Shared cookie scope — session fixation risk across tenants</td></tr>
+<tr><td>Header / token claim</td><td>API only</td><td>Right answer for a pure API</td><td>Tenant must be validated against the token, never trusted from the header alone</td></tr>
+</tbody>
+</table>
+
+<p>The failure I see most: taking the tenant from a request header or a hidden form field on an API and trusting it. The tenant must be derived from the authenticated identity — the token's claim, the session's membership — and cross-checked. If a client can send you a tenant ID and have you believe it, you do not have multi-tenancy, you have a query parameter. This is basic <a href="/blog/api-design-best-practices-2026">API design hygiene</a> and it is skipped constantly.</p>
+
+<p>Also: with subdomain tenancy, set your session cookie domain explicitly. A cookie scoped to <code>.yourapp.com</code> is shared across every tenant subdomain, which is exactly the thing you were trying to avoid.</p>
+
+<h2>10. How Much Does Multi-Tenancy Add to a SaaS Build Cost?</h2>
+
+<p>These are ranges from my own quoting, not a fixed price list, and they assume a competent single-developer or small-team build with the product features quoted separately. The tenancy layer is what I am pricing here — signup, provisioning, isolation, admin panel, tests. Currency figures are rounded and stated in USD as the anchor; local figures are approximate at August 2026 rates. The SAR column is converted at the 3.75 peg — if you are quoting in AED, the same numbers run roughly 2% high, since the dirham pegs at about 3.6725.</p>
+
+<table>
+<thead>
+<tr><th>Scope</th><th>Effort</th><th>USD</th><th>EGP (approx)</th><th>SAR (approx)</th></tr>
+</thead>
+<tbody>
+<tr><td>Single-DB tenancy, hand-rolled, up to ~15 models</td><td>25–45 hrs</td><td>$1,000 – $2,200</td><td>50k – 110k</td><td>3.8k – 8.3k</td></tr>
+<tr><td>Single-DB tenancy + teams-based roles + isolation test suite</td><td>50–80 hrs</td><td>$2,000 – $4,000</td><td>100k – 200k</td><td>7.5k – 15k</td></tr>
+<tr><td>DB-per-tenant with stancl/tenancy, queued provisioning, migration orchestration</td><td>90–150 hrs</td><td>$3,600 – $7,500</td><td>180k – 375k</td><td>13.5k – 28k</td></tr>
+<tr><td>Add custom domains + automated TLS per tenant</td><td>+20–40 hrs</td><td>+$800 – $2,000</td><td>+40k – 100k</td><td>+3k – 7.5k</td></tr>
+<tr><td>Add subscription billing, plan limits, usage metering</td><td>+40–70 hrs</td><td>+$1,600 – $3,500</td><td>+80k – 175k</td><td>+6k – 13k</td></tr>
+<tr><td>Migrating an existing single-tenant app to multi-tenant</td><td>80–200+ hrs</td><td>$3,200 – $10,000+</td><td>160k – 500k+</td><td>12k – 37k+</td></tr>
+</tbody>
+</table>
+
+<p>Two honest notes on this table. First, the last row has the widest spread because it depends entirely on how many raw queries and unscoped uniques the existing codebase contains — I cannot quote it without reading the code, and neither can anyone else. Second, the recurring cost matters more than the build: database-per-tenant typically adds $80–$400 per month in infrastructure before you have a single paying customer, because you need a real database instance rather than a shared one.</p>
+
+<p>If you are still forming the overall budget picture, my breakdown of <a href="/blog/how-much-does-website-cost-2026">what a website actually costs in 2026</a> covers the surrounding line items, and if payments are in scope for a Gulf launch, <a href="/blog/gcc-payment-gateway-integration">GCC payment gateway integration</a> is its own conversation.</p>
+
+<h2>11. Starting Single-DB and Moving Later: The Actual Path</h2>
+
+<p>This is the section that should decide your architecture, because it makes the "wrong" first choice cheap to correct.</p>
+
+<p>Design for the move on day one, at almost zero cost:</p>
+
+<ol>
+<li><strong>Give tenants a UUID or ULID, not an auto-increment ID.</strong> When you extract a tenant into its own database, non-colliding keys save you a remapping project.</li>
+<li><strong>Put <code>tenant_id</code> on every tenant-owned table, even where a parent relationship would imply it.</strong> Denormalised, yes. It means a tenant's rows can be selected with one <code>WHERE</code> per table instead of a join graph.</li>
+<li><strong>Never reference another tenant's row from a foreign key.</strong> Obvious, routinely violated by shared lookup tables that later grow tenant-specific rows.</li>
+<li><strong>Keep central data — tenants, users, subscriptions, plans — in clearly separate tables from tenant data.</strong> Draw the line in the schema before you need it.</li>
+<li><strong>Namespace storage paths and cache keys by tenant from the first commit.</strong> Retrofitting this means migrating files, which is far worse than migrating rows.</li>
+</ol>
+
+<p>With those five in place, extracting a tenant is: create the new database, run migrations, copy that tenant's rows table by table with <code>WHERE tenant_id = ?</code>, drop the column, flip a <code>database_name</code> field on the tenant record, verify, then delete the source rows after a retention window. For a mid-sized tenant that is a scripted job measured in minutes, plus a short maintenance window for that one customer. Nobody else notices.</p>
+
+<div class="post-callout"><p><strong>What this means for your decision:</strong> the cost of choosing single-database and being wrong is a few days of extraction work per enterprise customer. The cost of choosing database-per-tenant and being wrong is eighteen months of operational drag on a team that cannot afford it. The asymmetry is not close.</p></div>
+
+<h2>12. My Build Checklist for a Laravel Multi-Tenant SaaS</h2>
+
+<ul>
+<li>Tenant model with ULID primary key, <code>slug</code>, <code>status</code>, and a nullable <code>database_name</code> reserved for future extraction.</li>
+<li>Membership pivot: user ↔ tenant ↔ role. Never a <code>tenant_id</code> on the users table.</li>
+<li>Middleware resolving the tenant from the subdomain, validating the authenticated user's membership, binding <code>currentTenant</code>, and running before <code>SubstituteBindings</code>.</li>
+<li>A <code>BelongsToTenant</code> trait applying a fail-closed global scope and auto-filling <code>tenant_id</code> on create.</li>
+<li>Composite unique indexes everywhere, and <code>(tenant_id, created_at)</code> composite indexes on every table you sort or paginate.</li>
+<li>A CI test that iterates all tenant-owned models and asserts zero cross-tenant visibility, plus a route-level IDOR smoke test.</li>
+<li>A static check — even a grep in CI — that fails the build on <code>DB::table(</code> or <code>withoutGlobalScope</code> outside an allow-listed namespace.</li>
+<li>Cache keys, Redis prefixes, storage disks and queue jobs all tenant-aware, with tests.</li>
+<li>Impersonation behind a permission, logged to an immutable audit table with the reason.</li>
+<li>Per-tenant soft-delete and export endpoint, because deletion requests will come.</li>
+<li>A central admin panel on a separate domain with its own auth, so a tenant subdomain compromise does not reach it.</li>
+</ul>
+
+<h2>13. The Five Mistakes I Get Called In to Fix</h2>
+
+<ol>
+<li><strong>The permissive global scope.</strong> Returns everything when no tenant is bound. Ships fine, leaks the first time a queued job or an artisan command touches the model.</li>
+<li><strong>tenant_id on the users table.</strong> Works until one human needs access to two tenants — a consultant, an accountant, an agency, a parent company. Then it is a rewrite of your auth layer.</li>
+<li><strong>Database-per-tenant chosen for a self-serve product.</strong> Signup takes 40 seconds, provisioning fails silently for a small fraction of signups and nobody notices, and the deploy pipeline has an unbounded step.</li>
+<li><strong>No composite unique indexes.</strong> Discovered when the second customer cannot use the slug "general" for their first project.</li>
+<li><strong>Cross-tenant reporting bolted onto database-per-tenant.</strong> Someone writes a loop that opens 400 connections to produce an admin dashboard, and it takes down the database at 9am on a Monday.</li>
+</ol>
+
+<p>All five are cheaper to prevent than to fix, and all five are architecture decisions made in the first week. This is the specific reason I argue that the tenancy design conversation belongs before the first line of code, not after the MVP — a point I make at more length when comparing <a href="/blog/freelance-developer-vs-agency">working with a freelancer versus an agency</a>, since the person making this call should be the person who will still be around in month twelve.</p>
+
+<h2>14. Where I Land</h2>
+
+<p>Build single-database, shared-schema tenancy with a fail-closed global scope, composite unique indexes, a membership pivot, and the isolation test suite. Design the extraction path on day one. Move individual tenants to their own database when a contract or a data-residency rule demands it, and charge for it — enterprise isolation is a feature you sell, not a default you subsidise.</p>
+
+<p>Choose the framework on the same reasoning you would use for any backend decision; my comparison of <a href="/blog/laravel-vs-nodejs-2026">Laravel versus Node.js in 2026</a> covers that, and for multi-tenant B2B products with heavy relational data and back-office screens, Laravel's Eloquent scoping, migration tooling and queue system make it the shorter path.</p>
+
+<p>If you are about to pay someone to build this, the most valuable hour you can spend is on the schema, not the framework. I offer a free consultation and a fixed-fee quote with a reply inside 24 hours — send me your product idea or your existing codebase through the <a href="/contact">contact page</a>, or read more about how I approach <a href="/hire-laravel-developer">Laravel development engagements</a> first. I will tell you honestly which of the three architectures you need, including when the answer is the cheap one.</p>
+HTML,
+                'content_ar' => <<<'HTMLAR'
+<p class="lead">ابدأ بقاعدة بيانات واحدة وعمود <strong>tenant_id</strong>. أقولها بوضوح بعد سنوات من بناء وإصلاح أنظمة SaaS مبنية على Laravel: أغلب المؤسسين الذين يطلبون مني قاعدة بيانات منفصلة لكل عميل لا يحتاجونها في السنة الأولى، ومن يبنيها رغم ذلك ينفق ميزانيته على تكلفة تشغيلية بدل أن ينفقها على إيجاد سوق لمنتجه. أنا خالد أحمد، مطوّر Full Stack من القاهرة بخبرة تتجاوز خمس سنوات وأكثر من 39 مشروعاً منفّذاً. هذا هو القرار كاملاً، بالأرقام.</p>
+
+<h2>1. الخلاصة أولاً ثم التبرير</h2>
+
+<p>هناك ثلاث معماريات منطقية فقط لأي نظام SaaS على Laravel، لا رابع لها:</p>
+
+<ol>
+<li><strong>قاعدة مشتركة وschema مشتركة.</strong> قاعدة واحدة، جداول واحدة، وكل صف يخص عميلاً يحمل مفتاح <code>tenant_id</code>. العزل تفرضه شيفرة التطبيق.</li>
+<li><strong>قاعدة مشتركة وschema لكل عميل.</strong> قاعدة PostgreSQL واحدة مع schema مستقلة لكل مستأجر. العزل يفرضه الـ <code>search_path</code>.</li>
+<li><strong>قاعدة بيانات لكل عميل.</strong> قاعدة فيزيائية منفصلة لكل مشترك. العزل يفرضه الاتصال نفسه.</li>
+</ol>
+
+<p>خياري الافتراضي هو الأول. ولا أنتقل إلى الثالث إلا حين يفرضه متطلب محدد وقائم الآن، لا لأن أحد المستثمرين قال «عملاء المؤسسات سيطلبون ذلك».</p>
+
+<p>الشروط الخمسة التي تبرّر تجاوز الخيار الافتراضي:</p>
+
+<ul>
+<li><strong>عقد ينص على ذلك صراحة.</strong> اتفاقية مؤسسية موقّعة أو كراسة شروط في مناقصة حكومية تشترط فصلاً فيزيائياً للبيانات. هذا واقع متكرر في المشتريات الحكومية والصحية في السعودية والإمارات.</li>
+<li><strong>موقع تخزين البيانات يختلف من عميل لآخر.</strong> بيانات عميل يجب أن تبقى داخل السعودية وآخر داخل ألمانيا. لا يمكن تحقيق ذلك في جدول مشترك.</li>
+<li><strong>استعادة نسخة احتياطية لعميل بعينه.</strong> عميل يحتاج إرجاع بياناته إلى حالة أمس الثالثة عصراً دون المساس بأحد. من جدول مشترك هذه عملية جراحية؛ من قاعدة منفصلة هي مجرد restore.</li>
+<li><strong>تفاوت حاد في الأحجام.</strong> عميل واحد يحتجز 60% من صفوف قاعدتك واستعلاماته تخنق الباقين.</li>
+<li><strong>اختلاف في البنية بين العملاء.</strong> عميل مؤسسي يحصل على أعمدة أو جداول خاصة به. نادر، وغالباً خطأ في تصميم المنتج، لكنه أحياناً نموذج العمل نفسه.</li>
+</ul>
+
+<p>إن لم يتحقق أيٌّ من هذه الخمسة اليوم، ابنِ بقاعدة واحدة. الترحيل لاحقاً ممكن — وسأشرح مساره في القسم الحادي عشر — وتكلفته أقل بكثير من ثمانية عشر شهراً من العبء التشغيلي.</p>
+
+<div class="post-callout"><p><strong>الحقيقة غير المريحة:</strong> قاعدة لكل عميل لا تجعل تطبيقك أكثر أماناً بذاتها. هي تنقل حدود العزل من الشيفرة إلى محدِّد الاتصال. فإن أخطأ محدِّد المستأجر لديك، تسرّب قاعدة عميل كاملة بدل بضعة صفوف. رأيت الحالتين، والثانية أسوأ.</p></div>
+
+<h2>2. الكلفة الحقيقية لكل معمارية</h2>
+
+<h3>قاعدة مشتركة وschema مشتركة</h3>
+
+<p>كل استعلام يحتاج <code>where tenant_id = ?</code>. في Laravel تفرض هذا عبر global scope حتى لا يعتمد الأمر على ذاكرة المطوّر. الترحيلات تُنفّذ مرة واحدة، والنسخ الاحتياطي مهمة واحدة، وإضافة عميل جديد مجرد <code>INSERT</code> — أي أقل من ثانية، وهذا وحده ما يجعل التسجيل الذاتي ممكناً بلا طابور تجهيز.</p>
+
+<p>الثمن أن scope واحداً منسياً يعني تسرّب بيانات بين العملاء، وأن أكبر جدول لديك هو مجموع كل العملاء.</p>
+
+<h3>قاعدة مشتركة وschema لكل عميل</h3>
+
+<p>هذا هو الخيار الأوسط الذي يُهمَل في أغلب المقالات العربية والإنجليزية معاً. كل مستأجر يحصل على schema في PostgreSQL، وتبدّل بينها بـ <code>SET search_path</code>. تحصل على فصل حقيقي في الأسماء وعلى <code>pg_dump</code> لكل عميل على حدة دون دفع ثمن اتصال منفصل لكل قاعدة.</p>
+
+<p>الثمن: الحل حصري لـ PostgreSQL، ومشكلة تشعّب الترحيلات فيه مطابقة تماماً لحل القاعدة المنفصلة، كما أن catalog قاعدة البيانات يثقل أسرع مما تتوقع. آلاف الـ schemas بأربعين جدولاً لكل منها تعني مئات آلاف الصفوف في الـ catalog، وتبدأ عمليات مثل النسخ الشامل بالتباطؤ.</p>
+
+<h3>قاعدة لكل عميل</h3>
+
+<p>أوضح نموذج ذهنياً، وأعلى فاتورة تشغيلياً. الترحيلات تُنفَّذ N مرة، والنسخ الاحتياطي N مهمة، والاستعادة لعميل واحد بسيطة، أما التقارير الشاملة عبر كل العملاء فتتحول من <code>GROUP BY</code> إلى مشروع هندسي قائم بذاته.</p>
+
+<table>
+<thead>
+<tr><th>المعيار</th><th>قاعدة مشتركة</th><th>schema لكل عميل</th><th>قاعدة لكل عميل</th></tr>
+</thead>
+<tbody>
+<tr><td>من يفرض العزل</td><td>شيفرة التطبيق</td><td><code>search_path</code></td><td>الاتصال وبيانات الدخول</td></tr>
+<tr><td>حجم الضرر عند خطأ واحد</td><td>بعض الصفوف</td><td>جداول عميل واحد</td><td>قاعدة عميل كاملة</td></tr>
+<tr><td>زمن تجهيز عميل جديد</td><td>أجزاء من الثانية</td><td>1–10 ثوانٍ</td><td>5–60 ثانية، غالباً في طابور</td></tr>
+<tr><td>الترحيلات عند 1000 عميل</td><td>تنفيذ واحد</td><td>1000 تنفيذ</td><td>1000 تنفيذ</td></tr>
+<tr><td>استعادة نسخة لعميل بعينه</td><td>صعبة وتحتاج أدوات خاصة</td><td>مباشرة</td><td>سهلة جداً</td></tr>
+<tr><td>تقارير شاملة عبر العملاء</td><td>استعلام SQL بسيط</td><td>صعبة</td><td>صعبة وتحتاج data warehouse</td></tr>
+<tr><td>الضغط على الاتصالات</td><td>منخفض</td><td>منخفض</td><td>مرتفع — راجع القسم 6</td></tr>
+<tr><td>تحديد موقع البيانات لكل عميل</td><td>غير ممكن</td><td>غير ممكن</td><td>ممكن</td></tr>
+<tr><td>ساعات DevOps شهرياً (تقديري)</td><td>2–5</td><td>6–12</td><td>10–30</td></tr>
+<tr><td>الأنسب لـ</td><td>B2B بتسجيل ذاتي، أقل من 5000 عميل</td><td>فرق تعمل على PostgreSQL</td><td>المؤسسات والقطاعات المنظَّمة</td></tr>
+</tbody>
+</table>
+
+<h2>3. قاعدة واحدة أم قاعدة لكل عميل؟ إطار القرار</h2>
+
+<p>أجب عن الأسئلة الستة التالية بصدق، واحسب نقطة عن كل مرة يكون فيها الوصف في العمود الأيسر هو المنطبق على حالتك فعلاً.</p>
+
+<table>
+<thead>
+<tr><th>السؤال</th><th>يرجّح القاعدة المشتركة</th><th>يرجّح قاعدة لكل عميل</th></tr>
+</thead>
+<tbody>
+<tr><td>كيف يشترك العملاء؟</td><td>تسجيل ذاتي وبطاقة ائتمان فوراً</td><td>عبر فريق مبيعات وعقد وجلسة تهيئة</td></tr>
+<tr><td>كم عميلاً خلال 24 شهراً؟</td><td>مئات إلى آلاف</td><td>عشرات إلى مئات قليلة</td></tr>
+<tr><td>متوسط الإيراد لكل عميل؟</td><td>أقل من 750 SAR أو 10,000 EGP شهرياً</td><td>أكثر من 7,500 SAR شهرياً</td></tr>
+<tr><td>هل يذكر أي عقد موقّع فصل البيانات؟</td><td>لا</td><td>نعم</td></tr>
+<tr><td>هل تحتاج تقارير تجمع كل العملاء داخل المنتج؟</td><td>نعم</td><td>لا</td></tr>
+<tr><td>هل لديك مسؤول DevOps أو ميزانية له؟</td><td>لا</td><td>نعم</td></tr>
+</tbody>
+</table>
+
+<p>أربع نقاط أو أكثر في العمود الأيسر تجعل خيار القاعدة المنفصلة مبرراً. ثلاث أو أقل تعني أنك تشتري مشكلة. النمط الذي أراه متكرراً في <a href="/ar/saas-development">مشاريع SaaS</a> هو فريق من شخصين يختار قاعدة لكل عميل لمنتج سعره 49 دولاراً شهرياً ويستهدف 3000 مشترك. هذه المعادلة لا تصح: كلفة التجهيز والترحيل والنسخ الاحتياطي لكل عميل تتجاوز هامش الربح منه.</p>
+
+<p>وهناك خيار هجين يستحق المعرفة: <strong>مشترك افتراضياً، منفصل عند الطلب</strong>. الجميع يبدأ في القاعدة المشتركة، والعملاء المؤسسيون يُنقلون إلى قاعدة خاصة. هذا ما تعمل به أغلب منتجات SaaS الناضجة فعلياً، ولهذا فإن القسم الحادي عشر عن مسار الترحيل أهم من قرار البداية نفسه.</p>
+
+<h2>4. كيف أضمن عزل بيانات المستأجرين في Laravel؟</h2>
+
+<p>لا تضمنه بـ trait واحد. تضمنه بمبدأ «المنع افتراضياً» مع مجموعة اختبارات تحاول كسره عمداً. هذه قائمة مسارات التسريب كاملة، بالترتيب الذي أجدها به في الأكواد الحقيقية.</p>
+
+<h3>4.1 الـ global scope هو الأرضية لا السقف</h3>
+
+<p>في Laravel الحالي — وخاصية <code>ScopedBy</code> هي الأسلوب الموصى به منذ Laravel 10 ولا تزال كذلك في Laravel 13 الصادر في 17 مارس 2026 — يبدو الإعداد الأساسي هكذا:</p>
+
+<pre><code>&lt;?php
+
+namespace App\Models\Scopes;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Scope;
+
+class TenantScope implements Scope
+{
+    public function apply(Builder $builder, Model $model): void
+    {
+        if (! app()-&gt;bound('currentTenant')) {
+            // امنع افتراضياً. لا تُرجع صفوفاً غير مقيّدة أبداً.
+            $builder-&gt;whereRaw('1 = 0');
+            return;
+        }
+
+        $builder-&gt;where(
+            $model-&gt;qualifyColumn('tenant_id'),
+            app('currentTenant')-&gt;id
+        );
+    }
+}</code></pre>
+
+<p>انتبه إلى <code>whereRaw('1 = 0')</code>. أغلب الشروحات تكتب <code>if (tenant()) { ... }</code> فتُرجع كل شيء بصمت عند غياب المستأجر. هذا أكثر سبب مباشر لتسرّب البيانات بين العملاء أُستدعى لإصلاحه. امنع افتراضياً، ثم استثنِ صراحةً في الاستعلامات الإدارية المركزية القليلة التي تحتاج كل الصفوف فعلاً.</p>
+
+<pre><code>use Illuminate\Database\Eloquent\Attributes\ScopedBy;
+
+#[ScopedBy([TenantScope::class])]
+class Invoice extends Model
+{
+    protected static function booted(): void
+    {
+        static::creating(function (Invoice $invoice) {
+            $invoice-&gt;tenant_id ??= app('currentTenant')-&gt;id;
+        });
+    }
+}</code></pre>
+
+<h3>4.2 المواضع السبعة التي لا يصلها الـ scope</h3>
+
+<ul>
+<li><strong>الاستعلامات المباشرة.</strong> <code>DB::table('invoices')</code> و<code>DB::select(...)</code> تتجاوز Eloquent كلياً. وتوثيق حزمة stancl/tenancy يقول ذلك صراحةً عن وضع القاعدة الواحدة لديها: الحزمة تستطيع تقييد طبقة Eloquent فقط، ولا تستطيع فعل شيء مع الاستعلامات منخفضة المستوى. امنع الاستعلامات المباشرة خارج namespace واحد مخصص للتقارير وخاضع للمراجعة.</li>
+<li><strong>قواعد التحقق.</strong> <code>Rule::unique('posts', 'slug')</code> تفحص الجدول كله. فيحصل عميل يحاول استخدام رابط مختصر (slug) مستخدَم بالفعل عند عميل آخر على رسالة خطأ تكشف وجود ذلك العميل. اكتبها دائماً هكذا: <code>Rule::unique('posts', 'slug')-&gt;where('tenant_id', tenant('id'))</code>، ونفس الشيء مع <code>exists</code>.</li>
+<li><strong>الفهارس الفريدة.</strong> <code>$table-&gt;unique('slug')</code> قيد فريد على مستوى النظام كله. الصحيح <code>$table-&gt;unique(['tenant_id', 'slug'])</code>. هذا قرار في البنية يصعب التراجع عنه لاحقاً، وهو أحد أسباب اعتباري <a href="/ar/blog/database-design-for-web-apps">تصميم قاعدة البيانات</a> أعلى ساعة قيمةً في بناء أي SaaS.</li>
+<li><strong>ربط النماذج بالمسارات.</strong> <code>Route::get('/invoices/{invoice}')</code> يمرّ عبر النموذج فينطبق الـ scope — جيد. لكن بمجرد أن يكتب أحدهم <code>Invoice::withoutGlobalScopes()-&gt;findOrFail($id)</code> «لتصحيح شيء مؤقتاً» تكون قد فتحت ثغرة IDOR. ابحث عن <code>withoutGlobalScope</code> في كل مراجعة كود، بلا استثناء.</li>
+<li><strong>المهام في الطابور.</strong> المهمة التي تستخدم <code>SerializesModels</code> تخزّن مفتاح النموذج وتعيد جلبه في الـ worker، حيث لا يوجد طلب HTTP ولا سياق مستأجر. إما أن تمرّر معرّف المستأجر صراحةً داخل المهمة وتعيد ربطه في <code>handle()</code>، أو تستخدم حزمة تحقنه في حمولة المهمة نيابةً عنك.</li>
+<li><strong>مفاتيح الـ cache وRedis.</strong> <code>Cache::remember('dashboard_stats', ...)</code> بلا بادئة للمستأجر تُظهر أرقام عميل لعميل آخر. ضع بادئة لكل مفتاح.</li>
+<li><strong>الملفات والتصدير وملفات PDF.</strong> رفع الملفات إلى مجلد مشترك بأسماء يمكن تخمينها تسريب حتى لو كانت قاعدة البيانات مثالية. افصل مسار التخزين لكل عميل ولا تقدّم أي ملف عبر مسار قابل للتخمين. وهذا يتقاطع مباشرة مع <a href="/ar/blog/website-security-checklist">قائمة فحص أمان الموقع</a>.</li>
+</ul>
+
+<h3>4.3 الاختبار الذي يكشف المشكلة فعلاً</h3>
+
+<p>اكتب اختباراً واحداً، شغّله على كل نموذج يخص المستأجرين، واجعله جزءاً من CI:</p>
+
+<pre><code>it('لا يُرجع أبداً صفوف مستأجر آخر', function () {
+    $a = Tenant::factory()-&gt;create();
+    $b = Tenant::factory()-&gt;create();
+
+    app()-&gt;instance('currentTenant', $a);
+    $mine = Invoice::factory()-&gt;count(3)-&gt;create();
+
+    app()-&gt;instance('currentTenant', $b);
+    expect(Invoice::count())-&gt;toBe(0);
+    expect(Invoice::find($mine-&gt;first()-&gt;id))-&gt;toBeNull();
+});</code></pre>
+
+<p>لاحظ أن الاختبار يربط المفتاح نفسه الذي يقرأه الـ scope في 4.1. شغّل الاختبار عبر الآلية التي تضبط سياق المستأجر في تطبيقك فعلاً: إن كنت تستخدم stancl/tenancy بدل الـ scope اليدوي أعلاه، استبدل السطرين بـ <code>tenancy()-&gt;initialize($a)</code> و<code>tenancy()-&gt;initialize($b)</code>. أما اختبار يهيّئ المستأجر بطريقة ويقرأه الـ scope بطريقة أخرى فهو اختبار ينجح دون أن يثبت شيئاً، وهذا أسوأ من غياب الاختبار.</p>
+
+<p>ثم أضف اختباراً سريعاً يطلب كل مسار في التطبيق بحساب العميل الثاني مستخدماً معرّفات العميل الأول، ويتأكد أن الرد 403 أو 404 ولا يكون 200 أبداً. اختبار ممل، يستغرق يوماً واحداً، وهو الفارق بين نظام يمكنك بيعه لبنك ونظام لا يمكنك.</p>
+
+<h3>4.4 إن أردت عزلاً تفرضه قاعدة البيانات نفسها</h3>
+
+<p>خاصية Row Level Security في PostgreSQL تمنحك طبقة حماية ثانية فوق الـ schema المشتركة. لكن هناك تحذيران ينص عليهما التوثيق الرسمي ويغفلهما أغلب من يكتب عن الموضوع: <strong>المستخدم superuser وأي دور يحمل صفة <code>BYPASSRLS</code> يتجاوز القيد دائماً</strong>، و<strong>مالك الجدول يتجاوزه أيضاً</strong> ما لم تنفّذ <code>ALTER TABLE ... FORCE ROW LEVEL SECURITY</code>. أي أن اتصال Laravel يجب أن يستخدم دوراً ليس مالكاً وليس superuser، وإلا فالحماية شكلية.</p>
+
+<pre><code>ALTER TABLE invoices ENABLE ROW LEVEL SECURITY;
+ALTER TABLE invoices FORCE ROW LEVEL SECURITY;
+
+CREATE POLICY tenant_isolation ON invoices
+    USING (tenant_id = current_setting('app.tenant_id')::bigint);</code></pre>
+
+<p>ثم تنفّذ <code>SET LOCAL app.tenant_id = '...'</code> في بداية transaction كل طلب. وتحذير عملي مهم، وأغلب المقالات تقلبه رأساً على عقب: <code>SET LOCAL</code> مرتبط بالـ transaction وينتهي بانتهائها، ولهذا تحديداً فهو الآمن مع PgBouncer في وضع transaction pooling. الخطر الحقيقي هو <code>SET</code> العادية في وضع transaction pooling: يعود الاتصال إلى المجمّع وقيمة <code>app.tenant_id</code> ما زالت مضبوطة عليه، فيرثها أول مستأجر تُسلَّم له تلك المعاملة بعد ذلك. وPgBouncer لا ينفّذ <code>DISCARD ALL</code> بين المعاملات إلا إذا فعّلت <code>server_reset_query_always</code> صراحةً، فلا تفترض أن التنظيف يحدث نيابةً عنك. اختبر هذا تحت حِمل حقيقي لا على جهازك.</p>
+
+<h2>5. مقارنة الحزم: stancl/tenancy وspatie وبناء الحل يدوياً</h2>
+
+<p>الحزمتان الأساسيتان في حالة صحية حتى أغسطس 2026. الإصدارات والقيود التالية مأخوذة من Packagist وقت الكتابة، وأنصح بالتحقق قبل الاعتماد لأنها تتغير:</p>
+
+<table>
+<thead>
+<tr><th></th><th>stancl/tenancy</th><th>spatie/laravel-multitenancy</th><th>حل يدوي</th></tr>
+</thead>
+<tbody>
+<tr><td>آخر إصدار مستقر</td><td>v3.10.1 في 5 أغسطس 2026</td><td>v4.2.0 في 7 أغسطس 2026</td><td>—</td></tr>
+<tr><td>PHP / Laravel</td><td>PHP ^8.0؛ Laravel 10–13</td><td>PHP ^8.2؛ Laravel 11–13</td><td>حسب مشروعك</td></tr>
+<tr><td>الفلسفة</td><td>أوتوماتيكية وشاملة</td><td>محايدة عن قصد</td><td>صريحة بالكامل</td></tr>
+<tr><td>قاعدة لكل عميل</td><td>دعم أساسي مع تجهيز تلقائي</td><td>مدعوم، تكتب المهمة بنفسك</td><td>تبنيه بنفسك</td></tr>
+<tr><td>قاعدة واحدة</td><td>عبر <code>BelongsToTenant</code></td><td>مدعوم، تكتب الـ scope بنفسك</td><td>تبنيه بنفسك</td></tr>
+<tr><td>وعي الـ cache والطابور والملفات</td><td>bootstrappers جاهزة</td><td>tasks جاهزة</td><td>تبنيه بنفسك</td></tr>
+<tr><td>الأنسب حين</td><td>تريد قاعدة لكل عميل تعمل بلا عناء</td><td>تريد فهم كل جزء متحرك</td><td>قاعدة واحدة ونماذج قليلة</td></tr>
+</tbody>
+</table>
+
+<p>حزمة <strong>stancl/tenancy</strong> تقدّم خمسة bootstrappers تحل معظم ما ورد في القسم 4.2 نيابةً عنك: أحدها يبدّل الاتصال الافتراضي لقاعدة البيانات — وانتبه، الاتصال <em>الافتراضي</em> فقط، أما الاتصالات المسمّاة صراحةً فتبقى كما هي وهذا يفاجئ كثيرين؛ وثانٍ يضيف وسم المستأجر إلى مدخلات الـ cache؛ وثالث يجعل مسارات التخزين وواجهة <code>Storage</code> واعية بالمستأجر؛ ورابع يضمّن معرّف المستأجر في حمولة المهمة ويعيد تهيئة السياق عند تنفيذها؛ وخامس يغيّر بادئة Redis لكل مستأجر — وهذا الأخير يتطلب phpredis وليس Predis.</p>
+
+<p>الإعداد قصير فعلاً:</p>
+
+<pre><code>composer require stancl/tenancy
+php artisan tenancy:install
+php artisan migrate
+# ثم سجّل TenancyServiceProvider في bootstrap/providers.php
+# وانقل جداول المستأجرين إلى database/migrations/tenant/</code></pre>
+
+<p>أما <strong>spatie/laravel-multitenancy</strong> فتتبنى الموقف المعاكس: تحدد المستأجر الحالي وتترك لك تعريف ما يحدث عند تفعيله عبر «tasks». لن تفاجئك، ولن تؤدي عنك واجبك أيضاً. ألجأ إليها حين يكون فريق العميل هو من سيصون الكود وأريدهم أن يفهموا كل سطر.</p>
+
+<p>و<strong>البناء اليدوي</strong> خيار وجيه تماماً لتعدد المستأجرين على قاعدة واحدة بأقل من خمسة عشر نموذجاً تقريباً: فئة scope، وtrait، وmiddleware يربط <code>currentTenant</code>، والاختبار الوارد في 4.3. نحو مئتي سطر بلا التزام بترقيات حزمة خارجية. نفّذت هذا أكثر مما نفّذت أياً من الحزمتين، وهو ما أوصي به عادةً داخل أول <a href="/ar/blog/build-saas-mvp-laravel-react-2026">نسخة MVP لمنتج SaaS بـ Laravel وReact</a>.</p>
+
+<div class="post-callout"><p><strong>ملاحظة عن الإصدارات:</strong> Laravel 12 توقّف عن تلقّي إصلاحات الأخطاء في 13 أغسطس 2026، ولن يتلقى سوى الإصلاحات الأمنية حتى 24 فبراير 2027، وLaravel 13 الصادر في 17 مارس 2026 يتطلب PHP 8.3 كحد أدنى. إن كنت تبدأ مشروعاً متعدد المستأجرين الآن، ابدأ على 13 مباشرة — إضافة طبقة التعدد أثناء ترقية إطار العمل هي أسوأ توليفة ممكنة.</p></div>
+
+<h2>6. عند كم مستأجر تنهار القاعدة الواحدة؟</h2>
+
+<p>سؤال خاطئ، وهو السؤال الذي يطرحه الجميع. القاعدة الواحدة لا تنهار عند عدد مستأجرين معيّن، بل عند <strong>عدد صفوف في جدولك الأكثر استخداماً</strong>، وعند <strong>تفاوت الأحجام</strong>.</p>
+
+<p>الحدود التقريبية التي أعمل عليها، على MySQL 8 أو PostgreSQL 16 فما فوق، مفهرسة جيداً وبذاكرة كافية:</p>
+
+<table>
+<thead>
+<tr><th>حجم الجدول النشط</th><th>ما يحدث</th><th>ما تفعله</th></tr>
+</thead>
+<tbody>
+<tr><td>أقل من 10 مليون صف</td><td>لا شيء. فهرس مركّب على <code>(tenant_id, created_at)</code> يكفي.</td><td>تجاهل المشكلة.</td></tr>
+<tr><td>10–100 مليون</td><td>بطء في التجميعات و<code>COUNT(*)</code> وتضخم الفهارس.</td><td>فهارس مركّبة، عدّادات مخزّنة، نسخة قراءة للتقارير.</td></tr>
+<tr><td>100–500 مليون</td><td>نوافذ الصيانة تؤلم. إضافة عمود تستغرق ساعات أو تقفل الجدول.</td><td>تقسيم الجدول حسب <code>tenant_id</code>، وأرشفة العملاء الخاملين.</td></tr>
+<tr><td>أكثر من 500 مليون</td><td>النسخ والاستعادة تصبح القيد، لا الاستعلامات.</td><td>توزيع العملاء على مجموعات خوادم، أو نقل الكبار إلى قواعد خاصة.</td></tr>
+</tbody>
+</table>
+
+<p>التفاوت أهم من المجموع. إذا كان أكبر عملائك أضخم من الوسيط بمئة ضعف، فمسحه للجداول سيطرد صفحات الآخرين من الذاكرة وسيصبح زمن الاستجابة سيئاً لعملاء لم يفعلوا شيئاً. راقب هذه النسبة من الشهر الأول.</p>
+
+<h3>وأين تنهار «قاعدة لكل عميل»؟ هذا جدار صلب</h3>
+
+<p>الاتصالات. كل اسم قاعدة مختلف يعني اتصالاً منفصلاً يفتحه Laravel، ولا يوجد في PHP ولا في Laravel أي connection pool يوزّع هذه الاتصالات ويخفّف عبأها — وهذا بالضبط سبب حدّة المشكلة. ومع PHP-FPM فإن كل worker يلمس قاعدة مستأجر يحتجز اتصالاً مفتوحاً بها طوال عمره.</p>
+
+<p>خدمة Amazon RDS تضبط <code>max_connections</code> الافتراضية لـ MySQL على <code>{DBInstanceClassMemory/12582880}</code> — أي تقريباً الذاكرة بالميغابايت مقسومة على 12 — ولـ PostgreSQL على <code>LEAST({DBInstanceClassMemory/9531392}, 5000)</code>. عملياً، نسخة MySQL على db.t3.micro تحصل على نحو 60 اتصالاً فقط، وحتى فئة بذاكرة 8 GiB تقف عند 630 تقريباً. شغّل 40 عامل PHP-FPM على خادمَي تطبيق يخدمان مستأجرين مختلفين، وستستنفد ميزانية اتصالات خادم صغير بأقل من مئة عميل نشط. عندها تحتاج RDS Proxy أو PgBouncer، وهذا جزء متحرك إضافي ونقطة فشل إضافية وفاتورة إضافية.</p>
+
+<p>الجدار الثاني: <code>table_open_cache</code> و<code>open_files_limit</code> في MySQL. خمسمئة عميل × أربعين جدولاً = عشرون ألف جدول. ويقول توثيق MySQL بوضوح إن رفع <code>table_open_cache</code> أكثر من اللازم يجعل الخادم ينفد من واصفات الملفات فيبدأ برفض الاتصالات أو فشل الاستعلامات. ستجد نفسك تضبط حدود واصفات الملفات على مستوى نظام التشغيل، وهذا ليس ما جمعت التمويل من أجله.</p>
+
+<p>الجدار الثالث: تشعّب الترحيلات. ترحيل يستغرق ثانيتين يستغرق 33 دقيقة عبر ألف عميل إن نُفّذ تسلسلياً، وعليك التعامل مع العملاء الذين يفشل عندهم في المنتصف. كل نشر يتحول إلى معاملة موزّعة تديرها يدوياً.</p>
+
+<p>أرقامي الصريحة: نموذج «قاعدة لكل عميل» مريح حتى <strong>200 إلى 500 مستأجر على خادم واحد</strong>. بعدها تبني مجموعات خوادم لكل شريحة عملاء، وتكون قد تحولت إلى شركة بنية تحتية. أما القاعدة المشتركة على عتاد جيد فتستوعب <strong>عشرات الآلاف من المستأجرين</strong> قبل أن تصبح أعداد الصفوف أعلاه هي القيد الفعلي.</p>
+
+<h2>7. الفاتورة التشغيلية التي لا يذكرها أحد في عرض السعر</h2>
+
+<p>حين يقدّم لك مطوّر عرضاً لـ «نظام متعدد المستأجرين بقاعدة لكل عميل»، اسأله أيّ من هذه البنود مشمول. في خبرتي، أغلب العروض تشمل البند الأول ولا تشمل الباقي.</p>
+
+<ul>
+<li><strong>التجهيز.</strong> إنشاء القاعدة وتشغيل الترحيلات وبذر البيانات الأولية ومعالجة الفشل في المنتصف. يجب أن يكون هذا مهمة في طابور بمحاولات إعادة وحالة ظاهرة في لوحة الإدارة، لا طلب HTTP مباشراً.</li>
+<li><strong>إلغاء التجهيز.</strong> حذف قاعدة العميل عند الإلغاء بعد فترة احتفاظ، مع تصدير نهائي. الخطأ هنا مشكلة قانونية بموجب GDPR ونظام حماية البيانات السعودي، لا مجرد ترتيب داخلي.</li>
+<li><strong>تنسيق الترحيلات.</strong> تشغيل الترحيلات عبر N قاعدة على دفعات متوازية مع تتبّع نجاح كل عميل وإمكانية الاستئناف.</li>
+<li><strong>النسخ الاحتياطي.</strong> N مهمة نسخ وN اختبار استعادة. النسخة التي لم تُختبر استعادتها ليست نسخة احتياطية.</li>
+<li><strong>المراقبة.</strong> رؤية الاستعلامات البطيئة لكل عميل، ومساحة القرص لكل عميل، وتنبيهات قبل الامتلاء.</li>
+<li><strong>التقارير الشاملة.</strong> مؤشراتك أنت — الإيراد المتكرر ونسبة التسرب واستخدام المزايا — صارت تحتاج ETL إلى مستودع بيانات.</li>
+<li><strong>أدوات الدعم.</strong> انتحال هوية العميل للدعم، ووصول للقراءة فقط، وسجل تدقيق لمن اطّلع على ماذا.</li>
+</ul>
+
+<p>هذه القائمة وحدها 60 إلى 120 ساعة عمل قبل كتابة أول ميزة في المنتج. وهي أيضاً سبب حرصي على <a href="/ar/blog/choosing-web-hosting-2026">اختيار الاستضافة</a> بعناية في هذه المشاريع — خطة مشتركة بـ 12 دولاراً شهرياً لا تستضيف هذه المعمارية، واكتشاف ذلك في الشهر الرابع مكلف.</p>
+
+<h2>8. كيف أتعامل مع الأدوار والصلاحيات المقيّدة بكل مستأجر؟</h2>
+
+<p>هذا هو السؤال الذي يوقع الفرق التي أتقنت طبقة البيانات.</p>
+
+<p>إن كنت على قاعدة لكل عميل، فالأمر شبه مجاني: حزمة <code>spatie/laravel-permission</code> تعمل داخل قاعدة كل مستأجر وتكون الأدوار معزولة طبيعياً. انتبه فقط لذاكرة الصلاحيات المؤقتة، إذ يجب فصل مفاتيحها لكل مستأجر وإلا قدّمت خريطة صلاحيات عميل لعميل آخر.</p>
+
+<p>أما على قاعدة مشتركة فاستخدم خاصية <strong>teams</strong> في الحزمة، واقرأ هذه التحذيرات قبل أي ترحيل:</p>
+
+<ul>
+<li>يجب ضبط <code>'teams' =&gt; true</code> في <code>config/permission.php</code> <strong>قبل الترحيل الأول</strong>. تفعيلها لاحقاً يعني تعديل بنية يدوياً وتعبئة بيانات رجعية. احسم هذا في اليوم الأول.</li>
+<li>تحدد الفريق النشط بـ <code>setPermissionsTeamId($tenantId)</code> داخل middleware، ويجب أن يعمل هذا الـ middleware <strong>قبل</strong> <code>SubstituteBindings</code> في Laravel، وإلا فشل ربط النموذج أولاً وحصل المستخدم على 404 في موضع كان الصحيح فيه 403.</li>
+<li>عند تبديل سياق الفريق داخل الطلب الواحد — مدير يستعرض عميلين، أو مهمة تمر على كل العملاء — عليك مسح العلاقات المخزّنة بنفسك: <code>$user-&gt;unsetRelation('roles')-&gt;unsetRelation('permissions')</code>. إن أهملت ذلك أعاد الفحص الثاني إجابة العميل الأول بصمت.</li>
+<li>الأدوار المنشأة بـ <code>team_id =&gt; null</code> أدوار عامة. استخدمها لفريقك الداخلي لا لأدوار العملاء.</li>
+<li>إن كنت تستخدم Livewire فسجّل الـ middleware كـ persistent وإلا فُقد السياق عند تحديث المكوّن.</li>
+</ul>
+
+<p>نمط صرت أعتمده افتراضياً: نموذج <code>Membership</code> مستقل يربط المستخدمين بالمستأجرين ويحمل الدور. مستخدم واحد، عدة مستأجرين، صف لكل علاقة. هذا يجعل حسابات الوكالات وسيناريو «ادعُ محاسبك» ممكناً بلا إعادة كتابة، ويبقي طبقة الصلاحيات صادقة مع حقيقة أن <em>المستخدم ليس مملوكاً لمستأجر — العضوية هي المملوكة</em>.</p>
+
+<h2>9. تحديد المستأجر: نطاق فرعي أم نطاق مخصص أم مسار؟</h2>
+
+<p>ثلاثة خيارات، وللاختيار أثر أمني مباشر.</p>
+
+<table>
+<thead>
+<tr><th>الطريقة</th><th>مثال</th><th>الميزة</th><th>الانتباه إلى</th></tr>
+</thead>
+<tbody>
+<tr><td>نطاق فرعي</td><td>acme.yourapp.com</td><td>نظيف، وعزل الـ cookies ممكن</td><td>يحتاج DNS وشهادة TLS بنمط wildcard</td></tr>
+<tr><td>نطاق مخصص</td><td>portal.acme.com</td><td>علامة بيضاء ومناسب للمؤسسات</td><td>أتمتة شهادة لكل نطاق، عمل تشغيلي حقيقي</td></tr>
+<tr><td>بادئة مسار</td><td>yourapp.com/acme</td><td>بلا أي إعداد DNS، الأبسط</td><td>نطاق cookies مشترك — خطر تثبيت الجلسة بين العملاء</td></tr>
+<tr><td>ترويسة أو مطالبة داخل الـ token</td><td>واجهات API فقط</td><td>الخيار الصحيح لواجهة برمجية بحتة</td><td>يجب التحقق من المستأجر مقابل الـ token، لا الوثوق بالترويسة</td></tr>
+</tbody>
+</table>
+
+<p>أكثر خطأ أراه: أخذ معرّف المستأجر من ترويسة أو حقل مخفي والوثوق به. يجب اشتقاق المستأجر من الهوية الموثّقة — من مطالبة الـ token أو من عضوية الجلسة — والتحقق المتقاطع. إن استطاع العميل أن يرسل لك معرّف مستأجر فتصدّقه، فأنت لا تملك تعدد مستأجرين، بل تملك مجرد query parameter. هذه أساسيات في <a href="/ar/blog/api-design-best-practices-2026">تصميم واجهات API</a> ويجري تجاوزها باستمرار.</p>
+
+<p>ونقطة أخيرة: مع النطاقات الفرعية اضبط نطاق cookie الجلسة صراحةً. أي cookie محدد بـ <code>.yourapp.com</code> يُشارَك بين كل نطاقات العملاء الفرعية، وهو بالضبط ما كنت تحاول تجنّبه.</p>
+
+<h2>10. كم يضيف تعدد المستأجرين إلى تكلفة بناء المنتج؟</h2>
+
+<p>هذه نطاقات من تسعيري الشخصي، لا قائمة أسعار ثابتة، وتفترض تنفيذاً بمطوّر واحد كفء أو فريق صغير مع تسعير مزايا المنتج نفسها بشكل منفصل. ما أسعّره هنا هو طبقة تعدد المستأجرين فقط: التسجيل، التجهيز، العزل، لوحة الإدارة، الاختبارات. الأرقام مقرّبة، والدولار هو المرجع، والعملات المحلية تقريبية بأسعار أغسطس 2026. عمود الريال محسوب على سعر الربط 3.75، وإن كنت تسعّر بالدرهم الإماراتي فالأرقام نفسها أعلى بنحو 2% لأن الدرهم مربوط عند 3.6725 تقريباً.</p>
+
+<table>
+<thead>
+<tr><th>النطاق</th><th>الجهد</th><th>USD</th><th>EGP تقريباً</th><th>SAR تقريباً</th></tr>
+</thead>
+<tbody>
+<tr><td>قاعدة واحدة، تنفيذ يدوي، حتى 15 نموذجاً</td><td>25–45 ساعة</td><td>1,000 – 2,200</td><td>50 – 110 ألف</td><td>3.8 – 8.3 ألف</td></tr>
+<tr><td>قاعدة واحدة + أدوار teams + مجموعة اختبارات عزل</td><td>50–80 ساعة</td><td>2,000 – 4,000</td><td>100 – 200 ألف</td><td>7.5 – 15 ألف</td></tr>
+<tr><td>قاعدة لكل عميل بـ stancl/tenancy مع تجهيز في طابور وتنسيق ترحيلات</td><td>90–150 ساعة</td><td>3,600 – 7,500</td><td>180 – 375 ألف</td><td>13.5 – 28 ألف</td></tr>
+<tr><td>إضافة نطاقات مخصصة وشهادات TLS آلية لكل عميل</td><td>+20–40 ساعة</td><td>+800 – 2,000</td><td>+40 – 100 ألف</td><td>+3 – 7.5 ألف</td></tr>
+<tr><td>إضافة الاشتراكات وحدود الباقات وقياس الاستهلاك</td><td>+40–70 ساعة</td><td>+1,600 – 3,500</td><td>+80 – 175 ألف</td><td>+6 – 13 ألف</td></tr>
+<tr><td>تحويل تطبيق أحادي المستأجر قائم إلى متعدد المستأجرين</td><td>80–200+ ساعة</td><td>3,200 – 10,000+</td><td>160 – 500 ألف+</td><td>12 – 37 ألف+</td></tr>
+</tbody>
+</table>
+
+<p>ملاحظتان صريحتان على الجدول. الأولى أن السطر الأخير هو الأوسع نطاقاً لأنه يعتمد كلياً على عدد الاستعلامات المباشرة والقيود الفريدة غير المقيّدة في الكود القائم — لا أستطيع تسعيره دون قراءة الشيفرة، ولا يستطيع أحد. والثانية أن التكلفة المتكررة أهم من تكلفة البناء: نموذج القاعدة لكل عميل يضيف عادةً ما بين 80 و400 دولار شهرياً في البنية التحتية قبل أن تحصل على عميل واحد يدفع، لأنك تحتاج خادم قاعدة بيانات حقيقياً لا استضافة مشتركة.</p>
+
+<p>وإن كنت لا تزال تشكّل صورة الميزانية الكاملة، فمقالي عن <a href="/ar/blog/website-cost-egypt-gulf">تكلفة المواقع في مصر والخليج</a> يغطي بقية البنود، وإن كانت المدفوعات ضمن النطاق لإطلاق خليجي فإن <a href="/ar/blog/gcc-payment-gateway-integration">ربط بوابات الدفع الخليجية</a> موضوع قائم بذاته.</p>
+
+<h2>11. أن تبدأ بقاعدة واحدة وتنتقل لاحقاً: المسار العملي</h2>
+
+<p>هذا هو القسم الذي يجب أن يحسم معماريتك، لأنه يجعل الخيار «الخاطئ» في البداية رخيص التصحيح.</p>
+
+<p>صمّم للانتقال من اليوم الأول، بتكلفة تكاد تكون صفراً:</p>
+
+<ol>
+<li><strong>امنح المستأجرين مفتاح UUID أو ULID لا رقماً تسلسلياً.</strong> عند استخراج مستأجر إلى قاعدته الخاصة، توفّر عليك المفاتيح غير المتصادمة مشروع إعادة ترقيم كامل.</li>
+<li><strong>ضع <code>tenant_id</code> في كل جدول يخص المستأجرين، حتى حيث تكفي علاقة الأب.</strong> نعم هذا تكرار مقصود، لكنه يعني استخراج صفوف عميل بشرط واحد لكل جدول بدل شبكة من الـ joins.</li>
+<li><strong>لا تُشِر أبداً بمفتاح خارجي إلى صف مستأجر آخر.</strong> بديهي، ويُنتهك باستمرار عبر جداول مرجعية مشتركة تنمو لاحقاً بصفوف خاصة بعملاء.</li>
+<li><strong>افصل البيانات المركزية — المستأجرون والمستخدمون والاشتراكات والباقات — عن بيانات المستأجرين بوضوح.</strong> ارسم الخط في البنية قبل أن تحتاجه.</li>
+<li><strong>افصل مسارات التخزين ومفاتيح الـ cache لكل مستأجر من أول commit.</strong> إضافة ذلك لاحقاً تعني ترحيل ملفات، وهو أسوأ بكثير من ترحيل صفوف.</li>
+</ol>
+
+<p>بوجود هذه الخمسة، يصبح استخراج مستأجر كالتالي: أنشئ القاعدة الجديدة، شغّل الترحيلات، انسخ صفوف ذلك العميل جدولاً جدولاً بشرط <code>WHERE tenant_id = ?</code>، احذف العمود، بدّل حقل <code>database_name</code> في سجل المستأجر، تحقق، ثم احذف الصفوف الأصلية بعد فترة احتفاظ. لعميل متوسط الحجم هذه مهمة مكتوبة بـ script تُقاس بالدقائق مع نافذة صيانة قصيرة لذلك العميل وحده. لن يلاحظ أحد غيره.</p>
+
+<div class="post-callout"><p><strong>ماذا يعني هذا لقرارك:</strong> كلفة اختيار القاعدة الواحدة والخطأ في التقدير هي بضعة أيام عمل استخراج لكل عميل مؤسسي. أما كلفة اختيار قاعدة لكل عميل والخطأ في التقدير فهي ثمانية عشر شهراً من العبء التشغيلي على فريق لا يحتمله. الفارق ليس متقارباً.</p></div>
+
+<h2>12. قائمة التنفيذ التي أتبعها في أي SaaS متعدد المستأجرين</h2>
+
+<ul>
+<li>نموذج Tenant بمفتاح ULID، وحقل <code>slug</code>، وحقل <code>status</code>، وحقل <code>database_name</code> فارغ محجوز للاستخراج المستقبلي.</li>
+<li>جدول عضوية يربط المستخدم بالمستأجر بالدور. ولا يوجد <code>tenant_id</code> في جدول المستخدمين إطلاقاً.</li>
+<li>middleware يحدد المستأجر من النطاق الفرعي، ويتحقق من عضوية المستخدم الموثّق، ويربط <code>currentTenant</code>، ويعمل قبل <code>SubstituteBindings</code>.</li>
+<li>trait باسم <code>BelongsToTenant</code> يطبّق global scope يمنع افتراضياً ويملأ <code>tenant_id</code> تلقائياً عند الإنشاء.</li>
+<li>فهارس فريدة مركّبة في كل مكان، وفهرس <code>(tenant_id, created_at)</code> على كل جدول تُرتّبه أو تُصفّحه.</li>
+<li>اختبار في CI يمرّ على كل نماذج المستأجرين ويتأكد من انعدام الرؤية المتقاطعة، مع اختبار IDOR على مستوى المسارات.</li>
+<li>فحص ثابت — ولو مجرد grep داخل CI — يُفشل البناء عند وجود <code>DB::table(</code> أو <code>withoutGlobalScope</code> خارج namespace مسموح به.</li>
+<li>مفاتيح الـ cache وبادئات Redis وأقراص التخزين ومهام الطابور كلها واعية بالمستأجر، مع اختبارات تثبت ذلك.</li>
+<li>انتحال هوية العميل خلف صلاحية محددة، مسجَّل في جدول تدقيق غير قابل للتعديل مع سبب الدخول.</li>
+<li>حذف ناعم وتصدير كامل لكل مستأجر، لأن طلبات الحذف ستأتي حتماً.</li>
+<li>لوحة إدارة مركزية على نطاق منفصل بمصادقة خاصة، حتى لا يصل اختراق نطاق فرعي لعميل إليها.</li>
+</ul>
+
+<h2>13. خمسة أخطاء أُستدعى لإصلاحها باستمرار</h2>
+
+<ol>
+<li><strong>الـ scope المتساهل.</strong> يُرجع كل شيء عند غياب المستأجر. يمر في الاختبارات، ويتسرّب أول مرة تلمس فيها مهمة في الطابور أو أمر artisan ذلك النموذج.</li>
+<li><strong>وضع <code>tenant_id</code> في جدول المستخدمين.</strong> يعمل حتى يحتاج شخص واحد الوصول إلى مستأجرين — مستشار، محاسب، وكالة، شركة أم. عندها تعيد كتابة طبقة المصادقة كلها.</li>
+<li><strong>اختيار قاعدة لكل عميل لمنتج بتسجيل ذاتي.</strong> التسجيل يستغرق 40 ثانية، والتجهيز يفشل بصمت في نسبة صغيرة من الحالات ولا يلاحظ أحد، وخط النشر يحتوي خطوة بلا سقف زمني.</li>
+<li><strong>غياب الفهارس الفريدة المركّبة.</strong> يُكتشف حين يعجز العميل الثاني عن تسمية مشروعه الأول باسم استخدمه العميل الأول.</li>
+<li><strong>تقارير شاملة مضافة فوق نموذج القاعدة لكل عميل.</strong> يكتب أحدهم حلقة تفتح 400 اتصال لبناء لوحة إدارة، فتسقط قاعدة البيانات في التاسعة صباح الإثنين.</li>
+</ol>
+
+<p>الأخطاء الخمسة كلها أرخص في المنع منها في الإصلاح، وكلها قرارات معمارية تُتخذ في الأسبوع الأول. ولهذا تحديداً أُصرّ على أن نقاش تصميم تعدد المستأجرين يسبق أول سطر كود ولا يلحق الـ MVP — وهي نقطة أفصّلها أكثر عند الحديث عن <a href="/ar/blog/kayfa-takhtar-mubarmij-mawaqe">كيف تختار مبرمج مواقع</a>، لأن من يتخذ هذا القرار يجب أن يكون هو نفسه الموجود في الشهر الثاني عشر.</p>
+
+<h2>14. خلاصتي</h2>
+
+<p>ابنِ تعدد مستأجرين على قاعدة واحدة وschema مشتركة، مع global scope يمنع افتراضياً، وفهارس فريدة مركّبة، وجدول عضوية، ومجموعة اختبارات عزل. صمّم مسار الاستخراج من اليوم الأول. وانقل العملاء فرادى إلى قواعد خاصة حين يفرض ذلك عقد أو قاعدة تخزين بيانات محلية — واحسب ثمنه على العميل، فالعزل المؤسسي ميزة تُباع لا خدمة تُدعم من جيبك.</p>
+
+<p>واختر إطار العمل بالمنطق نفسه الذي تختار به أي قرار في الواجهة الخلفية؛ مقارنتي بين <a href="/ar/blog/laravel-vs-nodejs-2026">Laravel وNode.js في 2026</a> تغطي ذلك، ولمنتجات B2B متعددة المستأجرين ذات بيانات علائقية كثيفة وشاشات إدارية، فإن Eloquent وأدوات الترحيل ونظام الطوابير في Laravel تجعله المسار الأقصر.</p>
+
+<p>إن كنت على وشك دفع مقابل بناء هذا النظام، فأثمن ساعة يمكنك إنفاقها هي على تصميم قاعدة البيانات لا على اختيار إطار العمل. أقدّم استشارة مجانية وعرض سعر ثابتاً مع رد خلال 24 ساعة — أرسل لي فكرة منتجك أو الكود القائم عبر <a href="/ar/contact">صفحة التواصل</a>، أو اطّلع أولاً على طريقتي في <a href="/ar/hire-laravel-developer">مشاريع تطوير Laravel</a>. سأخبرك بصراحة أيّ المعماريات الثلاث تحتاج فعلاً، بما في ذلك حين تكون الإجابة هي الخيار الأرخص.</p>
+HTMLAR,
+            ],
+            [
+                'slug' => 'website-cost-egypt-gulf',
+                'title' => 'What a Website Really Costs in Egypt & the Gulf (Real 2026 Numbers)',
+                'title_ar' => 'كم تكلفة موقع إلكتروني في مصر والخليج فعليًا؟ تفصيل الأسعار في 2026',
+                'excerpt' => 'Real 2026 price bands for websites in Egypt, Saudi Arabia and the UAE — what a bilingual business site actually costs in EGP, why a Riyadh agency quotes ten times more, and the yearly running costs most quotes hide.',
+                'excerpt_ar' => 'أرقام حقيقية لأسعار المواقع في مصر والسعودية والإمارات عام 2026: كم يكلّف موقع شركة ثنائي اللغة بالجنيه، ولماذا يطلب مكتب في الرياض أضعاف ما يطلبه مبرمج مصري، وما التكاليف السنوية التي تخفيها العروض.',
+                'category' => 'Hiring',
+                'tags' => ['website cost', 'Egypt', 'Saudi Arabia', 'UAE', 'freelance developer', 'pricing', 'hiring'],
+                'image' => '1710766541-portfolio-grid-img-1.jpg',
+                'date' => '2026-07-29',
+                'read_time' => '15 min read',
+                'meta_title' => 'Website Cost in Egypt 2026: Real EGP & Gulf Prices',
+                'meta_title_ar' => 'تكلفة إنشاء موقع إلكتروني في مصر والخليج 2026',
+                'meta_description' => 'What a website really costs in Egypt, Saudi Arabia and the UAE in 2026: honest EGP/SAR bands, why Gulf agencies quote 10x, and the hidden yearly costs.',
+                'meta_description_ar' => 'أسعار حقيقية لبرمجة المواقع في مصر والسعودية والإمارات 2026: نطاقات بالجنيه والريال، ولماذا تتضاعف عروض الوكالات، وتكاليف ما بعد الإطلاق.',
+                'faq' => [
+                    [
+                        'q' => 'How much does a business website cost in Egypt in EGP?',
+                        'a' => 'A proper bilingual business site — Arabic and English, a CMS you can update, working forms and analytics — runs EGP 45,000 to 90,000 from a good freelancer in 2026, or EGP 90,000 to 220,000 from a mid-size Cairo agency. Simple WordPress presence sites start around EGP 10,000, and custom applications begin near EGP 150,000.',
+                        'q_ar' => 'كم تكلفة إنشاء موقع إلكتروني للشركات في مصر بالجنيه؟',
+                        'a_ar' => 'موقع شركة ثنائي اللغة بلوحة تحكم ونماذج تواصل وتحليلات يكلّف بين 45,000 و90,000 EGP من مبرمج مستقل جيد في 2026، أو بين 90,000 و220,000 EGP من شركة برمجيات متوسطة في القاهرة. مواقع WordPress التعريفية البسيطة تبدأ من حوالي 10,000 EGP، أما التطبيقات المخصصة فتبدأ قرب 150,000 EGP.',
+                    ],
+                    [
+                        'q' => 'Why do Saudi agencies quote far more than an Egyptian freelancer?',
+                        'a' => 'Different cost base, not different code. A Riyadh agency carries Gulf salaries and rent, a commercial registration, VAT registration, and a 30–50% risk buffer on fixed-fee work. It also sells layers you may not need: account manager, project manager, separate designer and QA. On the same brief that works out at roughly eight to thirteen times a Cairo freelance price, and if procurement requires a local legal entity, that premium is unavoidable and fair.',
+                        'q_ar' => 'لماذا تطلب المكاتب السعودية أضعاف ما يطلبه مبرمج مصري؟',
+                        'a_ar' => 'بنية تكلفة مختلفة، لا كود مختلف. المكتب في الرياض يتحمّل رواتب وإيجارات خليجية، وسجلًا تجاريًا، وتسجيلًا ضريبيًا، وهامش مخاطرة يتراوح بين 30% و50% على الأسعار الثابتة. كما يبيع طبقات قد لا تحتاجها: مدير حساب، ومدير مشروع، ومصمم ومختبر جودة منفصلين. على نفس الوصف يعني ذلك نحو ثمانية إلى ثلاثة عشر ضعفًا من سعر المستقل في القاهرة، وإن كانت إجراءات المشتريات تفرض كيانًا محليًا فالفارق مبرر تمامًا.',
+                    ],
+                    [
+                        'q' => 'What exactly changes between a low-end and a high-end build?',
+                        'a' => 'Mostly what you cannot see in a demo: how the site behaves when something fails. Cheap builds lose a payment silently. Expensive builds log it, retry it, reconcile it and alert you. The other differences are original design instead of a theme, genuinely edited Arabic, measured performance targets, automated tests, and a documented handover you own.',
+                        'q_ar' => 'ما الفرق الفعلي بين موقع رخيص وآخر مرتفع الثمن؟',
+                        'a_ar' => 'الفرق غالبًا فيما لا تراه في العرض التقديمي: سلوك الموقع عند الفشل. البناء الرخيص يضيّع عملية دفع بصمت، والبناء الجيد يسجّلها ويعيد المحاولة ويطابقها ماليًا وينبّهك. تليها فروق التصميم الأصلي بدل القالب، ومحتوى عربي محرَّر فعليًا، وأهداف أداء مقاسة، واختبارات آلية، وتسليم موثّق تملكه أنت.',
+                    ],
+                    [
+                        'q' => 'Is a cheaper offshore developer a false economy?',
+                        'a' => 'Cheap because of geography is real value: a senior Cairo developer bills $25–$50 an hour for work billed at $120–$200 in London, using identical tools. Cheap because of inexperience is where you lose money. Judge by running URLs you can test yourself, a quote with written assumptions, and a clear answer on who owns the repository.',
+                        'q_ar' => 'هل التعاقد مع مبرمج أرخص من الخارج اقتصاد وهمي؟',
+                        'a_ar' => 'الرخص الناتج عن فرق الجغرافيا قيمة حقيقية: مطوّر خبير في القاهرة يحاسب بـ 25 إلى 50 USD للساعة على عمل يُحاسَب عليه بـ 120 إلى 200 في لندن، وبنفس الأدوات تمامًا. أما الرخص الناتج عن قلة الخبرة فهو ما يخسّرك المال. احكم بروابط حيّة تجرّبها بنفسك، وعرض سعر بافتراضات مكتوبة، وإجابة واضحة عن ملكية المستودع.',
+                    ],
+                    [
+                        'q' => 'What ongoing costs come after launch?',
+                        'a' => 'Domain, hosting, business email, backups, monitoring, maintenance and, for stores, 1–3.5% per transaction in gateway fees (Saudi mada debit sits at the bottom of that range). A small business site realistically costs $450–$1,500 a year to run; an e-commerce site or web app $1,500–$8,000. Because those costs have a floor, budget 25–50% of a small build\'s price every year, dropping toward 15–25% on larger builds.',
+                        'q_ar' => 'ما التكاليف المستمرة بعد إطلاق الموقع؟',
+                        'a_ar' => 'النطاق، والاستضافة، والبريد المؤسسي، والنسخ الاحتياطي، والمراقبة، والصيانة، وللمتاجر رسوم بوابة الدفع بنسبة 1% إلى 3.5% لكل عملية، وبطاقات mada السعودية في أسفل هذا النطاق. موقع شركة صغير يكلّف واقعيًا 450 إلى 1,500 USD سنويًا، والمتجر أو تطبيق الويب من 1,500 إلى 8,000 USD. ولأن لهذه التكاليف حدًا أدنى ثابتًا، خصّص 25% إلى 50% من ثمن البناء الصغير كل سنة، وتهبط النسبة إلى 15% إلى 25% في المشاريع الكبيرة.',
+                    ],
+                    [
+                        'q' => 'Should I be quoted in EGP or USD?',
+                        'a' => 'If you are outside Egypt, insist on USD, SAR or AED so nobody is gambling on the exchange rate mid-project. The Egyptian pound has moved sharply since the 2024 float — it was around 50.3 to the dollar in August 2026 — while SAR and AED are pegged. If you are an Egyptian client paying in EGP, fix the price in the contract rather than leaving it FX-linked.',
+                        'q_ar' => 'هل أطلب التسعير بالجنيه أم بالدولار؟',
+                        'a_ar' => 'إن كنت خارج مصر فاطلب التسعير بـ USD أو SAR أو AED حتى لا يقامر أحد الطرفين على سعر الصرف أثناء المشروع. الجنيه المصري تحرّك بحدة منذ تعويم 2024، وكان قرب 50.3 للدولار في أغسطس 2026، بينما SAR و AED مربوطان بالدولار. وإن كنت عميلًا مصريًا تدفع بالجنيه، فثبّت السعر في العقد بدل ربطه بسعر الصرف.',
+                    ],
+                ],
+                'content' => <<<'HTML'
+<p class="lead">A straightforward bilingual business website built in Egypt costs between EGP 45,000 and EGP 90,000 in 2026. The same brief quoted by a Riyadh or Dubai agency comes back at SAR 30,000 to SAR 90,000. Both numbers are honest. I'm Khaled Ahmed, a full stack developer in Cairo with five years of professional work and 39+ shipped projects across eight countries, and this article explains exactly what that gap buys you — and when paying it is the right call.</p>
+
+<h2>1. The short answer, in numbers</h2>
+
+<p>Most people asking how much a website costs in Egypt want one number. There isn't one, because "website" covers everything from a five-page company profile to a multi-tenant booking platform with payment reconciliation. But the bands are tight enough to be useful, and I'd rather give you real ones than a form that says "contact us for pricing".</p>
+
+<p>Here is what I actually see across the market. The Egypt column is what a competent senior freelancer or small studio charges. It is not the bottom of the market — you can pay less, and section 7 explains what happens when you do.</p>
+
+<table>
+<thead>
+<tr><th>Scope</th><th>Egypt (EGP)</th><th>USD equivalent</th><th>Realistic timeline</th></tr>
+</thead>
+<tbody>
+<tr><td>Company profile, 5–8 static pages, one language</td><td>15,000 – 40,000</td><td>$300 – $800</td><td>1–2 weeks</td></tr>
+<tr><td>Business site, CMS, blog, Arabic + English, contact flows</td><td>35,000 – 90,000</td><td>$700 – $1,800</td><td>3–5 weeks</td></tr>
+<tr><td>E-commerce, up to ~200 SKUs, one payment gateway, shipping</td><td>70,000 – 200,000</td><td>$1,400 – $4,000</td><td>6–10 weeks</td></tr>
+<tr><td>Custom web app: bookings, portal, dashboards, roles</td><td>150,000 – 600,000</td><td>$3,000 – $12,000</td><td>2–5 months</td></tr>
+<tr><td>SaaS MVP with billing, tenants and an admin back office</td><td>300,000 – 1,200,000</td><td>$6,000 – $24,000</td><td>3–7 months</td></tr>
+<tr><td>Enterprise commerce with ERP integration and e-invoicing</td><td>800,000+</td><td>$16,000+</td><td>6 months+</td></tr>
+</tbody>
+</table>
+
+<div class="post-callout"><p><strong>Currency note, August 2026:</strong> I've converted at 50 EGP to the US dollar — the rate on 17 August 2026 was 50.26. The Egyptian pound has moved a great deal since the 2024 float and may well have moved again by the time you read this. SAR (3.75) and AED (3.6725) are pegged to the dollar and are stable. Convert at today's rate before you budget, and if you are a foreign buyer, ask to be quoted in USD so neither side is gambling on FX.</p></div>
+
+<p>If you want the version of this that isn't Egypt-specific — international rates, why fixed fees beat hourly, how to size a build — I wrote that up separately in <a href="/blog/how-much-does-website-cost-2026">my full 2026 website pricing breakdown</a>. This article is about the regional gap specifically, because that is where most of the money is won or lost.</p>
+
+<h2>2. How much does a business website cost in Egypt in EGP?</h2>
+
+<p>Take the most common request I get: an established Egyptian company — a clinic group, a contractor, a manufacturer, a law firm — wants a proper bilingual site. Arabic and English, right-to-left done properly, a services structure, team pages, a news or projects section they can update themselves, working forms that land in an inbox and a CRM, and Google Analytics 4 wired up.</p>
+
+<p>That is EGP 45,000 to 90,000 from a good freelancer in 2026. Roughly $900 to $1,800. Four to six weeks.</p>
+
+<p>What sits below it:</p>
+
+<ul>
+<li><strong>EGP 3,000 – 10,000.</strong> A template dropped onto shared hosting by someone doing this alongside a day job. You will get pages that load. You will not get a build anyone can maintain, and the Arabic will be an afterthought.</li>
+<li><strong>EGP 10,000 – 25,000.</strong> A WordPress theme configured competently, with a real content pass. For a small business that needs presence and nothing more, this is genuinely reasonable value and I say so to clients regularly. I lose work by saying it.</li>
+<li><strong>EGP 25,000 – 45,000.</strong> WordPress done well, or a light custom front end: real design decisions, proper bilingual handling, performance work, schema markup.</li>
+</ul>
+
+<p>And above it: EGP 90,000 to 250,000 buys custom design rather than a theme, a Laravel or Next.js build rather than a CMS, integrations with whatever systems you already run, and someone accountable for the thing for a year.</p>
+
+<p>The single biggest fork in that range is platform. If your content is mostly pages and posts, WordPress is the cheaper correct answer. If your site has to <em>do</em> things — quotes, bookings, accounts, stock, approvals — a custom build costs more up front and less over three years. I laid the decision out honestly in <a href="/blog/wordpress-vs-laravel-which-to-choose">WordPress vs Laravel</a>, including the cases where I tell people not to hire me.</p>
+
+<h3>What Egyptian agencies charge for the same brief</h3>
+
+<p>A mid-sized Cairo agency will quote the same bilingual business site at EGP 90,000 to 220,000. That is not a rip-off. You are buying a project manager, a designer who is not also the developer, a QA pass, a company that still exists in three years, and a formal contract with a legal entity behind it. Whether that is worth two to three times the freelance price depends entirely on how much internal capacity you have to run the project yourself. I broke the tradeoff down in <a href="/blog/freelance-developer-vs-agency">freelance developer vs agency</a>.</p>
+
+<h2>3. What the same brief costs in Saudi Arabia, the UAE and Europe</h2>
+
+<p>Here is the comparison that actually matters. One brief — bilingual business website, CMS, around 15 templates, forms, analytics — priced by who you hand it to. These are the bands I see when clients forward me competing quotes, converted so you can compare like with like.</p>
+
+<table>
+<thead>
+<tr><th>Who you hire</th><th>Local price</th><th>USD</th><th>Typical blended hourly</th></tr>
+</thead>
+<tbody>
+<tr><td>Cairo freelancer, senior</td><td>EGP 45,000 – 90,000</td><td>$900 – $1,800</td><td>$25 – $50</td></tr>
+<tr><td>Cairo agency, mid-size</td><td>EGP 90,000 – 220,000</td><td>$1,800 – $4,400</td><td>$30 – $70</td></tr>
+<tr><td>Riyadh / Jeddah agency</td><td>SAR 30,000 – 90,000</td><td>$8,000 – $24,000</td><td>$60 – $160</td></tr>
+<tr><td>Dubai / Abu Dhabi agency</td><td>AED 30,000 – 110,000</td><td>$8,200 – $30,000</td><td>$70 – $180</td></tr>
+<tr><td>UK / Germany agency</td><td>£15,000 – £45,000</td><td>$20,000 – $61,000</td><td>$110 – $220</td></tr>
+</tbody>
+</table>
+
+<p>Read that table twice. The work described is identical. From the bottom of the Cairo band to the top of the London band, the price spans nearly seventy times. Anyone who tells you the Gulf number is pure markup is wrong, and anyone who tells you the Egyptian number means low quality is also wrong. Section 4 is the honest accounting of where the difference goes.</p>
+
+<p>Two caveats on the Gulf figures. First, they widen fast once compliance enters: a Saudi e-commerce build that has to issue compliant tax invoices carries real integration work, which I covered in detail in <a href="/blog/zatca-einvoicing-laravel-integration">ZATCA e-invoicing with Laravel</a>. Second, payments are not a checkbox in this region — mada, Apple Pay, STC Pay, Tabby and Tamara each add work, and I went through the whole landscape in <a href="/blog/gcc-payment-gateway-integration">GCC payment gateway integration</a>. A Gulf quote that includes those is not comparable to an Egyptian quote that doesn't.</p>
+
+<h2>4. Why do Saudi agencies quote far more than an Egyptian freelancer?</h2>
+
+<p>Because they are selling a different product, and because their cost base is genuinely different. Roughly in order of size:</p>
+
+<h3>Cost of delivery</h3>
+
+<p>A Riyadh agency pays Riyadh salaries, Riyadh rent, and often the cost of maintaining a Saudi commercial registration, VAT registration, and a workforce mix that satisfies local employment rules. A senior developer in Riyadh costs multiples of a senior developer in Cairo. None of that shows up on your invoice as a line item, but all of it is inside the number.</p>
+
+<h3>Risk pricing</h3>
+
+<p>A fixed-fee project that overruns is the agency's problem. Agencies price that risk in — typically 30% to 50% on top of estimated effort. A freelancer with lower overheads can carry a thinner buffer. This is real value, not padding: if the project goes sideways, you are not the one paying for it.</p>
+
+<h3>Procurement and proximity</h3>
+
+<p>If you are a Saudi semi-government entity or a large corporate, you may simply be unable to contract a foreign individual. You need a local CR, local VAT invoices, a bank account in-country, a legal entity you can pursue, sometimes a physical office for meetings. That constraint alone explains a large slice of the premium, and no amount of technical skill on my side removes it.</p>
+
+<h3>Layers</h3>
+
+<p>An agency quote covers an account manager, a project manager, a UI designer, a UX pass, a front end developer, a back end developer, a QA tester, and a slice of the sales cost of winning you. Perhaps four of those roles produce something you can see. When I take the same project, I am doing five of those jobs myself, and the two that get thinner are formal QA documentation and the meeting layer.</p>
+
+<div class="post-callout"><p><strong>The honest version:</strong> on the table above, a Gulf agency lands somewhere between eight and thirteen times the Cairo freelance price. You are not paying ten times more for ten times better code. You are paying for insurance, local legal standing, and organisational capacity. If you need those, the Gulf price is fair. If you don't, you are buying overheads.</p></div>
+
+<h2>5. What exactly changes between a low-end and a high-end build?</h2>
+
+<p>This is the question buyers almost never ask, and it is the one that decides whether they are happy in year two. Two sites can look nearly identical on a laptop and differ thirtyfold in cost. Here is where the money goes.</p>
+
+<table>
+<thead>
+<tr><th>Dimension</th><th>EGP 8k build</th><th>EGP 60k build</th><th>EGP 250k+ build</th></tr>
+</thead>
+<tbody>
+<tr><td>Design</td><td>Purchased theme, colours swapped</td><td>Theme heavily customised, or a light custom system</td><td>Original design system, Figma source, component library</td></tr>
+<tr><td>Arabic / RTL</td><td>Translated strings, layout breaks in places</td><td>Proper RTL, correct fonts, numerals and date formats</td><td>Two genuinely edited content sets, per-locale SEO, hreflang</td></tr>
+<tr><td>Performance</td><td>Unoptimised images, 3–6s on 4G</td><td>Compressed assets, caching, sub-2s LCP on 4G</td><td>Budgeted Core Web Vitals, CDN, monitored in production</td></tr>
+<tr><td>Code ownership</td><td>Often unclear; sits on their hosting</td><td>Your repository, documented handover</td><td>CI/CD, staging environment, versioned releases</td></tr>
+<tr><td>Testing</td><td>Manual click-through on one browser</td><td>Cross-browser and device pass, form testing</td><td>Automated test suite, load testing, security review</td></tr>
+<tr><td>Security</td><td>Whatever the plugins do</td><td>Hardened admin, backups, updates for a period</td><td>Threat model, audit trail, rate limiting, pen test</td></tr>
+<tr><td>Failure behaviour</td><td>Payment fails silently, order lost</td><td>Errors logged, retried, surfaced to admin</td><td>Reconciliation, idempotency, alerting, defined recovery</td></tr>
+</tbody>
+</table>
+
+<p>Look at the last row. That is where cheap builds hurt. A EGP 8,000 store will take payments correctly on a good day. The difference appears on the bad day: the gateway times out mid-transaction, the customer's card is charged, no order exists in your database, and nothing tells you. On a small catalogue that is an angry phone call. On a site doing meaningful volume it is a reconciliation problem you will pay many times the price of the build to unpick. I go through the full list of what a serious store needs in my <a href="/blog/ecommerce-website-development-guide">e-commerce development guide</a>.</p>
+
+<h2>6. The five line items that move the price most</h2>
+
+<h3>Content and language</h3>
+
+<p>The most underestimated cost on every project in this region. Bilingual is not "run it through a translator". Arabic sets to a different length than English at the same meaning and breaks layouts designed for Latin script — mirroring, font metrics and line height, not just direction — it needs proper numeral and date handling, and it needs someone who can actually write. Budget EGP 8,000–25,000 for genuine Arabic content on a mid-size site, or accept that your Arabic version will read like a machine wrote it — and Arab buyers notice immediately.</p>
+
+<h3>Payments and tax compliance</h3>
+
+<p>One gateway with cards only: a few days. Egypt with Paymob or Fawry plus cash on delivery: more, because COD changes your entire order state machine. Saudi with mada, Apple Pay and a BNPL provider: more again. Add compliant tax invoicing and you are into weeks, not days.</p>
+
+<h3>Integrations</h3>
+
+<p>Every external system you connect is a fixed cost that does not care how big your site is. An ERP with a documented REST API might be two weeks. The same ERP with an undocumented SOAP endpoint and a vendor who replies once a week might be two months. Always ask a prospective developer to price integrations separately and to state what happens if the third party's API turns out to be worse than advertised.</p>
+
+<h3>Data model</h3>
+
+<p>Nobody quotes for this and it silently determines your cost for years. Getting the schema wrong means every future feature costs noticeably more than it should, and a few become impractical enough that you quietly stop asking for them. It is the cheapest thing to do properly and the most expensive thing to fix, which is why I wrote <a href="/blog/database-design-for-web-apps">database design for web apps</a> as a standalone piece.</p>
+
+<h3>Non-functional requirements</h3>
+
+<p>Speed, uptime, accessibility, security. These are invisible in a demo and they are most of the difference between a EGP 60k build and a EGP 250k build. If your quote does not mention performance targets, you have not bought performance. Slow sites lose money in ways that are hard to attribute — I dug into the mechanics in <a href="/blog/why-your-website-loads-slowly">why your website loads slowly</a>.</p>
+
+<h2>7. Is a cheaper offshore developer a false economy?</h2>
+
+<p>Sometimes. Not usually. And the honest answer depends on which cheap you mean, because there are two completely different things wearing the same price tag.</p>
+
+<p><strong>Cheap because of geography</strong> is real value. A senior developer in Cairo bills $25–$50 an hour for work that bills $120–$200 in London. That gap is cost of living and currency, not skill. The tools are identical — the same Laravel 13, the same Next.js, the same PostgreSQL, the same AWS console. There is no offshore version of a framework. This is the arbitrage that makes <a href="/blog/hire-full-stack-web-developer-egypt">hiring a full stack developer in Egypt</a> work, and it is why I have shipped for clients in the UK, Switzerland, France and Germany without ever being in the room.</p>
+
+<p><strong>Cheap because of seniority</strong> is where people get burned. A $8/hour developer is not a discounted senior; they are someone learning on your project. You pay the difference in rework, in months of drift, and eventually in a rebuild.</p>
+
+<p>The reliable signals that separate them:</p>
+
+<ul>
+<li><strong>They push back on your brief.</strong> A senior developer will tell you which of your requested features is a bad idea. Someone who agrees to everything in the first call has not read it.</li>
+<li><strong>They quote a range with named assumptions</strong>, not a suspiciously round single number.</li>
+<li><strong>You can see running code.</strong> Live URLs you can open and test on your own phone. Not screenshots. Mine are on <a href="/portfolios">my portfolio page</a>, including the seven apps I have live on Google Play.</li>
+<li><strong>They answer the ownership question without hesitating.</strong> Ask who owns the repository, the domain and the server after final payment. If the answer is vague, walk. This is the most common way small businesses in Egypt and the Gulf end up hostage to a supplier, and it is exactly why I wrote <a href="/blog/who-owns-your-website-code">who owns your website code</a>.</li>
+<li><strong>Overlap you can live with.</strong> Cairo is UTC+2, and UTC+3 from late April to late October: a full working-day overlap with the UK and EU, and an afternoon overlap with US East. Timezone excuses in this region are not credible.</li>
+</ul>
+
+<p>The false economy that actually recurs is not offshore. It is <em>underscoped</em>. A EGP 20,000 quote for a EGP 90,000 brief is not a bargain; it is a quote for a different, smaller project that you will discover in week six.</p>
+
+<h2>8. What ongoing costs come after launch?</h2>
+
+<p>The number most quotes bury. A website is not a purchase, it is a subscription with a large setup fee. Here is a realistic annual running cost for a mid-size business site, checked as of August 2026 — providers change their pricing, so treat these as the shape of the bill rather than a fixed quote.</p>
+
+<table>
+<thead>
+<tr><th>Item</th><th>Small business site</th><th>E-commerce / web app</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>Domain</td><td>$10 – $20 / yr</td><td>$10 – $60 / yr</td><td>.sa and .com.eg need documentation and are slower to move</td></tr>
+<tr><td>Hosting</td><td>$40 – $150 / yr</td><td>$150 – $1,200 / yr</td><td>Shared vs a real VPS; region matters for latency</td></tr>
+<tr><td>SSL</td><td>$0</td><td>$0 – $80 / yr</td><td>Let's Encrypt is fine for almost everyone</td></tr>
+<tr><td>Email (Google Workspace / M365)</td><td>$84+ / user / yr</td><td>$84+ / user / yr</td><td>Workspace Business Starter is $7/user/month on annual billing; never run business email off your web host</td></tr>
+<tr><td>Backups and monitoring</td><td>$0 – $120 / yr</td><td>$120 – $600 / yr</td><td>Offsite, tested, not just "the host does it"</td></tr>
+<tr><td>Payment gateway fees</td><td>—</td><td>1% – 3.5% per transaction</td><td>Saudi mada debit sits at the bottom of that range; international cards at the top. Plus setup and sometimes a monthly minimum</td></tr>
+<tr><td>Maintenance / updates</td><td>$300 – $1,200 / yr</td><td>$1,200 – $6,000 / yr</td><td>Framework and dependency updates, small fixes</td></tr>
+<tr><td>Content and SEO</td><td>$0 – $3,000 / yr</td><td>$1,200 – $12,000 / yr</td><td>Optional, but this is what makes the site earn</td></tr>
+</tbody>
+</table>
+
+<p>Two rules of thumb I give every client. First, <strong>running costs have a floor that does not shrink because your build was cheap</strong>: assume at least $450 a year for a small business site and $1,500 or more for a store or web app, before any content and SEO spend. Against Egyptian build prices, that works out at roughly 25% to 50% of the build cost per year on a small site, settling towards 15% to 25% once the build is large. Second, whoever built it should be contractually available for at least twelve months, at a stated rate, or you are one resignation away from an unmaintainable asset.</p>
+
+<p>Hosting is where people over- and under-spend at the same time — paying for a managed platform they don't need while running a database that would be happier on a $12 VPS. I walked through how to choose in <a href="/blog/choosing-web-hosting-2026">choosing web hosting in 2026</a>. And whatever you host on, run through the <a href="/blog/website-security-checklist">website security checklist</a> before you take a single real payment; the cost of getting that wrong dwarfs every number in this article.</p>
+
+<p>If you'd rather not think about any of it, that is what fixed monthly <a href="/plans">care plans</a> exist for.</p>
+
+<h2>9. How to read a quote before you sign</h2>
+
+<p>Most bad website projects in this region are bad procurement, not bad code. A quote you can actually evaluate looks like this:</p>
+
+<pre><code>SCOPE
+  12 page templates (list in appendix A)
+  Arabic + English, RTL, hreflang
+  Filament admin, 3 roles
+  Paymob card + COD; Stripe for non-EGP
+  ERP: read products/stock via REST (see assumption 3)
+
+ASSUMPTIONS
+  1. Client supplies final content by week 2
+  2. Design approved in max 2 revision rounds
+  3. ERP exposes a documented REST API with a test env
+  4. &lt;= 3 gateway environments to certify against
+
+EXCLUDED
+  Content writing, translation, photography
+  Ongoing SEO, paid ads, hosting fees
+
+DELIVERABLES
+  Git repo (client org), staging + production, handover doc,
+  90 min training call, 60 days bug-fix warranty
+
+PRICE   EGP 165,000 fixed  |  40% start, 30% UAT, 30% go-live
+CHANGES Anything outside scope: EGP 900/hr, written approval first</code></pre>
+
+<p>If the quote you are holding does not have an <strong>assumptions</strong> block and an <strong>excluded</strong> block, it is not a quote — it is a hope. Almost every dispute I have watched between a business and a developer in Egypt or the Gulf traced back to a line that was never written down. Before you shortlist anyone, run through <a href="/blog/how-to-hire-a-web-developer">how to hire a web developer</a>, and if you are contracting locally, get the ownership and payment-milestone language right in writing — I put a <a href="/blog/namudhaj-aqd-barmajat-mawqe">web development contract template</a> together for exactly that.</p>
+
+<h3>Payment structure that protects both sides</h3>
+
+<ul>
+<li><strong>Never pay 100% up front.</strong> Any developer who asks for it is telling you something.</li>
+<li><strong>Never pay 0% up front either.</strong> Nobody serious starts a two-month build on a promise, and if they do, you are not their priority client.</li>
+<li>30/30/40 or 40/30/30 across start, acceptance and launch works. Tie the final tranche to go-live, not to an arbitrary date.</li>
+<li>For projects above roughly $10,000, milestone-based escrow is worth the fee for a first engagement.</li>
+</ul>
+
+<h2>10. What I charge, and how I scope it</h2>
+
+<p>Since I am asking you to trust these ranges, here is where I sit in them. I work fixed-fee, not hourly, because hourly punishes me for being fast and punishes you for asking questions.</p>
+
+<ul>
+<li><strong>Bilingual business site:</strong> EGP 45,000 – 90,000 / roughly $900 – $1,800.</li>
+<li><strong>E-commerce with one or two gateways:</strong> EGP 90,000 – 280,000 / roughly $1,800 – $5,600.</li>
+<li><strong>Custom Laravel or Next.js application:</strong> from EGP 180,000 / roughly $3,600, scoped per feature.</li>
+<li><strong>SaaS MVP:</strong> from EGP 350,000 / roughly $7,000, typically staged over three to five months.</li>
+<li><strong>Mobile app, React Native or Flutter, with a backend:</strong> from EGP 250,000 / roughly $5,000.</li>
+</ul>
+
+<p>Those are ranges with assumptions, not quotes. What moves a project to the top of its band is almost always integrations, a real design system, or compliance work. What moves it to the bottom is content you already have and decisions you can make quickly.</p>
+
+<p>I quote in USD, SAR or AED for clients outside Egypt so that currency movement is my problem rather than yours. The full <a href="/services">list of what I build</a> is on the services page, and I will tell you when a project is better served by a template than by me — that conversation costs you nothing and saves both of us a bad engagement.</p>
+
+<h2>11. If your budget is fixed, spend it in this order</h2>
+
+<p>Say you have EGP 60,000, or SAR 20,000, and a business that needs to start earning. Priority order, and I would defend this against anyone:</p>
+
+<ol>
+<li><strong>The one page that converts.</strong> Whatever your buyer needs to see before they contact you. Get this excellent before anything else exists.</li>
+<li><strong>Speed on a mobile network.</strong> Most of your traffic in Egypt and the Gulf is on a phone, frequently on mobile data. A two-second site with plain design beats a beautiful six-second one every single time. <a href="/blog/mobile-first-web-design-2026">Mobile-first design</a> is not a style preference here, it is where the traffic is.</li>
+<li><strong>Working contact and tracking.</strong> Forms that arrive, WhatsApp that opens, calls that connect, and analytics that tell you which of them did the work.</li>
+<li><strong>Technical SEO fundamentals.</strong> Clean URLs, real titles, structured data, an accurate sitemap, correct hreflang if you are bilingual. Cheap during the build, expensive to retrofit — the <a href="/blog/website-seo-checklist-2026">2026 SEO checklist</a> is the version I actually work from.</li>
+<li><strong>Everything else.</strong> Animation, a blog you won't write, a chatbot, a custom illustration set. All of it can wait.</li>
+</ol>
+
+<p>The most common way a small budget gets wasted in this market is spending 70% of it on visual design and 5% on whether the thing loads, converts, and can be found.</p>
+
+<h2>12. The verdict</h2>
+
+<p>A serious bilingual business website costs EGP 45,000–90,000 in Egypt, SAR 30,000–90,000 from a Gulf agency, and $20,000+ in Western Europe — for the same deliverable. The gap is cost base, risk pricing and local legal standing, not quality. If you need a local entity for procurement reasons, pay the Gulf price without resentment. If you don't, hiring directly in Egypt is the largest single saving available to you on a web project, and it does not cost you anything technically.</p>
+
+<p>What should worry you is not a low number. It is a number with no assumptions attached, no ownership clause, and no answer to what happens after launch.</p>
+
+<p>If you want a real figure for your specific project rather than a band, <a href="/contact">tell me what you're building</a>. The consultation is free, I reply within 24 hours, and you get a fixed-fee quote with the scope, assumptions and exclusions written down — whether or not you end up working with me.</p>
+HTML,
+                'content_ar' => <<<'HTMLAR'
+<p class="lead">موقع شركة احترافي ثنائي اللغة في مصر يكلّف بين 45,000 و90,000 EGP في 2026. نفس الوصف تمامًا يعود إليك من مكتب في الرياض أو دبي بسعر يتراوح بين 30,000 و90,000 SAR. الرقمان صحيحان، ولا أحد منهما احتيال. أنا خالد أحمد، مطوّر Full Stack من القاهرة، أكثر من خمس سنوات خبرة و39 مشروعًا منجزًا في ثماني دول، وسأشرح لك في هذا المقال ما الذي يشتريه هذا الفارق بالضبط، ومتى يستحق أن تدفعه.</p>
+
+<h2>1. الإجابة المختصرة بالأرقام</h2>
+
+<p>معظم من يسأل عن تكلفة موقع إلكتروني يريد رقمًا واحدًا. لا يوجد رقم واحد، لأن كلمة "موقع" تشمل صفحة تعريفية من خمس صفحات، وتشمل أيضًا منصة حجوزات متعددة الفروع بمطابقة مالية يومية. لكن النطاقات ضيّقة بما يكفي لتكون مفيدة، وأفضّل أن أعطيك أرقامًا حقيقية بدل جملة "تواصل معنا للتسعير".</p>
+
+<p>الجدول التالي هو ما أراه فعليًا في السوق. عمود مصر يمثّل ما يطلبه مبرمج مستقل خبير أو مكتب صغير، وليس قاع السوق — يمكنك أن تدفع أقل، والقسم السابع يشرح ماذا يحدث حين تفعل.</p>
+
+<table>
+<thead>
+<tr><th>نطاق العمل</th><th>مصر (EGP)</th><th>المقابل بـ USD</th><th>المدة الواقعية</th></tr>
+</thead>
+<tbody>
+<tr><td>موقع تعريفي، 5–8 صفحات، لغة واحدة</td><td>15,000 – 40,000</td><td>300 – 800</td><td>أسبوع إلى أسبوعين</td></tr>
+<tr><td>موقع شركة بلوحة تحكم ومدونة، عربي وإنجليزي</td><td>35,000 – 90,000</td><td>700 – 1,800</td><td>3–5 أسابيع</td></tr>
+<tr><td>متجر إلكتروني حتى 200 منتج، بوابة دفع وشحن</td><td>70,000 – 200,000</td><td>1,400 – 4,000</td><td>6–10 أسابيع</td></tr>
+<tr><td>تطبيق ويب مخصص: حجوزات، بوابة عملاء، صلاحيات</td><td>150,000 – 600,000</td><td>3,000 – 12,000</td><td>2–5 أشهر</td></tr>
+<tr><td>منتج SaaS بنسخته الأولى: اشتراكات ومستأجرون ولوحة إدارة</td><td>300,000 – 1,200,000</td><td>6,000 – 24,000</td><td>3–7 أشهر</td></tr>
+<tr><td>تجارة إلكترونية مؤسسية مرتبطة بـ ERP وفوترة إلكترونية</td><td>+800,000</td><td>+16,000</td><td>6 أشهر فأكثر</td></tr>
+</tbody>
+</table>
+
+<div class="post-callout"><p><strong>ملاحظة عن العملة، أغسطس 2026:</strong> حوّلت على أساس 50 EGP للدولار — وسعر الصرف في 17 أغسطس 2026 كان 50.26. الجنيه المصري تحرّك كثيرًا منذ تعويم 2024 وقد يكون تحرّك مجددًا وقت قراءتك. أما SAR (3.75) و AED (3.6725) فمربوطان بالدولار ومستقران. راجع سعر الصرف اليوم قبل أن تبني ميزانيتك، وإن كنت مشتريًا من خارج مصر فاطلب التسعير بـ USD حتى لا يقامر أحد الطرفين على العملة.</p></div>
+
+<p>إن أردت النسخة العامة غير المرتبطة بمصر — الأسعار الدولية، ولماذا السعر الثابت أفضل من الساعة، وكيف تُقدّر حجم المشروع — كتبتها في <a href="/ar/blog/how-much-does-website-cost-2026">دليل تكلفة المواقع لعام 2026</a>. هذا المقال مخصص للفارق الإقليمي تحديدًا، لأن هناك تُربح الأموال أو تُهدر.</p>
+
+<h2>2. كم تكلفة إنشاء موقع إلكتروني للشركات في مصر بالجنيه؟</h2>
+
+<p>خذ الطلب الأكثر تكرارًا عندي: شركة مصرية قائمة — مجموعة عيادات، مقاولات، مصنع، مكتب محاماة — تريد موقعًا ثنائي اللغة كما ينبغي. عربي وإنجليزي، اتجاه RTL منفّذ بشكل سليم، هيكل خدمات، صفحات فريق، قسم أخبار أو مشاريع يستطيعون تحديثه بأنفسهم، نماذج تواصل تصل فعلًا، وربط بـ Google Analytics 4.</p>
+
+<p>هذا يكلّف بين 45,000 و90,000 EGP من مبرمج مستقل جيد في 2026. أي ما يعادل 900 إلى 1,800 USD تقريبًا، في أربعة إلى ستة أسابيع.</p>
+
+<p>وما دون ذلك:</p>
+
+<ul>
+<li><strong>3,000 – 10,000 EGP:</strong> قالب جاهز مرفوع على استضافة مشتركة من شخص يعمل هذا بجانب وظيفته. ستحصل على صفحات تفتح. لن تحصل على شيء قابل للصيانة، والنسخة العربية ستكون فكرة لاحقة لا أكثر.</li>
+<li><strong>10,000 – 25,000 EGP:</strong> قالب WordPress مُعدّ بكفاءة مع مراجعة محتوى حقيقية. لمحل صغير يحتاج حضورًا فقط، هذه قيمة معقولة تمامًا، وأقولها لعملائي باستمرار وأخسر بها أعمالًا.</li>
+<li><strong>25,000 – 45,000 EGP:</strong> WordPress منفّذ باحتراف، أو واجهة مخصّصة خفيفة: قرارات تصميمية حقيقية، معالجة سليمة للعربية، تحسين سرعة، وبيانات منظّمة Schema.</li>
+</ul>
+
+<p>وفوق ذلك: من 90,000 إلى 250,000 EGP تشتري تصميمًا أصليًا لا قالبًا، وبناءً على Laravel أو Next.js بدل نظام إدارة محتوى جاهز، وربطًا بالأنظمة التي تشغّلها أصلًا، وشخصًا مسؤولًا أمامك لمدة سنة.</p>
+
+<p>أكبر مفترق طرق داخل هذا النطاق هو المنصّة. إذا كان محتواك صفحات ومقالات، فـ WordPress هو الجواب الأرخص والصحيح. أما إذا كان الموقع مطلوبًا منه أن <em>يفعل</em> أشياء — عروض أسعار، حجوزات، حسابات، مخزون، موافقات — فالبناء المخصص أغلى في البداية وأرخص على مدى ثلاث سنوات. فصّلت المقارنة بصدق في <a href="/ar/blog/wordpress-vs-laravel-which-to-choose">WordPress أم Laravel</a>، بما في ذلك الحالات التي أنصح فيها ألا تتعاقد معي أصلًا.</p>
+
+<h3>ماذا تطلب الشركات المصرية على نفس الوصف؟</h3>
+
+<p>شركة برمجيات متوسطة في القاهرة ستسعّر نفس الموقع بين 90,000 و220,000 EGP. هذا ليس استغلالًا. أنت تشتري مدير مشروع، ومصممًا ليس هو المبرمج نفسه، ومرحلة اختبار جودة، وكيانًا سيظل موجودًا بعد ثلاث سنوات، وعقدًا أمام شخصية اعتبارية. هل يستحق ذلك ضعفين أو ثلاثة من سعر المستقل؟ يعتمد كليًا على قدرتك الداخلية على إدارة المشروع بنفسك، وقد فصّلت المفاضلة في <a href="/ar/blog/freelance-developer-vs-agency">مستقل أم شركة برمجيات</a>.</p>
+
+<h2>3. أسعار تصميم المواقع في السعودية والإمارات وأوروبا</h2>
+
+<p>هذه هي المقارنة التي تهم فعلًا. وصف واحد — موقع شركة ثنائي اللغة، لوحة تحكم، نحو 15 قالب صفحة، نماذج، تحليلات — مسعّر بحسب الجهة التي تسلّمه لها. هذه النطاقات أراها حين يرسل لي العملاء عروضًا منافسة، محوّلة لتقارن الشبيه بالشبيه.</p>
+
+<table>
+<thead>
+<tr><th>الجهة المنفّذة</th><th>السعر المحلي</th><th>USD</th><th>سعر الساعة الفعلي</th></tr>
+</thead>
+<tbody>
+<tr><td>مستقل خبير في القاهرة</td><td>45,000 – 90,000 EGP</td><td>900 – 1,800</td><td>25 – 50</td></tr>
+<tr><td>شركة متوسطة في القاهرة</td><td>90,000 – 220,000 EGP</td><td>1,800 – 4,400</td><td>30 – 70</td></tr>
+<tr><td>مكتب في الرياض أو جدة</td><td>30,000 – 90,000 SAR</td><td>8,000 – 24,000</td><td>60 – 160</td></tr>
+<tr><td>مكتب في دبي أو أبوظبي</td><td>30,000 – 110,000 AED</td><td>8,200 – 30,000</td><td>70 – 180</td></tr>
+<tr><td>وكالة في بريطانيا أو ألمانيا</td><td>15,000 – 45,000 GBP</td><td>20,000 – 61,000</td><td>110 – 220</td></tr>
+</tbody>
+</table>
+
+<p>اقرأ الجدول مرتين. العمل الموصوف واحد. من قاع النطاق المصري إلى قمة النطاق البريطاني، الفارق يقارب سبعين ضعفًا. من يقول لك إن الرقم الخليجي كله هامش ربح مخطئ، ومن يقول لك إن الرقم المصري يعني جودة متدنية مخطئ أيضًا. القسم الرابع هو المحاسبة الصادقة لأين يذهب الفرق.</p>
+
+<p>وهناك تحفّظان على الأرقام الخليجية. الأول أن النطاق يتسع سريعًا بمجرد دخول الالتزام التنظيمي: متجر سعودي مطلوب منه إصدار فواتير ضريبية مطابقة يحمل عمل ربط حقيقيًا مع منظومة ZATCA، وقد شرحته بالتفصيل في <a href="/ar/blog/zatca-einvoicing-laravel-integration">ربط الفوترة الإلكترونية ZATCA مع Laravel</a>. الثاني أن المدفوعات في الخليج ليست خانة اختيار: mada و Apple Pay و STC Pay و Tabby و Tamara، كل واحدة منها عمل إضافي، وقد استعرضت المشهد كاملًا في <a href="/ar/blog/gcc-payment-gateway-integration">ربط بوابات الدفع في دول الخليج</a>. عرض خليجي يشمل هذه البنود لا يُقارن بعرض مصري لا يشملها.</p>
+
+<h2>4. لماذا يطلب مكتب سعودي أضعاف ما يطلبه مبرمج مصري؟</h2>
+
+<p>لأنه يبيع منتجًا مختلفًا، ولأن بنية تكلفته مختلفة فعلًا. مرتبة تقريبًا حسب الحجم:</p>
+
+<h3>تكلفة التنفيذ</h3>
+
+<p>مكتب في الرياض يدفع رواتب الرياض وإيجار الرياض، وغالبًا تكلفة الحفاظ على سجل تجاري وتسجيل ضريبي وتركيبة توظيف تلتزم بأنظمة العمل المحلية. مطوّر خبير في الرياض يكلّف أضعاف نظيره في القاهرة. لا شيء من هذا يظهر كبند في فاتورتك، لكنه كله داخل الرقم.</p>
+
+<h3>تسعير المخاطرة</h3>
+
+<p>المشروع بسعر ثابت إذا تجاوز مدته فالخسارة على المنفّذ. المكاتب تسعّر هذه المخاطرة، عادةً بإضافة 30% إلى 50% فوق الجهد المقدّر. المستقل بمصاريف تشغيل أقل يستطيع أن يحمل هامشًا أنحف. هذه قيمة حقيقية وليست حشوًا: إن انحرف المشروع، لست أنت من يدفع.</p>
+
+<h3>المشتريات والقرب</h3>
+
+<p>إن كنت جهة شبه حكومية في السعودية أو شركة كبرى، فقد يكون التعاقد مع فرد أجنبي مستحيلًا إداريًا من الأساس. أنت تحتاج سجلًا تجاريًا محليًا، وفواتير ضريبية محلية، وحسابًا بنكيًا داخل البلد، وكيانًا يمكن مقاضاته، وأحيانًا مكتبًا تجتمع فيه. هذا القيد وحده يفسّر شريحة كبيرة من الفارق، ولا مهارة تقنية من جانبي تلغيه.</p>
+
+<h3>الطبقات</h3>
+
+<p>عرض المكتب يغطي مدير حساب، ومدير مشروع، ومصمم واجهات، ومرحلة تجربة استخدام، ومطوّر واجهة أمامية، ومطوّر خلفي، ومختبر جودة، وحصة من تكلفة المبيعات التي جلبتك. ربما أربعة من هؤلاء ينتجون شيئًا تراه بعينك. حين آخذ أنا نفس المشروع، أؤدي خمسة من هذه الأدوار بنفسي، والاثنان اللذان ينحفان هما توثيق اختبار الجودة وطبقة الاجتماعات.</p>
+
+<div class="post-callout"><p><strong>الصيغة الصريحة:</strong> بحسب الجدول السابق، المكتب الخليجي يقع بين ثمانية وثلاثة عشر ضعفًا من سعر المستقل في القاهرة. أنت لا تدفع عشرة أضعاف مقابل كود أفضل عشر مرات. أنت تدفع مقابل تأمين، ومركز قانوني محلي، وقدرة تنظيمية. إن كنت تحتاجها فالسعر الخليجي عادل. وإن كنت لا تحتاجها فأنت تشتري مصاريف إدارية.</p></div>
+
+<h2>5. ما الذي يتغيّر فعليًا بين موقع رخيص وآخر مرتفع الثمن؟</h2>
+
+<p>هذا هو السؤال الذي لا يسأله المشترون تقريبًا، وهو الذي يقرر رضاهم في السنة الثانية. موقعان قد يبدوان متطابقين على شاشة الـ laptop ويفصل بينهما ثلاثون ضعفًا في السعر. إليك أين تذهب الأموال.</p>
+
+<table>
+<thead>
+<tr><th>المحور</th><th>بناء بـ 8 آلاف EGP</th><th>بناء بـ 60 ألف EGP</th><th>بناء بـ 250 ألف EGP فأكثر</th></tr>
+</thead>
+<tbody>
+<tr><td>التصميم</td><td>قالب مشترى وتغيير ألوان</td><td>قالب معدّل بعمق أو نظام مخصص خفيف</td><td>نظام تصميم أصلي، ملفات Figma، مكتبة مكوّنات</td></tr>
+<tr><td>العربية واتجاه RTL</td><td>ترجمة نصوص وكسر في بعض التخطيطات</td><td>RTL سليم، خطوط وأرقام وتواريخ صحيحة</td><td>محتوى عربي محرَّر فعليًا، SEO لكل لغة، hreflang</td></tr>
+<tr><td>السرعة</td><td>صور غير مضغوطة، 3–6 ثوانٍ على 4G</td><td>ضغط وتخزين مؤقت، أقل من ثانيتين على 4G</td><td>ميزانية أداء لـ Core Web Vitals، CDN، مراقبة إنتاج</td></tr>
+<tr><td>ملكية الكود</td><td>غالبًا غامضة، وعلى استضافتهم</td><td>مستودعك أنت مع تسليم موثّق</td><td>CI/CD، بيئة staging، إصدارات مرقّمة</td></tr>
+<tr><td>الاختبار</td><td>تجربة يدوية على متصفح واحد</td><td>اختبار متصفحات وأجهزة ونماذج</td><td>اختبارات آلية، اختبار حِمل، مراجعة أمنية</td></tr>
+<tr><td>الأمان</td><td>ما تفعله الإضافات فقط</td><td>تحصين لوحة الإدارة، نسخ احتياطي، تحديثات لفترة</td><td>نمذجة تهديدات، سجل تدقيق، تحديد معدل الطلبات، اختبار اختراق</td></tr>
+<tr><td>السلوك عند الفشل</td><td>الدفع يفشل صامتًا ويضيع الطلب</td><td>تسجيل الأخطاء وإعادة المحاولة وتنبيه الإدارة</td><td>مطابقة مالية، عمليات غير مكرَّرة، تنبيهات، خطة تعافٍ</td></tr>
+</tbody>
+</table>
+
+<p>انظر إلى الصف الأخير. هناك يؤلمك البناء الرخيص. متجر بـ 8,000 EGP سيقبض المدفوعات بشكل صحيح في اليوم الجيد. الفارق يظهر في اليوم السيئ: تنقطع بوابة الدفع في منتصف العملية، يُخصم من بطاقة العميل، ولا يوجد طلب في قاعدة بياناتك، ولا شيء ينبّهك. مع عدد منتجات قليل هذه مكالمة غاضبة. على متجر بحجم حقيقي هذه مشكلة تسوية مالية ستدفع لحلّها أضعاف ثمن الموقع نفسه. استعرضت ما يحتاجه المتجر الجاد كاملًا في <a href="/ar/blog/ecommerce-website-development-guide">دليل بناء المتاجر الإلكترونية</a>.</p>
+
+<h2>6. البنود الخمسة التي ترفع الفاتورة أكثر من غيرها</h2>
+
+<h3>المحتوى واللغة</h3>
+
+<p>أكثر بند يُستهان به في كل مشروع في منطقتنا. ثنائي اللغة لا يعني "مرّره على مترجم". العربية تأخذ طولًا مختلفًا عن الإنجليزية عند نفس المعنى، وتكسر تخطيطات مصمَّمة للحروف اللاتينية — بسبب انعكاس الاتجاه ومقاييس الخطوط وارتفاع السطر، لا بسبب الاتجاه وحده — وتحتاج معالجة صحيحة للأرقام والتواريخ، وتحتاج قبل ذلك كله من يكتب عربية سليمة. خصّص 8,000 إلى 25,000 EGP لمحتوى عربي حقيقي على موقع متوسط، أو اقبل أن تقرأ نسختك العربية وكأن آلة كتبتها — والقارئ العربي يلاحظ ذلك من السطر الأول.</p>
+
+<h3>المدفوعات والالتزام الضريبي</h3>
+
+<p>بوابة واحدة ببطاقات فقط: أيام قليلة. مصر مع Paymob أو Fawry بالإضافة إلى الدفع عند الاستلام: أكثر، لأن الدفع عند الاستلام يغيّر دورة حياة الطلب بالكامل. السعودية مع mada و Apple Pay ومزوّد تقسيط: أكثر أيضًا. أضف الفوترة الضريبية المطابقة وستصبح المسألة أسابيع لا أيام.</p>
+
+<h3>عمليات الربط</h3>
+
+<p>كل نظام خارجي تربطه تكلفة ثابتة لا تهتم بحجم موقعك. نظام ERP بواجهة REST موثّقة قد يستغرق أسبوعين. نفس النظام بواجهة SOAP غير موثّقة ومورّد يرد مرة كل أسبوع قد يستغرق شهرين. اطلب دائمًا تسعير عمليات الربط كبند منفصل، واطلب نصًا صريحًا يوضّح ماذا يحدث إن كانت واجهة الطرف الثالث أسوأ مما وُصفت.</p>
+
+<h3>نموذج البيانات</h3>
+
+<p>لا أحد يسعّره، وهو الذي يحدد تكلفتك بصمت لسنوات. خطأ في تصميم قاعدة البيانات يعني أن كل ميزة مستقبلية ستكلّف أكثر مما ينبغي بفارق ملموس، وبعض المزايا تصبح غير عملية إلى الحد الذي تتوقف عنده عن طلبها. هو أرخص شيء تفعله صحيحًا وأغلى شيء تصلحه لاحقًا، ولذلك أفردت له <a href="/ar/blog/database-design-for-web-apps">مقال تصميم قواعد البيانات لتطبيقات الويب</a>.</p>
+
+<h3>المتطلبات غير الوظيفية</h3>
+
+<p>السرعة، والاستقرار، وإتاحة الوصول، والأمان. لا تظهر في العرض التقديمي، وهي معظم الفرق بين بناء بـ 60 ألفًا وآخر بـ 250 ألفًا. إن لم يذكر عرض السعر أهداف أداء رقمية فأنت لم تشترِ أداءً. المواقع البطيئة تخسر مبيعات بطرق يصعب تتبّعها، وقد فكّكت الأسباب في <a href="/ar/blog/why-your-website-loads-slowly">لماذا يفتح موقعك ببطء</a>.</p>
+
+<h2>7. هل التعاقد مع مبرمج أرخص من بلد آخر اقتصاد وهمي؟</h2>
+
+<p>أحيانًا. وليس غالبًا. والجواب الصادق يعتمد على أي "رخص" تقصد، لأن هناك نوعين مختلفين تمامًا يرتديان نفس بطاقة السعر.</p>
+
+<p><strong>الرخص بسبب الجغرافيا</strong> قيمة حقيقية. مطوّر خبير في القاهرة يحاسب بـ 25 إلى 50 USD للساعة على عمل يُحاسَب عليه بـ 120 إلى 200 في لندن. هذا الفارق تكلفة معيشة وعملة، لا مهارة. الأدوات واحدة: نفس Laravel 13، ونفس Next.js، ونفس PostgreSQL، ونفس لوحة AWS. لا توجد نسخة "خارجية" من إطار عمل. هذه المفارقة هي ما يجعل <a href="/ar/blog/hire-full-stack-web-developer-egypt">توظيف مطوّر Full Stack من مصر</a> منطقيًا، ولهذا سلّمت مشاريع لعملاء في بريطانيا وسويسرا وفرنسا وألمانيا دون أن أجلس معهم في غرفة واحدة.</p>
+
+<p><strong>الرخص بسبب قلة الخبرة</strong> هو ما يحرق أصحاب المشاريع. من يطلب 8 USD للساعة ليس خبيرًا بخصم، بل شخص يتعلّم على حساب مشروعك. وستدفع الفرق في إعادة العمل، ثم في شهور ضائعة، ثم في إعادة بناء كاملة.</p>
+
+<p>العلامات التي تفرّق بينهما بثقة:</p>
+
+<ul>
+<li><strong>يعترض على وصفك.</strong> المطوّر الخبير سيخبرك أي ميزة طلبتها فكرة سيئة. من يوافق على كل شيء في المكالمة الأولى لم يقرأ الوصف.</li>
+<li><strong>يسعّر بنطاق وافتراضات مكتوبة</strong>، لا برقم واحد مستدير بشكل مريب.</li>
+<li><strong>ترى كودًا يعمل.</strong> روابط حيّة تفتحها وتجرّبها من هاتفك أنت، لا صور شاشة. أعمالي منشورة في <a href="/ar/portfolios">صفحة المشاريع</a>، ومنها سبعة تطبيقات منشورة فعليًا على Google Play.</li>
+<li><strong>يجيب عن سؤال الملكية دون تردد.</strong> اسأل: من يملك المستودع والنطاق والخادم بعد الدفعة الأخيرة؟ إن كان الجواب ضبابيًا فانسحب. هذه أشهر طريقة تقع بها الشركات الصغيرة في مصر والخليج رهينة لدى مورّد، ولهذا كتبت <a href="/ar/blog/who-owns-your-website-code">من يملك كود موقعك</a>.</li>
+<li><strong>تداخل زمني تحتمله.</strong> القاهرة على UTC+2، وعلى UTC+3 من أواخر أبريل إلى أواخر أكتوبر: يوم عمل كامل متداخل مع الخليج وأوروبا، وعصر متداخل مع شرق الولايات المتحدة. أعذار فروق التوقيت داخل منطقتنا غير مقنعة.</li>
+</ul>
+
+<p>الاقتصاد الوهمي الحقيقي ليس التعاقد من الخارج، بل <em>الوصف الناقص</em>. عرض بـ 20,000 EGP لمشروع يستحق 90,000 ليس صفقة، بل تسعير لمشروع آخر أصغر ستكتشفه في الأسبوع السادس. ولمن يريد منهجية اختيار كاملة، كتبتها في <a href="/ar/blog/kayfa-takhtar-mubarmij-mawaqe">كيف تختار مبرمج مواقع</a>.</p>
+
+<h2>8. ما التكاليف المستمرة بعد الإطلاق؟</h2>
+
+<p>البند الذي تخفيه معظم العروض. الموقع ليس شراءً لمرة واحدة، بل اشتراك بمصاريف تأسيس كبيرة. إليك تكلفة تشغيل سنوية واقعية لموقع شركة متوسط، بحسب ما أراه في أغسطس 2026 — المزوّدون يغيّرون أسعارهم، فتعامل مع الجدول كشكل الفاتورة لا كعرض ثابت.</p>
+
+<table>
+<thead>
+<tr><th>البند</th><th>موقع شركة</th><th>متجر أو تطبيق ويب</th><th>ملاحظات</th></tr>
+</thead>
+<tbody>
+<tr><td>النطاق</td><td>10 – 20 USD سنويًا</td><td>10 – 60 USD سنويًا</td><td>نطاقات .sa و .com.eg تحتاج مستندات ونقلها أبطأ</td></tr>
+<tr><td>الاستضافة</td><td>40 – 150 USD سنويًا</td><td>150 – 1,200 USD سنويًا</td><td>مشتركة مقابل VPS حقيقي، والمنطقة الجغرافية تؤثر على زمن الاستجابة</td></tr>
+<tr><td>شهادة SSL</td><td>مجانية</td><td>0 – 80 USD سنويًا</td><td>Let's Encrypt تكفي معظم الحالات</td></tr>
+<tr><td>البريد المؤسسي</td><td>+84 USD لكل مستخدم سنويًا</td><td>+84 USD لكل مستخدم سنويًا</td><td>باقة Google Workspace Business Starter بـ 7 USD للمستخدم شهريًا على الاشتراك السنوي، ولا تشغّل بريد شركتك على استضافة الموقع أبدًا</td></tr>
+<tr><td>النسخ الاحتياطي والمراقبة</td><td>0 – 120 USD سنويًا</td><td>120 – 600 USD سنويًا</td><td>خارج الخادم ومُختبرة، لا "الاستضافة تتكفّل بها"</td></tr>
+<tr><td>رسوم بوابة الدفع</td><td>—</td><td>1% – 3.5% لكل عملية</td><td>بطاقات mada السعودية في أسفل النطاق والبطاقات الدولية في أعلاه، إضافة إلى رسوم تأسيس وأحيانًا حد شهري أدنى</td></tr>
+<tr><td>الصيانة والتحديثات</td><td>300 – 1,200 USD سنويًا</td><td>1,200 – 6,000 USD سنويًا</td><td>تحديث الإطار والاعتماديات وإصلاحات صغيرة</td></tr>
+<tr><td>المحتوى وتحسين الظهور</td><td>0 – 3,000 USD سنويًا</td><td>1,200 – 12,000 USD سنويًا</td><td>اختياري، لكنه ما يجعل الموقع يكسب</td></tr>
+</tbody>
+</table>
+
+<p>قاعدتان أقولهما لكل عميل. الأولى: <strong>تكاليف التشغيل لها حد أدنى لا ينخفض لمجرد أن بناءك كان رخيصًا</strong>؛ افترض 450 USD سنويًا على الأقل لموقع شركة صغير، و1,500 USD أو أكثر لمتجر أو تطبيق ويب، قبل أي إنفاق على المحتوى وتحسين الظهور. مقابل أسعار البناء المصرية يعني ذلك نحو 25% إلى 50% من تكلفة البناء سنويًا للموقع الصغير، وتهبط النسبة نحو 15% إلى 25% كلما كبر البناء. الثانية: من بنى الموقع يجب أن يكون متاحًا تعاقديًا اثني عشر شهرًا على الأقل بسعر معلن، وإلا فأنت على بعد استقالة واحدة من أصل غير قابل للصيانة.</p>
+
+<p>الاستضافة هي البند الذي يُفرط الناس في الإنفاق عليه ويقصّرون فيه في الوقت نفسه: يدفعون لمنصة مُدارة لا يحتاجونها بينما تعمل قاعدة بياناتهم في مكان لا يناسبها. شرحت طريقة الاختيار في <a href="/ar/blog/choosing-web-hosting-2026">كيف تختار استضافة في 2026</a>. وأيًا كان ما تستضيف عليه، مُرّ على <a href="/ar/blog/website-security-checklist">قائمة فحص أمان الموقع</a> قبل أن تقبض أول دفعة حقيقية؛ تكلفة الخطأ هنا تبتلع كل أرقام هذا المقال.</p>
+
+<p>وإن كنت تفضّل ألا تفكر في شيء من هذا، فهذا هو سبب وجود <a href="/ar/plans">باقات الصيانة الشهرية</a>.</p>
+
+<h2>9. كيف تقرأ عرض السعر قبل التوقيع</h2>
+
+<p>معظم المشاريع الفاشلة في منطقتنا فشل تعاقد لا فشل برمجة. العرض الذي يمكنك تقييمه فعلًا يبدو هكذا:</p>
+
+<pre><code>النطاق
+  12 قالب صفحة (القائمة في الملحق أ)
+  عربي + إنجليزي، RTL، hreflang
+  لوحة إدارة Filament بثلاث صلاحيات
+  Paymob بطاقات + دفع عند الاستلام، Stripe لغير EGP
+  ERP: قراءة المنتجات والمخزون عبر REST (انظر الافتراض 3)
+
+الافتراضات
+  1. العميل يسلّم المحتوى النهائي بنهاية الأسبوع الثاني
+  2. اعتماد التصميم في جولتي تعديل كحد أقصى
+  3. نظام ERP يوفّر REST موثّقة وبيئة اختبار
+  4. اعتماد لدى 3 بيئات دفع كحد أقصى
+
+مستبعد من العرض
+  كتابة المحتوى والترجمة والتصوير
+  تحسين الظهور المستمر، الإعلانات، رسوم الاستضافة
+
+المسلّمات
+  مستودع Git باسم العميل، بيئة staging وإنتاج، وثيقة تسليم،
+  جلسة تدريب 90 دقيقة، ضمان إصلاح أخطاء 60 يومًا
+
+السعر   165,000 EGP ثابت  |  40% بدء، 30% اختبار قبول، 30% إطلاق
+التغيير أي طلب خارج النطاق: 900 EGP للساعة بموافقة كتابية مسبقة</code></pre>
+
+<p>إن كان العرض الذي بين يديك خاليًا من قسم <strong>الافتراضات</strong> وقسم <strong>المستبعد</strong>، فهو ليس عرض سعر بل أمنية. أغلب النزاعات التي شاهدتها بين صاحب عمل ومطوّر في مصر أو الخليج كان أصلها بندًا لم يُكتب. وقبل أن تختصر قائمة المرشحين، مُرّ على <a href="/ar/blog/how-to-hire-a-web-developer">كيف توظّف مطوّر مواقع</a>، وإن كنت تتعاقد محليًا فاضبط صياغة الملكية والدفعات كتابةً؛ جهّزت <a href="/ar/blog/namudhaj-aqd-barmajat-mawqe">نموذج عقد برمجة موقع</a> جاهزًا للتعديل.</p>
+
+<h3>هيكل دفعات يحمي الطرفين</h3>
+
+<ul>
+<li><strong>لا تدفع 100% مقدمًا أبدًا.</strong> من يطلب ذلك يخبرك بشيء عن نفسه.</li>
+<li><strong>ولا تدفع صفرًا مقدمًا.</strong> لا أحد جاد يبدأ مشروع شهرين على وعد، وإن فعل فلست عميله ذا الأولوية.</li>
+<li>توزيع 30/30/40 أو 40/30/30 على البدء والقبول والإطلاق يعمل جيدًا. اربط الدفعة الأخيرة بالإطلاق لا بتاريخ في التقويم.</li>
+<li>للمشاريع فوق 10,000 USD تقريبًا، الدفع عبر وسيط ضامن بمراحل يستحق رسومه في أول تعاون.</li>
+</ul>
+
+<h2>10. أسعاري أنا، وكيف أُسعّر</h2>
+
+<p>ما دمت أطلب منك أن تثق بهذه النطاقات، فمن الإنصاف أن أقول أين أقف داخلها. أعمل بسعر ثابت لا بالساعة، لأن التسعير بالساعة يعاقبني على السرعة ويعاقبك على السؤال.</p>
+
+<ul>
+<li><strong>موقع شركة ثنائي اللغة:</strong> 45,000 – 90,000 EGP، أي نحو 900 – 1,800 USD.</li>
+<li><strong>متجر إلكتروني ببوابة أو بوابتين:</strong> 90,000 – 280,000 EGP، أي نحو 1,800 – 5,600 USD.</li>
+<li><strong>تطبيق ويب مخصص على Laravel أو Next.js:</strong> من 180,000 EGP، أي نحو 3,600 USD، مسعّر حسب كل ميزة.</li>
+<li><strong>النسخة الأولى من منتج SaaS:</strong> من 350,000 EGP، أي نحو 7,000 USD، عادةً على ثلاث إلى خمس مراحل.</li>
+<li><strong>تطبيق جوال بـ React Native أو Flutter مع خادم:</strong> من 250,000 EGP، أي نحو 5,000 USD.</li>
+</ul>
+
+<p>هذه نطاقات بافتراضات، لا عروض أسعار. ما يدفع المشروع إلى أعلى نطاقه هو غالبًا عمليات الربط، أو نظام تصميم أصلي، أو متطلبات تنظيمية. وما يدفعه إلى الأسفل هو محتوى جاهز لديك وقرارات تتخذها بسرعة.</p>
+
+<p>أسعّر بـ USD أو SAR أو AED للعملاء خارج مصر حتى تكون تقلبات العملة مشكلتي لا مشكلتك. <a href="/ar/services">قائمة ما أبنيه</a> كاملة في صفحة الخدمات، وسأخبرك صراحةً حين يكون قالب جاهز أنسب لك مني — تلك المحادثة لا تكلّفك شيئًا وتوفّر علينا معًا تعاونًا فاشلًا.</p>
+
+<h2>11. إذا كانت ميزانيتك ثابتة، أنفقها بهذا الترتيب</h2>
+
+<p>لنفترض أن لديك 60,000 EGP أو 20,000 SAR، ونشاطًا تجاريًا يحتاج أن يبدأ في الكسب. ترتيب الأولويات، وأنا مستعد للدفاع عنه أمام أي أحد:</p>
+
+<ol>
+<li><strong>الصفحة الواحدة التي تُقنع.</strong> ما يحتاج عميلك أن يراه قبل أن يتواصل معك. اجعلها ممتازة قبل أن يوجد أي شيء آخر.</li>
+<li><strong>السرعة على شبكة الجوال.</strong> معظم زياراتك في مصر والخليج من هاتف، وكثير منها على بيانات الجوال. موقع بثانيتين وتصميم بسيط يتفوق على موقع جميل بست ثوانٍ في كل مرة. <a href="/ar/blog/mobile-first-web-design-2026">التصميم المبني على الجوال أولًا</a> ليس ذوقًا، بل مكان الجمهور.</li>
+<li><strong>تواصل وتتبّع يعملان.</strong> نماذج تصل، وزر WhatsApp يفتح، ومكالمات تُستقبل، وتحليلات تخبرك أي قناة أتت بالعميل.</li>
+<li><strong>أساسيات SEO التقنية.</strong> روابط نظيفة، عناوين حقيقية، بيانات منظّمة، خريطة موقع دقيقة، و hreflang صحيح إن كنت ثنائي اللغة. رخيصة أثناء البناء وباهظة لاحقًا — <a href="/ar/blog/website-seo-checklist-2026">قائمة فحص SEO لعام 2026</a> هي النسخة التي أعمل بها فعليًا.</li>
+<li><strong>كل ما تبقّى.</strong> الحركات البصرية، ومدونة لن تكتبها، ومساعد محادثة آلي، ورسوم مخصصة. كلها تنتظر.</li>
+</ol>
+
+<p>أكثر طريقة تُهدر بها ميزانية صغيرة في سوقنا هي إنفاق 70% منها على الشكل و5% على ما إذا كان الموقع يفتح بسرعة، ويقنع الزائر، ويمكن العثور عليه أصلًا.</p>
+
+<h2>12. الخلاصة</h2>
+
+<p>موقع شركة جاد ثنائي اللغة يكلّف 45,000 – 90,000 EGP في مصر، و30,000 – 90,000 SAR من مكتب خليجي، و20,000 USD فأكثر في أوروبا الغربية — لنفس المسلّمات. الفارق بنية تكلفة وتسعير مخاطرة ومركز قانوني محلي، لا جودة. إن كنت تحتاج كيانًا محليًا لأسباب تتعلق بالمشتريات فادفع السعر الخليجي بلا امتعاض. وإن لم تكن تحتاجه، فالتعاقد المباشر مع مطوّر في مصر هو أكبر توفير منفرد متاح لك في مشروع ويب، ولا يكلّفك شيئًا تقنيًا.</p>
+
+<p>ما يجب أن يقلقك ليس رقمًا منخفضًا، بل رقمًا بلا افتراضات مكتوبة، وبلا بند ملكية، وبلا إجابة عمّا يحدث بعد الإطلاق.</p>
+
+<p>إن أردت رقمًا حقيقيًا لمشروعك أنت بدلًا من نطاق عام، <a href="/ar/contact">أخبرني بما تريد بناءه</a>. الاستشارة مجانية، وأرد خلال 24 ساعة، وتحصل على عرض سعر ثابت مكتوب فيه النطاق والافتراضات والمستبعدات — سواء تعاقدت معي في النهاية أم لا.</p>
+HTMLAR,
+            ],
+            [
+                'slug' => 'how-to-hire-a-web-developer',
+                'title' => 'How to Hire a Web Developer in 2026: Vetting, Rates & Red Flags',
+                'title_ar' => 'كيف توظّف مطور ويب في 2026: التقييم والأسعار والعلامات التحذيرية',
+                'excerpt' => 'A senior developer\'s actual hiring process: how to verify a portfolio in twenty minutes, the twelve questions to ask before signing, real 2026 rate ranges by market, contract clauses that protect ownership, and the red flags worth walking away from.',
+                'excerpt_ar' => 'إجراء التوظيف كما ينفّذه مطوّر خبير: كيف تتحقق من معرض الأعمال في عشرين دقيقة، الأسئلة الاثنا عشر قبل التوقيع، نطاقات الأسعار الحقيقية في مصر والخليج، بنود العقد التي تحمي ملكيتك، والعلامات التحذيرية التي تستوجب الانسحاب.',
+                'category' => 'Hiring',
+                'tags' => ['hiring a web developer', 'freelance vs agency', 'Laravel developer', 'vetting developers', 'developer contracts', 'web development pricing', 'remote hiring'],
+                'image' => '1710767681-team-img-1.jpg',
+                'date' => '2026-07-26',
+                'read_time' => '28 min read',
+                'meta_title' => 'How to Hire a Web Developer in 2026: Vetting & Red Flags',
+                'meta_title_ar' => 'كيف توظّف مطور ويب 2026: التقييم والأسعار والتحذيرات',
+                'meta_description' => 'How to hire a web developer without getting burned: portfolio verification, the questions to ask before signing, real 2026 rates, and the red flags to walk from.',
+                'meta_description_ar' => 'دليل عملي لتوظيف مطور ويب في 2026: التحقق من معرض الأعمال، أسئلة ما قبل التوقيع، أسعار مصر والخليج، بنود العقد، والعلامات التحذيرية.',
+                'faq' => [
+                    [
+                        'q' => 'Freelancer, agency or in-house — which is right for my budget?',
+                        'a' => 'Under roughly USD 15,000 of total scope, a senior freelancer usually wins on arithmetic: agency overhead adds a multiple on top of delivery cost — my own rule of thumb is roughly 2x to 3x — and on small projects that overhead exceeds the engineering. Between USD 15,000 and USD 60,000 the money stops deciding and the shape of the work takes over: one or two parallel tracks still favour a freelancer or a small studio, three or more against a fixed launch date favour an agency, because what you are buying is coordination. Hire in-house only when the software is the business itself.',
+                        'q_ar' => 'مستقل أم شركة أم موظف داخلي — أيّها يناسب ميزانيتي؟',
+                        'a_ar' => 'تحت 15,000 دولار تقريباً، المستقل الخبير يفوز بالحساب البسيط: مصاريف الشركة الإدارية تضيف مضاعفاً فوق تكلفة التنفيذ — وقاعدتي التقريبية أنه نحو ضعفين إلى ثلاثة أضعاف — وفي المشاريع الصغيرة تتجاوز هذه المصاريف قيمة الهندسة نفسها. وبين 15,000 و60,000 دولار يتوقف الرقم عن الحسم ويأخذ شكل العمل مكانه: مسار أو مساران متوازيان يرجّحان المستقل أو استوديو صغير، وثلاثة مسارات فأكثر أمام موعد إطلاق ثابت ترجّح الشركة لأن ما تشتريه هو التنسيق. ولا توظّف داخلياً إلا حين يكون البرنامج هو نشاطك نفسه.',
+                    ],
+                    [
+                        'q' => 'What should I ask a developer before signing anything?',
+                        'a' => 'Ask who personally writes the code, how many parallel projects they run, whose account owns the repository, exactly what you receive at handover, what is explicitly out of scope, how change requests are priced, what the 30-day post-launch policy is, and what they think is the most likely way the project goes wrong. That last answer separates experienced developers from optimistic ones.',
+                        'q_ar' => 'ما الأسئلة التي أطرحها على المطوّر قبل التوقيع؟',
+                        'a_ar' => 'اسأل من يكتب الكود شخصياً، وكم مشروعاً يديره بالتوازي، وباسم من سيكون المستودع، وماذا تستلم بالضبط عند التسليم، وما هو خارج النطاق صراحة، وكيف تُسعَّر طلبات التعديل، وما سياسة الثلاثين يوماً بعد الإطلاق، وما أكثر طريقة محتملة لفشل المشروع. الإجابة الأخيرة تفصل بين المطوّر المجرَّب والمتفائل.',
+                    ],
+                    [
+                        'q' => 'How do I check that a portfolio is really theirs?',
+                        'a' => 'Open the live URLs rather than accepting screenshots. Check the response headers and cookies match the claimed stack — Laravel sets XSRF-TOKEN and a session cookie, Next.js serves from /_next/static and often sends an x-powered-by: Next.js header. Run a WHOIS lookup and a Wayback Machine check against the dates they claim. Then ask which specific parts they built; genuine builders answer with unglamorous detail about what was hard.',
+                        'q_ar' => 'كيف أتأكد أن معرض الأعمال يخصّه فعلاً؟',
+                        'a_ar' => 'افتح الروابط الحيّة بدل قبول لقطات الشاشة. تحقق أن ترويسات الاستجابة وملفات Cookies تطابق التقنية المدّعاة — Laravel يضع XSRF-TOKEN وCookie للجلسة، وNext.js يخدم الملفات من ‎/_next/static ويرسل غالباً الترويسة x-powered-by: Next.js. نفّذ فحص WHOIS وراجع أرشيف Wayback Machine مقابل التواريخ التي ذكرها. ثم اسأله أي أجزاء نفّذها تحديداً؛ من بنى فعلاً يجيب بتفاصيل غير براقة عمّا كان صعباً.',
+                    ],
+                    [
+                        'q' => 'How long should hiring a web developer take?',
+                        'a' => 'Two to three weeks for a freelancer: one to two days writing the brief, three to five days sourcing five to eight candidates, one day verifying portfolios, two to three days of calls, three to five days for a paid trial task, then two to three days for contract and kickoff. That is roughly twelve to nineteen working days. In-house hiring takes two to four months. Enterprise agency procurement can add six weeks alone.',
+                        'q_ar' => 'كم يجب أن تستغرق عملية توظيف مطوّر ويب؟',
+                        'a_ar' => 'من أسبوعين إلى ثلاثة مع مستقل: يوم أو يومان لكتابة الطلب، من ثلاثة إلى خمسة أيام لجمع خمسة إلى ثمانية مرشحين، يوم للتحقق من الأعمال، يومان أو ثلاثة للمكالمات، من ثلاثة إلى خمسة أيام للمهمة التجريبية المدفوعة، ثم يومان أو ثلاثة للعقد والانطلاق — أي نحو اثني عشر إلى تسعة عشر يوم عمل. أما التوظيف الداخلي فمن شهرين إلى أربعة، وإجراءات الشراء في المؤسسات الكبيرة وحدها قد تضيف ستة أسابيع.',
+                    ],
+                    [
+                        'q' => 'What is a Laravel Partner and do I actually need one?',
+                        'a' => 'It is the official directory of agencies on laravel.com that the Laravel team has researched and vetted before inviting them to join; the published route in is an application, followed by a review of the team\'s Laravel experience, portfolio and standing in the community. There are two tiers: Community, described as a good fit for many projects, and Premier, which works more closely with the Laravel team including on Laravel Cloud engagements and typically takes larger or more complex work. It says nothing about the individual assigned to your project, and individuals cannot be Partners at all — the official FAQ states that Partners are agencies, not individual freelancers — so the programme is silent on senior independents.',
+                        'q_ar' => 'ما هو Laravel Partner وهل أحتاجه فعلاً؟',
+                        'a_ar' => 'هو الدليل الرسمي للشركات على laravel.com التي بحث عنها فريق Laravel وفحصها قبل دعوتها للانضمام؛ والطريق المعلَن هو تقديم طلب ثم مراجعة تقيّم خبرة الفريق في Laravel وأعماله السابقة ومكانته في المجتمع. وللبرنامج مستويان: Community الموصوف بأنه مناسب لكثير من المشاريع، وPremier الذي يعمل بقرب أكبر من فريق Laravel بما في ذلك مشاريع Laravel Cloud ويتولى عادة أعمالاً أكبر وأعقد. الوسم لا يقول شيئاً عن المطوّر المخصص لمشروعك، والأفراد لا يمكنهم الحصول عليه أصلاً — إذ تنص الأسئلة الشائعة الرسمية على أن الشركاء شركات لا مستقلون أفراد — فهو صامت تماماً عن المستقلين الخبراء.',
+                    ],
+                    [
+                        'q' => 'Should I pay for a trial task before hiring?',
+                        'a' => 'Yes, and it is the highest-signal step available. Four to eight hours at their normal rate, on something real: one API endpoint with tests, a specific bug fix, or a technical plan for your database schema. You learn how they handle ambiguity, whether they ask before assuming, and whether they meet small deadlines. Unpaid trials filter out exactly the developers worth hiring.',
+                        'q_ar' => 'هل أدفع مقابل مهمة تجريبية قبل التعاقد؟',
+                        'a_ar' => 'نعم، وهي أقوى خطوة متاحة من حيث المعلومة. من أربع إلى ثماني ساعات بسعره المعتاد على شيء حقيقي: endpoint واحد مع اختبارات، أو إصلاح خطأ محدد، أو خطة فنية لبنية قاعدة بياناتك. ستعرف كيف يتصرف أمام الغموض، وهل يسأل قبل أن يفترض، وهل يلتزم بالمواعيد الصغيرة. المهمة المجانية تستبعد بالضبط من يستحق التعاقد معه.',
+                    ],
+                    [
+                        'q' => 'Who owns the code after the project ends?',
+                        'a' => 'Only whoever your written agreement says owns it. In many legal systems copyright in commissioned work stays with the author unless assigned in writing, so your contract must contain a full IP assignment effective on final payment — not a licence. Insist on Git history, not a zip file, and register the domain, hosting, cloud console and API accounts under your own company email addresses from day one.',
+                        'q_ar' => 'من يملك الكود بعد انتهاء المشروع؟',
+                        'a_ar' => 'من ينصّ اتفاقك المكتوب على أنه يملكه فقط. في كثير من الأنظمة القانونية يبقى حق المؤلف للمنفّذ ما لم يُنقَل كتابةً، لذا يجب أن يتضمن عقدك نقلاً كاملاً للملكية الفكرية يسري عند الدفعة الأخيرة، لا مجرد ترخيص استخدام. اشترط تسليم سجل Git لا ملفاً مضغوطاً، وسجّل النطاق والاستضافة ولوحة السحابة وحسابات الواجهات على بريد شركتك منذ اليوم الأول.',
+                    ],
+                    [
+                        'q' => 'How much does a senior web developer cost in 2026?',
+                        'a' => 'For genuinely senior independents: roughly USD 15–45 per hour in Egypt for local clients, USD 35–90 in Saudi Arabia and the UAE, USD 50–120 in the UK and EU, and USD 60–150 in the US, with agencies typically two to three times those figures. On project pricing, a bilingual business site runs USD 1,500–6,000, a custom e-commerce build USD 5,000–25,000, and a SaaS MVP USD 10,000–45,000. Never quote a rebuild of an existing codebase before a paid audit.',
+                        'q_ar' => 'كم يتكلّف مطوّر ويب خبير في 2026؟',
+                        'a_ar' => 'للمستقلين الخبراء فعلاً: نحو 750 إلى 2,200 جنيه للساعة في مصر مع العملاء المحليين، و130 إلى 340 ريالاً في السعودية، و130 إلى 330 درهماً في الإمارات، و50 إلى 120 دولاراً في بريطانيا وأوروبا، مع شركات تتقاضى عادة ضعفين إلى ثلاثة أضعاف هذه الأرقام. وعلى مستوى المشروع: موقع شركة ثنائي اللغة من 1,500 إلى 6,000 دولار، ومتجر إلكتروني مخصص من 5,000 إلى 25,000، ومنصة SaaS بنسخة أولى من 10,000 إلى 45,000. ولا تسعّر إعادة بناء كود قائم قبل تدقيق مدفوع.',
+                    ],
+                ],
+                'content' => <<<'HTML'
+<p class="lead">Most people hire a web developer badly, and they do it in a predictable way: they judge on price and personality, skip every step that would have produced real evidence, and find out nine weeks later that the code is unmaintainable and the repository is not theirs. I am Khaled Ahmed, a freelance Full Stack developer in Cairo. I have shipped 39+ production projects across eight countries, and I have inherited a lot of other people's disasters. This is the process I would use if I were the one hiring.</p>
+
+<h2>1. The verdict first: what actually predicts a good outcome</h2>
+
+<p>After five years of taking over projects that someone else started, I can tell you that the variables buyers obsess over are mostly noise, and the variables that matter are boring.</p>
+
+<p><strong>Things that do not predict success:</strong> where the developer lives, how many years are on their CV, how beautiful their own website is, how quickly they replied to your first message, whether they have a company registration, and whether they used the exact framework you had in mind.</p>
+
+<p><strong>Things that do predict success:</strong> whether you can open something they built and click through it yourself, whether they asked you hard questions before quoting, whether they wrote down what they were going to build before building it, whether you own the repository from day one, and whether they gave you a bad-news answer at least once during the sales conversation.</p>
+
+<p>That last one is the strongest single signal I know. A developer who tells you your idea has a problem, that your deadline is unrealistic, or that a feature you asked for is not worth the money, is a developer who intends to still be talking to you in month six. A developer who agrees with everything is quoting you a number to close you, and the disagreements will arrive later as change requests.</p>
+
+<div class="post-callout"><p><strong>The core test:</strong> Before you sign anything, you should be able to answer three questions with evidence, not vibes. What exactly is being built? What exactly does it cost, and what triggers it costing more? And who owns the code, the repository, and the hosting accounts on the day the project ends?</p></div>
+
+<h2>2. Freelancer, agency or in-house — which is right for my budget?</h2>
+
+<p>This is the first real fork in the road, and the honest answer depends almost entirely on budget size and how long the work continues. I have written a longer breakdown in <a href="/blog/freelance-developer-vs-agency">freelancer versus agency for web projects</a>, but here is the compressed version.</p>
+
+<p><strong>Under roughly USD 15,000 of total scope, a senior solo freelancer is usually the correct answer.</strong> Not because agencies are bad, but because of arithmetic. An agency has a sales team, project managers, an office, and a bench of people between billable projects. That overhead is real, and my own rule of thumb — from comparing quotes on projects I have later been asked to take over, not from any published study — is that it lands somewhere around 2x to 3x the delivery cost. Treat that as a shape rather than a measurement; the honest point is that the multiple exists and it is not small. On a small project, the overhead is a larger share of your budget than the actual engineering, and you frequently end up with a junior doing the work anyway while the senior you met in the pitch meeting has moved to the next sale.</p>
+
+<p><strong>Above roughly USD 60,000, or when the project needs three or more specialisms at once</strong> — design, backend, mobile, DevOps, QA, all running in parallel with hard deadlines — an agency or a small studio starts to earn its margin. Coordination is a real job. If you need five people working simultaneously, someone has to do that job, and it should not be you.</p>
+
+<p><strong>Between roughly USD 15,000 and USD 60,000 — which is where most SME projects actually sit — the money stops deciding for you and the shape of the work takes over.</strong> The question to ask is not "can I afford an agency", it is "how many distinct specialisms does this project need running at the same time, and who is accountable for quality other than the person building it". Count them honestly:</p>
+
+<ul>
+  <li><strong>One or two parallel tracks</strong> — a Laravel backend with a conventional frontend, a rebuild, an integration-heavy internal tool — and a senior freelancer is still the better value at USD 40,000 as much as at USD 10,000. Bring in a designer or a second specialist for a defined slice if you need one. You keep the person you interviewed, and the overhead stays out of your budget.</li>
+  <li><strong>Three or more tracks against a fixed public launch date</strong> — design, backend, native mobile, infrastructure, QA — and you are buying coordination, which is the thing an agency genuinely sells. At that point the multiple is a real service, not a markup.</li>
+  <li><strong>A governance requirement</strong> that someone other than the builder signs off on code quality, security, or accessibility. A solo developer can be excellent and still cannot review their own work. A studio can.</li>
+</ul>
+
+<p>The frequent honest answer inside this band is a small studio of three to six people, or a senior freelancer with a named subcontractor or two. That combination gives you continuity and a second pair of eyes without an account manager, an office, and a bench priced into your invoice. So the band is not a hole in the answer — it is where the question changes.</p>
+
+<p><strong>In-house makes sense when the software is the business.</strong> If your product is a SaaS platform and the codebase is your main asset, you eventually need people whose only job is that codebase. But in Egypt or the Gulf, a full-time mid-to-senior developer is a permanent cost with recruitment fees, salary, equipment, and management attention attached, and you cannot switch it off when the roadmap quietens down. Most companies hire in-house at least a year before they should.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Factor</th>
+      <th>Senior freelancer</th>
+      <th>Agency / studio</th>
+      <th>In-house hire</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Typical effective cost for the same output</td>
+      <td>Baseline</td>
+      <td>Roughly 2x to 3x baseline — my rule of thumb, not a measured figure</td>
+      <td>Roughly 1.5x to 2x baseline once you include employment overhead</td>
+    </tr>
+    <tr>
+      <td>Time from first contact to code being written</td>
+      <td>Days</td>
+      <td>2 to 6 weeks</td>
+      <td>2 to 4 months</td>
+    </tr>
+    <tr>
+      <td>Who actually writes your code</td>
+      <td>The person you interviewed</td>
+      <td>Often not the person you interviewed</td>
+      <td>The person you interviewed</td>
+    </tr>
+    <tr>
+      <td>Parallel capacity</td>
+      <td>Low — one or two workstreams</td>
+      <td>High</td>
+      <td>Grows with headcount and cost</td>
+    </tr>
+    <tr>
+      <td>Bus factor / continuity risk</td>
+      <td>High if you do not own the repo and docs</td>
+      <td>Lower</td>
+      <td>Moderate — people resign</td>
+    </tr>
+    <tr>
+      <td>Best fit</td>
+      <td>MVPs, rebuilds, integrations, and any one- or two-track build — clearly right under USD 15k, still usually right up to USD 60k</td>
+      <td>Three or more parallel tracks, enterprise procurement, tight simultaneous deadlines, sign-off by someone other than the builder</td>
+      <td>Software-is-the-product companies with a permanent roadmap</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>One combination I see working well: hire a senior freelancer to build version one and to write the documentation, then hire in-house later against a codebase that already exists and already works. Hiring your first internal developer is far easier when you can hand them a running system instead of a blank repository and a dream.</p>
+
+<h2>3. Where to find developers — and the tradeoffs of each channel</h2>
+
+<p>Channel choice determines the pool you are choosing from, so it deserves more thought than it usually gets.</p>
+
+<h3>Marketplaces (Upwork, Fiverr, Freelancer.com)</h3>
+
+<p>Volume, escrow, and dispute resolution. That is what you are buying. The tradeoff is that marketplace ranking rewards responsiveness and volume, not engineering quality, and the fee structures push good developers off-platform over time. Fees change frequently — historically Upwork has charged freelancers around 10 percent and clients a separate marketplace fee in the low single-to-mid single digits, but verify the current numbers on their pricing page before you budget, because they have been revised repeatedly.</p>
+
+<p>Practical marketplace advice: ignore the proposals that arrive in the first ten minutes. They are templated. The useful proposals arrive on day two and reference something specific from your brief.</p>
+
+<h3>Curated networks (Toptal and similar)</h3>
+
+<p>These pre-screen, which saves you time, and they charge for it. Expect materially higher hourly rates than the open market for a comparable developer, because the network's margin is inside the rate. Worth it if you have no technical judgment in-house and no time to develop any. Not worth it if you are willing to run the vetting process in this article yourself.</p>
+
+<h3>GitHub</h3>
+
+<p>Underused and excellent. Search for people who have contributed to packages in your stack. For Laravel, look at contributors to widely used packages — Spatie's libraries, Livewire, Filament, Laravel Excel. A merged pull request into a package with real users is a stronger credential than any portfolio page, because a maintainer with a reputation to protect reviewed that code and accepted it.</p>
+
+<h3>Community forums and Discords</h3>
+
+<p>Laracasts forums, the Laravel and PHP subreddits, framework Discord servers, and local developer communities in Cairo, Riyadh, and Dubai. Slower, but the people who answer other people's questions carefully in public tend to write careful code in private.</p>
+
+<h3>Referrals from other business owners</h3>
+
+<p>Highest hit rate of any channel, with one caveat: ask what the referrer's project actually was. A developer who was excellent on a brochure site may be out of their depth on a multi-tenant platform. "He was great" is not transferable information; "he built our booking system with Stripe and it has run for two years without me calling him" is.</p>
+
+<h3>Direct outreach to a developer's own site</h3>
+
+<p>If a developer maintains their own site, writes about their work, and publishes a real <a href="/portfolios">project portfolio</a>, you get to evaluate them before you ever speak. You also skip the platform fee, which usually shows up as a lower rate for you.</p>
+
+<h2>4. How to write a developer job description that filters correctly</h2>
+
+<p>Most briefs I receive are either two sentences or twenty pages, and both are bad. Two sentences means I cannot quote, so I either pad the number to cover the unknowns or I ask you fifteen questions you have not thought about yet. Twenty pages usually means requirements written by someone guessing at implementation details, which locks in bad decisions before anyone technical has looked at the problem.</p>
+
+<p>A good brief is one to two pages and answers these:</p>
+
+<ol>
+  <li><strong>What the business does</strong>, in three sentences, in plain language.</li>
+  <li><strong>What problem this project solves</strong>, and what happens if it is not solved.</li>
+  <li><strong>Who uses it</strong> — public visitors, logged-in customers, internal staff, or all three — and roughly how many of each.</li>
+  <li><strong>The five to ten things a user must be able to do.</strong> Written as user actions, not as features. "A customer can book a slot and pay a deposit" rather than "booking module with payment integration".</li>
+  <li><strong>What must integrate with what.</strong> Name the actual systems: your accounting software, your payment gateway, your ERP, your existing CRM. Integrations are where estimates go wrong, and naming them early is the highest-value line in the whole brief.</li>
+  <li><strong>Languages and regions.</strong> Arabic plus English with full RTL support is a real engineering requirement and it needs to be stated before quoting, not discovered in week four.</li>
+  <li><strong>Your budget range and your deadline.</strong> Yes, really.</li>
+  <li><strong>What already exists</strong> — a current site, a design file, a database, a half-finished attempt by a previous developer.</li>
+</ol>
+
+<p>On budget: withholding your range does not get you a better price. It gets you quotes that are not comparable, because every developer is guessing at a different scope. If your range is EGP 150,000 and someone quotes EGP 700,000, you have both wasted a week you did not need to waste. Stating a range lets a good developer tell you honestly what fits inside it and what does not. If you have no idea what a range should be, my breakdowns of <a href="/blog/how-much-does-website-cost-2026">what a website actually costs in 2026</a> and <a href="/blog/website-cost-egypt-gulf">pricing across Egypt and the Gulf</a> will get you within the right order of magnitude.</p>
+
+<p>Two things to leave out of the brief: a demand for a specific framework unless you have a real reason, and a request for free spec work. Framework mandates without a reason exclude good people and are often wrong; if you want to understand the actual tradeoff, <a href="/blog/laravel-vs-nodejs-2026">Laravel versus Node.js</a> covers when each one genuinely wins. And a request for a free prototype tells strong developers that you value their time at zero, so the only people who respond are the ones with nothing better to do.</p>
+
+<h2>5. What to look for when hiring a Laravel developer specifically</h2>
+
+<p>Laravel is easy to write and easy to write badly. The framework is forgiving, which means a weak developer can ship something that works on day one and becomes unmaintainable by month four. These are the specific signals I look for when assessing Laravel work.</p>
+
+<h3>Ask what version they target, and why</h3>
+
+<p>Laravel ships a major version roughly once a year, around the first quarter, and the published support policy is stable enough to hold a candidate against: for every release, bug fixes are provided for 18 months and security fixes for two years. Check the official release notes page for the exact dates on the version you will actually be running, because those two windows are what determine when you are forced to upgrade. A developer who cannot tell you which version they will use, what its support window is, and what PHP version it requires has not thought about the second year of your project's life. That answer costs you real money later: an application stranded on an unsupported version is an application where security patches stop arriving.</p>
+
+<h3>Ask how they handle database changes</h3>
+
+<p>The correct answer includes the word "migrations" and does not include the phrase "I just edit the database". Everything schema-related belongs in version-controlled migration files. If they edit production tables by hand in phpMyAdmin, your staging environment and your production environment will drift apart, and eventually a deploy will fail in a way nobody can reproduce. My guide to <a href="/blog/database-design-for-web-apps">database design for web applications</a> covers what a sane schema looks like underneath that.</p>
+
+<h3>Ask what goes in a controller</h3>
+
+<p>The good answer is "as little as possible" — validation in Form Requests, business logic in service or action classes, data access in models or repositories, responses through API Resources. If they describe 400-line controllers holding all the logic, you are buying a codebase that only they can work on, and that is a commercial position, not a technical one.</p>
+
+<h3>Ask about N+1 queries</h3>
+
+<p>This is the single most common performance failure in Laravel applications and it is trivially avoidable. A competent Laravel developer will immediately mention eager loading with <code>with()</code>, and probably mention Laravel Debugbar or Telescope for spotting the problem in development. If the term is unfamiliar, they have not built anything with meaningful data volume. Related: <a href="/blog/why-your-website-loads-slowly">why your website loads slowly</a> is nearly always a database problem before it is a frontend problem.</p>
+
+<h3>Ask about queues, and about what happens when a job fails</h3>
+
+<p>Emails, PDF generation, image processing, and third-party API calls belong in queued jobs, not in the request cycle. The follow-up question is the real one: what happens when a queued job fails? The answer should mention retries, a failed jobs table, and some form of alerting. "It just fails" is an honest answer that tells you exactly what you are buying.</p>
+
+<h3>Ask how they test</h3>
+
+<p>You do not need 100 percent coverage on a brochure site. You do need feature tests around payment, authentication, and anything involving money or permissions. Laravel's testing tooling is genuinely good — Pest and PHPUnit both work out of the box — so "we don't write tests" is a choice, not a constraint. Ask which parts of your system they intend to test and accept a narrow, deliberate answer.</p>
+
+<h3>Ask about security specifics</h3>
+
+<p>Not "is it secure" — everyone says yes. Ask concretely: how are authorization rules enforced, using Policies or Gates? How are file uploads validated and where are they stored? How are environment secrets managed? Is mass assignment guarded? Are they using signed URLs for anything sensitive? My <a href="/blog/website-security-checklist">website security checklist</a> is a reasonable list to hold a candidate against.</p>
+
+<p>If you want the same depth for the frontend side of the stack, the equivalent questions for React work are on my <a href="/hire-react-developer">React developer page</a>, and the full Laravel engagement scope is on the <a href="/hire-laravel-developer">Laravel developer page</a>.</p>
+
+<h2>6. How do I check that a portfolio is really theirs?</h2>
+
+<p>Portfolio fraud is common and it is easy to detect, which is an unusual combination. Most people simply never check. Here is the sequence, in the order I would run it.</p>
+
+<h3>Step one: open the live sites</h3>
+
+<p>A portfolio of images is not a portfolio. Ask for URLs of live, working sites. Some work is genuinely behind a login or under NDA, and that is legitimate, but if <em>every</em> item is private, the pattern is the problem, not any single item.</p>
+
+<h3>Step two: check the stack matches the claim</h3>
+
+<p>If someone claims they built a site in Laravel, the site should look like Laravel. You can check this in about thirty seconds without any tools. Open the page, look at the cookies in your browser's developer tools, and look at the response headers.</p>
+
+<pre><code>curl -sI https://example.com | grep -i -E "server|x-powered-by|set-cookie"
+
+# Laravel applications typically set two cookies:
+#   XSRF-TOKEN=...
+#   &lt;app_name&gt;_session=...
+#
+# Next.js applications typically serve assets from:
+#   /_next/static/...
+# and often expose:
+#   x-powered-by: Next.js</code></pre>
+
+<p>Browser extensions like Wappalyzer will do the same job with one click. It is not conclusive — a proxy or CDN can strip headers — but a "Laravel project" running on a WordPress theme with <code>/wp-content/</code> in the page source is a straightforward lie, and I have seen it more than once.</p>
+
+<h3>Step three: check the timeline</h3>
+
+<p>Look up the domain's registration date with a WHOIS lookup, and look up the site's history on the Internet Archive's Wayback Machine. If the developer says they built it in 2023 but the domain was registered last month, or the Wayback captures show a completely different site under a different agency's footer during the period they claim, ask them to explain. There are innocent explanations, such as a redesign or a migrated domain. Let them give it.</p>
+
+<h3>Step four: ask what part they built</h3>
+
+<p>This is the question that does most of the work. "Which parts of this were yours?" Someone who genuinely built a system will answer with unglamorous specifics: they will tell you about the part that was hard, the integration that fought them, the thing they would do differently now. Someone who contributed a CSS fix and put the whole project in their portfolio will stay at the level of "I worked on the full stack".</p>
+
+<h3>Step five: contact one reference</h3>
+
+<p>One is enough, and email is enough. Ask three questions: did they deliver roughly on time, what happened when something broke after launch, and would you hire them again for something larger. That third question is the one that produces hesitation if hesitation exists.</p>
+
+<h3>Step six: check for code you can read</h3>
+
+<p>A public GitHub profile is not required, but if there is one, spend ten minutes in it even if you cannot code. You are looking for: commits spread over time rather than a single dump, commit messages written in sentences, a README that explains how to run the project, and issues or pull requests where they discuss decisions with other humans. That last one shows you how they behave when someone disagrees with them, which is information you will otherwise only get after you have paid them.</p>
+
+<div class="post-callout"><p><strong>Reality check:</strong> Verifying a portfolio takes about twenty minutes per candidate. Recovering from a bad hire takes weeks, and in the rebuilds I have been called into, the second attempt has rarely come in cheaper than the first — because someone has to pay for the time it takes to understand broken code before any of it can be replaced. I have no industry figure to give you there, and I would distrust anyone who quotes one to the percentage point. The maths on due diligence is still never close.</p></div>
+
+<h2>7. What should I ask a developer before signing anything?</h2>
+
+<p>These are the questions I would ask, in the order I would ask them. None of them are trick questions. All of them have answers that a competent professional can give in under a minute.</p>
+
+<ol>
+  <li><strong>Who writes the code?</strong> You, personally, or a team? If a team, who specifically, and can I speak to them?</li>
+  <li><strong>How many other projects will you be running alongside mine?</strong> Two or three is normal for a freelancer and is not a red flag. Eight is.</li>
+  <li><strong>What is your process from signature to launch?</strong> You want to hear discrete phases with something reviewable at the end of each one.</li>
+  <li><strong>How often will I see working software?</strong> The right answer is a staging URL I can open, updated at least every two weeks. Not screenshots. Not a status email.</li>
+  <li><strong>Which repository will the code live in, and whose account owns it?</strong> The answer should be my account, from the first commit.</li>
+  <li><strong>What exactly do I receive at the end?</strong> Source code, database schema, deployment instructions, environment variable documentation, admin credentials, and any third-party accounts created in my name.</li>
+  <li><strong>What is explicitly out of scope?</strong> A developer who can list what is excluded has actually thought about the scope. A developer who says "everything you need is included" has not.</li>
+  <li><strong>How are change requests priced?</strong> There will be change requests. Agree the mechanism now, when neither of us is annoyed.</li>
+  <li><strong>What happens in the first thirty days after launch if something breaks?</strong> Distinguish bugs, which should be free, from new requests, which should not.</li>
+  <li><strong>What does ongoing maintenance cost, and what does it include?</strong> Framework updates, security patches, backups, uptime monitoring, and a response time.</li>
+  <li><strong>What is the most likely way this project goes wrong?</strong> My favourite question. The honest answers are about content delays, third-party API surprises, and scope growth. An answer of "nothing, it's straightforward" means they have not run enough projects.</li>
+  <li><strong>If we stop working together in month three, what do I have?</strong> The answer must be: a working repository, a deployable application, and documentation. Anything less is a hostage situation waiting to happen.</li>
+</ol>
+
+<h2>8. The paid trial task, which is worth more than every interview combined</h2>
+
+<p>If you take one operational recommendation from this article, take this one. Before committing to a full project, pay for a small, real, self-contained piece of work. Four to eight hours, paid at their normal rate, with a clear definition of done.</p>
+
+<p>Good trial tasks: build one API endpoint with validation and tests, fix a specific bug in an existing codebase, build one page against a design, write a technical plan for the database schema of your project, or perform an audit of your existing site with prioritised findings.</p>
+
+<p>What you learn in those eight hours, which no interview will tell you: how they communicate when they hit an ambiguity, whether they ask before assuming, how they structure a commit, whether they meet a small deadline, and whether working with them is pleasant. That last item matters more than people admit. You are about to spend months in conversation with this person.</p>
+
+<p>Pay for it. An unpaid trial task filters out exactly the developers you want, because good developers have paying work. The cost of the trial is trivial against the cost of discovering the same information in month three.</p>
+
+<h2>9. Rates in 2026: what things actually cost</h2>
+
+<p>Rates vary enormously by region, and by whether you are buying through a platform or directly. The ranges below reflect what I see in the market for genuinely senior, independent Full Stack developers as of 2026. They are ranges, not quotes, and the correct number for your project depends on scope, timeline pressure, and how much of the specification already exists.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Market</th>
+      <th>Senior freelance hourly (USD)</th>
+      <th>Typical agency hourly (USD)</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Egypt (local clients, EGP)</td>
+      <td>15 – 45</td>
+      <td>30 – 80</td>
+      <td>Local budgets are quoted in EGP and are highly sensitive to exchange-rate moves</td>
+    </tr>
+    <tr>
+      <td>Saudi Arabia / UAE (SAR, AED)</td>
+      <td>35 – 90</td>
+      <td>80 – 200</td>
+      <td>Compliance work such as ZATCA e-invoicing and Arabic RTL adds real scope</td>
+    </tr>
+    <tr>
+      <td>UK / EU</td>
+      <td>50 – 120</td>
+      <td>120 – 300</td>
+      <td>Onshore agency day rates commonly exceed GBP 800</td>
+    </tr>
+    <tr>
+      <td>US</td>
+      <td>60 – 150</td>
+      <td>150 – 350</td>
+      <td>Widest spread of any market; the same title covers a 5x range</td>
+    </tr>
+    <tr>
+      <td>Curated networks (global)</td>
+      <td>60 – 200+</td>
+      <td>—</td>
+      <td>Screening margin is inside the rate</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>On project pricing rather than hourly, these are the bands I see most often for the work itself, excluding content, photography, paid ads, and ongoing hosting:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Project type</th>
+      <th>Realistic range (USD)</th>
+      <th>Typical duration</th>
+      <th>What pushes it to the top of the range</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Business site, 6 – 12 pages, bilingual, CMS-managed</td>
+      <td>1,500 – 6,000</td>
+      <td>2 – 5 weeks</td>
+      <td>Custom design, full Arabic RTL, complex forms and CRM integration</td>
+    </tr>
+    <tr>
+      <td>E-commerce store, custom build</td>
+      <td>5,000 – 25,000</td>
+      <td>6 – 14 weeks</td>
+      <td>Multiple payment gateways, inventory sync, shipping APIs, tax compliance</td>
+    </tr>
+    <tr>
+      <td>SaaS MVP</td>
+      <td>10,000 – 45,000</td>
+      <td>8 – 20 weeks</td>
+      <td>Multi-tenancy, subscription billing, roles and permissions, an admin panel nobody costed</td>
+    </tr>
+    <tr>
+      <td>Mobile app plus API backend</td>
+      <td>12,000 – 60,000</td>
+      <td>10 – 24 weeks</td>
+      <td>Two platforms, offline support, push notifications, store review cycles</td>
+    </tr>
+    <tr>
+      <td>Rescue or rebuild of an existing codebase</td>
+      <td>Audit first: 500 – 2,000</td>
+      <td>1 week for the audit</td>
+      <td>Never quote a rebuild before the audit; the code is always worse than described</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Two pricing rules worth internalising. First, <strong>fixed price protects you only if scope is fixed</strong>; a fixed price against a vague brief is a fiction that resolves into change requests. Second, <strong>the cheapest quote is almost always the least informed one</strong>. When one number comes in at a third of the others, the usual explanation is not efficiency. It is that they did not understand the requirement, and the gap will reappear as either a quality problem or an invoice.</p>
+
+<h2>10. Contracts, ownership, and the clause most people forget</h2>
+
+<p>The single most expensive mistake I see is ownership. People assume that paying for code means owning it. Depending on jurisdiction and the wording of your agreement, that assumption can be wrong — in many legal systems, copyright in commissioned work vests initially in the author unless it is assigned in writing. I have written about this in detail in <a href="/blog/who-owns-your-website-code">who actually owns your website code</a>, which goes through the wording clause by clause and covers what happens when the assignment was never made.</p>
+
+<p>Your agreement needs to say, in plain words:</p>
+
+<ul>
+  <li><strong>Full assignment of intellectual property</strong> in the deliverables to you, effective on final payment. Not a licence. An assignment.</li>
+  <li><strong>Source code delivery</strong> including the Git history, not a zip file of the final state.</li>
+  <li><strong>Account ownership.</strong> Domain, hosting, DNS, database, cloud console, app store accounts, analytics, and any third-party API keys must be registered to your company's email addresses, not the developer's. This is the clause people skip and it is the one that traps them.</li>
+  <li><strong>Third-party components disclosed.</strong> Any commercial licence used — a premium theme, a paid package, a UI kit — should be listed, with who holds the licence and what it costs to renew.</li>
+  <li><strong>Payment schedule tied to deliverables</strong>, not to dates. Typically 30 to 40 percent up front, milestones through the middle, and a final payment on acceptance.</li>
+  <li><strong>A defined warranty period</strong> — thirty days is normal — covering defects in delivered functionality but explicitly not covering new requests.</li>
+  <li><strong>Termination and handover.</strong> What happens if either side walks away, and what state the work must be handed over in.</li>
+  <li><strong>Confidentiality</strong>, mutual, and a clear position on whether the developer can show the work publicly.</li>
+</ul>
+
+<p>If you want a starting point rather than a blank page, my plain-language <a href="/blog/namudhaj-aqd-barmajat-mawqe">web development contract template</a>, written with Arabic-speaking clients in mind, walks through these clauses in a form you can adapt. It is a drafting aid rather than legal advice — have a lawyer in your own jurisdiction read the final version before you sign it.</p>
+
+<p>On payments across borders: use escrow or milestones for a first engagement with someone you have not worked with. Never pay 100 percent up front, and be wary of a developer who insists on it. Equally, do not expect a professional to work for zero up front — an advance is normal and protects both sides.</p>
+
+<h2>11. Red flags, ranked by how much they will cost you</h2>
+
+<h3>Severe — walk away</h3>
+
+<ul>
+  <li><strong>Refuses to give you repository access from the start.</strong> There is no good reason. This is leverage, and it is being built deliberately.</li>
+  <li><strong>Registers the domain or hosting in their own name.</strong> Same problem, different asset.</li>
+  <li><strong>Quotes a full project in under an hour with no questions.</strong> They are quoting a category, not your project.</li>
+  <li><strong>Cannot show a single live URL of anything.</strong> After a few years of work, some of it is public.</li>
+  <li><strong>Demands full payment before any delivery</strong>, or refuses any milestone structure at all.</li>
+  <li><strong>Portfolio items that do not survive a WHOIS or Wayback check</strong> and are not explained when asked.</li>
+</ul>
+
+<h3>Serious — negotiate hard or reconsider</h3>
+
+<ul>
+  <li><strong>Agrees to every request instantly.</strong> Nobody's requirements are all good ideas, including yours and including mine.</li>
+  <li><strong>Cannot explain their stack choice</strong> beyond "it's the best" or "it's what I use".</li>
+  <li><strong>No written scope.</strong> If the scope lives in WhatsApp messages, you are going to have an argument about what was agreed.</li>
+  <li><strong>Communication already slow during the sales process.</strong> This is the fastest they will ever be.</li>
+  <li><strong>Estimates that are suspiciously round and suspiciously short.</strong> "Two weeks" for an e-commerce platform means the estimate was produced by optimism rather than decomposition.</li>
+  <li><strong>Unwilling to do a paid trial task.</strong> Occasionally legitimate if they are genuinely booked. Usually not.</li>
+</ul>
+
+<h3>Worth noticing, not disqualifying</h3>
+
+<ul>
+  <li>An ugly personal website. Some of the best engineers I know have terrible personal sites, because their clients' sites are where the effort went.</li>
+  <li>No company registration. Plenty of excellent independents invoice as sole traders.</li>
+  <li>A junior-looking CV with strong public code. Weight the code over the CV.</li>
+  <li>Not knowing your industry. Domain knowledge is transferable in a week; engineering judgment is not.</li>
+</ul>
+
+<h2>12. How long should hiring a developer take?</h2>
+
+<p>For a freelancer, the whole process should take two to three weeks of calendar time. Longer than that and you are burning momentum; shorter and you have skipped verification. The stages below add up to about twelve working days at the fastest and nineteen at the slowest, and several of them overlap in practice.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stage</th>
+      <th>Time</th>
+      <th>What you are doing</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Write the brief</td>
+      <td>1 – 2 days</td>
+      <td>The one to two page document from section 4</td>
+    </tr>
+    <tr>
+      <td>Source candidates</td>
+      <td>3 – 5 days</td>
+      <td>Aim for 5 to 8 serious candidates, not 40</td>
+    </tr>
+    <tr>
+      <td>Shortlist and verify portfolios</td>
+      <td>1 day</td>
+      <td>20 minutes each; cut to 3</td>
+    </tr>
+    <tr>
+      <td>Calls</td>
+      <td>2 – 3 days</td>
+      <td>45 minutes each, using the questions in section 7</td>
+    </tr>
+    <tr>
+      <td>Paid trial task</td>
+      <td>3 – 5 days</td>
+      <td>Run it with your top two if the decision is close</td>
+    </tr>
+    <tr>
+      <td>Contract and kickoff</td>
+      <td>2 – 3 days</td>
+      <td>Scope document, contract, deposit, repository access</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For an in-house hire, budget two to four months from job posting to first day, including notice periods. For an agency, add procurement time; enterprise procurement alone can consume six weeks before anyone writes a line of code.</p>
+
+<p>One caution about speed: a strong independent developer is usually booked two to six weeks out. If someone excellent can start tomorrow, it is not automatically a bad sign — projects fall through — but it is worth one gentle question. Conversely, do not let a four-week wait push you into hiring someone worse. Four weeks of waiting is cheaper than four months of rework.</p>
+
+<h2>13. What is a Laravel Partner, and do I actually need one?</h2>
+
+<p>Short answer: it is the official directory of vetted Laravel agencies on laravel.com, and no, you almost certainly do not need one.</p>
+
+<p>Laravel has run the programme since 2017. It lists development agencies that the Laravel team has researched and vetted before inviting them to join, and the published route in is an application through the "Become a Laravel Partner" form, after which a review evaluates the team's Laravel experience, project portfolio, and standing in the Laravel community. I want to be precise about that, because it is easy to be lazily cynical about vendor directories: the programme as described on the official page is a vetting and invitation process, not a shelf you buy space on. Read <em>laravel.com/partners</em> yourself rather than taking any article's word for it, including this one.</p>
+
+<p>There are two tiers, and knowing the difference is the single most useful thing the page gives a buyer. <strong>Community Partners</strong> are agencies that participate actively in the Laravel ecosystem and ship production work on the framework; Laravel's own description is that they are a good fit for many projects. <strong>Premier Partners</strong> work more closely with the Laravel team, including direct collaboration with Laravel's sales team on Laravel Cloud engagements, and typically take on larger or more complex work such as enterprise rollouts and significant Cloud deployments. Read the tiers as a measure of how tightly an agency is coupled to Laravel's own commercial motion, not as a grading of engineering skill. If you are building an ordinary business platform and paying no attention to Laravel Cloud, Community is not the consolation prize.</p>
+
+<p>What being a Laravel Partner does tell you: the company is real, it has passed a review run by people who know the framework, and it works in Laravel seriously enough to build a business around it. That is genuinely useful if you are a large organisation that needs a vendor to pass a procurement checklist, and it is a real filter — most agencies that write Laravel are not in the directory.</p>
+
+<p>What it does not tell you: whether the specific developer assigned to your project is good. Partners are firms. Firms contain people at every level. The person in the pitch is frequently not the person committing code. The accreditation is at the company boundary; your outcome is decided one layer below it, so run the questions in section 7 on the named individuals regardless of the badge on the letterhead.</p>
+
+<p>Individual developers cannot be Laravel Partners at all — the official FAQ says plainly that Laravel Partners are agencies, not individual freelancers — which means the programme is structurally silent on the entire population of senior independents. Some of the strongest Laravel engineers I know are solo. Judge them on merged pull requests, live systems you can open, and the trial task, not on a badge they are ineligible to hold.</p>
+
+<div class="post-callout"><p><strong>When a Partner is the right call:</strong> a regulated enterprise, a public-sector tender, or a procurement process that requires vendor accreditation and a company that can carry professional indemnity insurance at scale — and specifically the Premier tier if a Laravel Cloud migration is part of the plan. In those cases the badge is doing real work. For an SME building a platform, it is a filter you can reproduce yourself in an afternoon with the verification steps in section 6, and one that excludes every strong independent by design.</p></div>
+
+<h2>14. After you hire: how not to waste the developer you just found</h2>
+
+<p>Hiring well is half of it. I have watched good developers deliver mediocre outcomes because the client made the work impossible, so here is the other half.</p>
+
+<p><strong>Appoint one decision-maker.</strong> One person who can say yes. Committee feedback arriving from four directions turns a six-week project into a twelve-week project and no one can point to the moment it happened.</p>
+
+<p><strong>Provide content early.</strong> Content is the number one cause of delay on every project I have run. Real text, real images, real product data. Not "we'll fill it in later" — later is launch week, and launch week is when everything else is also happening.</p>
+
+<p><strong>Give access on day one.</strong> Domain registrar, DNS, existing hosting, analytics, payment gateway sandbox credentials, and any API keys. Waiting three days for a password is three days of billed calendar time.</p>
+
+<p><strong>Batch your feedback.</strong> Twelve messages across a day fragments attention badly. One consolidated review after each milestone is worth more to you than continuous commentary.</p>
+
+<p><strong>Test on staging, properly, when asked.</strong> The client who spends two hours genuinely trying to break the staging site gets a launch with far fewer surprises than the client who glances at it for five minutes and says "looks good".</p>
+
+<p><strong>Decide about maintenance before launch, not after.</strong> Software is not furniture. Frameworks release security patches, browsers change, payment providers deprecate API versions, and dependencies drift. Budget somewhere in the range of 10 to 20 percent of the build cost annually for keeping the thing alive, and agree who is doing it before the final invoice is paid.</p>
+
+<h2>15. The copy-and-use hiring checklist</h2>
+
+<p>Print this, or paste it into a document, and work down it.</p>
+
+<ol>
+  <li>Write the one-to-two page brief, including a real budget range.</li>
+  <li>Source 5 to 8 candidates across at least two different channels.</li>
+  <li>For each: open two live sites, check the stack fingerprint, run a WHOIS and a Wayback check.</li>
+  <li>Cut to three. Book 45-minute calls.</li>
+  <li>Ask the twelve questions from section 7. Note who tells you something you did not want to hear.</li>
+  <li>Take one reference each, by email, with the three questions from section 6.</li>
+  <li>Run a paid trial task with your top one or two.</li>
+  <li>Get a written scope document with explicit exclusions before the contract.</li>
+  <li>Sign a contract with IP assignment on final payment, milestone payments, a 30-day warranty, and a handover clause.</li>
+  <li>Create the repository under your own account and invite them to it.</li>
+  <li>Register the domain, hosting, and all third-party accounts under your company's email addresses.</li>
+  <li>Agree the maintenance arrangement and its price before launch.</li>
+</ol>
+
+<p>Twelve steps, about fifteen hours of your time spread over two to three weeks. Against a project that will run for months and carry your revenue on it, that is the cheapest insurance available.</p>
+
+<h2>16. A note on hiring remotely, from Cairo</h2>
+
+<p>Since a lot of the people reading this are weighing up whether to hire outside their own city or country, one practical observation. The thing that actually breaks remote engineering relationships is not distance or accent. It is timezone overlap and written communication.</p>
+
+<p>If your developer is awake for four hours of your working day, questions get answered the same day and the project moves. If the overlap is one hour, every ambiguity costs a full day of calendar time, and a project with thirty ambiguities in it loses six weeks to nothing but waiting. Cairo sits at GMT+2, and GMT+3 through the summer months when Egypt observes daylight saving, which gives a full working-day overlap with the UK, Europe, and the Gulf, and an afternoon overlap with the US East Coast either way. That is a structural advantage, and it is a fair thing to interrogate any remote candidate about, wherever they are.</p>
+
+<p>The second thing is writing. A remote developer who writes clear, complete updates in text is worth more than one who is charming on a call, because most of your relationship will be asynchronous. Ask for a written summary after the first call. What comes back tells you a great deal.</p>
+
+<p>This article is deliberately the general process — it works whether you are hiring in Manchester, Riyadh, or Alexandria. If Egypt specifically is the market you are sourcing from, the companion guide on <a href="/blog/hire-full-stack-web-developer-egypt">hiring a full stack web developer in Egypt</a> goes into the country detail this one skips: local rate expectations in EGP, how contracting and invoicing usually work, and the payment mechanics for sending money in.</p>
+
+<h2>17. Getting a straight answer about your own project</h2>
+
+<p>If you have read this far, you probably have a specific project in mind and a specific worry about getting it wrong. That is the correct instinct, and it is worth acting on before you spend money rather than after.</p>
+
+<p>I do free consultations. You describe what you are trying to build, I tell you what I think it takes, roughly what it should cost, and where I think the risk sits — including when the honest answer is that you do not need a custom build at all, or that your timeline needs to change before anything else does. If it is a fit, you get a fixed-fee quote with the scope written down and the exclusions named. If it is not, you still leave with a clearer brief to take to whoever you hire instead.</p>
+
+<p><a href="/contact">Send me the details of your project</a> and I will reply within 24 hours. You can also look through my <a href="/portfolios">live project portfolio</a> first and run every verification step in section 6 against it — I would rather you did.</p>
+HTML,
+                'content_ar' => <<<'HTMLAR'
+<p class="lead">أغلب الشركات توظّف مطوّر ويب بطريقة خاطئة، وبنفس التسلسل في كل مرة: تختار على أساس السعر وحُسن الحديث، وتتجاوز كل خطوة كانت ستمنحها دليلاً حقيقياً، ثم تكتشف بعد شهرين أن الكود لا يمكن تطويره وأن المستودع ليس ملكها أصلاً. أنا خالد أحمد، مطوّر Full Stack مستقل من القاهرة، سلّمت أكثر من 39 مشروعاً في ثماني دول، وأصلحت عدداً غير قليل من كوارث غيري. هذا هو الإجراء الذي كنت سأتبعه لو كنت أنا المشتري.</p>
+
+<h2>1. الخلاصة أولاً: ما الذي يتنبأ فعلاً بنجاح التعاقد</h2>
+
+<p>بعد سنوات من استلام مشاريع بدأها آخرون، أستطيع أن أقول بثقة إن المعايير التي يركّز عليها العملاء غالباً ضجيج، والمعايير التي تُحدث الفرق مملة وغير مثيرة.</p>
+
+<p><strong>معايير لا تتنبأ بشيء:</strong> بلد إقامة المطوّر، عدد السنوات في سيرته الذاتية، جمال موقعه الشخصي، سرعة رده على أول رسالة، وجود سجل تجاري باسمه، أو استخدامه للإطار البرمجي الذي كان في ذهنك.</p>
+
+<p><strong>معايير تتنبأ فعلاً:</strong> هل تستطيع أن تفتح شيئاً بناه بنفسك وتتصفّحه؟ هل سألك أسئلة صعبة قبل أن يسعّر؟ هل كتب ما سيبنيه قبل أن يبنيه؟ هل تملك أنت المستودع منذ أول يوم؟ وهل قال لك «لا» أو خبراً غير سارّ مرة واحدة على الأقل أثناء نقاش البيع؟</p>
+
+<p>النقطة الأخيرة هي أقوى مؤشر أعرفه. المطوّر الذي يخبرك أن فكرتك فيها مشكلة، أو أن مدتك الزمنية غير واقعية، أو أن ميزة طلبتها لا تستحق تكلفتها، هو مطوّر ينوي أن يظل يتحدث معك في الشهر السادس. أما الذي يوافق على كل شيء فهو يبيعك رقماً لإغلاق الصفقة، والخلافات التي أخفاها اليوم ستصلك لاحقاً على هيئة طلبات تعديل مدفوعة.</p>
+
+<div class="post-callout"><p><strong>الاختبار الأساسي:</strong> قبل التوقيع يجب أن تكون قادراً على الإجابة عن ثلاثة أسئلة بدليل لا بانطباع. ما الذي سيُبنى بالضبط؟ كم يكلّف بالضبط، وما الذي يجعله يكلّف أكثر؟ ومن يملك الكود والمستودع وحسابات الاستضافة في اليوم الذي ينتهي فيه المشروع؟</p></div>
+
+<h2>2. مستقل أم شركة أم موظف داخلي؟ القرار يعتمد على حجم الميزانية</h2>
+
+<p>هذه أول مفترق طرق حقيقي، والإجابة الصادقة تعتمد على حجم النطاق ومدة استمرار العمل. تناولت المقارنة بتوسّع في مقال <a href="/ar/blog/freelance-developer-vs-agency">المطوّر المستقل مقابل شركة البرمجة</a>، وهذه الخلاصة المضغوطة.</p>
+
+<p><strong>تحت 15,000 دولار تقريباً كنطاق إجمالي، المطوّر المستقل الخبير هو الاختيار الصحيح غالباً.</strong> ليس لأن الشركات سيئة، بل بسبب الحساب البسيط. الشركة لديها فريق مبيعات ومديرو مشاريع ومكتب وموظفون بين المشاريع، وهذه تكاليف حقيقية. وقاعدتي التقريبية — من مقارنة عروض أسعار على مشاريع طُلب مني استلامها لاحقاً، لا من دراسة منشورة — أنها تضيف ما يقارب ضعفين إلى ثلاثة أضعاف فوق تكلفة التنفيذ. خذها كشكل عام لا كقياس دقيق؛ المهم أن المضاعف موجود وليس صغيراً. في المشاريع الصغيرة تصبح هذه المصاريف الإدارية نصيباً من ميزانيتك أكبر من الهندسة نفسها، وينتهي بك الأمر غالباً بمطوّر مبتدئ ينفّذ العمل بينما الخبير الذي قابلته في العرض التقديمي انتقل إلى الصفقة التالية.</p>
+
+<p><strong>فوق 60,000 دولار تقريباً، أو حين يحتاج المشروع ثلاثة تخصصات أو أكثر في وقت واحد</strong> — تصميم وBackend وتطبيق جوال وبنية تحتية واختبار جودة بالتوازي وبمواعيد صارمة — تبدأ الشركة في استحقاق هامشها. التنسيق مهنة قائمة بذاتها. إذا احتجت خمسة أشخاص يعملون في نفس الأسبوع، فلا بد أن يقوم أحد بهذه المهمة، ويُفضَّل ألا تكون أنت.</p>
+
+<p><strong>وبين 15,000 و60,000 دولار تقريباً — وهنا يقع أغلب مشاريع الشركات المتوسطة فعلاً — يتوقف الرقم عن الحسم ويأخذ شكل العمل مكانه.</strong> السؤال لم يعد «هل أقدر على شركة برمجة؟» بل «كم تخصصاً منفصلاً يحتاجه المشروع في نفس الوقت، ومن يعتمد الجودة غير الشخص الذي بناها؟». عُدَّها بصدق:</p>
+
+<ul>
+  <li><strong>مسار أو مساران متوازيان</strong> — Backend بـ Laravel مع واجهة تقليدية، أو إعادة بناء، أو أداة داخلية كثيرة التكاملات — يبقى المستقل الخبير الخيار الأفضل قيمةً عند 40,000 دولار كما هو عند 10,000. استعن بمصمّم أو تخصص ثانٍ لجزء محدد إن لزم. تحتفظ بالشخص الذي قابلته، وتبقى المصاريف الإدارية خارج ميزانيتك.</li>
+  <li><strong>ثلاثة مسارات أو أكثر أمام موعد إطلاق معلَن ثابت</strong> — تصميم وBackend وتطبيق جوال أصلي وبنية تحتية واختبار جودة — هنا أنت تشتري التنسيق، وهو ما تبيعه الشركة فعلاً. في هذه الحالة المضاعف خدمة حقيقية لا هامشاً زائداً.</li>
+  <li><strong>اشتراط حوكمة</strong> بأن يعتمد الجودة أو الأمان أو إتاحة الوصول شخصٌ غير من كتب الكود. المستقل قد يكون ممتازاً ويظل غير قادر على مراجعة عمله بنفسه. الاستوديو قادر.</li>
+</ul>
+
+<p>والإجابة الصادقة داخل هذا النطاق كثيراً ما تكون استوديو صغير من ثلاثة إلى ستة أشخاص، أو مستقل خبير معه متعاقد أو اثنان بالاسم. هذه التركيبة تمنحك الاستمرارية وعيناً ثانية دون أن تدفع ثمن مدير حسابات ومكتب وموظفين على الرصيف. فالنطاق ليس ثغرة في الإجابة، بل هو المكان الذي يتغير فيه السؤال.</p>
+
+<p><strong>التوظيف الداخلي منطقي حين يكون البرنامج هو الشركة نفسها.</strong> إذا كان منتجك منصة SaaS والكود هو أصلك الرئيسي، فستحتاج في النهاية أشخاصاً وظيفتهم الوحيدة هي هذا الكود. لكن في مصر والخليج، المطوّر المتفرغ متوسط أو كبير الخبرة التزام دائم يحمل راتباً وتأميناً ومعدات ووقت إدارة، ولا يمكنك إيقافه حين تهدأ خارطة الطريق. أغلب الشركات توظّف داخلياً قبل عام كامل من الوقت المناسب.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>المعيار</th>
+      <th>مطوّر مستقل خبير</th>
+      <th>شركة برمجة</th>
+      <th>موظف داخلي</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>التكلفة الفعلية لنفس المُخرَج</td>
+      <td>الأساس</td>
+      <td>نحو ضعفين إلى ثلاثة أضعاف — قاعدة تقريبية لا رقم مقيس</td>
+      <td>نحو 1.5 إلى ضعفين بعد احتساب تكاليف التوظيف</td>
+    </tr>
+    <tr>
+      <td>المدة من أول تواصل إلى أول سطر كود</td>
+      <td>أيام</td>
+      <td>من أسبوعين إلى ستة أسابيع</td>
+      <td>من شهرين إلى أربعة أشهر</td>
+    </tr>
+    <tr>
+      <td>من يكتب الكود فعلياً</td>
+      <td>الشخص الذي قابلته</td>
+      <td>غالباً ليس الشخص الذي قابلته</td>
+      <td>الشخص الذي قابلته</td>
+    </tr>
+    <tr>
+      <td>القدرة على العمل المتوازي</td>
+      <td>منخفضة — مسار أو مساران</td>
+      <td>عالية</td>
+      <td>تنمو مع عدد الموظفين والتكلفة</td>
+    </tr>
+    <tr>
+      <td>مخاطر الاستمرارية</td>
+      <td>مرتفعة إن لم تملك المستودع والتوثيق</td>
+      <td>أقل</td>
+      <td>متوسطة — الموظفون يستقيلون</td>
+    </tr>
+    <tr>
+      <td>الأنسب لـ</td>
+      <td>MVP، إعادة بناء، تكاملات، وأي بناء بمسار أو مسارين — بديهي تحت 15 ألف دولار، وغالباً صحيح حتى 60 ألفاً</td>
+      <td>ثلاثة مسارات متوازية فأكثر، مناقصات المؤسسات، مواعيد متزامنة ضاغطة، واعتماد جهة غير المنفّذ</td>
+      <td>شركات منتجها برمجي بخارطة طريق دائمة</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>هناك تركيبة أراها ناجحة كثيراً في السوق الخليجي تحديداً: تتعاقد مع مستقل خبير لبناء النسخة الأولى وكتابة التوثيق، ثم توظّف داخلياً لاحقاً على نظام قائم يعمل بالفعل. توظيف أول مطوّر داخلي أسهل بكثير حين تسلّمه نظاماً جاهزاً بدل مستودع فارغ وحلم.</p>
+
+<h2>3. أين تجد المطوّرين فعلاً — ومقايضات كل قناة</h2>
+
+<p>اختيار القناة يحدد حجم البركة التي تصطاد منها، ولهذا يستحق تفكيراً أكثر مما يُعطى له عادة.</p>
+
+<h3>منصات العمل الحر العربية</h3>
+
+<p>منصات مثل مستقل وخمسات وبحر توفّر وسيطاً مالياً وحلاً للنزاعات، وهذه ميزة حقيقية في أول تعاقد. المقايضة أن ترتيب النتائج فيها يكافئ سرعة الرد وعدد المشاريع لا جودة الهندسة، وأن ضغط الأسعار يدفع المطوّرين الأقوياء للخروج منها مع الوقت. المنصات العالمية مثل Upwork تعمل بنفس المنطق مع رسوم متغيرة — راجع صفحة الأسعار الرسمية قبل أن تبني ميزانيتك عليها لأنها عُدِّلت أكثر من مرة في السنوات الأخيرة.</p>
+
+<p>نصيحة عملية: تجاهل العروض التي تصلك في أول عشر دقائق، فهي قوالب جاهزة. العروض المفيدة تصل في اليوم الثاني وتشير إلى تفصيلة محددة من طلبك.</p>
+
+<h3>الشبكات المُنتقاة عالمياً (Toptal ومثيلاتها)</h3>
+
+<p>هذه الشبكات تنفّذ الفلترة نيابةً عنك، وتتقاضى ثمن ذلك. توقّع سعر ساعة أعلى بوضوح من السوق المفتوح لمطوّر بنفس المستوى، لأن هامش الشبكة مدمج داخل السعر نفسه لا مضاف إليه على الفاتورة. تستحق التكلفة إن لم يكن لديك أي حكم تقني داخل الشركة ولا وقت لبنائه. ولا تستحقها إن كنت مستعداً لتنفيذ خطوات التحقق المذكورة في هذا المقال بنفسك، فأنت عندها تدفع مقابل عمل تستطيع القيام به في عشرين دقيقة لكل مرشح.</p>
+
+<h3>GitHub</h3>
+
+<p>قناة مهملة وممتازة. ابحث عن من ساهم في حزم داخل نفس تقنيتك. في Laravel انظر إلى المساهمين في حزم واسعة الاستخدام مثل مكتبات Spatie أو Livewire أو Filament أو Laravel Excel. طلب دمج مقبول في حزمة لها مستخدمون حقيقيون أقوى من أي صفحة أعمال، لأن مشرفاً لديه سمعة يحميها راجع هذا الكود وقبله.</p>
+
+<h3>المجتمعات المهنية</h3>
+
+<p>منتديات Laracasts، مجتمعات Discord الخاصة بالأطر البرمجية، ومجموعات المطوّرين في القاهرة والرياض ودبي. أبطأ، لكن من يجيب على أسئلة الآخرين بعناية في العلن يكتب كوداً بعناية في السر.</p>
+
+<h3>الترشيح من صاحب عمل آخر</h3>
+
+<p>أعلى نسبة نجاح بين كل القنوات، بشرط واحد: اسأل عن طبيعة مشروع من رشّحه. مطوّر كان ممتازاً في موقع تعريفي قد يغرق في منصة متعددة المستأجرين. عبارة «شغله ممتاز» ليست معلومة قابلة للنقل، أما «بنى لنا نظام الحجوزات مع بوابة الدفع ويعمل منذ سنتين دون أن أتصل به» فهي معلومة.</p>
+
+<h3>التواصل المباشر عبر موقع المطوّر</h3>
+
+<p>حين يكون للمطوّر موقعه الخاص ويكتب عن عمله وينشر <a href="/ar/portfolios">معرض أعمال حقيقياً</a>، تستطيع تقييمه قبل أن تتحدث إليه، وتوفّر عمولة المنصة التي تظهر عادة في صورة سعر أفضل لك.</p>
+
+<h2>4. كيف تكتب وصفاً وظيفياً يفلتر بشكل صحيح</h2>
+
+<p>أغلب الطلبات التي تصلني إما سطران أو عشرون صفحة، وكلاهما سيئ. السطران يعنيان أنني لا أستطيع التسعير، فإما أن أضخّم الرقم لتغطية المجهول أو أسألك خمسة عشر سؤالاً لم تفكر فيها بعد. والعشرون صفحة تعني غالباً متطلبات كتبها شخص يخمّن تفاصيل التنفيذ، فتُثبَّت قرارات خاطئة قبل أن ينظر مهندس إلى المشكلة.</p>
+
+<p>الطلب الجيد صفحة أو صفحتان ويجيب عن الآتي:</p>
+
+<ol>
+  <li><strong>ما الذي تعمله الشركة</strong> في ثلاث جمل بلغة بسيطة.</li>
+  <li><strong>ما المشكلة التي يحلها المشروع</strong>، وماذا يحدث إن لم تُحَل.</li>
+  <li><strong>من يستخدمه</strong> — زوّار، عملاء مسجلون، موظفون داخليون — وكم عددهم تقريباً.</li>
+  <li><strong>خمسة إلى عشرة أشياء يجب أن يستطيع المستخدم فعلها</strong>، مكتوبة كأفعال لا كميزات: «العميل يحجز موعداً ويدفع عربوناً» بدل «وحدة حجز مع تكامل دفع».</li>
+  <li><strong>ما الذي يجب أن يتكامل مع ماذا.</strong> سمِّ الأنظمة بالاسم: برنامج المحاسبة، بوابة الدفع، نظام ERP، منصة الشحن. التكاملات هي المكان الذي تنهار فيه التقديرات، وذكرها مبكراً أثمن سطر في الطلب كله.</li>
+  <li><strong>اللغات والأسواق.</strong> العربية والإنجليزية بدعم RTL كامل متطلب هندسي حقيقي، ويجب ذكره قبل التسعير لا اكتشافه في الأسبوع الرابع.</li>
+  <li><strong>نطاق ميزانيتك وموعدك النهائي.</strong> نعم، فعلاً.</li>
+  <li><strong>ما هو قائم بالفعل</strong> — موقع حالي، ملف تصميم، قاعدة بيانات، أو محاولة نصف منتهية من مطوّر سابق.</li>
+</ol>
+
+<p>بخصوص الميزانية: إخفاء نطاقك لا يمنحك سعراً أفضل، بل يمنحك عروضاً غير قابلة للمقارنة لأن كل مطوّر يخمّن نطاقاً مختلفاً. إذا كانت ميزانيتك 150,000 جنيه ووصلك عرض بـ 700,000 جنيه، فقد أضعتما أسبوعاً بلا داعٍ. تحديد النطاق يتيح لمطوّر محترم أن يخبرك بصراحة ما الذي يدخل فيه وما الذي لا يدخل. وإن لم تكن تعرف الأرقام أصلاً، فمقالاي عن <a href="/ar/blog/how-much-does-website-cost-2026">تكلفة بناء موقع في 2026</a> وعن <a href="/ar/blog/website-cost-egypt-gulf">تكلفة المواقع بين مصر والخليج</a> سيضعانك في الترتيب الصحيح للأرقام.</p>
+
+<p>أمران يجب استبعادهما من الطلب: فرض إطار برمجي بعينه دون سبب حقيقي، وطلب عمل مجاني على سبيل «إثبات القدرة». فرض التقنية دون سبب يستبعد أشخاصاً جيدين وكثيراً ما يكون خاطئاً، وطلب نموذج مجاني يخبر المطوّرين الأقوياء أن قيمة وقتهم عندك صفر، فلا يرد عليك إلا من لا عمل لديه.</p>
+
+<h2>5. ما الذي تبحث عنه تحديداً عند توظيف مطوّر Laravel</h2>
+
+<p>Laravel سهل الكتابة وسهل أن يُكتب بشكل سيئ. الإطار متسامح، ومعنى ذلك أن مطوّراً ضعيفاً يستطيع تسليم شيء يعمل في اليوم الأول ويصبح غير قابل للصيانة في الشهر الرابع. هذه الإشارات المحددة التي أبحث عنها.</p>
+
+<h3>اسأل عن الإصدار ولماذا</h3>
+
+<p>Laravel يصدر نسخة رئيسية مرة سنوياً تقريباً في الربع الأول، وسياسة الدعم المنشورة ثابتة بما يكفي لتقيس عليها أي مرشح: لكل إصدار، إصلاحات الأخطاء تستمر 18 شهراً والإصلاحات الأمنية سنتين. راجع صفحة ملاحظات الإصدار الرسمية للتواريخ الدقيقة للإصدار الذي ستعمل عليه فعلاً، لأن هاتين النافذتين هما ما يحدد متى ستُجبر على الترقية. المطوّر الذي لا يستطيع إخبارك بالإصدار الذي سيستخدمه ومدة دعمه وإصدار PHP الذي يتطلبه لم يفكر في السنة الثانية من عمر مشروعك، وهذا يكلّفك مالاً حقيقياً لاحقاً: تطبيق عالق على إصدار خارج الدعم هو تطبيق توقفت عنه التحديثات الأمنية.</p>
+
+<h3>اسأل كيف يتعامل مع تغييرات قاعدة البيانات</h3>
+
+<p>الإجابة الصحيحة تتضمن كلمة Migrations ولا تتضمن «أعدّل الجداول مباشرة». كل ما يخص البنية يجب أن يكون في ملفات migration داخل نظام إصدارات. إذا كان يعدّل جداول الإنتاج يدوياً عبر phpMyAdmin، فستنفصل بيئة التجربة عن بيئة الإنتاج، وسيفشل نشر ما بطريقة لا يستطيع أحد إعادة إنتاجها.</p>
+
+<h3>اسأل ماذا يوضع داخل الـ Controller</h3>
+
+<p>الإجابة الجيدة «أقل ما يمكن»: التحقق في Form Requests، والمنطق التجاري في Service أو Action classes، والوصول للبيانات عبر Models أو Repositories، والاستجابات عبر API Resources. إذا وصف لك Controllers من 400 سطر تحوي كل شيء، فأنت تشتري كوداً لا يستطيع العمل عليه أحد غيره، وهذا موقف تجاري لا تقني.</p>
+
+<h3>اسأل عن مشكلة N+1</h3>
+
+<p>هذه أشهر مشكلة أداء في تطبيقات Laravel وتفاديها تافه. المطوّر الكفء سيذكر فوراً التحميل المسبق عبر <code>with()</code>، وربما يذكر Laravel Debugbar أو Telescope لاكتشافها أثناء التطوير. إن كان المصطلح غريباً عليه فهو لم يبنِ شيئاً بحجم بيانات حقيقي.</p>
+
+<h3>اسأل عن الطوابير وماذا يحدث حين تفشل المهمة</h3>
+
+<p>الرسائل البريدية وتوليد ملفات PDF ومعالجة الصور واستدعاءات الأطراف الثالثة مكانها Queued Jobs لا دورة الطلب. والسؤال الحقيقي هو التالي: ماذا يحدث حين تفشل مهمة في الطابور؟ يجب أن تسمع إعادة محاولة، وجدول failed_jobs، وشكلاً من أشكال التنبيه.</p>
+
+<h3>اسأل عن الاختبارات</h3>
+
+<p>لا تحتاج تغطية كاملة في موقع تعريفي، لكنك تحتاج اختبارات وظيفية حول الدفع والمصادقة وكل ما يمسّ المال أو الصلاحيات. أدوات الاختبار في Laravel جيدة فعلاً — Pest وPHPUnit يعملان جاهزين — فعبارة «لا نكتب اختبارات» اختيار لا قيد. اسأل أي أجزاء ينوي اختبارها واقبل إجابة ضيقة لكن مقصودة.</p>
+
+<h3>اسأل عن الأمان بتفاصيل محددة</h3>
+
+<p>لا تسأل «هل هو آمن» فالجميع يقول نعم. اسأل بدقة: كيف تُفرض الصلاحيات، عبر Policies أم Gates؟ كيف يُتحقق من الملفات المرفوعة وأين تُخزَّن؟ كيف تُدار أسرار البيئة؟ هل الحماية من Mass Assignment مفعّلة؟ قائمتي في <a href="/ar/blog/website-security-checklist">قائمة التحقق الأمنية للمواقع</a> معيار عادل تقيس عليه أي مرشح.</p>
+
+<h3>وفي السوق الخليجي تحديداً</h3>
+
+<p>هناك متطلبات لا تظهر في المقالات الأجنبية وتكلّفك كثيراً إن اكتُشفت متأخراً. إن كنت تبيع في السعودية فاسأل صراحة عن خبرته في <a href="/ar/blog/zatca-einvoicing-laravel-integration">ربط الفوترة الإلكترونية مع ZATCA</a>، وهل نفّذ المرحلة الثانية والتكامل مع منصة فاتورة من قبل. وإن كان المشروع متجراً أو منصة اشتراكات فاسأل عن تجربته العملية مع <a href="/ar/blog/gcc-payment-gateway-integration">بوابات الدفع الخليجية</a> مثل Mada وTap وHyperPay وPayTabs وMoyasar، لأن التعامل مع كل بوابة يختلف في التحقق من العمليات وفي معالجة webhooks. الفارق بين من فعلها ومن سيتعلمها على حسابك أسابيع كاملة.</p>
+
+<p>وإن كان تركيزك على Laravel تحديداً فصفحة <a href="/ar/hire-laravel-developer">توظيف مطوّر Laravel</a> تشرح نطاق العمل بالتفصيل، ولمزيد عن معايير الاختيار العامة راجع <a href="/ar/blog/kayfa-takhtar-mubarmij-mawaqe">كيف تختار مبرمج مواقع</a>.</p>
+
+<h2>6. كيف أتأكد أن معرض الأعمال يخصّه فعلاً؟</h2>
+
+<p>انتحال معرض الأعمال شائع وسهل الكشف في الوقت نفسه، وهي تركيبة غريبة. أغلب الناس لا يتحققون أصلاً. هذا هو التسلسل الذي أتبعه.</p>
+
+<h3>أولاً: افتح المواقع الحيّة</h3>
+
+<p>معرض من الصور ليس معرض أعمال. اطلب روابط مواقع حيّة تعمل. بعض الأعمال خلف تسجيل دخول أو تحت اتفاقية سرية وهذا مشروع تماماً، لكن إذا كان <em>كل</em> عنصر خاصاً، فالنمط هو المشكلة لا أي عنصر بعينه.</p>
+
+<h3>ثانياً: تحقق أن التقنية تطابق الادعاء</h3>
+
+<p>إذا قال إنه بنى موقعاً بـ Laravel فيجب أن يبدو الموقع كذلك. يمكنك فحص هذا في ثلاثين ثانية دون أدوات: افتح أدوات المطوّر في المتصفح وانظر إلى Cookies وترويسات الاستجابة.</p>
+
+<pre><code>curl -sI https://example.com | grep -i -E "server|x-powered-by|set-cookie"
+
+# تطبيقات Laravel عادة تضع اثنين من Cookies:
+#   XSRF-TOKEN=...
+#   &lt;app_name&gt;_session=...
+#
+# تطبيقات Next.js تخدم الملفات من:
+#   /_next/static/...
+# وكثيراً ما تُظهر الترويسة:
+#   x-powered-by: Next.js</code></pre>
+
+<p>إضافة مثل Wappalyzer تؤدي نفس المهمة بنقرة. ليست دليلاً قاطعاً لأن الوسيط أو CDN قد يحذف الترويسات، لكن «مشروع Laravel» يعمل بقالب WordPress ويظهر فيه <code>/wp-content/</code> داخل شفرة الصفحة كذبة صريحة، وقد رأيتها أكثر من مرة.</p>
+
+<h3>ثالثاً: تحقق من التوقيت</h3>
+
+<p>ابحث عن تاريخ تسجيل النطاق عبر WHOIS، وراجع تاريخ الموقع على أرشيف الإنترنت Wayback Machine. إذا قال إنه بناه في 2023 والنطاق مسجَّل الشهر الماضي، أو أظهرت اللقطات المؤرشفة موقعاً مختلفاً تماماً باسم شركة أخرى في نفس الفترة، اطلب منه التفسير. قد يكون التفسير بريئاً كإعادة تصميم أو نقل نطاق، فامنحه الفرصة ليقوله.</p>
+
+<h3>رابعاً: اسأل ما الجزء الذي بناه</h3>
+
+<p>هذا السؤال يقوم بأغلب العمل: «أي أجزاء هذا المشروع كانت من تنفيذك؟» من بنى النظام فعلاً سيجيب بتفاصيل غير براقة: سيحدثك عن الجزء الصعب، عن التكامل الذي عانده، وعمّا كان سيفعله بشكل مختلف اليوم. أما من أصلح ملف CSS ووضع المشروع كله في معرضه فسيبقى عند مستوى «عملت على الـ Full Stack».</p>
+
+<h3>خامساً: اتصل بمرجع واحد</h3>
+
+<p>واحد يكفي، والبريد الإلكتروني يكفي. اسأل ثلاثة أسئلة: هل سلّم في الموعد تقريباً؟ ماذا حدث حين تعطّل شيء بعد الإطلاق؟ وهل كنت ستتعاقد معه مجدداً في مشروع أكبر؟ السؤال الثالث هو ما يُنتج التردد إن كان التردد موجوداً.</p>
+
+<h3>سادساً: ابحث عن كود يمكنك قراءته</h3>
+
+<p>وجود حساب GitHub عام ليس شرطاً، لكن إن وُجد فامنحه عشر دقائق حتى لو كنت لا تبرمج. تبحث عن: commits موزّعة على الوقت لا دفعة واحدة، رسائل commit مكتوبة كجُمل، ملف README يشرح كيفية تشغيل المشروع، ونقاشات في issues أو pull requests. هذا الأخير يريك كيف يتصرف حين يختلف معه أحد، وهي معلومة لن تحصل عليها بعد ذلك إلا بعد أن تكون قد دفعت.</p>
+
+<div class="post-callout"><p><strong>حساب سريع:</strong> التحقق من معرض أعمال مرشح واحد يستغرق عشرين دقيقة. التعافي من تعاقد فاشل يستغرق أسابيع، وفي عمليات إعادة البناء التي استُدعيت إليها نادراً ما جاءت المحاولة الثانية أرخص من الأولى، لأن أحدهم يجب أن يدفع ثمن الوقت اللازم لفهم كود معطوب قبل أن يُستبدل أي جزء منه. لا أملك رقماً صناعياً أعطيه لك هنا، وسأشكّ في أي شخص يقتبس لك نسبة بدقة العلامة المئوية. ومع ذلك تبقى حسبة العناية الواجبة غير متقاربة أبداً.</p></div>
+
+<h2>7. ما الأسئلة التي أطرحها قبل التوقيع؟</h2>
+
+<p>هذه الأسئلة بالترتيب الذي أطرحها به. ليس فيها سؤال ملغوم، وكلها لها إجابات يستطيع محترف تقديمها في أقل من دقيقة.</p>
+
+<ol>
+  <li><strong>من يكتب الكود؟</strong> أنت شخصياً أم فريق؟ وإن كان فريقاً، من تحديداً، وهل أستطيع التحدث إليه؟</li>
+  <li><strong>كم مشروعاً آخر ستديره بالتوازي مع مشروعي؟</strong> اثنان أو ثلاثة أمر طبيعي لمستقل. ثمانية ليست كذلك.</li>
+  <li><strong>ما مسارك من التوقيع إلى الإطلاق؟</strong> تريد أن تسمع مراحل منفصلة ينتهي كل منها بشيء قابل للمراجعة.</li>
+  <li><strong>كم مرة سأرى برنامجاً يعمل؟</strong> الإجابة الصحيحة رابط staging أفتحه بنفسي ويُحدَّث كل أسبوعين على الأكثر. لا لقطات شاشة ولا رسائل حالة.</li>
+  <li><strong>أين سيعيش الكود ومن يملك الحساب؟</strong> يجب أن تكون الإجابة: حسابي أنا، منذ أول commit.</li>
+  <li><strong>ما الذي أستلمه في النهاية بالضبط؟</strong> الكود المصدري، بنية قاعدة البيانات، تعليمات النشر، توثيق متغيرات البيئة، بيانات الدخول الإدارية، وكل حساب طرف ثالث أُنشئ باسمي.</li>
+  <li><strong>ما هو خارج النطاق صراحة؟</strong> من يستطيع تعداد المستبعدات فكّر فعلاً في النطاق. من يقول «كل ما تحتاجه مشمول» لم يفكر.</li>
+  <li><strong>كيف تُسعَّر طلبات التعديل؟</strong> ستوجد طلبات تعديل حتماً. اتفقا على الآلية الآن، بينما لا أحد منكما منزعج.</li>
+  <li><strong>ماذا يحدث في أول ثلاثين يوماً بعد الإطلاق إن تعطّل شيء؟</strong> فرّق بين الأخطاء البرمجية التي يجب أن تُصلَح مجاناً والطلبات الجديدة التي لا يجب.</li>
+  <li><strong>كم تكلّف الصيانة الشهرية وماذا تشمل؟</strong> تحديثات الإطار، الترقيعات الأمنية، النسخ الاحتياطي، مراقبة التوافر، وزمن استجابة محدد.</li>
+  <li><strong>ما أكثر طريقة محتملة لفشل هذا المشروع؟</strong> سؤالي المفضّل. الإجابات الصادقة تدور حول تأخر المحتوى ومفاجآت واجهات الأطراف الثالثة وتضخم النطاق. أما «لا شيء، المشروع بسيط» فتعني أنه لم يدر مشاريع كافية.</li>
+  <li><strong>لو توقفنا في الشهر الثالث، ماذا سأملك؟</strong> يجب أن تكون الإجابة: مستودعاً يعمل، وتطبيقاً قابلاً للنشر، وتوثيقاً. أي شيء أقل هو رهينة تنتظر لحظتها.</li>
+</ol>
+
+<h2>8. المهمة التجريبية المدفوعة: أثمن من كل المقابلات مجتمعة</h2>
+
+<p>إن أخذت توصية تنفيذية واحدة من هذا المقال فلتكن هذه. قبل الالتزام بمشروع كامل، ادفع مقابل قطعة عمل صغيرة حقيقية ومكتملة بذاتها. من أربع إلى ثماني ساعات، بسعره المعتاد، مع تعريف واضح لمعنى «منتهية».</p>
+
+<p>مهام تجريبية جيدة: بناء endpoint واحد مع التحقق والاختبارات، إصلاح خطأ محدد في كود قائم، تنفيذ صفحة واحدة من تصميم، كتابة خطة فنية لبنية قاعدة البيانات، أو تدقيق موقعك الحالي بنتائج مرتّبة حسب الأولوية.</p>
+
+<p>ما ستعرفه في هذه الساعات ولن تخبرك به أي مقابلة: كيف يتواصل حين يصطدم بغموض، هل يسأل قبل أن يفترض، كيف يبني الـ commits، هل يلتزم بموعد صغير، وهل العمل معه مريح. النقطة الأخيرة أهم مما يعترف الناس، فأنت مقبل على شهور من الحوار مع هذا الشخص.</p>
+
+<p>وادفع مقابلها. المهمة التجريبية المجانية تستبعد بالضبط المطوّرين الذين تريدهم، لأن الجيدين لديهم عمل مدفوع. تكلفة التجربة تافهة أمام تكلفة اكتشاف نفس المعلومة في الشهر الثالث.</p>
+
+<h2>9. الأسعار في 2026: كم تكلّف الأمور فعلاً</h2>
+
+<p>الأسعار تتفاوت بشدة حسب السوق وحسب ما إذا كنت تشتري عبر منصة أم مباشرة. النطاقات التالية تعكس ما أراه في السوق لمطوّري Full Stack المستقلين ذوي الخبرة الحقيقية في 2026. هي نطاقات لا عروض أسعار، والرقم الصحيح لمشروعك يعتمد على النطاق وضغط الجدول الزمني وكم من المواصفات مكتوب بالفعل.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>السوق</th>
+      <th>سعر الساعة للمستقل الخبير</th>
+      <th>سعر الساعة للشركات</th>
+      <th>ملاحظات</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>مصر (عملاء محليون)</td>
+      <td>750 – 2,200 EGP</td>
+      <td>1,500 – 4,000 EGP</td>
+      <td>الميزانيات المحلية حساسة جداً لتحركات سعر الصرف</td>
+    </tr>
+    <tr>
+      <td>السعودية</td>
+      <td>130 – 340 SAR</td>
+      <td>300 – 750 SAR</td>
+      <td>متطلبات ZATCA والدعم الكامل للعربية تضيف نطاقاً حقيقياً</td>
+    </tr>
+    <tr>
+      <td>الإمارات</td>
+      <td>130 – 330 AED</td>
+      <td>300 – 730 AED</td>
+      <td>سوق مزدحم بفروق جودة واسعة عند نفس السعر</td>
+    </tr>
+    <tr>
+      <td>المملكة المتحدة وأوروبا</td>
+      <td>50 – 120 USD</td>
+      <td>120 – 300 USD</td>
+      <td>سعر اليوم لدى الشركات المحلية يتجاوز 800 جنيه إسترليني كثيراً</td>
+    </tr>
+    <tr>
+      <td>الولايات المتحدة</td>
+      <td>60 – 150 USD</td>
+      <td>150 – 350 USD</td>
+      <td>أوسع تفاوت بين كل الأسواق؛ نفس المسمى الوظيفي يغطي فارقاً بخمسة أضعاف</td>
+    </tr>
+    <tr>
+      <td>شبكات مُنتقاة عالمياً</td>
+      <td>60 – 200+ USD</td>
+      <td>—</td>
+      <td>هامش الفلترة مدمج داخل السعر</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>أما على مستوى المشروع لا الساعة، فهذه النطاقات الأكثر تكراراً للعمل البرمجي وحده، دون المحتوى والتصوير والإعلانات والاستضافة السنوية:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>نوع المشروع</th>
+      <th>النطاق الواقعي (USD)</th>
+      <th>المدة المعتادة</th>
+      <th>ما الذي يرفعه لأعلى النطاق</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>موقع شركة من 6 إلى 12 صفحة، ثنائي اللغة، بلوحة تحكم</td>
+      <td>1,500 – 6,000</td>
+      <td>2 – 5 أسابيع</td>
+      <td>تصميم مخصص، دعم RTL كامل، نماذج معقدة وربط CRM</td>
+    </tr>
+    <tr>
+      <td>متجر إلكتروني مبني خصيصاً</td>
+      <td>5,000 – 25,000</td>
+      <td>6 – 14 أسبوعاً</td>
+      <td>بوابات دفع متعددة، مزامنة مخزون، شركات شحن، امتثال ضريبي</td>
+    </tr>
+    <tr>
+      <td>منصة SaaS بنسخة أولى</td>
+      <td>10,000 – 45,000</td>
+      <td>8 – 20 أسبوعاً</td>
+      <td>تعدد المستأجرين، فوترة الاشتراكات، الأدوار والصلاحيات، لوحة إدارة لم يسعّرها أحد</td>
+    </tr>
+    <tr>
+      <td>تطبيق جوال مع واجهة برمجية</td>
+      <td>12,000 – 60,000</td>
+      <td>10 – 24 أسبوعاً</td>
+      <td>منصتان، عمل دون اتصال، إشعارات، ودورات مراجعة المتاجر</td>
+    </tr>
+    <tr>
+      <td>إنقاذ أو إعادة بناء كود قائم</td>
+      <td>تدقيق أولاً: 500 – 2,000</td>
+      <td>أسبوع للتدقيق</td>
+      <td>لا تسعّر إعادة بناء قبل التدقيق؛ الكود دائماً أسوأ من وصفه</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>قاعدتان في التسعير تستحقان الحفظ. الأولى: <strong>السعر الثابت يحميك فقط إذا كان النطاق ثابتاً</strong>، والسعر الثابت أمام طلب غامض وهمٌ يتحول لاحقاً إلى طلبات تعديل. الثانية: <strong>أرخص عرض هو غالباً أقل العروض فهماً</strong>. حين يأتي رقم بثلث بقية الأرقام فالتفسير المعتاد ليس الكفاءة، بل أنه لم يفهم المتطلب، وسيعود الفارق إما كمشكلة جودة أو كفاتورة.</p>
+
+<h2>10. العقد والملكية والبند الذي ينساه الجميع</h2>
+
+<p>أغلى خطأ أراه هو الملكية. الناس تفترض أن دفع ثمن الكود يعني امتلاكه، وهذا الافتراض قد يكون خاطئاً حسب القانون وصياغة الاتفاق — ففي كثير من الأنظمة القانونية يبقى حق المؤلف للمنفّذ ما لم يُنقَل كتابةً. كتبت عن هذا بتفصيل في <a href="/ar/blog/who-owns-your-website-code">من يملك كود موقعك فعلاً</a>، وهو يمرّ على الصياغة بنداً بنداً ويشرح ما يحدث حين لا يُنقَل الحق كتابةً من الأساس.</p>
+
+<p>يجب أن ينص اتفاقك بوضوح على:</p>
+
+<ul>
+  <li><strong>نقل كامل للملكية الفكرية</strong> في المُخرَجات إليك عند سداد الدفعة الأخيرة. نقل ملكية لا ترخيص استخدام.</li>
+  <li><strong>تسليم الكود المصدري</strong> بما في ذلك سجل Git، لا ملف مضغوط للحالة النهائية.</li>
+  <li><strong>ملكية الحسابات.</strong> النطاق والاستضافة وDNS وقاعدة البيانات ولوحة السحابة وحسابات المتاجر والتحليلات ومفاتيح الأطراف الثالثة، كلها مسجّلة على بريد شركتك لا بريد المطوّر. هذا هو البند الذي يتخطاه الناس وهو الذي يوقعهم.</li>
+  <li><strong>الإفصاح عن المكونات المرخّصة.</strong> أي قالب مدفوع أو حزمة تجارية أو مكتبة واجهة، مع بيان من يملك الترخيص وتكلفة تجديده.</li>
+  <li><strong>جدول دفع مرتبط بالمُخرَجات</strong> لا بالتواريخ. عادة 30% إلى 40% مقدماً، ودفعات مرحلية، ودفعة أخيرة عند القبول.</li>
+  <li><strong>فترة ضمان محددة</strong> — ثلاثون يوماً معيار معقول — تغطي عيوب ما سُلِّم ولا تغطي الطلبات الجديدة.</li>
+  <li><strong>الإنهاء والتسليم.</strong> ماذا يحدث إن انسحب أي طرف، وبأي حالة يجب تسليم العمل.</li>
+  <li><strong>السرية</strong> متبادلة، وموقف واضح من حق المطوّر في عرض العمل علناً.</li>
+</ul>
+
+<p>وإن أردت نقطة بداية بدل صفحة بيضاء، فـ<a href="/ar/blog/namudhaj-aqd-barmajat-mawqe">نموذج عقد برمجة موقع بلغة واضحة</a> مكتوب للعميل العربي ويمرّ على هذه البنود بصيغة يمكنك تعديلها. وهو عون على الصياغة لا استشارة قانونية — اعرض النسخة النهائية على محامٍ في بلدك قبل التوقيع.</p>
+
+<p>وبخصوص الدفع عبر الحدود: استخدم الوسيط المالي أو الدفعات المرحلية في أول تعاقد مع شخص لم تعمل معه. لا تدفع 100% مقدماً أبداً، واحذر من يصرّ على ذلك. وفي المقابل لا تتوقع أن يعمل محترف بلا مقدّم، فالدفعة الأولى طبيعية وتحمي الطرفين.</p>
+
+<h2>11. العلامات التحذيرية مرتّبة حسب كلفتها</h2>
+
+<h3>خطيرة — انسحب</h3>
+
+<ul>
+  <li><strong>يرفض منحك صلاحية المستودع من البداية.</strong> لا يوجد سبب وجيه لهذا. إنها ورقة ضغط تُبنى عمداً.</li>
+  <li><strong>يسجّل النطاق أو الاستضافة باسمه.</strong> نفس المشكلة بأصل مختلف.</li>
+  <li><strong>يسعّر مشروعاً كاملاً في أقل من ساعة وبلا أسئلة.</strong> هو يسعّر فئة عامة لا مشروعك.</li>
+  <li><strong>لا يستطيع عرض رابط حي واحد.</strong> بعد سنوات من العمل، لا بد أن جزءاً منه علني.</li>
+  <li><strong>يطالب بالمبلغ كاملاً قبل أي تسليم</strong> أو يرفض أي تقسيم مرحلي.</li>
+  <li><strong>أعمال في معرضه لا تصمد أمام فحص WHOIS أو الأرشيف</strong> ولا يقدّم تفسيراً عند السؤال.</li>
+</ul>
+
+<h3>جدية — تفاوض بحزم أو أعد التفكير</h3>
+
+<ul>
+  <li><strong>يوافق على كل طلب فوراً.</strong> لا توجد قائمة متطلبات كل ما فيها أفكار جيدة، لا قائمتك ولا قائمتي.</li>
+  <li><strong>لا يستطيع تبرير اختياره التقني</strong> بأكثر من «هذا الأفضل» أو «هذا ما أستخدمه».</li>
+  <li><strong>لا يوجد نطاق مكتوب.</strong> إذا كان النطاق يعيش في رسائل WhatsApp فستحدث مشادة حول ما اتُّفق عليه.</li>
+  <li><strong>تواصل بطيء أثناء مرحلة البيع.</strong> هذه أسرع حالاته على الإطلاق.</li>
+  <li><strong>تقديرات مستديرة وقصيرة بشكل مريب.</strong> «أسبوعان» لمتجر إلكتروني تعني تقديراً أنتجه التفاؤل لا التفكيك.</li>
+  <li><strong>يرفض المهمة التجريبية المدفوعة.</strong> مشروع أحياناً إن كان مشغولاً فعلاً. وغالباً لا.</li>
+</ul>
+
+<h3>تستحق الملاحظة لا الاستبعاد</h3>
+
+<ul>
+  <li>موقع شخصي قبيح. بعض أفضل المهندسين الذين أعرفهم مواقعهم الشخصية سيئة لأن الجهد ذهب لمواقع عملائهم.</li>
+  <li>عدم وجود سجل تجاري. كثير من المستقلين الممتازين يعملون بصفة فردية.</li>
+  <li>سيرة ذاتية متواضعة مع كود عام قوي. رجّح الكود على السيرة.</li>
+  <li>عدم معرفته بمجالك. معرفة المجال تُكتسب في أسبوع، أما الحكم الهندسي فلا.</li>
+</ul>
+
+<h2>12. كم يجب أن تستغرق عملية التوظيف؟</h2>
+
+<p>مع مستقل، يجب أن تستغرق العملية كلها من أسبوعين إلى ثلاثة من الوقت التقويمي. أطول من ذلك تُحرق الزخم، وأقصر منه يعني أنك تخطيت التحقق. المراحل التالية تجمع نحو اثني عشر يوم عمل في أسرع الحالات وتسعة عشر في أبطأها، وبعضها يتداخل عملياً.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>المرحلة</th>
+      <th>المدة</th>
+      <th>ما تفعله</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>كتابة الطلب</td>
+      <td>يوم إلى يومين</td>
+      <td>وثيقة الصفحة أو الصفحتين من القسم 4</td>
+    </tr>
+    <tr>
+      <td>البحث عن مرشحين</td>
+      <td>3 – 5 أيام</td>
+      <td>استهدف 5 إلى 8 مرشحين جادّين لا 40</td>
+    </tr>
+    <tr>
+      <td>التصفية والتحقق من الأعمال</td>
+      <td>يوم واحد</td>
+      <td>20 دقيقة لكل مرشح، ثم اختصر إلى ثلاثة</td>
+    </tr>
+    <tr>
+      <td>المكالمات</td>
+      <td>2 – 3 أيام</td>
+      <td>45 دقيقة لكل مكالمة بأسئلة القسم 7</td>
+    </tr>
+    <tr>
+      <td>المهمة التجريبية المدفوعة</td>
+      <td>3 – 5 أيام</td>
+      <td>نفّذها مع أفضل اثنين إن كان القرار متقارباً</td>
+    </tr>
+    <tr>
+      <td>العقد والانطلاق</td>
+      <td>2 – 3 أيام</td>
+      <td>وثيقة النطاق، العقد، الدفعة الأولى، صلاحية المستودع</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>أما التوظيف الداخلي فاحسب من شهرين إلى أربعة من الإعلان حتى أول يوم عمل، شاملة فترة الإشعار. ومع الشركات أضف زمن المشتريات؛ في المؤسسات الكبيرة قد تستهلك إجراءات الشراء وحدها ستة أسابيع قبل كتابة سطر واحد.</p>
+
+<p>تحذير بخصوص السرعة: المستقل القوي عادة محجوز لأسبوعين إلى ستة. إذا كان شخص ممتاز يستطيع البدء غداً فهذا ليس مؤشراً سيئاً تلقائياً — المشاريع تُلغى أحياناً — لكنه يستحق سؤالاً لطيفاً. وفي المقابل، لا تدع انتظار أربعة أسابيع يدفعك لاختيار أسوأ. أربعة أسابيع انتظار أرخص من أربعة أشهر إعادة عمل.</p>
+
+<h2>13. ما هو Laravel Partner وهل أحتاجه فعلاً؟</h2>
+
+<p>الإجابة القصيرة: هو الدليل الرسمي لشركات Laravel المفحوصة على laravel.com، ولا، أنت على الأرجح لا تحتاجه.</p>
+
+<p>تدير Laravel هذا البرنامج منذ 2017. وهو يُدرج شركات تطوير يبحث عنها فريق Laravel ويفحصها قبل أن يدعوها للانضمام، والطريق المعلَن هو تقديم طلب عبر نموذج «Become a Laravel Partner»، ثم مراجعة تقيّم خبرة الفريق في Laravel، وأعماله السابقة، ومكانته داخل مجتمع Laravel. وأنا أتوخى الدقة هنا لأن السخرية من أدلة المورّدين سهلة ومجانية: البرنامج كما تصفه الصفحة الرسمية عملية فحص ودعوة، لا مساحة تُشترى. اقرأ <em>laravel.com/partners</em> بنفسك بدل الاعتماد على أي مقال، بما في ذلك هذا المقال.</p>
+
+<p>وللبرنامج مستويان، ومعرفة الفرق بينهما هي أنفع ما تقدمه الصفحة لمشترٍ. <strong>Community Partners</strong> شركات تشارك بفعالية في منظومة Laravel وتسلّم أعمال إنتاج حقيقية على الإطار، ووصف Laravel نفسه أنها مناسبة لكثير من المشاريع. أما <strong>Premier Partners</strong> فتعمل بقرب أكبر من فريق Laravel، بما في ذلك تعاون مباشر مع فريق مبيعاته في مشاريع Laravel Cloud، وتتولى عادة أعمالاً أكبر أو أعقد مثل الطرح المؤسسي والنشر الواسع على Cloud. اقرأ المستويين كمقياس لمدى التصاق الشركة بالنشاط التجاري لـ Laravel نفسها، لا كتدريج لجودة الهندسة. وإن كنت تبني منصة أعمال عادية ولا تعنيك Laravel Cloud، فمستوى Community ليس جائزة ترضية.</p>
+
+<p>ما يخبرك به الوسم فعلاً: أن الشركة حقيقية، وأنها اجتازت مراجعة أجراها من يعرفون الإطار، وأنها تعمل في Laravel بجدية تكفي لبناء نشاط تجاري حوله. هذا مفيد إن كنت مؤسسة كبيرة تحتاج مورّداً يجتاز قائمة تحقق في إدارة المشتريات، وهو فلتر حقيقي: أغلب الشركات التي تكتب Laravel ليست في الدليل.</p>
+
+<p>وما لا يخبرك به: هل المطوّر المخصص لمشروعك جيد. الشركاء شركات، والشركات تضم أشخاصاً من كل المستويات، ومن يقدّم العرض غالباً ليس من يكتب الكود. الاعتماد يقع عند حدود الشركة، أما نتيجتك أنت فتُحسم طبقة واحدة تحته، فاطرح أسئلة القسم 7 على الأشخاص المسمّين بغضّ النظر عن الوسم على الورق الرسمي.</p>
+
+<p>والأهم: الأفراد لا يمكنهم أن يكونوا Laravel Partners أصلاً — تقول الأسئلة الشائعة الرسمية صراحة إن شركاء Laravel شركات لا مستقلون أفراد — ما يعني أن البرنامج صامت هيكلياً عن شريحة المستقلين الخبراء بأكملها. بعض أقوى مهندسي Laravel الذين أعرفهم يعملون منفردين. قيّمهم بناءً على مساهمات مدموجة وأنظمة حيّة تستطيع فتحها ومهمة تجريبية مدفوعة، لا بناءً على وسم غير مؤهلين للحصول عليه أصلاً.</p>
+
+<div class="post-callout"><p><strong>متى يكون Partner هو الخيار الصحيح:</strong> مؤسسة خاضعة لتنظيم رقابي، أو مناقصة حكومية، أو إجراء شراء يشترط اعتماد المورّد وتأميناً مهنياً بحجم معيّن — وتحديداً مستوى Premier إن كان الانتقال إلى Laravel Cloud جزءاً من الخطة. في هذه الحالات الوسم يؤدي عملاً حقيقياً. أما لشركة متوسطة تبني منصة، فهو فلتر تستطيع إعادة إنتاجه بنفسك في بعد ظهر واحد بخطوات التحقق في القسم 6، وهو فلتر يستبعد كل مستقل قوي بحكم تصميمه.</p></div>
+
+<h2>14. بعد التعاقد: كيف لا تُهدر المطوّر الذي وجدته</h2>
+
+<p>حسن الاختيار نصف المعادلة. رأيت مطوّرين جيدين يقدّمون نتائج متوسطة لأن العميل جعل العمل مستحيلاً، وهذا هو النصف الآخر.</p>
+
+<p><strong>عيّن صاحب قرار واحداً.</strong> شخص واحد يستطيع أن يقول «نعم». الملاحظات القادمة من أربع جهات تحوّل مشروع ستة أسابيع إلى اثني عشر، ولا يستطيع أحد تحديد اللحظة التي حدث فيها ذلك.</p>
+
+<p><strong>وفّر المحتوى مبكراً.</strong> المحتوى هو السبب الأول للتأخير في كل مشروع أدرته. نصوص حقيقية وصور حقيقية وبيانات منتجات حقيقية. لا «سنملؤها لاحقاً»، فـ«لاحقاً» هي أسبوع الإطلاق، وأسبوع الإطلاق مزدحم بكل شيء آخر.</p>
+
+<p><strong>امنح الصلاحيات في اليوم الأول.</strong> مسجّل النطاق، DNS، الاستضافة الحالية، التحليلات، بيانات بوابة الدفع التجريبية، ومفاتيح الواجهات. انتظار كلمة مرور ثلاثة أيام هو ثلاثة أيام محسوبة على المشروع.</p>
+
+<p><strong>اجمع ملاحظاتك دفعة واحدة.</strong> اثنتا عشرة رسالة موزعة على اليوم تشتت التركيز بشدة. مراجعة واحدة مجمّعة بعد كل مرحلة أنفع لك من تعليق مستمر.</p>
+
+<p><strong>اختبر على staging بجدية حين يُطلب منك.</strong> العميل الذي يقضي ساعتين محاولاً كسر نسخة التجربة يحصل على إطلاق بمفاجآت أقل بكثير من العميل الذي ينظر خمس دقائق ويقول «تمام».</p>
+
+<p><strong>احسم موضوع الصيانة قبل الإطلاق لا بعده.</strong> البرمجيات ليست أثاثاً. الأطر تصدر ترقيعات أمنية، والمتصفحات تتغير، ومزوّدو الدفع يوقفون إصدارات من واجهاتهم، والاعتماديات تتقادم. خصّص سنوياً ما بين 10% و20% من تكلفة البناء لإبقاء النظام حياً، واتفق على من ينفّذها قبل سداد الفاتورة الأخيرة.</p>
+
+<h2>15. قائمة تحقق جاهزة للنسخ</h2>
+
+<ol>
+  <li>اكتب طلباً من صفحة إلى صفحتين متضمناً نطاق ميزانية حقيقياً.</li>
+  <li>اجمع من 5 إلى 8 مرشحين من قناتين مختلفتين على الأقل.</li>
+  <li>لكل مرشح: افتح موقعين حيّين، افحص بصمة التقنية، ونفّذ فحص WHOIS والأرشيف.</li>
+  <li>اختصر إلى ثلاثة واحجز مكالمات من 45 دقيقة.</li>
+  <li>اطرح الأسئلة الاثني عشر من القسم 7، وسجّل من قال لك شيئاً لم تكن تريد سماعه.</li>
+  <li>خذ مرجعاً واحداً لكل مرشح بالبريد، بالأسئلة الثلاثة من القسم 6.</li>
+  <li>نفّذ مهمة تجريبية مدفوعة مع الأفضل أو الأفضلَين.</li>
+  <li>احصل على وثيقة نطاق مكتوبة بمستبعدات صريحة قبل العقد.</li>
+  <li>وقّع عقداً ينقل الملكية الفكرية عند الدفعة الأخيرة، بدفعات مرحلية وضمان 30 يوماً وبند تسليم.</li>
+  <li>أنشئ المستودع تحت حسابك أنت وادعُه إليه.</li>
+  <li>سجّل النطاق والاستضافة وكل حسابات الأطراف الثالثة على بريد شركتك.</li>
+  <li>اتفق على ترتيب الصيانة وسعره قبل الإطلاق.</li>
+</ol>
+
+<p>اثنتا عشرة خطوة، نحو خمس عشرة ساعة من وقتك موزعة على أسبوعين أو ثلاثة. أمام مشروع سيستمر شهوراً وتقوم عليه إيراداتك، هذا أرخص تأمين متاح.</p>
+
+<h2>16. ملاحظة عن التعاقد عن بُعد</h2>
+
+<p>بما أن كثيراً ممن يقرؤون هذا يوازنون بين التعاقد داخل مدينتهم أو خارجها، هذه ملاحظة عملية. ما يفسد علاقات العمل الهندسي عن بُعد ليس المسافة ولا اللهجة، بل تداخل التوقيت والكتابة.</p>
+
+<p>إذا كان مطوّرك مستيقظاً أربع ساعات من يوم عملك، تُجاب الأسئلة في نفس اليوم ويتحرك المشروع. أما إذا كان التداخل ساعة واحدة، فكل نقطة غامضة تكلّف يوماً كاملاً من التقويم، ومشروع فيه ثلاثون نقطة غامضة يفقد ستة أسابيع في الانتظار وحده. القاهرة على توقيت GMT+2، وGMT+3 في أشهر الصيف حين تعمل مصر بالتوقيت الصيفي، ما يعني في الحالتين تداخل يوم عمل كامل مع الخليج وأوروبا وبريطانيا، وتداخل بعد الظهر مع الساحل الشرقي الأمريكي. هذه ميزة بنيوية، ومن العدل أن تسأل عنها أي مرشح عن بُعد أياً كان مكانه.</p>
+
+<p>والأمر الثاني هو الكتابة. المطوّر عن بُعد الذي يكتب تحديثات واضحة كاملة نصاً أثمن ممن يجيد الحديث في مكالمة، لأن أغلب علاقتكما ستكون غير متزامنة. اطلب ملخصاً مكتوباً بعد المكالمة الأولى، وما يعود إليك سيخبرك بالكثير.</p>
+
+<p>هذا المقال متعمَّد أن يكون الإجراء العام: يصلح سواء كنت توظّف من الرياض أو دبي أو الإسكندرية. وإن كانت مصر تحديداً هي السوق الذي تبحث فيه، فالدليل المرافق عن <a href="/ar/blog/hire-full-stack-web-developer-egypt">توظيف مطوّر Full Stack في مصر</a> يدخل في التفاصيل المحلية التي يتجاوزها هذا المقال: توقعات الأسعار بالجنيه، وكيف يجري التعاقد والفوترة عملياً، وآليات تحويل الأموال.</p>
+
+<h2>17. كيف تحصل على إجابة صريحة عن مشروعك أنت</h2>
+
+<p>إن وصلت إلى هنا فغالباً في ذهنك مشروع محدد وقلق محدد من أن تخطئ فيه. هذا هو الحدس الصحيح، ويستحق أن تتصرف بناءً عليه قبل أن تدفع لا بعدها.</p>
+
+<p>أقدّم استشارة مجانية: تصف لي ما تريد بناءه، وأخبرك برأيي فيما يتطلبه، وكم يجب أن يكلّف تقريباً، وأين أرى المخاطرة — بما في ذلك حين تكون الإجابة الصادقة أنك لا تحتاج بناءً مخصصاً أصلاً، أو أن جدولك الزمني هو أول ما يجب تغييره. إن كان هناك توافق، تحصل على عرض بسعر ثابت مع نطاق مكتوب ومستبعدات مذكورة بالاسم. وإن لم يكن، تخرج على الأقل بطلب أوضح تأخذه لمن ستتعاقد معه.</p>
+
+<p><a href="/ar/contact">أرسل لي تفاصيل مشروعك</a> وسأرد خلال 24 ساعة. ويمكنك أولاً تصفّح <a href="/ar/portfolios">معرض أعمالي الحي</a> وتطبيق كل خطوة تحقق ذكرتها في القسم 6 عليه — بل أفضّل أن تفعل.</p>
+HTMLAR,
+            ],
+            [
+                'slug' => 'laravel-openai-api-integration',
+                'title' => 'Laravel + OpenAI: Streaming, Cost Control and Production Gotchas',
+                'title_ar' => 'دمج OpenAI مع Laravel: البث المباشر وضبط التكلفة وأخطاء الإنتاج',
+                'excerpt' => 'Which Laravel OpenAI package to use in 2026, how to stream tokens without your reverse proxy eating them, where AI calls belong, and the seven cost levers that decide whether your API bill is $40 a month or $4,000.',
+                'excerpt_ar' => 'أي حزمة تختار لدمج OpenAI مع Laravel في 2026، وكيف تبثّ الرموز دون أن يبتلعها الوكيل العكسي، وأين توضع الاستدعاءات، وسبع أدوات تحدد إن كانت فاتورتك 40 دولارًا شهريًا أم 4000.',
+                'category' => 'Backend',
+                'tags' => ['Laravel', 'OpenAI', 'AI Integration', 'Streaming', 'API Cost Optimization', 'PHP', 'Queues'],
+                'image' => '1710768229-blog-img-1.jpg',
+                'date' => '2026-07-23',
+                'read_time' => '16 min read',
+                'meta_title' => 'Laravel OpenAI API Integration: Streaming & Cost 2026',
+                'meta_title_ar' => 'دمج OpenAI مع Laravel: البث وضبط التكلفة 2026',
+                'meta_description' => 'Which Laravel OpenAI package to use in 2026, how to stream tokens without breaking Nginx, and the seven levers that actually cut your API bill.',
+                'meta_description_ar' => 'أي حزمة OpenAI تستخدم مع Laravel في 2026، وكيف تبثّ الرموز دون أن يعطّلها Nginx، وسبع أدوات عملية تخفض فاتورة الواجهة فعلًا.',
+                'faq' => [
+                    [
+                        'q' => 'Which Laravel OpenAI package should I use in production?',
+                        'a' => 'As of August 2026, use the official laravel/ai SDK for new builds — it ships agents, tools, structured output, SSE streaming, queueing and provider failover first-party. Note it is still 0.x (v0.10.3, released 6 August 2026, requiring PHP ^8.3 and Laravel 12 or 13), so pin the version and read release notes before upgrading. For a thin single-provider wrapper, openai-php/laravel v0.20.0 is the alternative.',
+                        'q_ar' => 'أي حزمة OpenAI أستخدم مع Laravel في الإنتاج؟',
+                        'a_ar' => 'حتى أغسطس 2026، استخدم الحزمة الرسمية laravel/ai في المشاريع الجديدة، فهي تقدّم الوكلاء والأدوات والمخرجات المهيكلة وبثّ SSE والطوابير والتحويل بين المزوّدين بشكل مدمج. لكنها ما زالت 0.x (الإصدار v0.10.3 بتاريخ 6 أغسطس 2026، ويتطلب PHP ‎^8.3‎ وLaravel 12 أو 13)، لذا ثبّت الإصدار واقرأ ملاحظات كل ترقية. أما البديل كغلاف رفيع لمزوّد واحد فهو openai-php/laravel v0.20.0.',
+                    ],
+                    [
+                        'q' => 'How do I stream tokens to the browser from Laravel?',
+                        'a' => 'With laravel/ai, return the agent\'s stream() response directly from a route — it emits Server-Sent Events automatically, and usingVercelDataProtocol() matches the Vercel AI SDK wire format for React clients. The hard part is infrastructure: disable proxy_buffering in Nginx, send X-Accel-Buffering: no, exclude the route from aggressive CDN proxying, and raise the load balancer idle timeout.',
+                        'q_ar' => 'كيف أبثّ الرموز إلى المتصفح من Laravel؟',
+                        'a_ar' => 'مع laravel/ai، أرجِع استجابة stream() مباشرة من الـ route، فهي ترسل أحداث Server-Sent Events تلقائيًا، ودالة usingVercelDataProtocol() تطابق تنسيق Vercel AI SDK لواجهات React. الجزء الصعب هو البنية التحتية: عطّل proxy_buffering في Nginx، وأرسل ترويسة X-Accel-Buffering: no، واستثنِ المسار من التمرير عبر CDN عدواني، وارفع مهلة الخمول في موازن الحمل.',
+                    ],
+                    [
+                        'q' => 'How do I stop an AI feature from burning my API budget?',
+                        'a' => 'Set a hard billing cap in the OpenAI dashboard on day one, cap output tokens with #[MaxTokens] on every agent, and route most traffic to the cost-optimised tier — gpt-5.6-luna today, or gpt-5-mini/gpt-5-nano if you are pinned to the previous generation — instead of the Sol flagship. Then put stable instructions at the front of the prompt so caching engages (cached input is 90% cheaper, but only above roughly a 1,024-token prefix), use the Batch API at 50% off for background work, and meter tokens per user with an enforced quota.',
+                        'q_ar' => 'كيف أمنع ميزة الذكاء الاصطناعي من التهام ميزانيتي؟',
+                        'a_ar' => 'اضبط سقف فوترة صارمًا في لوحة OpenAI من اليوم الأول، وضع #[MaxTokens] على كل وكيل، ووجّه معظم الحركة إلى الفئة الاقتصادية — gpt-5.6-luna اليوم، أو gpt-5-mini وgpt-5-nano إن كنت مثبّتًا على الجيل السابق — بدل النموذج الرائد Sol. ثم ضع التعليمات الثابتة في مقدمة الطلب حتى يعمل التخزين المؤقت (المدخلات المخزّنة أرخص بتسعين بالمئة، لكن فقط فوق مقدمة بطول ألف وأربعة وعشرين رمزًا تقريبًا)، واستخدم Batch API بخصم خمسين بالمئة للأعمال الخلفية، وقِس الرموز لكل مستخدم مع فرض حصة.',
+                    ],
+                    [
+                        'q' => 'Should AI calls live in queue jobs or controllers?',
+                        'a' => 'Stream from a controller only when the user is watching and the text itself is the product — chat, drafting, explanations. Everything else belongs in a queue job: classification, summarisation on upload, embeddings, enrichment, webhook-triggered work. Never make a synchronous controller call without streaming; it holds a worker for up to 40 seconds, dies on a 502, and cannot be retried.',
+                        'q_ar' => 'هل توضع استدعاءات الذكاء الاصطناعي في الطوابير أم في المتحكّمات؟',
+                        'a_ar' => 'ابثّ من المتحكّم فقط حين يكون المستخدم ينتظر أمام الشاشة والنص نفسه هو المنتج: المحادثة والصياغة والشرح. ما عدا ذلك مكانه مهمة طابور: التصنيف، والتلخيص عند الرفع، والتضمينات، وإثراء البيانات، وأي عمل يبدأ من webhook. ولا تستدعِ النموذج تزامنيًا في متحكّم بلا بثّ، فذلك يحجز عاملًا حتى أربعين ثانية، ويموت على خطأ 502، ولا يمكن إعادة تنفيذه.',
+                    ],
+                    [
+                        'q' => 'How do I handle OpenAI rate limits and retries safely?',
+                        'a' => 'OpenAI returns 429 with Retry-After and x-ratelimit-* headers; honour Retry-After then add jitter so workers do not retry in unison. Throttle before sending using Redis::throttle or a RateLimited job middleware. Separate the error classes: retry on rate-limit 429 and 5xx, never on insufficient-quota 429 or a 400 context-length error. For uptime, pass an array of providers for automatic failover.',
+                        'q_ar' => 'كيف أتعامل مع حدود الاستدعاء وإعادة المحاولة بأمان؟',
+                        'a_ar' => 'تُعيد OpenAI رمز 429 مع ترويسة Retry-After وترويسات x-ratelimit-*؛ احترم Retry-After ثم أضف عشوائية حتى لا يعيد العمّال المحاولة في وقت واحد. اخنق الطلبات قبل الإرسال عبر Redis::throttle أو وسيط المهام RateLimited. وفرّق بين الأخطاء: أعد المحاولة على 429 الخاص بالمعدل وعلى أخطاء 5xx، ولا تعدها أبدًا على 429 بسبب نفاد الرصيد ولا على خطأ 400 بسبب طول السياق. وللاستمرارية، مرّر مصفوفة مزوّدين للتحويل التلقائي.',
+                    ],
+                    [
+                        'q' => 'How much does a Laravel AI feature cost to build?',
+                        'a' => 'Honest ranges, not a quote: a single queued AI feature with usage logging typically runs $900–$2,000 to build and $20–$150 a month in API spend. A streaming assistant with quotas is roughly $2,500–$6,000, and RAG over your own documents $5,000–$12,000. The biggest cost variable is the state of the surrounding codebase, not the AI itself.',
+                        'q_ar' => 'كم تكلّف ميزة ذكاء اصطناعي في Laravel؟',
+                        'a_ar' => 'نطاقات صادقة لا عرض سعر: ميزة واحدة عبر طابور مع تسجيل الاستهلاك تكلّف عادةً 900 إلى 2000 دولار للتنفيذ، و20 إلى 150 دولارًا شهريًا على الواجهة. مساعد محادثة ببثّ وحصص يتراوح بين 2500 و6000 دولار، والبحث الدلالي على مستنداتك بين 5000 و12000 دولار. والعامل الأكبر في التكلفة هو حالة الشيفرة المحيطة لا الذكاء الاصطناعي نفسه. وأسعّر بالجنيه المصري أو الريال السعودي أو الدرهم عند الطلب.',
+                    ],
+                    [
+                        'q' => 'Is laravel/ai stable enough for production?',
+                        'a' => 'It is usable in production today, with a caveat you should plan around: it is still a 0.x package with a near-weekly release cadence — 46 tags by August 2026. Breaking changes between minor versions are normal. Pin the version, keep an eval fixture set so you can detect behaviour changes, and budget a small amount of maintenance time each quarter for upgrades.',
+                        'q_ar' => 'هل حزمة laravel/ai مستقرة بما يكفي للإنتاج؟',
+                        'a_ar' => 'نعم يمكن استخدامها في الإنتاج اليوم، مع تحفّظ يجب التخطيط له: ما زالت في الإصدار 0.x بوتيرة إصدارات شبه أسبوعية، إذ صدر منها ستة وأربعون إصدارًا حتى أغسطس 2026. التغييرات الكاسرة بين الإصدارات الصغيرة أمر متوقع. ثبّت الإصدار، واحتفظ بمجموعة تقييم ثابتة لاكتشاف تغيّر السلوك، وخصّص وقت صيانة بسيطًا كل ربع سنة للترقيات.',
+                    ],
+                ],
+                'content' => <<<'HTML'
+<p class="lead">If you are adding an OpenAI feature to a Laravel app in 2026, use the official <strong>laravel/ai</strong> SDK unless you have a specific reason not to — and treat the API key like a payment method, not a config value. I am Khaled Ahmed, a full stack developer in Cairo with 5+ years and 39+ shipped production projects across eight countries. This guide is the checklist I actually use: package choice, real streaming, queueing, rate limits, and the cost controls that stop a demo from becoming a bill.</p>
+
+<h2>1. The Verdict: Which Laravel OpenAI Package Should You Use in Production?</h2>
+
+<p>Short answer, as of <strong>August 2026</strong>: start with <code>laravel/ai</code>. It is the official SDK, it is maintained by the Laravel core team, and it is being pushed hard enough that the rest of the ecosystem is now orbiting it.</p>
+
+<p>The honest caveat, which nobody selling you an AI feature will mention: <strong>laravel/ai is still 0.x</strong>. The version on Packagist at the time I am writing this is <code>v0.10.3</code>, tagged 6 August 2026, requiring PHP <code>^8.3</code> and Laravel <code>^12.0|^13.0</code>. Forty-six tags have shipped since launch. That is a fast-moving package. Pin it with a tilde constraint, read the release notes before you bump, and do not put a 0.x dependency at the centre of a system you will not touch for two years.</p>
+
+<p>Here is how the real options compare. I have used all four.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Version / date checked</th>
+      <th>Best for</th>
+      <th>The catch</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>laravel/ai</code> (official SDK)</td>
+      <td>v0.10.3 — 6 Aug 2026 · PHP ^8.3 · Laravel 12/13</td>
+      <td>New builds. Agents, tools, structured output, streaming, queueing, broadcasting, embeddings, vector stores, provider failover — all first-party.</td>
+      <td>Still 0.x with a weekly-ish release cadence. Breaking changes are normal. It abstracts providers, so provider-specific knobs sometimes lag.</td>
+    </tr>
+    <tr>
+      <td><code>openai-php/laravel</code></td>
+      <td>v0.20.0 — 15 Jun 2026 · PHP ^8.2 · Laravel 11.29/12.12/13</td>
+      <td>You want a thin, faithful wrapper over OpenAI's own API surface, including the Responses API, with nothing in between.</td>
+      <td>Also 0.x. Single-provider by design — no failover, no abstraction. You build agents, retries and cost tracking yourself.</td>
+    </tr>
+    <tr>
+      <td><code>prism-php/prism</code></td>
+      <td>v0.100.1 — 20 Mar 2026</td>
+      <td>Existing apps already built on it. It was the best multi-provider option before the official SDK landed.</td>
+      <td>Release cadence slowed sharply once <code>laravel/ai</code> shipped. Check the repo yourself before starting anything new on it.</td>
+    </tr>
+    <tr>
+      <td>Raw <code>Http::</code> calls</td>
+      <td>Laravel HTTP client, always current</td>
+      <td>One endpoint, one model, one feature. A summarise button. Genuinely fine.</td>
+      <td>You reimplement streaming parsing, retries, timeouts and usage logging. Fine for one call, miserable for ten.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="post-callout"><p><strong>Rule of thumb:</strong> one AI call in the whole app? Use <code>Http::</code> and move on. Two or more, or any chance of adding a second provider later? Use <code>laravel/ai</code>. Never install two AI packages side by side — you will end up with two retry policies, two timeout defaults and no single place to see what you spent.</p></div>
+
+<h3>Why the official SDK actually changes the calculus</h3>
+
+<p>It is not just that it is official. It is that four things I used to hand-build are now framework-level: SSE streaming that you can <code>return</code> straight from a route, a <code>queue()</code> method with <code>then</code>/<code>catch</code>, provider failover as an array argument, and a full set of dispatched events (<code>PromptingAgent</code>, <code>AgentPrompted</code>, <code>InvokingTool</code>, <code>ToolInvoked</code>, <code>StreamingAgent</code>, <code>AgentStreamed</code>) that give you a clean hook for cost logging. That is a week of plumbing I no longer bill anyone for.</p>
+
+<h2>2. Installation and the Config Decisions That Matter</h2>
+
+<p>Installation is three commands:</p>
+
+<pre><code>composer require laravel/ai
+
+php artisan vendor:publish --provider="Laravel\Ai\AiServiceProvider"
+
+php artisan migrate</code></pre>
+
+<p>The migration creates <code>agent_conversations</code> and <code>agent_conversation_messages</code>. Look at those tables before you run the migration on a multi-tenant app — if you are enforcing tenancy at the database level, you need to decide where conversation rows live. I wrote about that boundary in more depth in my guide to <a href="/blog/multi-tenant-saas-laravel">building multi-tenant SaaS on Laravel</a>, and the same rule applies: a conversation is tenant data, and it will contain whatever your users pasted into it.</p>
+
+<p>Credentials go in <code>config/ai.php</code> or <code>.env</code>. The SDK recognises keys for OpenAI, Anthropic, Gemini, Mistral, Cohere, xAI, Groq, DeepSeek, OpenRouter, Azure OpenAI, ElevenLabs, Jina, VoyageAI and Ollama, plus a generic OpenAI-compatible driver that covers anything you self-host or run behind Bedrock. That breadth tells you how seriously the abstraction is meant.</p>
+
+<p>Three config decisions people get wrong:</p>
+
+<ul>
+  <li><strong>Set a custom base URL if you need a control point.</strong> The <code>url</code> parameter on a provider config lets you route through LiteLLM, a self-hosted vLLM endpoint, or your own proxy. (Azure OpenAI does not need this workaround — it is a first-class provider in the enum.) That is how you centralise key management, enforce spend caps outside application code, and log every request even when a developer bypasses your service class. On regulated projects — banks, health, anything in Saudi Arabia touching personal data — this is usually mandatory, not optional.</li>
+  <li><strong>Set the timeout deliberately.</strong> The SDK's default HTTP timeout is 60 seconds. A reasoning model with tool calls can exceed that. Use the <code>#[Timeout(120)]</code> attribute on slow agents rather than raising the global default and hiding real hangs.</li>
+  <li><strong>Never put the API key in a frontend build.</strong> Obvious, and yet I have inherited two projects where <code>VITE_OPENAI_API_KEY</code> was sitting in a public bundle. Rotate immediately, then read my <a href="/blog/website-security-checklist">website security checklist</a> before you ship anything else.</li>
+</ul>
+
+<h2>3. Agents: The Right Unit of Abstraction</h2>
+
+<p>The SDK's core idea is the <strong>agent</strong> — a PHP class that owns instructions, conversation context, tools and an output schema. Generate one with <code>php artisan make:agent SupportTriage</code>, or add <code>--structured</code> for a JSON-schema variant.</p>
+
+<pre><code>namespace App\Ai\Agents;
+
+use Illuminate\Contracts\JsonSchema\JsonSchema;
+use Laravel\Ai\Attributes\MaxTokens;
+use Laravel\Ai\Attributes\Model;
+use Laravel\Ai\Attributes\Provider;
+use Laravel\Ai\Attributes\Temperature;
+use Laravel\Ai\Contracts\Agent;
+use Laravel\Ai\Contracts\HasStructuredOutput;
+use Laravel\Ai\Enums\Lab;
+use Laravel\Ai\Promptable;
+use Stringable;
+
+#[Provider(Lab::OpenAI)]
+#[Model('gpt-5.6-luna')]
+#[MaxTokens(600)]
+#[Temperature(0.2)]
+class SupportTriage implements Agent, HasStructuredOutput
+{
+    use Promptable;
+
+    public function instructions(): Stringable|string
+    {
+        return 'Classify the support ticket. Never invent an order number.';
+    }
+
+    public function schema(JsonSchema $schema): array
+    {
+        return [
+            'category' =&gt; $schema-&gt;string()-&gt;required(),
+            'urgency'  =&gt; $schema-&gt;integer()-&gt;min(1)-&gt;max(5)-&gt;required(),
+            'reply'    =&gt; $schema-&gt;string()-&gt;required(),
+        ];
+    }
+}</code></pre>
+
+<p>Two things in that snippet are cost controls, not style choices. <code>#[MaxTokens(600)]</code> is a hard ceiling on the expensive half of the bill. <code>#[Temperature(0.2)]</code> on a classification task cuts the rambling that inflates output tokens. And the structured schema means you get parseable JSON instead of a paragraph you have to regex — which is exactly the same discipline I argue for in <a href="/blog/api-design-best-practices-2026">API design best practices</a>: define the contract, then make the system honour it.</p>
+
+<p>The SDK also ships <code>#[UseCheapestModel]</code> and <code>#[UseSmartestModel]</code>. Convenient, but I avoid them in production. "Cheapest" is defined by the SDK, not by you, and it will change under you on a minor version bump. Name your model explicitly and change it on purpose.</p>
+
+<h2>4. How Do I Stream Tokens to the Browser from Laravel?</h2>
+
+<p>Streaming is the single biggest perceived-quality win in an AI feature. In my own experience watching people use these features, the same total latency reads as fast when text is visibly arriving and as broken when it is a silent spinner — users will sit through a long generation they can see, and give up quickly on one they cannot.</p>
+
+<p>With the official SDK the happy path is genuinely one line — the returned <code>StreamableAgentResponse</code> is a valid route response and emits Server-Sent Events:</p>
+
+<pre><code>use App\Ai\Agents\SupportTriage;
+use Laravel\Ai\Responses\StreamedAgentResponse;
+
+Route::post('/ai/triage', function (Request $request) {
+    return SupportTriage::make()
+        -&gt;stream($request-&gt;string('ticket'))
+        -&gt;then(function (StreamedAgentResponse $response) {
+            // $response-&gt;text, $response-&gt;events, $response-&gt;usage
+            // Persist the message and the token usage HERE.
+        });
+})-&gt;middleware(['auth', 'throttle:ai']);</code></pre>
+
+<p>If your frontend is React or Next.js and you are already using the Vercel AI SDK on the client, call <code>-&gt;usingVercelDataProtocol()</code> on the streamable response and the wire format will match what <code>useChat</code> expects. That saves you writing a custom parser, which matters if you are combining a Laravel API with a React frontend — the pattern I describe in <a href="/blog/build-saas-mvp-laravel-react-2026">building a SaaS MVP with Laravel and React</a>.</p>
+
+<h3>The four things that break streaming in production</h3>
+
+<p>The code is easy. The infrastructure is where people lose two days.</p>
+
+<ol>
+  <li><strong>Nginx buffering.</strong> By default Nginx buffers the upstream response and your "stream" arrives as one lump at the end. You need <code>proxy_buffering off;</code> and <code>X-Accel-Buffering: no</code> on the SSE location. This is the number one cause of "it works locally, not on the server".</li>
+  <li><strong>Cloudflare and other CDNs.</strong> Proxied SSE through an aggressive edge can be buffered or cut. Exclude the streaming route from proxying, or verify it end to end before you promise it to the client. If you are still choosing infrastructure, my notes on <a href="/blog/choosing-web-hosting-2026">choosing web hosting</a> cover which setups make this painless.</li>
+  <li><strong>PHP-FPM worker occupancy.</strong> Every open stream holds a PHP worker for its entire lifetime. With <code>pm.max_children = 20</code>, twenty concurrent chats will lock your whole site. Either move to Octane, or use the broadcasting path below, or raise worker counts with your eyes open. This is the concrete place where the <a href="/blog/laravel-vs-nodejs-2026">Laravel vs Node.js</a> argument stops being theoretical — Node's event loop handles many idle-ish long connections more cheaply, and PHP needs Octane or a queue to match it.</li>
+  <li><strong>Load balancer idle timeouts.</strong> An ALB or a VPS reverse proxy with a 60-second idle timeout will kill a long generation mid-sentence. Raise it on the streaming route only.</li>
+</ol>
+
+<h3>The alternative: stream over WebSockets instead</h3>
+
+<p>If holding HTTP workers is unacceptable, push the generation to a queue and broadcast the deltas. The SDK supports this directly:</p>
+
+<pre><code>use Illuminate\Broadcasting\PrivateChannel;
+
+SupportTriage::make()-&gt;broadcastOnQueue(
+    $request-&gt;string('ticket'),
+    new PrivateChannel('conversations.'.$conversation-&gt;id),
+);</code></pre>
+
+<p>The HTTP request returns immediately, a queue worker does the generation, and Reverb or Pusher delivers the tokens. It costs you a WebSocket layer and more moving parts, but it is the pattern that scales past a few dozen concurrent users on ordinary PHP hosting.</p>
+
+<div class="post-callout"><p><strong>Choose by concurrency:</strong> under ~30 simultaneous generations, plain SSE with Octane is simpler and fine. Above that, queue plus broadcast. Do not build the WebSocket layer on day one for a product with forty users.</p></div>
+
+<h2>5. Where Should AI Calls Live — Queue Jobs or Controllers?</h2>
+
+<p>The rule I apply on every project:</p>
+
+<ul>
+  <li><strong>Controller, streaming:</strong> the user is watching, and the output is the point. Chat, drafting, "explain this". Stream it.</li>
+  <li><strong>Queue job:</strong> everything else. Classification, summarisation on upload, embedding generation, enrichment, bulk translation, anything triggered by a webhook.</li>
+  <li><strong>Never a synchronous controller call with no streaming.</strong> That is a 3-to-40-second request that occupies a worker, dies on a 502, and cannot be retried. It is the worst of both options and it is the most common mistake I find in inherited codebases.</li>
+</ul>
+
+<p>Queueing with the SDK is deliberately boring:</p>
+
+<pre><code>SupportTriage::make()
+    -&gt;queue($ticket-&gt;body)
+    -&gt;then(fn ($response) =&gt; $ticket-&gt;applyTriage($response))
+    -&gt;catch(fn (Throwable $e) =&gt; report($e));</code></pre>
+
+<p>Four operational rules for AI queue jobs, learned the expensive way:</p>
+
+<ol>
+  <li><strong>Put AI jobs on their own queue and their own Horizon supervisor.</strong> A slow model must never block password-reset emails.</li>
+  <li><strong>Set <code>$tries</code> low and <code>$backoff</code> explicit.</strong> I use <code>public $tries = 3;</code> and <code>public $backoff = [10, 60, 300];</code>. A default retry loop against a paid API is a way to pay three times for the same failure.</li>
+  <li><strong>Make the job idempotent.</strong> Store a hash of the input and short-circuit if you already have a result. Queue workers get killed mid-flight during deploys; without this you regenerate and re-pay.</li>
+  <li><strong>Persist usage in the same transaction as the result.</strong> If you save the answer but lose the token count, your cost dashboard is fiction.</li>
+</ol>
+
+<h2>6. How Do I Stop an AI Feature from Burning My API Budget?</h2>
+
+<p>This is the section clients care about after week two. Here are the current published OpenAI list prices per million tokens, checked <strong>August 2026</strong> — verify them before quoting anyone, because this table has changed several times a year since 2023. The current lineup on the pricing page is the <strong>GPT-5.6 family</strong>: Sol as the flagship, Terra as the everyday balanced tier, and Luna as the cost-optimised tier. Terra and Luna both got cheaper on 30 July 2026 (Terra by 20%, Luna by 80%); Sol was unchanged. The GPT-5 and GPT-4.1 generations are still available and still worth knowing, because plenty of production apps are pinned to them.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Input / 1M</th>
+      <th>Cached input / 1M</th>
+      <th>Output / 1M</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>GPT-5.6 Sol (flagship)</td><td>$5.00</td><td>$0.50</td><td>$30.00</td></tr>
+    <tr><td>GPT-5.6 Terra</td><td>$2.00</td><td>$0.20</td><td>$12.00</td></tr>
+    <tr><td>GPT-5.6 Luna</td><td>$0.20</td><td>$0.02</td><td>$1.20</td></tr>
+    <tr><td>GPT-5 / GPT-5.1</td><td>$1.25</td><td>$0.125</td><td>$10.00</td></tr>
+    <tr><td>GPT-5-mini</td><td>$0.25</td><td>$0.025</td><td>$2.00</td></tr>
+    <tr><td>GPT-5-nano</td><td>$0.05</td><td>$0.005</td><td>$0.40</td></tr>
+    <tr><td>GPT-4.1</td><td>$2.00</td><td>$0.50</td><td>$8.00</td></tr>
+    <tr><td>GPT-4.1-mini</td><td>$0.40</td><td>$0.10</td><td>$1.60</td></tr>
+    <tr><td>o4-mini</td><td>$1.10</td><td>$0.275</td><td>$4.40</td></tr>
+  </tbody>
+</table>
+
+<p>Two footnotes that bite in production. On the GPT-5.6 tiers, requests above roughly 272K input tokens move to a higher long-context rate, so a RAG feature that quietly grows its context window can change price band without anyone changing a line of code. And on GPT-5.6 and later, a cache <em>write</em> is billed at 1.25× the uncached input rate — cheap, but not free, so caching a prefix you only ever use once is a small loss rather than a small win.</p>
+
+<p>Read the shape of that table, not the numbers. <strong>Output costs six to eight times input across the whole lineup</strong> — 6× on Sol, 8× on GPT-5. <strong>Cached input costs a tenth of fresh input.</strong> <strong>The cost-optimised tier is twenty-five times cheaper than the flagship on input</strong> — Luna at $0.20 against Sol at $5.00. Every real cost control follows from those three facts.</p>
+
+<h3>The seven levers, in the order I apply them</h3>
+
+<ol>
+  <li><strong>Cap output tokens.</strong> <code>#[MaxTokens]</code> on every agent. No exceptions. An unbounded generation is an unbounded invoice.</li>
+  <li><strong>Route by difficulty.</strong> Most production traffic is classification, extraction and short replies. Those run on <code>gpt-5.6-luna</code> — or on <code>gpt-5-mini</code>/<code>gpt-5-nano</code> if you are already pinned to the previous generation. Reserve Sol, or whatever the flagship is when you read this, for the 5–10% of requests that genuinely need it. In my experience this alone typically removes the majority of the bill, because teams default the whole feature to the biggest model and never revisit it.</li>
+  <li><strong>Exploit prompt caching.</strong> Cached input is 90% cheaper, but read that carefully: the discount applies to the cached <em>prefix</em> tokens on a cache hit, not to your input bill as a whole. Two conditions decide whether you get it. First, the prompt has to be <em>stable at the front</em> — put the long system instructions, schema and few-shot examples first, and the volatile user content last. Second, OpenAI's automatic caching only kicks in at a prefix of about 1,024 tokens and then grows in 128-token steps, so short prompts never cache at all, and caches are dropped after a few minutes of inactivity on that prefix. Get both right and the stable part of your input drops by 90%; get the ordering wrong and you pay full price on every call. Most teams never look at it.</li>
+  <li><strong>Use the Batch API for anything not user-facing.</strong> 50% off standard rates. Nightly enrichment, backfills, re-embedding a catalogue — all of it belongs in Batch.</li>
+  <li><strong>Consider flex processing for async work.</strong> OpenAI's <code>service_tier</code> flex option is priced at Batch rates for slower, lower-priority requests. As of the docs I read in August 2026 it is still described as beta with limited model availability, and it can return 429 "resource unavailable", which you are explicitly not charged for. The official SDKs use a 10-minute request timeout on flex, and complex jobs may need more than that — raise the timeout deliberately, back off on 429, and fall back to <code>service_tier: auto</code> if the work has any deadline at all. Useful, but do not put a user in front of it.</li>
+  <li><strong>Cache your own results.</strong> Hash the normalised input plus model plus prompt version, and store the response. In a support-reply or product-description tool a meaningful share of requests are near-duplicates. This is ordinary application caching and it is free money — see <a href="/blog/why-your-website-loads-slowly">why your website loads slowly</a> for the same principle applied to page rendering.</li>
+  <li><strong>Meter per user and per tenant.</strong> Store <code>prompt_tokens</code>, <code>completion_tokens</code>, model and cost on every call, keyed to the user. Then enforce a quota. Without this, one enthusiastic user or one loop bug is an open tap. Design that table properly the first time — my notes on <a href="/blog/database-design-for-web-apps">database design for web apps</a> apply directly.</li>
+</ol>
+
+<p>The SDK gives you the hook for lever seven for free: listen for <code>AgentPrompted</code> and <code>AgentStreamed</code> and write a usage row from the event listener. One listener, every call covered, no service class to remember to go through.</p>
+
+<div class="post-callout"><p><strong>Set a hard billing limit in the OpenAI dashboard on day one.</strong> Not a notification threshold — a hard cap. It is the only control that works while you are asleep, and it has saved more than one of my clients from a runaway loop discovered on a Monday morning.</p></div>
+
+<h2>7. How Do I Handle Rate Limits and Retries Safely?</h2>
+
+<p>OpenAI returns <strong>429</strong> for rate limiting and includes headers you should actually read: <code>Retry-After</code>, <code>x-ratelimit-limit-requests</code>, <code>x-ratelimit-remaining-requests</code>, <code>x-ratelimit-limit-tokens</code>, <code>x-ratelimit-remaining-tokens</code>, and the matching <code>reset</code> headers. Limits are tied to your usage tier, which climbs with cumulative spend — a brand-new Tier 1 key is dramatically more constrained than a Tier 4 key, which is why a feature that worked in staging on the founder's personal key can fall over on the company account.</p>
+
+<p>Four rules:</p>
+
+<ol>
+  <li><strong>Honour <code>Retry-After</code>, then add jitter.</strong> Fixed backoff across many workers produces a synchronised retry storm that re-triggers the limit. Randomise.</li>
+  <li><strong>Throttle before you send, not after you fail.</strong> Laravel's <code>Redis::throttle()</code> or a <code>RateLimited</code> job middleware keeps you under the ceiling instead of discovering it. Cheaper and calmer than reactive retries.</li>
+  <li><strong>Distinguish the error classes.</strong> 429 rate limit, retry with backoff. 429 insufficient quota, do not retry — your card failed, and retrying just fills the failed-jobs table. 400 context length, do not retry, truncate. 500/503, retry a few times. Blanket retry-on-any-exception is how you turn one bad request into 300.</li>
+  <li><strong>Fail over, do not fail.</strong> The SDK accepts an array of providers: <code>provider: [Lab::OpenAI, Lab::Anthropic]</code>. For a feature that must stay up during a provider incident, that one argument is your whole disaster-recovery plan — provided your prompts and schemas are not so OpenAI-specific that the fallback produces garbage. Test the fallback path deliberately, at least once.</li>
+</ol>
+
+<h2>8. Production Gotchas Nobody Warns You About</h2>
+
+<h3>Streaming makes moderation harder</h3>
+<p>OpenAI's own documentation makes this point: partial output is harder to evaluate, and moderation signals arrive after generation completes. If you are streaming to end users in a consumer product, you are showing text before you have judged it. Either accept that risk explicitly, or do not stream the user-generated-content-adjacent features.</p>
+
+<h3>Tools are an injection surface</h3>
+<p>The moment you give an agent a tool that reads your database, a user's prompt can attempt to steer that tool. Scope every tool to the authenticated user at the query level, never trust an ID that came out of a model, and validate tool arguments with the same rigour as a form request. Treat the model as an untrusted client calling your internal API.</p>
+
+<h3>Logging prompts is a data-protection decision</h3>
+<p>Full prompt logging is enormously useful for debugging and a liability the day someone pastes a national ID or a medical detail. Log token counts, model, latency, a prompt hash and a truncated preview by default. Log full prompts only behind a flag, with retention, and say so in your privacy policy — especially for clients in Saudi Arabia and the UAE, where personal-data rules are tightening.</p>
+
+<h3>Your evals are your regression tests</h3>
+<p>You cannot unit-test "is this reply good", but you can build a fixture set of thirty real inputs with expected classifications and assert against them. The SDK makes this cheap with <code>SupportTriage::fake()</code>, which accepts a fixed response, an array of responses, or a closure that inspects the incoming <code>AgentPrompt</code>. Fake in CI so your test suite costs nothing, and run the real eval set manually before you change a model or a prompt.</p>
+
+<h3>Version your prompts</h3>
+<p>Store a prompt version string with every logged call. When quality drops next quarter, the first question is "what changed", and "we edited the system prompt in March" is only answerable if you wrote it down.</p>
+
+<h2>9. What Does This Cost to Build?</h2>
+
+<p>Honest ranges, not a quote. These are the bands I quote from as a senior freelance developer working remotely from Cairo; agencies in London or Dubai will typically be two to four times higher for the same scope, which I unpack in <a href="/blog/freelance-developer-vs-agency">freelance developer vs agency</a>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Scope</th>
+      <th>What it includes</th>
+      <th>Typical build range (USD)</th>
+      <th>Typical monthly API spend</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Single AI feature</td>
+      <td>One agent, queued, usage logging, admin visibility. No streaming.</td>
+      <td>$900 – $2,000</td>
+      <td>$20 – $150</td>
+    </tr>
+    <tr>
+      <td>Streaming assistant</td>
+      <td>Chat UI, SSE or Reverb, conversation storage, per-user quotas, rate limiting.</td>
+      <td>$2,500 – $6,000</td>
+      <td>$100 – $800</td>
+    </tr>
+    <tr>
+      <td>RAG over your own documents</td>
+      <td>Ingestion, chunking, embeddings, vector store, retrieval tuning, citations.</td>
+      <td>$5,000 – $12,000</td>
+      <td>$150 – $1,500</td>
+    </tr>
+    <tr>
+      <td>Agentic workflow with tools</td>
+      <td>Multiple tools hitting internal APIs, approvals, audit trail, failover provider.</td>
+      <td>$8,000 – $20,000+</td>
+      <td>Highly variable</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Assumptions behind those numbers: an existing Laravel 12 or 13 codebase in reasonable health, you supply the API account, and the API spend column assumes sane model routing rather than running everything on the flagship. Egyptian and Gulf clients often ask for the same figures in EGP or SAR — I quote in whichever currency you prefer, and the API cost is always billed to your own OpenAI account, never marked up through me.</p>
+
+<p>The variable that moves the build cost most is not the AI. It is the state of the codebase around it. Adding an agent to a clean, tested Laravel app is a week. Adding one to a five-year-old app with no queue workers, no Horizon and business logic living in controllers is a month, because you have to build the foundation first.</p>
+
+<h2>10. A Ship-It Checklist</h2>
+
+<ul>
+  <li>Hard billing cap set in the provider dashboard, not just an alert.</li>
+  <li><code>#[MaxTokens]</code> on every agent, and a named model — never an auto-selected one.</li>
+  <li>Cheap model as the default; flagship only on the paths that need it.</li>
+  <li>Stable prompt prefix, long enough to clear the caching minimum, so caching actually engages.</li>
+  <li>Per-user token metering written from an event listener, plus an enforced quota.</li>
+  <li>AI jobs on a dedicated queue with <code>$tries</code> and explicit <code>$backoff</code>, and idempotency by input hash.</li>
+  <li>429 handling that reads <code>Retry-After</code> and adds jitter; no blanket retries on 400 or insufficient-quota.</li>
+  <li>Streaming route excluded from proxy buffering and given a raised idle timeout, verified on the real server.</li>
+  <li>Tools scoped to the authenticated user at the query level.</li>
+  <li>Prompt hashes and versions logged; full prompts behind a flag with retention.</li>
+  <li>An eval fixture set, plus <code>fake()</code> in CI so tests cost nothing.</li>
+  <li>A documented fallback: what the feature does when the provider is down.</li>
+</ul>
+
+<p>If eleven of those twelve are done, the feature is production-ready. If fewer than six are, you have a demo — and demos are exactly what get shipped to real users and then quietly turned off six weeks later when the bill arrives.</p>
+
+<h2>11. Work With Me</h2>
+
+<p>I build these features for a living, mostly for teams who already have a working Laravel product and want the AI part done properly rather than bolted on. If you want a second opinion on an architecture, a fixed-fee build, or a rescue of something already misbehaving in production, you can see how I work on the <a href="/services">services page</a> or <a href="/hire-laravel-developer">hire me as a Laravel developer</a> directly.</p>
+
+<p>Send me the feature you have in mind through <a href="/contact">the contact page</a>. Tell me the Laravel version, your current queue setup and what the feature should do. I will reply within 24 hours with a free consultation and a fixed-fee quote — and if I think the honest answer is that you do not need AI for this, I will say that instead.</p>
+HTML,
+                'content_ar' => <<<'HTMLAR'
+<p class="lead">إذا كنت تضيف ميزة ذكاء اصطناعي إلى تطبيق Laravel في عام 2026، فابدأ بحزمة <strong>laravel/ai</strong> الرسمية ما لم يكن لديك سبب تقني واضح لغير ذلك، وتعامل مع مفتاح OpenAI باعتباره وسيلة دفع لا مجرد متغير في ملف الإعدادات. أنا خالد أحمد، مطوّر Full Stack من القاهرة، بخبرة تتجاوز خمس سنوات وأكثر من 39 مشروعًا إنتاجيًا في ثماني دول. هذا المقال هو القائمة التي أطبّقها فعليًا: اختيار الحزمة، والبث المباشر، والطوابير، وحدود الاستدعاء، وضبط التكلفة قبل أن تتحوّل التجربة إلى فاتورة.</p>
+
+<h2>1. الخلاصة أولًا: أي حزمة تستخدم في بيئة الإنتاج؟</h2>
+
+<p>الإجابة المختصرة حتى <strong>أغسطس 2026</strong>: استخدم <code>laravel/ai</code>. هي الحزمة الرسمية من فريق Laravel نفسه، وقد تحوّل إليها ثقل المنظومة كلها خلال أشهر قليلة.</p>
+
+<p>أما التحفّظ الذي لن يذكره لك من يبيعك ميزة ذكاء اصطناعي، فهو أن <strong>الحزمة ما زالت في الإصدار 0.x</strong>. الإصدار المنشور على Packagist وقت كتابة هذا المقال هو <code>v0.10.3</code> بتاريخ 6 أغسطس 2026، ويتطلب PHP بإصدار <code>^8.3</code> وLaravel <code>^12.0</code> أو <code>^13.0</code>. صدر منها ستة وأربعون إصدارًا حتى الآن، أي أن وتيرة التغيير سريعة جدًا. ثبّت الإصدار في ملف <code>composer.json</code> بقيد محدد، واقرأ ملاحظات الإصدار قبل أي ترقية، ولا تبنِ نظامًا لن تلمسه لعامين فوق اعتمادية ما زالت في مرحلة ما قبل الاستقرار.</p>
+
+<p>هذا مقارنة صريحة بين الخيارات الأربعة الواقعية، وقد استخدمتها جميعًا:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>الخيار</th>
+      <th>الإصدار وتاريخ التحقق</th>
+      <th>يناسب</th>
+      <th>الثمن الذي تدفعه</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>laravel/ai</code> الرسمية</td>
+      <td>v0.10.3 — 6 أغسطس 2026 · PHP ‎^8.3‎ · Laravel 12/13</td>
+      <td>المشاريع الجديدة. تدعم الوكلاء والأدوات والمخرجات المهيكلة والبث والطوابير والبث اللحظي والتضمينات ومخازن المتجهات والتحويل التلقائي بين المزوّدين.</td>
+      <td>ما زالت 0.x بإصدارات شبه أسبوعية، والتغييرات الكاسرة أمر متوقع. طبقة التجريد قد تتأخر أحيانًا عن مزايا خاصة بمزوّد بعينه.</td>
+    </tr>
+    <tr>
+      <td><code>openai-php/laravel</code></td>
+      <td>v0.20.0 — 15 يونيو 2026 · PHP ‎^8.2‎ · Laravel 11.29/12.12/13</td>
+      <td>من يريد غلافًا رفيعًا وأمينًا فوق واجهة OpenAI نفسها، بما فيها Responses API، دون طبقة وسيطة.</td>
+      <td>أيضًا 0.x، ومصمّمة لمزوّد واحد فقط. لا تحويل تلقائي ولا تجريد، وستبني بنفسك منطق إعادة المحاولة وتتبّع التكلفة.</td>
+    </tr>
+    <tr>
+      <td><code>prism-php/prism</code></td>
+      <td>v0.100.1 — 20 مارس 2026</td>
+      <td>التطبيقات القائمة عليها بالفعل. كانت أفضل خيار متعدد المزوّدين قبل صدور الحزمة الرسمية.</td>
+      <td>تباطأت وتيرة إصداراتها بوضوح بعد ظهور <code>laravel/ai</code>. راجع حالة المستودع بنفسك قبل بدء أي مشروع جديد عليها.</td>
+    </tr>
+    <tr>
+      <td>استدعاء مباشر عبر <code>Http::</code></td>
+      <td>عميل HTTP المدمج في Laravel</td>
+      <td>ميزة واحدة، ونقطة نهاية واحدة، ونموذج واحد. زر «لخّص لي هذا النص» مثلًا.</td>
+      <td>ستعيد كتابة تحليل البث وإعادة المحاولة والمهل وتسجيل الاستهلاك يدويًا. مقبول لاستدعاء واحد، مرهق لعشرة.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="post-callout"><p><strong>قاعدة عملية:</strong> استدعاء واحد فقط في التطبيق كله؟ استخدم <code>Http::</code> وانتهِ. استدعاءان أو أكثر، أو احتمال إضافة مزوّد ثانٍ لاحقًا؟ استخدم <code>laravel/ai</code>. ولا تثبّت حزمتين للذكاء الاصطناعي جنبًا إلى جنب أبدًا، وإلا انتهيت بسياستَي إعادة محاولة، ومهلتين مختلفتين، ولا مكان واحد يخبرك كم أنفقت.</p></div>
+
+<h3>لماذا غيّرت الحزمة الرسمية المعادلة فعلًا</h3>
+
+<p>ليست المسألة أنها «رسمية» فحسب. المسألة أن أربعة أشياء كنت أبنيها يدويًا في كل مشروع صارت جزءًا من إطار العمل: بثّ Server-Sent Events يمكن إرجاعه مباشرة من الـ route، ودالة <code>queue()</code> مصحوبة بـ <code>then</code> و<code>catch</code>، وتحويل تلقائي بين المزوّدين بمجرد تمرير مصفوفة، ومجموعة أحداث جاهزة مثل <code>PromptingAgent</code> و<code>AgentPrompted</code> و<code>InvokingTool</code> و<code>ToolInvoked</code> و<code>StreamingAgent</code> و<code>AgentStreamed</code> تمنحك نقطة تعليق نظيفة لتسجيل التكلفة. هذا أسبوع عمل كامل لم أعد أحاسب عليه أحدًا.</p>
+
+<h2>2. التثبيت والقرارات التي تُتخذ مرة واحدة</h2>
+
+<p>التثبيت ثلاثة أوامر:</p>
+
+<pre><code>composer require laravel/ai
+
+php artisan vendor:publish --provider="Laravel\Ai\AiServiceProvider"
+
+php artisan migrate</code></pre>
+
+<p>يُنشئ الترحيل جدولَي <code>agent_conversations</code> و<code>agent_conversation_messages</code>. افتح هذين الجدولين وتأمّلهما قبل تشغيل الترحيل على تطبيق متعدد المستأجرين، لأنك تحتاج إلى تحديد أين تعيش سجلات المحادثة إذا كنت تفرض عزل المستأجرين على مستوى قاعدة البيانات. تناولت هذا الحد الفاصل بتفصيل أكبر في دليل <a href="/ar/blog/multi-tenant-saas-laravel">بناء SaaS متعدد المستأجرين على Laravel</a>، والقاعدة نفسها تنطبق هنا: المحادثة بيانات مستأجر، وستحتوي على كل ما لصقه المستخدمون بداخلها.</p>
+
+<p>تُوضع بيانات الاعتماد في <code>config/ai.php</code> أو في <code>.env</code>. تتعرّف الحزمة على مفاتيح OpenAI وAnthropic وGemini وMistral وCohere وxAI وGroq وDeepSeek وOpenRouter وAzure OpenAI وElevenLabs وJina وVoyageAI وOllama، إضافة إلى مزوّد عام متوافق مع واجهة OpenAI يغطي أي نموذج تستضيفه بنفسك أو تشغّله خلف Bedrock. هذا الاتساع وحده يوضّح مدى جدية طبقة التجريد.</p>
+
+<p>ثلاثة قرارات إعداد يخطئ فيها أغلب الفرق:</p>
+
+<ul>
+  <li><strong>حدّد عنوان قاعدة مخصصًا إذا احتجت نقطة تحكم مركزية.</strong> يسمح لك المعامل <code>url</code> داخل إعدادات المزوّد بتمرير الطلبات عبر LiteLLM أو نقطة نهاية vLLM تستضيفها بنفسك أو وسيط خاص بك. (أمّا Azure OpenAI فلا يحتاج إلى هذه الحيلة، لأنه مزوّد معتمد داخل الحزمة أصلًا.) هكذا تركّز إدارة المفاتيح، وتفرض سقف إنفاق خارج شيفرة التطبيق، وتسجّل كل طلب حتى لو تجاوز أحد المطورين طبقة الخدمة لديك. في المشاريع المنظَّمة — البنوك والقطاع الصحي وأي مشروع في السعودية يمسّ بيانات شخصية — يكون هذا شرطًا لا خيارًا.</li>
+  <li><strong>اضبط المهلة عن قصد.</strong> المهلة الافتراضية في الحزمة ستون ثانية، ونموذج استدلالي يستدعي أدوات قد يتجاوزها. استخدم السمة <code>#[Timeout(120)]</code> على الوكلاء البطيئة تحديدًا بدل رفع القيمة العامة وإخفاء التعليقات الحقيقية.</li>
+  <li><strong>لا تضع المفتاح في حزمة الواجهة الأمامية إطلاقًا.</strong> بديهي، ومع ذلك ورثت مشروعين كان فيهما <code>VITE_OPENAI_API_KEY</code> ظاهرًا في ملف JavaScript عام. غيّر المفتاح فورًا، ثم راجع <a href="/ar/blog/website-security-checklist">قائمة فحص أمان الموقع</a> قبل إطلاق أي شيء آخر.</li>
+</ul>
+
+<h2>3. الوكلاء: وحدة التجريد الصحيحة</h2>
+
+<p>الفكرة المركزية في الحزمة هي <strong>الوكيل</strong> (Agent): صنف PHP يملك التعليمات وسياق المحادثة والأدوات ومخطط المخرجات. تنشئه بأمر <code>php artisan make:agent SupportTriage</code>، أو تضيف <code>--structured</code> للحصول على نسخة بمخطط JSON.</p>
+
+<pre><code>namespace App\Ai\Agents;
+
+use Illuminate\Contracts\JsonSchema\JsonSchema;
+use Laravel\Ai\Attributes\MaxTokens;
+use Laravel\Ai\Attributes\Model;
+use Laravel\Ai\Attributes\Provider;
+use Laravel\Ai\Attributes\Temperature;
+use Laravel\Ai\Contracts\Agent;
+use Laravel\Ai\Contracts\HasStructuredOutput;
+use Laravel\Ai\Enums\Lab;
+use Laravel\Ai\Promptable;
+use Stringable;
+
+#[Provider(Lab::OpenAI)]
+#[Model('gpt-5.6-luna')]
+#[MaxTokens(600)]
+#[Temperature(0.2)]
+class SupportTriage implements Agent, HasStructuredOutput
+{
+    use Promptable;
+
+    public function instructions(): Stringable|string
+    {
+        return 'صنّف تذكرة الدعم. لا تخترع رقم طلب غير موجود.';
+    }
+
+    public function schema(JsonSchema $schema): array
+    {
+        return [
+            'category' =&gt; $schema-&gt;string()-&gt;required(),
+            'urgency'  =&gt; $schema-&gt;integer()-&gt;min(1)-&gt;max(5)-&gt;required(),
+            'reply'    =&gt; $schema-&gt;string()-&gt;required(),
+        ];
+    }
+}</code></pre>
+
+<p>سطران في هذا المثال ليسا مسألة ذوق، بل أداتا ضبط تكلفة. السمة <code>#[MaxTokens(600)]</code> سقف صارم على الشطر الأغلى من الفاتورة، والسمة <code>#[Temperature(0.2)]</code> في مهمة تصنيف تقلّص الإسهاب الذي يضخّم رموز المخرجات. أما المخطط المهيكل فيمنحك JSON قابلًا للتحليل بدل فقرة نصية تلاحقها بالتعبيرات النمطية، وهو الانضباط ذاته الذي أدافع عنه في <a href="/ar/blog/api-design-best-practices-2026">أفضل ممارسات تصميم واجهات API</a>: عرّف العقد أولًا، ثم أجبر النظام على احترامه.</p>
+
+<p>تقدّم الحزمة أيضًا السمتين <code>#[UseCheapestModel]</code> و<code>#[UseSmartestModel]</code>. مريحتان، لكنني أتجنّبهما في الإنتاج. تعريف «الأرخص» تحدده الحزمة لا أنت، وقد يتبدّل تحت قدميك مع ترقية صغيرة. سمِّ النموذج صراحةً، وغيّره عن قصد.</p>
+
+<h2>4. كيف تبثّ الرموز إلى المتصفح من Laravel؟</h2>
+
+<p>البث المباشر هو أكبر مكسب في جودة التجربة المدركة. من واقع مراقبتي لاستخدام هذه المزايا، زمن الانتظار نفسه يُقرأ سريعًا حين يرى المستخدم النص يتوالى أمامه، ويُقرأ عطلًا حين يرى مؤشر تحميل صامتًا: يصبر الناس على توليد طويل يرونه، ويغادرون بسرعة أمام شاشة لا تتحرك.</p>
+
+<p>مع الحزمة الرسمية، المسار السعيد سطر واحد فعلًا، لأن الكائن المُعاد <code>StreamableAgentResponse</code> صالح كاستجابة route ويرسل أحداث Server-Sent Events تلقائيًا:</p>
+
+<pre><code>use App\Ai\Agents\SupportTriage;
+use Laravel\Ai\Responses\StreamedAgentResponse;
+
+Route::post('/ai/triage', function (Request $request) {
+    return SupportTriage::make()
+        -&gt;stream($request-&gt;string('ticket'))
+        -&gt;then(function (StreamedAgentResponse $response) {
+            // $response-&gt;text و $response-&gt;usage
+            // خزّن الرسالة وعدّاد الرموز هنا تحديدًا
+        });
+})-&gt;middleware(['auth', 'throttle:ai']);</code></pre>
+
+<p>إذا كانت واجهتك مبنية على React أو Next.js وتستخدم بالفعل Vercel AI SDK في المتصفح، فاستدعِ <code>-&gt;usingVercelDataProtocol()</code> على الاستجابة، فيتطابق تنسيق البث مع ما يتوقعه <code>useChat</code> دون أن تكتب محلّلًا خاصًا. هذا يوفّر وقتًا حقيقيًا في المعمارية التي أشرحها في <a href="/ar/blog/build-saas-mvp-laravel-react-2026">بناء نسخة SaaS أولى بـ Laravel وReact</a>.</p>
+
+<h3>أربعة أسباب تُفشل البث على الخادم رغم نجاحه محليًا</h3>
+
+<p>الشيفرة سهلة، والبنية التحتية هي التي تُضيّع يومين من عمر المشروع.</p>
+
+<ol>
+  <li><strong>تخزين Nginx المؤقت.</strong> افتراضيًا يخزّن Nginx استجابة الخادم الخلفي ويسلّمها دفعة واحدة في النهاية، فيصلك «بثّ» ليس بثًا. تحتاج إلى <code>proxy_buffering off;</code> وإلى ترويسة <code>X-Accel-Buffering: no</code> على مسار البث. هذا السبب الأول لعبارة «يعمل عندي ولا يعمل على الـ server».</li>
+  <li><strong>Cloudflare وشبكات التوزيع.</strong> قد تُخزَّن استجابة SSE مؤقتًا أو تُقطع عند حافة عدوانية. استثنِ مسار البث من التمرير عبر الوكيل، أو تحقّق منه من طرف إلى طرف قبل أن تَعِد العميل به. وإذا كنت ما زلت تختار البنية، فمقالي عن <a href="/ar/blog/choosing-web-hosting-2026">اختيار الاستضافة المناسبة</a> يوضّح أي إعداد يجعل هذا الأمر بلا وجع.</li>
+  <li><strong>عدد عمّال PHP-FPM.</strong> كل اتصال بث مفتوح يحجز عاملًا كاملًا طوال عمره. بقيمة <code>pm.max_children = 20</code> تكفي عشرون محادثة متزامنة لتجميد الموقع بأكمله. إمّا أن تنتقل إلى Octane، أو تستخدم مسار البث اللحظي أدناه، أو ترفع عدد العمّال وأنت مدرك للتكلفة. هنا تحديدًا يتوقف نقاش <a href="/ar/blog/laravel-vs-nodejs-2026">Laravel مقابل Node.js</a> عن كونه نظريًا: حلقة أحداث Node تتعامل مع اتصالات طويلة خاملة بتكلفة أقل، وPHP يحتاج إلى Octane أو طابور لمجاراتها.</li>
+  <li><strong>مهلة الخمول في موازن الحمل.</strong> موازن حمل أو وكيل عكسي بمهلة خمول ستين ثانية سيقطع توليدًا طويلًا في منتصف الجملة. ارفع المهلة على مسار البث وحده.</li>
+</ol>
+
+<h3>البديل: البث عبر WebSockets بدل HTTP</h3>
+
+<p>إذا كان حجز عمّال HTTP غير مقبول لديك، فادفع عملية التوليد إلى طابور وابثّ الأجزاء لحظيًا. الحزمة تدعم ذلك مباشرة:</p>
+
+<pre><code>use Illuminate\Broadcasting\PrivateChannel;
+
+SupportTriage::make()-&gt;broadcastOnQueue(
+    $request-&gt;string('ticket'),
+    new PrivateChannel('conversations.'.$conversation-&gt;id),
+);</code></pre>
+
+<p>يعود طلب HTTP فورًا، ويتولى عامل الطابور التوليد، ويوصل Reverb أو Pusher الرموز إلى المتصفح. الثمن طبقة WebSocket إضافية وأجزاء متحركة أكثر، لكنه النمط الذي يتوسّع فعلًا فوق بضع عشرات من المستخدمين المتزامنين على استضافة PHP اعتيادية.</p>
+
+<div class="post-callout"><p><strong>اختر بحسب التزامن:</strong> أقل من ثلاثين عملية توليد متزامنة تقريبًا؟ SSE مع Octane أبسط وكافٍ. أكثر من ذلك؟ طابور مع بث لحظي. ولا تبنِ طبقة WebSocket في اليوم الأول لمنتج لديه أربعون مستخدمًا.</p></div>
+
+<h2>5. أين توضع استدعاءات الذكاء الاصطناعي: في المتحكّم أم في الطابور؟</h2>
+
+<p>القاعدة التي أطبّقها في كل مشروع:</p>
+
+<ul>
+  <li><strong>في المتحكّم مع بث:</strong> عندما يكون المستخدم ينتظر أمام الشاشة والمخرج نفسه هو المنتج. المحادثة، الصياغة، «اشرح لي هذا». ابثّها.</li>
+  <li><strong>في مهمة طابور:</strong> كل ما عدا ذلك. التصنيف، والتلخيص عند الرفع، وتوليد التضمينات، وإثراء البيانات، والترجمة الجماعية، وأي شيء يبدأ من webhook.</li>
+  <li><strong>ولا تستدعِ النموذج تزامنيًا في متحكّم بلا بث إطلاقًا.</strong> هذا طلب يستغرق من ثلاث إلى أربعين ثانية، ويحجز عاملًا، ويموت على خطأ 502، ولا يمكن إعادة تنفيذه. إنه أسوأ الخيارين معًا، وهو أكثر خطأ أصادفه في الشيفرات الموروثة.</li>
+</ul>
+
+<p>الطابور في الحزمة مباشر ومملّ بالمعنى الجيد:</p>
+
+<pre><code>SupportTriage::make()
+    -&gt;queue($ticket-&gt;body)
+    -&gt;then(fn ($response) =&gt; $ticket-&gt;applyTriage($response))
+    -&gt;catch(fn (Throwable $e) =&gt; report($e));</code></pre>
+
+<p>وأربع قواعد تشغيلية تعلّمتها بالطريقة المكلفة:</p>
+
+<ol>
+  <li><strong>ضع مهام الذكاء الاصطناعي في طابور مستقل وتحت مشرف Horizon خاص بها.</strong> نموذج بطيء يجب ألا يعطّل رسائل إعادة تعيين كلمة المرور.</li>
+  <li><strong>اجعل <code>$tries</code> منخفضًا و<code>$backoff</code> صريحًا.</strong> أستخدم <code>public $tries = 3;</code> و<code>public $backoff = [10, 60, 300];</code>. حلقة إعادة محاولة افتراضية أمام واجهة مدفوعة تعني الدفع ثلاث مرات مقابل الفشل نفسه.</li>
+  <li><strong>اجعل المهمة عديمة الأثر عند التكرار.</strong> خزّن بصمة للمدخل واخرج مبكرًا إذا كانت النتيجة محفوظة. عمّال الطوابير يُقتلون في منتصف التنفيذ أثناء النشر، وبدون هذه الخطوة تعيد التوليد وتعيد الدفع.</li>
+  <li><strong>احفظ الاستهلاك داخل المعاملة نفسها التي تحفظ النتيجة.</strong> إن حفظت الإجابة وضاع عدد الرموز، فلوحة التكلفة عندك مجرد تخمين.</li>
+</ol>
+
+<h2>6. كيف تمنع ميزة الذكاء الاصطناعي من التهام ميزانيتك؟</h2>
+
+<p>هذا هو القسم الذي يهتم به العميل بعد الأسبوع الثاني. فيما يلي أسعار OpenAI المعلنة لكل مليون رمز، تحققت منها في <strong>أغسطس 2026</strong>. راجعها بنفسك قبل أن تعطي عرض سعر لأي أحد، لأن هذا الجدول تغيّر أكثر من مرة سنويًا منذ 2023. التشكيلة الحالية على صفحة الأسعار هي عائلة <strong>GPT-5.6</strong>: نموذج Sol الرائد، وTerra للفئة المتوازنة اليومية، وLuna للفئة الاقتصادية. وقد خُفّض سعر Terra بنسبة 20% وسعر Luna بنسبة 80% في 30 يوليو 2026، بينما بقي Sol على حاله. وما زالت أجيال GPT-5 وGPT-4.1 متاحة وتستحق المعرفة، لأن كثيرًا من التطبيقات الإنتاجية مثبّتة عليها:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>النموذج</th>
+      <th>المدخلات / مليون</th>
+      <th>المدخلات المخزّنة / مليون</th>
+      <th>المخرجات / مليون</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>GPT-5.6 Sol (الرائد)</td><td>5.00 USD</td><td>0.50 USD</td><td>30.00 USD</td></tr>
+    <tr><td>GPT-5.6 Terra</td><td>2.00 USD</td><td>0.20 USD</td><td>12.00 USD</td></tr>
+    <tr><td>GPT-5.6 Luna</td><td>0.20 USD</td><td>0.02 USD</td><td>1.20 USD</td></tr>
+    <tr><td>GPT-5 / GPT-5.1</td><td>1.25 USD</td><td>0.125 USD</td><td>10.00 USD</td></tr>
+    <tr><td>GPT-5-mini</td><td>0.25 USD</td><td>0.025 USD</td><td>2.00 USD</td></tr>
+    <tr><td>GPT-5-nano</td><td>0.05 USD</td><td>0.005 USD</td><td>0.40 USD</td></tr>
+    <tr><td>GPT-4.1</td><td>2.00 USD</td><td>0.50 USD</td><td>8.00 USD</td></tr>
+    <tr><td>GPT-4.1-mini</td><td>0.40 USD</td><td>0.10 USD</td><td>1.60 USD</td></tr>
+    <tr><td>o4-mini</td><td>1.10 USD</td><td>0.275 USD</td><td>4.40 USD</td></tr>
+  </tbody>
+</table>
+
+<p>وهامشان يؤلمان في الإنتاج. في فئات GPT-5.6، الطلبات التي تتجاوز نحو 272 ألف رمز في المدخلات تنتقل إلى شريحة سعر أعلى للسياق الطويل، أي أن ميزة بحث دلالي يتضخّم سياقها تدريجيًا قد تغيّر شريحة سعرها دون أن يعدّل أحد سطرًا واحدًا. وفي GPT-5.6 وما بعده، تُحاسَب <em>كتابة</em> المخزون المؤقت بمعدل 1.25 ضعف سعر المدخلات غير المخزّنة؛ رخيصة لكنها ليست مجانية، فتخزين مقدمة تستخدمها مرة واحدة خسارة صغيرة لا مكسبًا صغيرًا.</p>
+
+<p>اقرأ شكل الجدول لا أرقامه. <strong>المخرجات تكلّف من ستة إلى ثمانية أضعاف المدخلات عبر التشكيلة كلها</strong> — ستة أضعاف في Sol وثمانية في GPT-5. <strong>المدخلات المخزّنة مؤقتًا تكلّف عُشر المدخلات الجديدة.</strong> <strong>الفئة الاقتصادية أرخص من الرائد بخمسة وعشرين ضعفًا في المدخلات</strong> — Luna بـ 0.20 دولار مقابل Sol بـ 5.00 دولارات. كل أدوات ضبط التكلفة الحقيقية تتفرّع من هذه الحقائق الثلاث.</p>
+
+<h3>سبع أدوات، بترتيب تطبيقي</h3>
+
+<ol>
+  <li><strong>ضع سقفًا لرموز المخرجات.</strong> <code>#[MaxTokens]</code> على كل وكيل بلا استثناء. توليد بلا سقف يعني فاتورة بلا سقف.</li>
+  <li><strong>وجّه الطلبات بحسب صعوبتها.</strong> معظم حركة الإنتاج الحقيقية تصنيف واستخراج وردود قصيرة، وهذه تعمل على <code>gpt-5.6-luna</code>، أو على <code>gpt-5-mini</code> و<code>gpt-5-nano</code> إن كنت مثبّتًا على الجيل السابق. احتفظ بـ Sol، أو بأي نموذج رائد وقت قراءتك، لخمسة إلى عشرة بالمئة من الطلبات التي تحتاجه فعلًا. في خبرتي، هذه الخطوة وحدها تزيل عادةً الجزء الأكبر من الفاتورة، لأن الفرق تضبط الميزة كلها افتراضيًا على أضخم نموذج ثم لا تعود إليها.</li>
+  <li><strong>استفد من التخزين المؤقت للتعليمات.</strong> المدخلات المخزّنة أرخص بنسبة تسعين بالمئة، لكن اقرأ العبارة بدقة: الخصم يسري على رموز <em>المقدمة المخزّنة</em> عند تحقق التطابق، لا على فاتورة المدخلات كلها. وشرطان يحكمان ذلك. الأول أن تكون بداية التعليمات <em>ثابتة</em>: ضع التعليمات الطويلة والمخطط والأمثلة في المقدمة، وضع محتوى المستخدم المتغيّر في النهاية. والثاني أن التخزين التلقائي في OpenAI لا يبدأ إلا عند مقدمة بطول ألف وأربعة وعشرين رمزًا تقريبًا، ثم يتقدّم بخطوات من 128 رمزًا، أي أن التعليمات القصيرة لا تُخزَّن أصلًا، والمخزون يسقط بعد دقائق قليلة من عدم الاستخدام. اضبط الشرطين فينخفض الجزء الثابت من مدخلاتك بنسبة تسعين بالمئة، وأخطئ في الترتيب فتدفع السعر الكامل في كل استدعاء. ومعظم الفرق لا تنظر في هذا إطلاقًا.</li>
+  <li><strong>استخدم Batch API لكل ما ليس أمام المستخدم.</strong> الخصم خمسون بالمئة من السعر القياسي. الإثراء الليلي، ومعالجة البيانات التاريخية، وإعادة توليد تضمينات كتالوج المنتجات — كلها تنتمي إلى Batch.</li>
+  <li><strong>فكّر في flex processing للأعمال غير المتزامنة.</strong> خيار <code>service_tier</code> بقيمة flex يُسعَّر بأسعار Batch مقابل استجابة أبطأ. وفق التوثيق الذي راجعته في أغسطس 2026 ما زال موصوفًا بأنه تجريبي وبتوافر محدود للنماذج، وقد يعيد خطأ 429 «resource unavailable»، ولا تُحاسَب عليه صراحةً. والمهلة الافتراضية في حِزم OpenAI الرسمية عشر دقائق على طلبات flex، وقد تحتاج المهام المعقّدة إلى أكثر منها: ارفع المهلة عن قصد، وتراجع تدريجيًا عند 429، واسقط إلى <code>service_tier: auto</code> إن كان للعمل موعد نهائي أصلًا. مفيد، لكن لا تضع مستخدمًا ينتظر أمامه.</li>
+  <li><strong>خزّن نتائجك أنت مؤقتًا.</strong> احسب بصمة للمدخل المُطبَّع مع اسم النموذج ورقم نسخة التعليمات، واحفظ الاستجابة. في أدوات الرد على الدعم أو توليد أوصاف المنتجات تكون نسبة معتبرة من الطلبات شبه مكررة. هذا تخزين مؤقت تطبيقي عادي وهو ربح مجاني، والمبدأ نفسه الذي أشرحه في <a href="/ar/blog/why-your-website-loads-slowly">لماذا يفتح موقعك ببطء</a>.</li>
+  <li><strong>قِس الاستهلاك لكل مستخدم ولكل مستأجر.</strong> خزّن <code>prompt_tokens</code> و<code>completion_tokens</code> واسم النموذج والتكلفة المحسوبة مع معرّف المستخدم في كل استدعاء، ثم افرض حصة. بدون ذلك يكفي مستخدم واحد متحمّس أو خطأ في حلقة برمجية ليفتح الصنبور على آخره. صمّم هذا الجدول جيدًا من المرة الأولى، وملاحظاتي في <a href="/ar/blog/database-design-for-web-apps">تصميم قواعد البيانات لتطبيقات الويب</a> تنطبق حرفيًا.</li>
+</ol>
+
+<p>الحزمة تمنحك خطاف الأداة السابعة مجانًا: استمع لحدثَي <code>AgentPrompted</code> و<code>AgentStreamed</code> واكتب سجل الاستهلاك من داخل المستمع. مستمع واحد يغطي كل الاستدعاءات، بلا صنف خدمة يتذكّر الجميع المرور عبره.</p>
+
+<div class="post-callout"><p><strong>اضبط حدًا صارمًا للفوترة في لوحة OpenAI من اليوم الأول.</strong> ليس تنبيهًا عند تجاوز مبلغ، بل سقفًا صارمًا يوقف الاستدعاءات. هذا هو الضابط الوحيد الذي يعمل وأنت نائم، وقد أنقذ أكثر من عميل من حلقة خارجة عن السيطرة اكتُشفت صباح الاثنين.</p></div>
+
+<h2>7. كيف تتعامل مع حدود الاستدعاء وإعادة المحاولة بأمان؟</h2>
+
+<p>تُعيد OpenAI رمز الحالة <strong>429</strong> عند تجاوز الحد، وترسل ترويسات يجب أن تقرأها فعلًا: <code>Retry-After</code> و<code>x-ratelimit-limit-requests</code> و<code>x-ratelimit-remaining-requests</code> و<code>x-ratelimit-limit-tokens</code> و<code>x-ratelimit-remaining-tokens</code> وترويسات <code>reset</code> المقابلة. الحدود مرتبطة بمستوى الاستخدام الذي يرتفع مع الإنفاق التراكمي، ولذلك يكون مفتاح جديد في المستوى الأول مقيَّدًا بدرجة أكبر بكثير من مفتاح في المستوى الرابع. هذا يفسّر الظاهرة الشائعة: ميزة عملت في بيئة الاختبار على المفتاح الشخصي للمؤسس، ثم انهارت على حساب الشركة.</p>
+
+<p>أربع قواعد:</p>
+
+<ol>
+  <li><strong>احترم <code>Retry-After</code> ثم أضف عشوائية.</strong> تراجع ثابت عبر عدة عمّال ينتج عاصفة إعادة محاولة متزامنة تُعيد تفعيل الحد نفسه. أضف jitter.</li>
+  <li><strong>اخنق الطلبات قبل الإرسال لا بعد الفشل.</strong> استخدم <code>Redis::throttle()</code> أو وسيط المهام <code>RateLimited</code> لتبقى تحت السقف بدل أن تكتشفه. أرخص وأهدأ من إعادة المحاولة التفاعلية.</li>
+  <li><strong>فرّق بين أصناف الأخطاء.</strong> خطأ 429 بسبب معدل الاستدعاء يُعاد بتراجع تدريجي. خطأ 429 بسبب نفاد الرصيد لا يُعاد إطلاقًا، لأن البطاقة فشلت وإعادة المحاولة تملأ جدول المهام الفاشلة فحسب. خطأ 400 بسبب طول السياق لا يُعاد بل يُقتطع المدخل. أخطاء 500 و503 تُعاد بضع مرات. إعادة المحاولة العمياء على أي استثناء هي كيف تتحوّل طلبيّة سيئة واحدة إلى ثلاثمئة.</li>
+  <li><strong>حوّل ولا تسقط.</strong> تقبل الحزمة مصفوفة مزوّدين: <code>provider: [Lab::OpenAI, Lab::Anthropic]</code>. لميزة يجب أن تبقى حيّة أثناء عطل مزوّد، هذا المعامل الواحد هو خطة التعافي بأكملها — بشرط ألا تكون تعليماتك ومخططاتك مرتبطة بـ OpenAI ارتباطًا يجعل البديل ينتج نصًا رديئًا. اختبر مسار البديل عمدًا مرة واحدة على الأقل.</li>
+</ol>
+
+<h2>8. أخطاء إنتاج لا يحذّرك منها أحد</h2>
+
+<h3>البث يُصعّب مراجعة المحتوى</h3>
+<p>توثيق OpenAI نفسه يشير إلى هذه النقطة: تقييم المخرجات الجزئية أصعب، وإشارات مراجعة المحتوى تصل بعد اكتمال التوليد. إذا كنت تبثّ نصًا إلى مستخدمين نهائيين في منتج استهلاكي، فأنت تعرض النص قبل أن تحكم عليه. إمّا أن تقبل هذه المخاطرة صراحةً، أو ألا تبثّ في المزايا القريبة من المحتوى الذي ينشئه المستخدمون.</p>
+
+<h3>الأدوات سطح هجوم</h3>
+<p>في اللحظة التي تمنح فيها الوكيل أداة تقرأ من قاعدة بياناتك، يصبح بإمكان تعليمة المستخدم أن تحاول توجيه تلك الأداة. قيّد كل أداة بالمستخدم المصادَق عليه على مستوى الاستعلام نفسه، ولا تثق أبدًا بمعرّف خرج من نموذج، وتحقّق من وسائط الأداة بالصرامة ذاتها التي تتحقق بها من طلب نموذج. عامل النموذج كعميل غير موثوق يستدعي واجهتك الداخلية.</p>
+
+<h3>تسجيل التعليمات قرار يمسّ حماية البيانات</h3>
+<p>تسجيل التعليمات كاملة مفيد جدًا في التنقيح، ويتحول إلى مسؤولية قانونية في اليوم الذي يلصق فيه مستخدم رقم هوية أو تفصيلًا طبيًا. سجّل افتراضيًا عدد الرموز واسم النموذج وزمن الاستجابة وبصمة التعليمة ومقتطفًا مقتطعًا منها فقط. أمّا التسجيل الكامل فليكن خلف مفتاح تشغيل، وبمدة احتفاظ محددة، ومذكورًا في سياسة الخصوصية — خصوصًا لعملاء السعودية والإمارات حيث تشتدّ قواعد حماية البيانات الشخصية عامًا بعد عام.</p>
+
+<h3>مجموعات التقييم هي اختبارات الانحدار عندك</h3>
+<p>لا يمكنك كتابة اختبار وحدة يقيس «هل هذا الرد جيد»، لكن يمكنك بناء مجموعة من ثلاثين مدخلًا حقيقيًا مع التصنيف المتوقع لكل منها والتحقق منها. الحزمة تجعل هذا رخيصًا عبر <code>SupportTriage::fake()</code>، التي تقبل استجابة ثابتة أو مصفوفة استجابات أو دالة تفحص كائن <code>AgentPrompt</code> الوارد. استخدم التزييف في CI حتى لا تكلفك الاختبارات شيئًا، وشغّل مجموعة التقييم الحقيقية يدويًا قبل تغيير أي نموذج أو تعليمة.</p>
+
+<h3>رقّم نسخ التعليمات</h3>
+<p>خزّن رقم نسخة التعليمة مع كل استدعاء مسجَّل. حين تنخفض الجودة في الربع القادم، أول سؤال سيكون «ما الذي تغيّر»، وجملة «عدّلنا التعليمات في مارس» لا يمكن الإجابة بها إلا إذا كنت قد كتبتها.</p>
+
+<h2>9. كم تكلّف هذه الميزة؟</h2>
+
+<p>نطاقات صادقة، لا عرض سعر. هذه هي الشرائح التي أنطلق منها كمطوّر مستقل يعمل عن بُعد من القاهرة، وشركات التطوير في لندن أو دبي تطلب عادةً ضعفين إلى أربعة أضعاف للنطاق نفسه، وقد فصّلت ذلك في <a href="/ar/blog/freelance-developer-vs-agency">مطوّر مستقل أم شركة تطوير</a>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>النطاق</th>
+      <th>ما يشمله</th>
+      <th>تكلفة التنفيذ المعتادة</th>
+      <th>الإنفاق الشهري المتوقع على الواجهة</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ميزة واحدة</td>
+      <td>وكيل واحد عبر طابور، تسجيل استهلاك، لوحة متابعة للمشرف. بلا بث.</td>
+      <td>900 – 2,000 USD</td>
+      <td>20 – 150 USD</td>
+    </tr>
+    <tr>
+      <td>مساعد محادثة ببث مباشر</td>
+      <td>واجهة محادثة، SSE أو Reverb، تخزين المحادثات، حصص لكل مستخدم، خنق للطلبات.</td>
+      <td>2,500 – 6,000 USD</td>
+      <td>100 – 800 USD</td>
+    </tr>
+    <tr>
+      <td>بحث دلالي على مستنداتك</td>
+      <td>استيعاب المستندات، التقطيع، التضمينات، مخزن المتجهات، ضبط الاسترجاع، الاستشهادات.</td>
+      <td>5,000 – 12,000 USD</td>
+      <td>150 – 1,500 USD</td>
+    </tr>
+    <tr>
+      <td>سير عمل وكيل بأدوات</td>
+      <td>أدوات متعددة تستدعي واجهاتك الداخلية، موافقات بشرية، سجل تدقيق، مزوّد احتياطي.</td>
+      <td>8,000 – 20,000+ USD</td>
+      <td>متغيّر بشدة</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>الافتراضات خلف هذه الأرقام: قاعدة شيفرة Laravel 12 أو 13 قائمة وبحالة معقولة، وحساب الواجهة باسمك أنت، وعمود الإنفاق الشهري مبني على توجيه ذكي للنماذج لا على تشغيل كل شيء على النموذج الرائد. عملاء مصر والخليج يطلبون غالبًا الأرقام نفسها بالجنيه المصري أو الريال السعودي أو الدرهم الإماراتي، وأنا أسعّر بالعملة التي تفضّلها. أمّا تكلفة استهلاك الواجهة فتُحاسب دائمًا على حسابك مباشرة في OpenAI، ولا تمرّ عبري بأي هامش.</p>
+
+<p>العامل الأكبر في تكلفة التنفيذ ليس الذكاء الاصطناعي، بل حالة الشيفرة المحيطة به. إضافة وكيل إلى تطبيق Laravel نظيف ومختبَر تستغرق أسبوعًا. إضافته إلى تطبيق عمره خمس سنوات بلا عمّال طوابير، وبلا Horizon، ومنطق أعماله ساكن داخل المتحكّمات، تستغرق شهرًا، لأنك ستبني الأساس أولًا.</p>
+
+<h2>10. قائمة فحص قبل الإطلاق</h2>
+
+<ul>
+  <li>سقف فوترة صارم مضبوط في لوحة المزوّد، لا مجرد تنبيه.</li>
+  <li><code>#[MaxTokens]</code> على كل وكيل، ونموذج مسمّى صراحةً لا مُختار تلقائيًا.</li>
+  <li>النموذج الرخيص هو الافتراضي، والرائد على المسارات التي تحتاجه فقط.</li>
+  <li>مقدمة تعليمات ثابتة وطويلة بما يكفي لتجاوز الحد الأدنى للتخزين المؤقت، حتى يعمل فعلًا.</li>
+  <li>قياس رموز لكل مستخدم يُكتب من مستمع أحداث، مع حصة مفروضة.</li>
+  <li>مهام الذكاء الاصطناعي في طابور مستقل بـ <code>$tries</code> و<code>$backoff</code> صريحين، مع بصمة مدخل تمنع التكرار.</li>
+  <li>معالجة 429 تقرأ <code>Retry-After</code> وتضيف عشوائية، وبلا إعادة محاولة على 400 أو نفاد الرصيد.</li>
+  <li>مسار البث مستثنى من التخزين المؤقت للوكيل العكسي، وبمهلة خمول مرفوعة، ومختبَر على الخادم الحقيقي لا محليًا.</li>
+  <li>كل أداة مقيّدة بالمستخدم المصادَق عليه على مستوى الاستعلام.</li>
+  <li>بصمات التعليمات ونسخها مسجّلة، والتعليمات الكاملة خلف مفتاح تشغيل بمدة احتفاظ.</li>
+  <li>مجموعة تقييم ثابتة، و<code>fake()</code> في CI حتى لا تكلّف الاختبارات شيئًا.</li>
+  <li>خطة بديلة موثّقة: ماذا تفعل الميزة حين يتعطّل المزوّد؟</li>
+</ul>
+
+<p>إذا أنجزت إحدى عشرة نقطة من اثنتي عشرة، فالميزة جاهزة للإنتاج. وإذا أنجزت أقل من ست، فما لديك عرض تجريبي — والعروض التجريبية هي بالضبط ما يُطلق للمستخدمين الحقيقيين ثم يُغلق بهدوء بعد ستة أسابيع حين تصل الفاتورة.</p>
+
+<h2>11. إذا أردت تنفيذ هذا معك</h2>
+
+<p>أنا أبني هذه المزايا لكسب عيشي، وغالبًا لفرق لديها منتج Laravel يعمل بالفعل وتريد جزء الذكاء الاصطناعي منفَّذًا بشكل صحيح لا ملصوقًا من الخارج. إن أردت رأيًا ثانيًا في معمارية، أو تنفيذًا بسعر ثابت، أو إنقاذ ميزة تتصرف بشكل سيئ في الإنتاج بالفعل، فيمكنك الاطلاع على <a href="/ar/services">صفحة الخدمات</a> أو <a href="/ar/hire-laravel-developer">التعاقد معي كمطوّر Laravel</a> مباشرة.</p>
+
+<p>أرسل لي وصف الميزة عبر <a href="/ar/contact">صفحة التواصل</a>، واذكر إصدار Laravel لديك وإعداد الطوابير الحالي وما يُفترض أن تفعله الميزة. سأرد خلال 24 ساعة باستشارة مجانية وعرض سعر ثابت. وإن كان رأيي الصادق أنك لا تحتاج إلى ذكاء اصطناعي في هذه الحالة تحديدًا، فسأقول لك ذلك بدل أن أبيعك شيئًا.</p>
+HTMLAR,
+            ],
+            [
+                'slug' => 'who-owns-your-website-code',
+                'title' => 'Who Owns Your Website Code - You or the Developer?',
+                'title_ar' => 'من يملك كود موقعك: أنت أم المطور؟',
+                'excerpt' => 'Paying a developer in full does not transfer copyright by itself. Here is what you actually own after the invoice clears, the assignment clause to insist on, and the seven separate assets people forget to secure.',
+                'excerpt_ar' => 'سداد كامل قيمة المشروع لا ينقل حق المؤلف وحده. هذا ما تملكه فعلاً بعد الفاتورة، وبند التنازل الذي يجب اشتراطه، والأصول السبعة المنفصلة التي ينساها أغلب العملاء قبل التوقيع.',
+                'category' => 'Hiring',
+                'tags' => ['Contracts', 'Intellectual Property', 'Hiring Developers', 'Freelancing', 'Client Guide', 'Web Development Business'],
+                'image' => '1710763075-services-bg-img-1.jpg',
+                'date' => '2026-07-20',
+                'read_time' => '16 min read',
+                'meta_title' => 'Who Owns Your Website Code? Client or Developer',
+                'meta_title_ar' => 'من يملك كود الموقع: العميل أم المطور؟',
+                'meta_description' => 'Paying in full does not transfer copyright. What you really own after hiring a developer, the IP clause to demand, and how to avoid a hostage site.',
+                'meta_description_ar' => 'الدفع الكامل لا ينقل حق المؤلف تلقائياً. ما تملكه فعلاً بعد التعاقد مع مطور، وبند التنازل الواجب اشتراطه، وكيف تتجنب احتجاز موقعك.',
+                'faq' => [
+                    [
+                        'q' => 'Do I own the code once I have paid in full?',
+                        'a' => 'Not automatically. Payment is a condition your contract can attach the transfer to, but it is not the transfer itself. In the US (17 U.S.C. §204(a)), the UK (CDPA s.90(3)), Egypt, Saudi Arabia and the UAE, copyright moves only through a written, signed assignment. Germany is the odd one out: copyright there cannot be assigned at all, so you take an exclusive licence instead. Without such a clause you usually hold an implied licence to use the site, not the right to have another developer modify or resell it.',
+                        'q_ar' => 'هل أملك الكود بعد سداد كامل المبلغ؟',
+                        'a_ar' => 'ليس تلقائياً. السداد شرط يمكن أن يعلّق عليه العقد انتقال الملكية، لكنه ليس الانتقال ذاته. في مصر والسعودية والإمارات وبريطانيا، لا ينتقل حق المؤلف إلا بتنازل مكتوب وموقّع. وألمانيا حالة خاصة: لا يجوز فيها التنازل عن حق المؤلف أصلاً، فتأخذ بدلاً منه ترخيص استغلال حصرياً. وبدون هذا البند تملك في الغالب ترخيصاً ضمنياً بالاستخدام فقط، لا حق تكليف مطوّر آخر بالتعديل ولا حق إعادة البيع أو الترخيص للغير.',
+                    ],
+                    [
+                        'q' => 'What if the developer hosts everything on their own account?',
+                        'a' => 'Then you have a continuity problem that no IP clause fixes. If the registrar, VPS, cloud and app store accounts sit under the developer\'s name, you can own the code and still be locked out of the live product. Open every account yourself in your company\'s legal name, add the developer as a scoped collaborator, and keep the 2FA recovery codes.',
+                        'q_ar' => 'ماذا لو كان كل شيء مستضافاً على حسابات المطوّر؟',
+                        'a_ar' => 'عندها لديك مشكلة استمرارية أعمال لا يحلّها أي بند ملكية. إذا كانت حسابات المُسجِّل والاستضافة والسحابة ومتاجر التطبيقات باسم المطوّر، فقد تملك الكود وتظل محروماً من الوصول إلى المنتج الحي. افتح كل حساب باسم شركتك القانوني، وأضف المطوّر متعاوناً بصلاحيات محدودة، واحتفظ برموز الاسترداد والتحقق الثنائي بنفسك.',
+                    ],
+                    [
+                        'q' => 'Should IP transfer be written into the contract?',
+                        'a' => 'Yes, always. Ask for an express assignment of all economic rights in the bespoke deliverables, effective on receipt of cleared final payment, worldwide and irrevocable — and add a fallback granting an exclusive, transferable licence wherever local law does not permit assignment. Pre-existing developer libraries should not be assigned but licensed to you perpetually and royalty-free. Tie the transfer to payment, which is measurable, rather than to completion, which is arguable.',
+                        'q_ar' => 'هل يجب النص على نقل الملكية الفكرية في العقد؟',
+                        'a_ar' => 'نعم دائماً. اطلب تنازلاً صريحاً عن كامل الحقوق المالية في المخرجات المخصّصة، نافذاً عند تحصيل الدفعة الأخيرة، لجميع الدول وبصفة غير قابلة للرجوع، مع بند احتياطي يمنحك ترخيص استغلال حصرياً قابلاً للنقل حيثما لا يجيز القانون المحلي التنازل. أما مكتبات المطوّر السابقة على المشروع فلا تُنقل ملكيتها بل تُرخَّص لك بصفة دائمة ومجانية. واربط الانتقال بالسداد لأنه قابل للقياس، لا بـ«الاكتمال» القابل للجدل.',
+                    ],
+                    [
+                        'q' => 'Can a developer hold my site hostage?',
+                        'a' => 'Practically yes, if you handed over the keys; legally it is weaker than it looks. Withholding handover over an unpaid invoice is contract enforcement, not hostage-taking. Refusing after full payment is different: a written demand quoting the clause, then a lawyer\'s letter, resolves most cases. The scenario becomes structurally impossible when you already own the accounts.',
+                        'q_ar' => 'هل يستطيع المطوّر احتجاز موقعي؟',
+                        'a_ar' => 'عملياً نعم إن سلّمته المفاتيح، لكن موقفه القانوني أضعف مما يبدو. الامتناع عن التسليم بسبب مستحقات غير مدفوعة ليس احتجازاً بل تنفيذاً لشرط تعاقدي. أما الامتناع بعد السداد الكامل فأمر مختلف: إنذار كتابي يستشهد بالبند ثم خطاب محامٍ ينهي أغلب الحالات. والاحتجاز يصبح مستحيلاً بنيوياً حين تكون الحسابات باسمك أنت.',
+                    ],
+                    [
+                        'q' => 'Who owns the domain and the hosting account?',
+                        'a' => 'The domain belongs to whoever is the registrant of record, not whoever paid for it, and WHOIS privacy hides that from outside. Log into the registrar yourself today. The hosting or cloud account belongs to whoever opened it. Both should sit in your company\'s name, with your card and a role-based email that survives staff changes.',
+                        'q_ar' => 'من يملك النطاق وحساب الاستضافة؟',
+                        'a_ar' => 'النطاق يملكه من هو مسجَّل بصفته صاحب التسجيل لدى المُسجِّل، لا من دفع ثمنه، وخدمة الخصوصية تخفي ذلك عن الخارج. سجّل الدخول بنفسك اليوم للتأكد. وحساب الاستضافة أو السحابة يملكه من فتحه. يجب أن يكون الاثنان باسم شركتك، ببطاقتها وببريد وظيفي لا يرتبط بموظف قد يغادر غداً.',
+                    ],
+                    [
+                        'q' => 'Do freelance developers sign NDAs, and does an NDA give me ownership?',
+                        'a' => 'Most of us do, routinely and without charging. But an NDA controls disclosure, not ownership: it stops me discussing your product and says nothing about who owns the code. You need a separate IP assignment clause. Look for a mutual NDA with a two-to-three-year term, standard carve-outs, and portfolio rights agreed openly at the start.',
+                        'q_ar' => 'هل يوقّع المطوّرون المستقلون اتفاقية سرية؟ وهل تمنحني الملكية؟',
+                        'a_ar' => 'معظمنا يوقّعها روتينياً وبلا مقابل. لكن اتفاقية السرية تحكم الإفصاح لا الملكية: تمنعني من الحديث عن منتجك ولا تقول شيئاً عمّن يملك الكود. أنت تحتاج بند تنازل منفصلاً عن الملكية الفكرية. واشترط اتفاقية متبادلة بمدة سنتين إلى ثلاث، باستثناءات معتادة، وبحسم مسألة حق عرض العمل منذ البداية.',
+                    ],
+                    [
+                        'q' => 'How should milestone payments be structured on a web project?',
+                        'a' => 'Split the fee across four milestones that add up to the whole: kickoff 30%, core build accepted 25%, feature complete 25%, launch and handover 20%. Keep the final payment between 15% and 25%; below that the developer has little incentive to finish, above that they are financing your business and good developers decline. Ownership transfers only at the last milestone, and each milestone needs one testable acceptance sentence agreed in advance.',
+                        'q_ar' => 'كيف تُقسَّم دفعات مشروع الويب على مراحل؟',
+                        'a_ar' => 'قسّم المبلغ على أربع مراحل تُجمِّع كامل القيمة: الانطلاق 30%، قبول النواة 25%، اكتمال المزايا 25%، ثم الإطلاق والتسليم 20%. اجعل الدفعة الأخيرة بين 15% و25%؛ فتحت ذلك يقلّ حافز المطوّر على الإنهاء، وفوقها يصبح ممولاً لمشروعك فيعتذر المطوّرون الجيدون. ولا تنتقل الملكية إلا في المرحلة الأخيرة، ولكل مرحلة جملة قبول واحدة قابلة للاختبار يُتفق عليها مسبقاً.',
+                    ],
+                ],
+                'content' => <<<'HTML'
+<p class="lead">Here is the verdict, and it irritates some of my colleagues: in most countries, paying a freelance developer in full does not by itself make you the owner of the code. Copyright begins with the person who typed it, and it moves to you only through a signed written assignment. I am Khaled Ahmed, a full stack developer in Cairo with 39+ production projects delivered across eight countries. This is the clause I insist on before I write a line.</p>
+
+<h2>1. The short answer: money buys delivery, paper buys ownership</h2>
+
+<p>Two different things happen when you hire a developer. You pay for the work to be done, and separately, ownership of what was produced is either transferred to you or it is not. The invoice handles the first. Only the contract handles the second.</p>
+
+<p>Copyright in software arises automatically the moment the code is written — that is the rule across every country that signed the Berne Convention, which is effectively all of them, Egypt, Saudi Arabia, the UAE, Kuwait, the UK, France, Germany and Switzerland included. No registration, no filing, no stamp. And it arises <strong>in the author</strong>. The author is the developer, not the person who commissioned the work.</p>
+
+<p>An employee is the exception in most systems. If a salaried engineer on your payroll writes code inside the scope of their job, the economic rights typically sit with the employer by operation of law — that is spelled out for software in Germany (UrhG §69b), and follows from the general employment rules in France (CPI L113-9) and the UK (CDPA s.11(2)). Egypt deserves an explicit flag here, because it is the jurisdiction most of my readers sign in: Law 82 of 2002 contains no general employer-ownership rule for works created by employees, so even the employment case there is driven by what the contract actually says. A freelancer, meanwhile, is not an employee anywhere. That is the whole point of the arrangement — and it is also the reason the default flips.</p>
+
+<div class="post-callout"><p><strong>The one sentence to remember:</strong> "I paid for it" is a payment fact, not an ownership fact. In the United States (17 U.S.C. §204(a)) and the United Kingdom (CDPA 1988 s.90(3)), a transfer of copyright must be in writing and signed by the person giving it up. That writing can be electronic — a typed name in an email can satisfy the requirement under the US E-SIGN Act — but a verbal agreement almost never satisfies it, a payment receipt never does on its own, and a WhatsApp thread that never mentions copyright is not an assignment.</p></div>
+
+<h3>What you almost certainly have without a contract</h3>
+
+<p>You are not left with nothing. Where there is no written assignment, courts in common-law jurisdictions have generally found an <strong>implied licence</strong> — the client may use the deliverable for the purpose it was obviously commissioned for. If I build you a shop, you may run the shop. The problem is that an implied licence is the <em>minimum</em> the court thinks is necessary, and it usually does not include:</p>
+
+<ul>
+  <li>The right to hand the source code to a different developer and have them modify it.</li>
+  <li>The right to resell, sublicense or white-label the system.</li>
+  <li>The right to reuse the codebase for a second brand, a second country or a second product line.</li>
+  <li>Exclusivity — the developer may be free to build the same thing again for your competitor.</li>
+  <li>Any claim on the code at all if you are in a dispute over the last invoice.</li>
+</ul>
+
+<p>That last one is where most real fights start. Not with theft. With ambiguity plus a disagreement about scope.</p>
+
+<h2>2. "The code" is not one asset — it is at least seven</h2>
+
+<p>The single biggest reason people get burned is that they negotiate ownership of "the website" as if it were one object. It is not. It is a pile of separate assets held in separate places under separate legal regimes, and you can absolutely own the code while being locked out of the live product.</p>
+
+<table>
+  <thead>
+    <tr><th>Asset</th><th>Who holds it by default</th><th>What to demand in writing</th><th>Cost of getting it wrong</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Bespoke source code</td><td>The developer (author)</td><td>Full assignment of economic rights on final payment</td><td>Cannot legally hire anyone else to modify it</td></tr>
+    <tr><td>Domain name</td><td>Whoever is the registrant of record</td><td>Registrar account in your company name, your email, your card</td><td>Total loss of brand and email if it lapses or is held</td></tr>
+    <tr><td>Hosting / VPS / AWS account</td><td>Whoever opened the account</td><td>Root account owned by you; developer gets an IAM or sub-user</td><td>Site goes dark when a card expires or a relationship ends</td></tr>
+    <tr><td>Git repository</td><td>Whoever owns the GitHub/GitLab organisation</td><td>Org owned by your company from day one</td><td>You lose history, branches, issues and CI config</td></tr>
+    <tr><td>Database and customer data</td><td>You, almost always — but only if you can reach it</td><td>Scheduled off-site backups you can restore without the developer</td><td>Regulatory exposure plus an unrecoverable business</td></tr>
+    <tr><td>Third-party licences (themes, paid plugins, Nova, fonts, stock photos)</td><td>The licensor; the seat belongs to whoever bought it</td><td>Licences purchased in your name, keys handed over, list documented</td><td>Silent breach, or the feature stops working at renewal</td></tr>
+    <tr><td>App store listings (Google Play, App Store)</td><td>The developer account that published</td><td>Publishing under your own developer account from the first upload</td><td>A transfer process, a wait, and sometimes a full re-review</td></tr>
+  </tbody>
+</table>
+
+<p>I have shipped seven apps to Google Play. Moving an app between developer accounts is possible — Google supports an app transfer flow and Apple supports one in App Store Connect — but both require both parties to cooperate, both accounts to be in good standing, and specific transaction identifiers. It is a bad day. Publishing from your account on day one is a good day. If mobile is part of your build, read what the store actually demands before you start, because the rules move: I covered the current testing gate in <a href="/blog/google-play-12-testers-requirement">Google Play's 12-tester requirement</a>.</p>
+
+<h2>3. Do I own the code once I have paid in full?</h2>
+
+<p>Only if the contract says so. Full payment is a <em>condition</em> that a well-drafted contract attaches the transfer to. It is not the transfer itself.</p>
+
+<p>These are the systems my clients most often operate under, and the reasoning is similar elsewhere:</p>
+
+<table>
+  <thead>
+    <tr><th>Jurisdiction</th><th>Default owner of commissioned code</th><th>Written assignment required?</th><th>Note</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>United States</td><td>The freelancer</td><td>Yes — signed writing</td><td>Software commissioned from a contractor generally does not fit the statutory "work made for hire" categories, so labelling it as such is not enough on its own; an express assignment is the reliable route</td></tr>
+    <tr><td>United Kingdom</td><td>The freelancer</td><td>Yes — in writing, signed by the assignor</td><td>Employees are the exception; contractors are not. Courts have implied narrow licences where nothing was agreed</td></tr>
+    <tr><td>France</td><td>The author</td><td>Yes, and usually itemised</td><td>CPI L131-2 and L131-3 expect the rights, purpose, territory and duration to be spelled out one by one. Moral rights are perpetual and cannot be signed away wholesale</td></tr>
+    <tr><td>Germany</td><td>The author</td><td>No general written-form rule — and no assignment is available at all</td><td>Copyright itself is non-transferable under UrhG §29. What you take instead is an exclusive, transferable, sublicensable grant of exploitation rights (Nutzungsrechte) under §31. Note §69b already gives the employer the economic rights in employee-written software. Put the grant in writing anyway</td></tr>
+    <tr><td>Switzerland</td><td>The author</td><td>Not required by statute (URG art. 16) — do it in writing regardless</td><td>Transfer is permitted with no form requirement, which means an unwritten deal is valid in theory and unprovable in practice. Moral rights stay with the author</td></tr>
+    <tr><td>Egypt</td><td>The author</td><td>Yes — and the assignment is expected to specify the rights, purpose, duration and territory</td><td>Under Egypt's IP law (Law 82 of 2002), moral rights are perpetual and not assignable; only economic rights move</td></tr>
+    <tr><td>Saudi Arabia / UAE</td><td>The author, with statutory carve-outs for works made under employment or commission</td><td>Yes — written, itemised</td><td>Moral rights are protected and non-assignable. Do not rely on the carve-out; write the clause</td></tr>
+  </tbody>
+</table>
+
+<p>Two honest caveats on that table. First, I am a developer who has signed a lot of these agreements, not a lawyer — for anything above roughly USD 20,000 in value, pay a local lawyer for two hours and have them read the IP clause. Second, statutes get amended: the UAE replaced its 2002 copyright law with a 2021 federal decree-law, and Saudi enforcement moved to SAIP after 2018. If your contract cites an article number, check that the number still exists as of the date you sign.</p>
+
+<div class="post-callout"><p><strong>Practical rule:</strong> in almost every jurisdiction listed above, the correct instruction to your lawyer is the same — "assignment of all economic rights in the bespoke deliverables, effective on receipt of cleared final payment, worldwide, in perpetuity, irrevocable." The one place that sentence cannot be executed literally is Germany, where copyright is not assignable at all; there you ask for an exclusive, transferable and sublicensable grant of exploitation rights instead. The commercial effect is the same and only the wording changes. Arguing about which default applies is what never works.</p></div>
+
+<h2>4. Should IP transfer be written into the contract? Yes — and here is the clause</h2>
+
+<p>I put an ownership clause in every proposal I send, unprompted, because it removes the single most common source of late-stage friction. If a developer resists writing one, that is information.</p>
+
+<p>Below is the structure I use. It is not legal advice and it is not jurisdiction-tuned, but it shows you what a fair clause contains — and note that a fair clause protects the developer too.</p>
+
+<pre><code>INTELLECTUAL PROPERTY
+
+1. Foreground IP. On receipt of cleared final payment, the Developer
+   assigns to the Client all economic rights, worldwide and in
+   perpetuity, in the bespoke source code, database schema, design
+   files and written documentation produced under this agreement.
+   Where local law does not permit assignment of copyright, the
+   Developer instead grants an exclusive, transferable and
+   sublicensable right of exploitation to the same extent.
+
+2. Interim licence. Before final payment, the Client holds a
+   non-exclusive, non-transferable licence to use the delivered work
+   for internal evaluation and staging only.
+
+3. Background IP. Pre-existing libraries, internal starter kits and
+   generic utilities owned by the Developer are NOT assigned. The
+   Developer grants the Client a perpetual, irrevocable, worldwide,
+   royalty-free licence to use, modify and sublicense them as
+   incorporated in the deliverables.
+
+4. Third-party components. Open-source and commercially licensed
+   components remain the property of their licensors and are supplied
+   under their own terms. A list is delivered at handover.
+
+5. Handover. Within 5 business days of final payment: full Git
+   history transferred to the Client's organisation, .env values
+   supplied over a secure channel, DNS and hosting root credentials
+   confirmed in the Client's name, deployment runbook delivered.
+
+6. Portfolio. The Developer may display the public-facing result and
+   name the Client in a portfolio, unless the Client objects in
+   writing.
+</code></pre>
+
+<p>Clause 3 is the unprofitable thing I am willing to say out loud. Any experienced developer arrives with a personal toolkit — an auth scaffold, a permissions layer, a deployment script refined over years. You are not buying that toolkit. You are buying an unlimited, permanent, transferable right to use it inside your product. A developer who claims to assign you outright ownership of their entire internal library is either lying or is going to have to stop using their own code. Neither helps you. If you want a starting point in Arabic and English, I published a <a href="/blog/namudhaj-aqd-barmajat-mawqe">web development contract template</a> that lays this out in plain language.</p>
+
+<h3>Two clauses to strike out if you see them</h3>
+
+<ul>
+  <li><strong>"Licence granted for use on a single domain."</strong> Fine for a WordPress theme. Not acceptable for a custom build you paid to have written.</li>
+  <li><strong>"Ownership transfers upon completion of the project."</strong> Who defines completion? Ambiguity here is exactly the crack a dispute opens in. Tie it to payment, which is measurable.</li>
+</ul>
+
+<h2>5. What if the developer hosts everything on their own account?</h2>
+
+<p>Then you have a business continuity problem that no IP clause solves. This is the failure mode I see most often, and it is rarely malicious — it usually starts as a convenience. The developer already has a Hostinger or DigitalOcean or AWS account, spinning up a server there takes four minutes, and nobody wants to slow the kickoff down with a billing conversation.</p>
+
+<p>Eighteen months later the developer is unreachable, the card on file declines, and your entire company is inside an account you cannot log into.</p>
+
+<p>The fix costs almost nothing at the start:</p>
+
+<ol>
+  <li><strong>You open the accounts.</strong> Registrar, hosting, cloud, email, analytics, error tracking, payment gateway. Your company legal name, a role-based email like <code>tech@yourcompany.com</code> that survives staff turnover, your corporate card.</li>
+  <li><strong>You invite the developer as a collaborator.</strong> AWS IAM user, DigitalOcean team member, Cloudflare member, GitHub org member. Scoped, revocable, auditable.</li>
+  <li><strong>You hold the recovery factors.</strong> The 2FA seed and recovery codes for the root account belong to you or your finance director, not the person building the site.</li>
+  <li><strong>You verify a restore.</strong> Not a backup — a restore. Once, before launch, prove that you can rebuild the site from your own backup without the developer in the room.</li>
+</ol>
+
+<p>I actively prefer this arrangement. It means when the engagement ends cleanly, there is nothing to untangle — I get removed from an org and everything keeps running. If you are choosing infrastructure now, my breakdown in <a href="/blog/choosing-web-hosting-2026">choosing web hosting in 2026</a> covers which providers make delegated access straightforward, and the <a href="/blog/website-security-checklist">website security checklist</a> covers the credential hygiene side.</p>
+
+<h2>6. Who owns the domain and the hosting account?</h2>
+
+<p>The domain is owned by whoever is listed as the <strong>registrant</strong> in the registrar's records — not whoever paid, not whoever chose the name, not whoever the WHOIS privacy service shows. With privacy protection switched on, the public WHOIS record tells you almost nothing, so verify from inside the account.</p>
+
+<p>Do this today, before you read further, if you have an existing site:</p>
+
+<ul>
+  <li>Log into the registrar yourself. If you cannot, you do not control your domain.</li>
+  <li>Check the registrant organisation and the registrant email. It should be your company, at your address.</li>
+  <li>Check the expiry date and turn on auto-renew with your own card. Expired domains are the most common way a small business loses everything at once, including email.</li>
+  <li>Note the nameservers. If they point at a developer-controlled Cloudflare account, that account can redirect your traffic anywhere.</li>
+</ul>
+
+<p>One timing detail worth knowing: domains can be locked against transfer for a period after registration or after certain registrant changes. ICANN has been revising its Transfer Policy and registrars have been rolling the changes out on different schedules through 2025 and 2026, so the exact lock behaviour depends on your registrar today. Do not assume you can move a domain the same week you need to. Ask your registrar directly.</p>
+
+<h2>7. Can a developer hold my site hostage?</h2>
+
+<p>Practically? Yes, if you handed them the keys. Legally? It is far weaker than it looks — and it usually collapses under one email.</p>
+
+<p>What people call "holding a site hostage" is almost always one of three situations, and they are not the same:</p>
+
+<h3>Situation A: unpaid invoice, developer withholds handover</h3>
+<p>This is not hostage-taking. This is a supplier exercising a contractual condition. If the contract says ownership transfers on final payment, the developer is doing exactly what you both signed. Pay, get the assignment, move on. If you think the work is defective, the correct move is a written snag list with a deadline, not withheld payment — withholding payment is what converts a quality dispute into an ownership dispute.</p>
+
+<h3>Situation B: paid in full, developer refuses to hand over</h3>
+<p>Now you have leverage. In order: a written demand quoting the clause and setting a 7-day deadline; a formal letter from a lawyer, which resolves most of these; a platform dispute if you contracted via Upwork or a similar escrow; a registrar dispute to recover a domain registered on your behalf; and finally, a claim. Bad outcomes here are almost always cases where nothing was in writing, so there was nothing to enforce.</p>
+
+<h3>Situation C: no contract at all, and the developer disappears</h3>
+<p>The hardest one, and the most common with cheap hires. You may hold nothing but an implied licence to a system you cannot access. Recovery means proving registrant status to the registrar, proving payment to the host, and often rebuilding. Budget the rebuild. I have taken over enough of these to say plainly: the cost of recovering an abandoned project frequently exceeds what the original build cost, because you pay for archaeology before you pay for code.</p>
+
+<div class="post-callout"><p><strong>Prevention beats remedy:</strong> the three things that make hostage-taking structurally impossible are (1) you own the registrar and hosting root accounts, (2) code is pushed to a Git organisation you own, from week one, not at handover, and (3) payment is staged so neither side is ever more than one milestone exposed.</p></div>
+
+<h2>8. Milestone payments: the structure that protects both sides</h2>
+
+<p>Ownership disputes are usually payment disputes wearing a costume. Structure the payments correctly and most of the risk evaporates.</p>
+
+<p>Here is the pattern I use on fixed-fee projects. The exact split shifts with project size, but the shares below add up to the whole fee and the logic holds at any scale.</p>
+
+<table>
+  <thead>
+    <tr><th>Milestone</th><th>Typical share</th><th>What the client receives</th><th>Ownership status</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Kickoff</td><td>30%</td><td>Repo created in client org, environments provisioned, spec signed</td><td>Interim licence only</td></tr>
+    <tr><td>Core build accepted</td><td>25%</td><td>Working staging URL, main flows demonstrable</td><td>Interim licence only</td></tr>
+    <tr><td>Feature complete / UAT</td><td>25%</td><td>Full staging system, client testing window opens</td><td>Interim licence only</td></tr>
+    <tr><td>Launch and handover</td><td>20%</td><td>Production deploy, credentials, documentation, licence list</td><td><strong>Full assignment takes effect</strong></td></tr>
+  </tbody>
+</table>
+
+<p>Three rules that make this work. Never let the final milestone fall below about 15% of the total — under that it stops functioning as an incentive to finish, because walking away becomes cheap for the developer. Never let it climb much above 25% either, because past that point the developer is financing your business, and good developers will decline the job, correctly. And define acceptance for each milestone in one testable sentence before the project starts, not after.</p>
+
+<p>For anything above roughly USD 15,000, escrow is worth the fee. Upwork and similar platforms build it in; independent escrow services for larger contracts typically charge in the low single-digit percentages. I have no objection to escrow — it protects me from a client who disappears just as much as it protects you. If you are still weighing structures, <a href="/blog/freelance-developer-vs-agency">freelance developer vs agency</a> compares how the two handle payment terms and IP clauses very differently, and <a href="/blog/how-much-does-website-cost-2026">what a website actually costs in 2026</a> covers where the money goes.</p>
+
+<h2>9. Do freelance developers sign NDAs — and does an NDA give me ownership?</h2>
+
+<p>Yes, most of us sign them routinely. I sign one before a discovery call whenever a client asks, and I have never charged for it.</p>
+
+<p>But understand what you are getting, because these two are constantly confused:</p>
+
+<ul>
+  <li><strong>An NDA controls disclosure.</strong> It stops me telling anyone what your product does, showing your figures, or sharing your data. It says nothing about who owns the code.</li>
+  <li><strong>An IP assignment controls ownership.</strong> It moves the copyright. It says nothing about secrecy.</li>
+</ul>
+
+<p>You need both, and they are separate clauses or separate documents. I have reviewed NDAs from clients who believed the NDA had handed them the source code. It had not.</p>
+
+<p>What a workable NDA looks like: mutual rather than one-way, a defined term (2–3 years is normal for software, perpetual for genuine trade secrets), standard carve-outs for information already public or independently developed, and a portfolio carve-out negotiated openly. If you need me under a strict NDA with no portfolio rights, say so and I will agree — I just want it decided at the start rather than discovered at launch. Some of my work sits under exactly that arrangement, so what appears on my <a href="/portfolios">portfolio</a> is the work clients have cleared for display, described the way they agreed it could be described.</p>
+
+<p>One clause to watch: non-competes that would prevent me from working in your entire industry for years. In many jurisdictions these are unenforceable against contractors, and where they are enforceable they price the job up substantially. A narrow, time-boxed non-solicitation of your named clients is reasonable. "No fintech work anywhere for three years" is not.</p>
+
+<h2>10. What nobody can sell you: open source and third-party licences</h2>
+
+<p>You cannot be assigned ownership of Laravel, React, Next.js or PostgreSQL. Nobody can transfer them to you, and any contract claiming to is drafted by someone who has not read it. What you own is <em>your</em> code, sitting on top of components licensed to the world.</p>
+
+<p>The practical implications are small but real:</p>
+
+<ul>
+  <li><strong>Permissive licences (MIT, BSD, Apache 2.0)</strong> — the bulk of the modern web stack. You can use, modify and sell commercially. Keep the attribution notices. Apache 2.0 asks for two things more: carry forward any NOTICE file that ships with the component, and state prominently in any file you modify that you changed it (§4b and §4c). That is the entire obligation.</li>
+  <li><strong>Copyleft (GPL, AGPL)</strong> — AGPL in particular is worth knowing about, because it can reach network-delivered software. If a component in your SaaS is AGPL, get advice before you assume you can keep your source private.</li>
+  <li><strong>Commercial licences</strong> — paid admin panels, premium plugins, marketplace themes, licensed fonts, stock photography. These are usually per-site or per-product seats. Buy them in your own account. A licence sitting in the developer's marketplace account is not yours, and marketplace terms often prohibit transferring it.</li>
+</ul>
+
+<p>Demand a written dependency and licence inventory at handover: package name, licence type, whether it was paid for, and in whose account the seat lives. It takes me under an hour to produce and it is the document clients thank me for two years later.</p>
+
+<h2>11. The ten-minute check before you sign anything</h2>
+
+<ol>
+  <li>Does the contract contain the word "assign" — not "grant a licence to" — for the bespoke work? Under German law, where copyright cannot be assigned at all, the equivalent to look for is an exclusive, transferable and sublicensable grant of exploitation rights.</li>
+  <li>Is the assignment tied to a measurable event (cleared final payment), not a vague one ("completion")?</li>
+  <li>Is background IP handled honestly: not assigned, but licensed to you perpetually and irrevocably?</li>
+  <li>Are you the registrant of the domain, in your company's name, with your own card on file?</li>
+  <li>Do you own the hosting and cloud root accounts, with the developer as a scoped collaborator?</li>
+  <li>Is the Git repository inside your organisation from week one?</li>
+  <li>Is handover defined as a list of artefacts with a deadline, not "we'll send everything over"?</li>
+  <li>Have you tested a restore from your own backup before launch?</li>
+  <li>Is there a mutual NDA, separate from the IP clause?</li>
+  <li>Is the final milestone between 15% and 25% of the total?</li>
+</ol>
+
+<p>If a developer pushes back on more than two of those, you have learned something valuable for the price of an email. My full screening process for this is in <a href="/blog/how-to-hire-a-web-developer">how to hire a web developer</a>, and the common objections are answered on my <a href="/faqs">FAQs page</a>.</p>
+
+<h2>12. How I handle it</h2>
+
+<p>Every project I take starts with the repository in the client's GitHub organisation, infrastructure in accounts the client owns, and a written clause assigning all bespoke work on final payment. I have worked this way across Egypt, Saudi Arabia, Kuwait, Turkey, the UK, Switzerland, France and Germany, and it has never once cost me a project. It has saved several.</p>
+
+<p>The reason is simple. A client who is confident they will own the result stops negotiating defensively and starts talking about the product. That is a better project for both of us.</p>
+
+<p>If you are about to sign something and want a second pair of eyes on the ownership and handover clauses, send it to me through <a href="/contact">the contact page</a>. Free consultation, a fixed-fee quote if you want the build itself, and I reply within 24 hours. Whether you hire me or not, do not sign a development contract that never uses the word "assign" — or, where the law forbids assignment, its exclusive-licence equivalent.</p>
+HTML,
+                'content_ar' => <<<'HTMLAR'
+<p class="lead">الحكم أولاً، وهو حكم لا يعجب كثيرين من زملائي: دفعك كامل قيمة المشروع لا ينقل إليك ملكية الكود تلقائياً في أغلب الدول العربية والأوروبية. حقّ المؤلف ينشأ لمن كتب الكود لحظة كتابته، ولا ينتقل إليك إلا بتنازل مكتوب وموقّع. أنا خالد أحمد، مطوّر Full Stack من القاهرة، نفّذت أكثر من 39 مشروعاً في ثماني دول، وهذا البند أُدرجه في كل عرض أرسله قبل أن أكتب سطراً واحداً.</p>
+
+<h2>1. الفاتورة تشتري التنفيذ، والعقد وحده يشتري الملكية</h2>
+
+<p>في أي مشروع برمجي يحدث أمران منفصلان تماماً. الأول أنك تدفع مقابل إنجاز العمل. والثاني أن ملكية ما أُنجز إما تنتقل إليك أو لا تنتقل. الفاتورة تعالج الأول فقط، والعقد وحده يعالج الثاني.</p>
+
+<p>حقّ المؤلف على البرمجيات ينشأ تلقائياً بمجرد كتابة الكود، دون تسجيل ودون إيداع ودون ختم. هذه قاعدة اتفاقية Berne التي انضمت إليها مصر والسعودية والإمارات والكويت وبريطانيا وفرنسا وألمانيا وسويسرا. والمهم: الحق ينشأ <strong>لصالح المؤلف</strong>، أي المبرمج، لا لصالح من طلب العمل ودفع ثمنه.</p>
+
+<p>والاستثناء المعتاد هو الموظف. إذا كتب مهندس على كشف رواتب شركتك كوداً ضمن نطاق وظيفته، فالحقوق المالية تؤول للشركة بحكم القانون في معظم الأنظمة الأوروبية والبريطانية، والنص عليها صريح في البرمجيات في ألمانيا (UrhG §69b). لكن مصر تستحق تنبيهاً صريحاً هنا، وهي أكثر ولاية قضائية يوقّع فيها قرّاء هذا المقال: قانون 82 لسنة 2002 لا يتضمن قاعدة عامة تمنح صاحب العمل ملكية ما ينتجه موظفوه، فحتى حالة الموظف عندنا تُحسم بما ينص عليه العقد. أما المستقل أو شركة التطوير الخارجية فليسا موظفَين في أي نظام، وهنا ينقلب الوضع الافتراضي ضدك.</p>
+
+<div class="post-callout"><p><strong>الجملة التي يجب أن تتذكرها:</strong> «أنا دفعت» واقعة سداد، وليست واقعة ملكية. نقل الحقوق المالية للمصنّف يشترط الكتابة والتوقيع في القانون المصري والسعودي والإماراتي والبريطاني. والكتابة قد تكون إلكترونية — اسم مكتوب في بريد إلكتروني قد يفي بالغرض في بعض الأنظمة — لكن الاتفاق الشفهي لا يفي به في الغالب، وإيصال التحويل البنكي لا يفي به وحده أبداً، ومحادثة WhatsApp لا يرد فيها ذكر حق المؤلف ليست تنازلاً.</p></div>
+
+<h3>ماذا تملك فعلاً بلا عقد؟</h3>
+
+<p>لا تخرج صفر اليدين. في غياب التنازل المكتوب يُفترض عادة وجود <strong>ترخيص ضمني</strong> يتيح لك استعمال المنتج للغرض الظاهر الذي طلبته من أجله. إن بنيت لك متجراً، فمن حقك تشغيل المتجر. لكن الترخيص الضمني هو الحد الأدنى، ولا يشمل في الغالب:</p>
+
+<ul>
+  <li>حقّك في تسليم الكود المصدري لمطوّر آخر ليعدّله ويطوّره.</li>
+  <li>حقّك في إعادة بيع النظام أو ترخيصه لطرف ثالث أو تقديمه تحت علامة أخرى.</li>
+  <li>حقّك في إعادة استخدام النظام نفسه لعلامة تجارية ثانية أو سوق ثانٍ.</li>
+  <li>الحصرية. قد يكون المطوّر حرّاً في بناء النظام نفسه لمنافسك الأسبوع القادم.</li>
+  <li>أي وضع واضح إذا نشب خلاف على الدفعة الأخيرة.</li>
+</ul>
+
+<p>ومن هنا تبدأ معظم النزاعات الحقيقية التي رأيتها. لا من سرقة، بل من غموض في الصياغة يلتقي بخلاف على النطاق.</p>
+
+<h2>2. «الكود» ليس أصلاً واحداً، بل سبعة أصول منفصلة</h2>
+
+<p>أكبر خطأ أراه أن العميل يتفاوض على ملكية «الموقع» وكأنه شيء واحد. الموقع في الحقيقة مجموعة أصول متفرقة، محفوظة في حسابات مختلفة، وخاضعة لأنظمة قانونية مختلفة. ومن الممكن تماماً أن تملك الكود وتظل عاجزاً عن الدخول إلى المنتج الحي.</p>
+
+<table>
+  <thead>
+    <tr><th>الأصل</th><th>لمن يعود افتراضياً</th><th>ما يجب اشتراطه كتابةً</th><th>كلفة الخطأ</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>الكود المصدري المخصّص</td><td>للمطوّر بصفته المؤلف</td><td>تنازل كامل عن الحقوق المالية عند السداد النهائي</td><td>لا تستطيع قانوناً تكليف غيره بتعديله</td></tr>
+    <tr><td>اسم النطاق (Domain)</td><td>لمن هو مسجَّل باسمه لدى المُسجِّل</td><td>الحساب باسم شركتك وبريدها وبطاقتها</td><td>فقدان العلامة والبريد الإلكتروني دفعة واحدة</td></tr>
+    <tr><td>الاستضافة أو VPS أو AWS</td><td>لمن فتح الحساب</td><td>الحساب الجذر باسمك، والمطوّر مستخدم فرعي</td><td>توقّف الموقع عند انتهاء بطاقة أو انتهاء العلاقة</td></tr>
+    <tr><td>مستودع Git</td><td>لمالك المنظمة على GitHub أو GitLab</td><td>المنظمة باسم شركتك من اليوم الأول</td><td>ضياع تاريخ التطوير والفروع وإعدادات CI</td></tr>
+    <tr><td>قاعدة البيانات وبيانات العملاء</td><td>لك في الأغلب، بشرط أن تصل إليها</td><td>نسخ احتياطية خارجية تستعيدها بنفسك</td><td>مسؤولية تنظيمية ونشاط لا يمكن استرجاعه</td></tr>
+    <tr><td>التراخيص التجارية (قوالب، إضافات مدفوعة، Laravel Nova، خطوط)</td><td>لمالك الترخيص، والمقعد لمن اشتراه</td><td>الشراء باسمك وتسليم المفاتيح وقائمة موثّقة</td><td>مخالفة صامتة، أو تعطّل ميزة عند التجديد</td></tr>
+    <tr><td>حسابات المتاجر (Google Play وApp Store)</td><td>لحساب المطوّر الذي نشر التطبيق</td><td>النشر من حساب مطوّر باسم شركتك منذ أول رفع</td><td>إجراءات نقل وانتظار وأحياناً مراجعة كاملة</td></tr>
+  </tbody>
+</table>
+
+<p>نشرتُ سبعة تطبيقات على Google Play، ونقل تطبيق بين حسابَي مطوّر ممكن عبر إجراء النقل الرسمي في Play Console، وكذلك في App Store Connect، لكنه يتطلب تعاون الطرفين وحسابات سليمة وبيانات معاملة محددة. يوم شاقّ يمكن تفاديه بالكامل بالنشر من حسابك أنت من البداية.</p>
+
+<h2>3. هل أملك الكود بعد سداد كامل المبلغ؟</h2>
+
+<p>تملكه إذا نصّ العقد على ذلك. السداد الكامل <em>شرط</em> يُعلّق عليه العقد الجيد انتقال الملكية، وليس هو انتقال الملكية نفسه.</p>
+
+<h3>ما تقوله القوانين في أسواقنا</h3>
+
+<p>في <strong>مصر</strong>، ينظّم قانون حماية حقوق الملكية الفكرية رقم 82 لسنة 2002 هذه المسألة. القاعدة العملية التي يجب أن تعرفها: الحقوق الأدبية للمؤلف أبدية ولا تقبل التنازل ولا التقادم، ولا تنتقل إليك مهما دفعت. أما الحقوق المالية فتنتقل بتصرّف مكتوب، ويُتوقع أن يحدّد بوضوح الحقوق المتنازل عنها ومداها والغرض منها ومدتها والنطاق الجغرافي. عبارة فضفاضة مثل «جميع الحقوق للعميل» أضعف بكثير من قائمة محددة.</p>
+
+<p>في <strong>السعودية</strong>، ينظّم نظام حماية حقوق المؤلف الصادر بمرسوم ملكي هذه العلاقة، وتتولى الهيئة السعودية للملكية الفكرية (SAIP) الإشراف والتسجيل منذ إنشائها في 2018. النظام يعالج المصنّفات المنجزة بموجب علاقة عمل أو تكليف، لكن لا تعتمد على هذا الاستثناء: اكتب البند صراحة.</p>
+
+<p>في <strong>الإمارات</strong>، حلّ المرسوم بقانون اتحادي رقم 38 لسنة 2021 بشأن حقوق المؤلف والحقوق المجاورة محل القانون السابق لسنة 2002. الحقوق الأدبية محمية وغير قابلة للتنازل، والتصرف في الحقوق المالية يشترط الكتابة والتحديد.</p>
+
+<p>وفي <strong>أوروبا</strong> الصورة ليست واحدة كما يظن كثيرون. فرنسا شديدة التشدد في الشكل، وألمانيا لا تعرف «التنازل» عن حق المؤلف أصلاً، وسويسرا لا تشترط شكلاً معيناً للنقل. الجدول التالي يلخّص الفروق التي تهمّك عند التوقيع.</p>
+
+<table>
+  <thead>
+    <tr><th>الدولة</th><th>المالك الافتراضي للكود المكلَّف به</th><th>هل يلزم تنازل مكتوب؟</th><th>ملاحظة عملية</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>مصر</td><td>المؤلف (المطوّر)</td><td>نعم، مكتوب ومفصّل</td><td>الحقوق الأدبية أبدية وغير قابلة للتنازل</td></tr>
+    <tr><td>السعودية</td><td>المؤلف، مع معالجة خاصة لعلاقة العمل والتكليف</td><td>نعم</td><td>الإشراف والتسجيل لدى SAIP</td></tr>
+    <tr><td>الإمارات</td><td>المؤلف</td><td>نعم، مكتوب ومحدّد</td><td>المرجع الحالي مرسوم 2021 لا قانون 2002</td></tr>
+    <tr><td>الكويت</td><td>المؤلف</td><td>نعم</td><td>راجع النص الساري مع محامٍ محلي قبل التوقيع</td></tr>
+    <tr><td>بريطانيا</td><td>المؤلف، والاستثناء للموظف فقط</td><td>نعم، مكتوب وبتوقيع المتنازل</td><td>CDPA 1988 المادة 90(3)، والمحاكم تفترض ترخيصاً ضيقاً حين لا يوجد اتفاق</td></tr>
+    <tr><td>فرنسا</td><td>المؤلف</td><td>نعم، مكتوب ومفصّل بنداً بنداً</td><td>المادتان L131-2 وL131-3 من CPI تتوقعان تحديد الحقوق والغرض والنطاق والمدة. الحقوق الأدبية أبدية</td></tr>
+    <tr><td>ألمانيا وسويسرا</td><td>المؤلف</td><td>لا يشترط القانون شكلاً معيناً — واكتبه رغم ذلك</td><td>في ألمانيا لا يجوز التنازل عن حق المؤلف نفسه إطلاقاً (UrhG §29)، وما تحصل عليه هو ترخيص استغلال حصري قابل للنقل والترخيص من الباطن (§31)، مع ملاحظة أن §69b يمنح صاحب العمل الحقوق المالية في برمجيات الموظف. وفي سويسرا (URG art. 16) النقل جائز بلا شكل محدد، فالاتفاق غير المكتوب صحيح نظرياً ولا يمكن إثباته عملياً</td></tr>
+  </tbody>
+</table>
+
+<p>تحفّظان صادقان على هذا الجدول. الأول أنني مطوّر وقّعت كثيراً من هذه الاتفاقيات، لست محامياً؛ وفي أي مشروع تتجاوز قيمته نحو 20,000 USD — أي ما يقارب مليون EGP أو 75,000 SAR بأسعار الصرف الحالية — فإن ساعتين من محامٍ محلي أرخص من أي نزاع لاحق. والثاني أن النصوص تُعدَّل: الإمارات غيّرت قانونها في 2021، والسعودية نقلت الاختصاص إلى SAIP في 2018. إذا استشهد عقدك برقم مادة، تأكد أن المادة ما زالت قائمة بتاريخ التوقيع.</p>
+
+<div class="post-callout"><p><strong>القاعدة العملية:</strong> التعليمة الصحيحة لمحاميك واحدة في كل الدول أعلاه تقريباً: «تنازل عن كامل الحقوق المالية في المخرجات المخصّصة، نافذ عند تحصيل الدفعة الأخيرة، لجميع دول العالم، وبصفة دائمة وغير قابلة للرجوع». والاستثناء الوحيد ألمانيا، حيث لا يجوز التنازل عن حق المؤلف أصلاً، فتطلب هناك ترخيص استغلال حصرياً قابلاً للنقل والترخيص من الباطن بالمدى نفسه؛ الأثر التجاري واحد والكلمة وحدها تتغيّر. أما الجدال حول القاعدة الافتراضية فلا يعمل في أي مكان.</p></div>
+
+<h2>4. هل يجب كتابة بند نقل الملكية في العقد؟ نعم، وهذا شكله</h2>
+
+<p>أضع بند الملكية في كل عرض أرسله دون أن يطلبه أحد، لأنه يُلغي أكثر أسباب الاحتكاك المتأخر شيوعاً. وإذا اعترض مطوّر على كتابته، فهذه في حد ذاتها معلومة مفيدة عنه.</p>
+
+<p>هذه البنية التي أستخدمها. لاحظ أن البند العادل يحمي المطوّر أيضاً، لا العميل وحده.</p>
+
+<pre><code>الملكية الفكرية
+
+1. المخرجات المخصّصة: عند تحصيل الدفعة النهائية، يتنازل المطوّر
+   للعميل عن كامل الحقوق المالية في الكود المصدري وبنية قاعدة
+   البيانات وملفات التصميم والتوثيق، لجميع الدول وبصفة دائمة.
+   وإذا كان القانون الواجب التطبيق لا يجيز التنازل عن حق المؤلف،
+   يمنح المطوّر بدلاً منه ترخيص استغلال حصرياً قابلاً للنقل
+   والترخيص من الباطن بالمدى نفسه.
+
+2. الترخيص المؤقت: قبل السداد النهائي، للعميل ترخيص غير حصري
+   وغير قابل للتحويل باستخدام ما سُلّم لأغراض المراجعة والاختبار.
+
+3. الملكية السابقة: المكتبات والأدوات الداخلية المملوكة للمطوّر
+   قبل المشروع لا تُنقل ملكيتها. يمنح المطوّر العميل ترخيصاً
+   دائماً غير قابل للرجوع، مجانياً، لاستخدامها وتعديلها وترخيصها
+   من الباطن بالقدر المدمج في المخرجات.
+
+4. مكوّنات الأطراف الثالثة: تبقى ملكاً لأصحابها وتُورَّد وفق
+   شروطها، وتُسلَّم قائمة بها عند التسليم.
+
+5. التسليم: خلال 5 أيام عمل من السداد النهائي، نقل كامل تاريخ
+   Git إلى منظمة العميل، وتسليم قيم .env عبر قناة آمنة، وتأكيد
+   بيانات DNS والاستضافة باسم العميل، وتسليم دليل النشر.
+
+6. أعمال المعرض: يحق للمطوّر عرض النتيجة العلنية وذكر اسم العميل
+   ضمن أعماله، ما لم يعترض العميل كتابةً.
+</code></pre>
+
+<p>البند الثالث هو الأمر غير المربح الذي أقوله بصراحة. كل مطوّر خبير يأتي ومعه صندوق أدوات شخصي: طبقة صلاحيات، هيكل مصادقة، سكربتات نشر صقلها عبر سنوات. أنت لا تشتري هذا الصندوق. أنت تشتري حقاً دائماً وغير محدود في استخدامه داخل منتجك. والمطوّر الذي يعدك بنقل ملكية مكتباته الداخلية كلها إما يكذب أو سيضطر للتوقف عن استخدام كوده هو. وكلا الاحتمالين لا يخدمك. إن أردت نقطة انطلاق جاهزة فقد نشرت <a href="/ar/blog/namudhaj-aqd-barmajat-mawqe">نموذج عقد برمجة موقع</a> يشرح هذه البنود بلغة مفهومة.</p>
+
+<h3>بندان احذفهما فور رؤيتهما</h3>
+
+<ul>
+  <li><strong>«ترخيص الاستخدام على نطاق واحد».</strong> مقبول في قالب WordPress جاهز، مرفوض تماماً في نظام مخصّص دفعتَ ثمن كتابته.</li>
+  <li><strong>«تنتقل الملكية عند اكتمال المشروع».</strong> ومن يحدّد الاكتمال؟ هذا الغموض هو الشقّ الذي يتسع ليصبح نزاعاً. اربط الانتقال بالسداد، فهو واقعة قابلة للقياس.</li>
+</ul>
+
+<h2>5. ماذا لو كان كل شيء على حسابات المطوّر؟</h2>
+
+<p>عندها لديك مشكلة استمرارية أعمال لا يحلّها أي بند ملكية. هذه أكثر حالات الفشل تكراراً في السوق العربي، ونادراً ما تكون بسوء نية. تبدأ عادة كتسهيل: المطوّر لديه حساب Hostinger أو DigitalOcean أو AWS جاهز، وإنشاء خادم يستغرق أربع دقائق، ولا أحد يريد تعطيل انطلاق المشروع بنقاش عن الفواتير.</p>
+
+<p>وبعد عام ونصف يتعذّر الوصول إلى المطوّر، وتُرفض البطاقة المسجّلة، وتكتشف أن شركتك كلها داخل حساب لا تملك بيانات دخوله.</p>
+
+<ol>
+  <li><strong>افتح الحسابات بنفسك:</strong> المُسجِّل، الاستضافة، السحابة، البريد، التحليلات، بوابة الدفع. باسم الشركة القانوني، ببريد وظيفي مثل <code>tech@yourcompany.com</code> لا ببريد موظف قد يغادر، وببطاقة الشركة.</li>
+  <li><strong>ادعُ المطوّر كمتعاون:</strong> مستخدم IAM على AWS، أو عضو فريق على DigitalOcean وCloudflare وGitHub. صلاحيات محدودة وقابلة للسحب والتدقيق.</li>
+  <li><strong>احتفظ بعوامل الاسترداد:</strong> رموز التحقق الثنائي ورموز الاسترداد للحساب الجذر تبقى معك أو مع المدير المالي، لا مع من يبني الموقع.</li>
+  <li><strong>جرّب الاستعادة لا النسخ:</strong> قبل الإطلاق، أثبت مرة واحدة أنك تستطيع إعادة بناء الموقع من نسختك الاحتياطية دون وجود المطوّر.</li>
+</ol>
+
+<p>أنا شخصياً أفضّل هذا الترتيب. فحين تنتهي العلاقة بشكل نظيف لا يوجد ما يُفكّ: أُزال من المنظمة ويستمر كل شيء يعمل. وإن كنت تختار بنيتك التحتية الآن، فمقال <a href="/ar/blog/choosing-web-hosting-2026">اختيار استضافة الموقع في 2026</a> يوضّح أي المزوّدين يسهّل منح صلاحيات محدودة قابلة للسحب، بينما تغطي <a href="/ar/blog/website-security-checklist">قائمة فحص أمان الموقع</a> جانب حماية بيانات الدخول ورموز الاسترداد.</p>
+
+<h3>نقطة خاصة بالخليج: حساب التاجر لدى بوابة الدفع</h3>
+
+<p>هذه أخطر من الاستضافة ولا ينتبه لها كثيرون. حساب التاجر لدى Tap أو Moyasar أو HyperPay أو Paymob يجب أن يكون باسم شركتك وبسجلها التجاري وبحسابها البنكي. رأيت حالات فُتح فيها الحساب باسم المطوّر «مؤقتاً حتى يصدر السجل»، فصارت أموال المبيعات تدخل إلى كيان آخر. هذا وضع لا يُصلَح بعقد برمجة، بل يحتاج إغلاق الحساب وفتح غيره وإعادة الربط. تفاصيل الربط الصحيح شرحتها في مقال <a href="/ar/blog/gcc-payment-gateway-integration">ربط بوابات الدفع في الخليج</a>.</p>
+
+<h2>6. من يملك النطاق والاستضافة؟</h2>
+
+<p>النطاق يملكه من هو مسجَّل بصفته <strong>صاحب التسجيل</strong> في سجلات المُسجِّل. ليس من دفع، ولا من اختار الاسم، ولا ما تُظهره خدمة WHOIS المحجوبة بالخصوصية. تحقّق من داخل الحساب لا من الخارج.</p>
+
+<ul>
+  <li>سجّل الدخول بنفسك الآن. إن لم تستطع، فأنت لا تتحكم في نطاقك.</li>
+  <li>راجع اسم الجهة والبريد المسجَّل. يجب أن يكونا لشركتك.</li>
+  <li>فعّل التجديد التلقائي ببطاقة الشركة. انتهاء صلاحية النطاق أسرع طريقة تفقد بها الموقع والبريد معاً.</li>
+  <li>راجع خوادم الأسماء. إذا كانت موجّهة إلى حساب Cloudflare يملكه المطوّر، فهو قادر على تحويل زوّارك إلى أي وجهة.</li>
+</ul>
+
+<p>وللنطاقات المحلية اعتبار إضافي: تسجيل نطاق تحت <code>.sa</code> أو <code>.ae</code> يرتبط عادةً بوثائق كيان محلي مثل السجل التجاري. الجهة المذكورة في تلك الوثائق هي المالك الفعلي عملياً، فاحرص أن تكون شركتك لا شركة المطوّر. أما مواعيد أقفال النقل بعد التسجيل أو بعد تغيير بيانات المالك فقد تغيّرت مع تحديثات سياسة النقل لدى ICANN التي طبّقها المُسجِّلون بجداول متفاوتة خلال 2025 و2026، لذا اسأل مُسجِّلك مباشرة ولا تفترض أنك تستطيع نقل النطاق في الأسبوع الذي تحتاجه فيه.</p>
+
+<h2>7. هل يستطيع المطوّر احتجاز موقعي؟</h2>
+
+<p>عملياً نعم، إن كنت سلّمته المفاتيح. قانونياً الموقف أضعف بكثير مما يبدو، وينهار غالباً أمام خطاب واحد. لكن ما يسمّيه الناس «احتجاز الموقع» هو في الحقيقة ثلاث حالات مختلفة تماماً.</p>
+
+<h3>الحالة الأولى: مستحقات غير مدفوعة والمطوّر يمتنع عن التسليم</h3>
+<p>هذا ليس احتجازاً، بل تنفيذ لشرط تعاقدي اتفقتما عليه. إذا نصّ العقد على انتقال الملكية عند السداد النهائي، فالمطوّر يفعل ما وقّعتما عليه. وإذا كنت ترى أن العمل معيب، فالتصرّف الصحيح قائمة ملاحظات مكتوبة بمهلة محددة، لا حجب الدفعة؛ لأن حجب الدفعة هو ما يحوّل خلافاً على الجودة إلى نزاع على الملكية.</p>
+
+<h3>الحالة الثانية: سددت بالكامل والمطوّر يمتنع</h3>
+<p>هنا الموقف في صفّك. بالترتيب: إنذار كتابي يستشهد بالبند ويمنح مهلة سبعة أيام، ثم خطاب من محامٍ وهو ما ينهي أغلب هذه الحالات، ثم نزاع عبر المنصة إن كان التعاقد عبر Upwork أو ما شابه، ثم شكوى لدى المُسجِّل لاسترداد نطاق سُجّل لحسابك، ثم الدعوى. النتائج السيئة في هذه الحالة تكون دائماً حيث لا يوجد شيء مكتوب أصلاً، فلا يوجد ما يُنفَّذ.</p>
+
+<h3>الحالة الثالثة: لا عقد إطلاقاً والمطوّر اختفى</h3>
+<p>الأصعب، والأكثر شيوعاً مع التعاقدات الرخيصة جداً. قد لا تملك سوى ترخيص ضمني على نظام لا تستطيع الوصول إليه. الاسترداد يعني إثبات صفتك أمام المُسجِّل، وإثبات السداد أمام شركة الاستضافة، وغالباً إعادة البناء. وأقولها بوضوح بعد أن استلمت عدداً من هذه المشاريع: كلفة إنقاذ مشروع متروك كثيراً ما تتجاوز كلفة بنائه من الصفر، لأنك تدفع ثمن التنقيب قبل أن تدفع ثمن البرمجة.</p>
+
+<div class="post-callout"><p><strong>الوقاية أرخص من العلاج:</strong> ثلاثة أمور تجعل الاحتجاز مستحيلاً بنيوياً: أن تملك حسابات المُسجِّل والاستضافة الجذرية، وأن يُرفع الكود إلى منظمة Git تملكها أنت من الأسبوع الأول لا عند التسليم، وأن تكون الدفعات مجزّأة بحيث لا يكون أي طرف مكشوفاً بأكثر من مرحلة واحدة.</p></div>
+
+<h2>8. الدفع على مراحل: البنية التي تحمي الطرفين</h2>
+
+<p>نزاعات الملكية في معظمها نزاعات سداد ترتدي ثوباً قانونياً. اضبط بنية الدفع ويتبخّر أغلب الخطر. النسب أدناه تُجمِّع كامل قيمة المشروع، وقد تتحرك قليلاً بحسب حجمه، لكن منطقها ثابت.</p>
+
+<table>
+  <thead>
+    <tr><th>المرحلة</th><th>النسبة المعتادة</th><th>ما يستلمه العميل</th><th>حالة الملكية</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>الانطلاق</td><td>30%</td><td>مستودع داخل منظمة العميل، تجهيز البيئات، توقيع الوثيقة الفنية</td><td>ترخيص مؤقت فقط</td></tr>
+    <tr><td>قبول النواة</td><td>25%</td><td>رابط staging يعمل، المسارات الرئيسية قابلة للعرض</td><td>ترخيص مؤقت فقط</td></tr>
+    <tr><td>اكتمال المزايا والاختبار</td><td>25%</td><td>نظام كامل على staging وفتح نافذة اختبار العميل</td><td>ترخيص مؤقت فقط</td></tr>
+    <tr><td>الإطلاق والتسليم</td><td>20%</td><td>النشر على الإنتاج، بيانات الدخول، التوثيق، قائمة التراخيص</td><td><strong>يسري التنازل الكامل</strong></td></tr>
+  </tbody>
+</table>
+
+<p>ثلاث قواعد تجعل هذه البنية تعمل. لا تجعل الدفعة الأخيرة أقل من نحو 15% من الإجمالي؛ تحت ذلك تفقد وظيفتها كحافز على الإنهاء ويصبح الانسحاب رخيصاً على المطوّر. ولا تجعلها تتجاوز نحو 25%؛ فوق ذلك يصبح المطوّر ممولاً لمشروعك، وسيعتذر المطوّرون الجيدون عن العمل، وهم محقّون. وحدّد معيار قبول كل مرحلة في جملة واحدة قابلة للاختبار قبل بدء المشروع لا بعده.</p>
+
+<p>في المشاريع التي تتجاوز نحو 15,000 USD — أي ما يقارب 750,000 EGP أو 55,000 AED بأسعار الصرف الحالية — يستحق حساب الضمان (escrow) رسومه. أنا لا أعترض عليه إطلاقاً، فهو يحميني من عميل يختفي بقدر ما يحميك من مطوّر يختفي. وإذا كنت تقارن بين التعاقد مع مستقل أو شركة، فمقال <a href="/ar/blog/freelance-developer-vs-agency">مستقل أم شركة برمجة</a> يشرح كيف يختلف الطرفان في شروط الدفع وبنود الملكية، بينما يوضّح <a href="/ar/blog/website-cost-egypt-gulf">تكلفة الموقع في مصر والخليج</a> أين تذهب الميزانية فعلاً.</p>
+
+<h2>9. هل يوقّع المطوّرون المستقلون اتفاقية سرية؟ وهل تمنحني الملكية؟</h2>
+
+<p>نعم، معظمنا يوقّعها بشكل روتيني. أنا أوقّع NDA قبل مكالمة الاستكشاف كلما طلب العميل، ولم أطلب مقابلاً لذلك يوماً.</p>
+
+<p>لكن افهم ما تحصل عليه، لأن الخلط بين الأمرين مستمر:</p>
+
+<ul>
+  <li><strong>اتفاقية السرية تحكم الإفصاح.</strong> تمنعني من إخبار أحد بما يفعله منتجك، أو عرض أرقامك، أو مشاركة بياناتك. ولا تقول شيئاً عن ملكية الكود.</li>
+  <li><strong>بند التنازل يحكم الملكية.</strong> ينقل حق المؤلف. ولا يقول شيئاً عن السرية.</li>
+</ul>
+
+<p>أنت تحتاج الاثنين، وهما بندان منفصلان أو وثيقتان منفصلتان. راجعت اتفاقيات سرية من عملاء كانوا يظنون أنها سلّمتهم الكود المصدري. لم تفعل.</p>
+
+<p>الاتفاقية العملية: متبادلة لا أحادية، بمدة محددة (سنتان إلى ثلاث معتاد في البرمجيات، وأبدية للأسرار التجارية الحقيقية)، باستثناءات معتادة للمعلومات العامة أو المطوَّرة استقلالاً، وببند واضح بشأن حق عرض العمل. إن أردتني تحت سرية كاملة دون حق عرض، أوافق؛ أريد فقط أن يُحسم هذا في البداية لا أن يُكتشف عند الإطلاق. وبعض أعمالي يقع تحت هذا الترتيب بالضبط، ولذلك فإن ما يظهر في <a href="/ar/portfolios">معرض أعمالي</a> هو ما وافق العملاء على عرضه وبالصيغة التي وافقوا عليها.</p>
+
+<p>بند واحد انتبه له: شرط عدم المنافسة الذي يمنعني من العمل في قطاعك كله لسنوات. في كثير من الأنظمة لا يُنفَّذ مثل هذا الشرط ضد متعاقد مستقل، وحيث يُنفَّذ فإنه يرفع السعر رفعاً كبيراً. منع استقطاب عملائك المسمَّين لمدة محددة شرط معقول. أما «ممنوع العمل في القطاع المالي ثلاث سنوات» فليس معقولاً.</p>
+
+<h2>10. ما لا يستطيع أحد بيعه لك: المصادر المفتوحة والتراخيص</h2>
+
+<p>لا يمكن أن تُنقل إليك ملكية Laravel أو React أو Next.js أو PostgreSQL. لا أحد يملكها ليمنحها لك، وأي عقد يدّعي ذلك كتبه شخص لم يقرأه. ما تملكه هو <em>كودك أنت</em> فوق مكوّنات مرخّصة للعالم كله.</p>
+
+<ul>
+  <li><strong>التراخيص المتساهلة (MIT وBSD وApache 2.0):</strong> وهي عماد المنظومة الحديثة. لك الاستخدام والتعديل والبيع التجاري، والتزامك الأساسي الإبقاء على إشعارات النسبة. ويضيف Apache 2.0 التزامين صغيرين: ترحيل ملف NOTICE المرفق بالمكوّن، وبيان أنك أجريت تعديلات جوهرية على الملفات التي غيّرتها (المادتان 4b و4c). وهذا كل ما هو مطلوب.</li>
+  <li><strong>التراخيص الناسخة (GPL وخاصة AGPL):</strong> يستحق AGPL انتباهاً خاصاً لأنه قد يمتد إلى البرمجيات المقدَّمة عبر الشبكة. إذا كان أحد مكوّنات نظام SaaS لديك تحت AGPL، استشر قبل أن تفترض أن كودك سيبقى مغلقاً.</li>
+  <li><strong>التراخيص التجارية:</strong> لوحات الإدارة المدفوعة والإضافات والقوالب والخطوط والصور. غالباً مقاعد لكل موقع أو لكل منتج، اشترِها بحسابك أنت. الترخيص القابع في حساب المطوّر ليس ملكك، وشروط الأسواق كثيراً ما تمنع نقله.</li>
+</ul>
+
+<p>اطلب عند التسليم جرد اعتماديات وتراخيص مكتوباً: اسم الحزمة، ونوع الترخيص، وهل دُفع ثمنه، وفي حساب من يقبع المقعد. إعداده يستغرق أقل من ساعة، وهو المستند الذي يشكرني عليه العملاء بعد عامين.</p>
+
+<h2>11. فحص عشر دقائق قبل التوقيع</h2>
+
+<ol>
+  <li>هل يحتوي العقد على كلمة «تنازل» لا مجرد «ترخيص» بشأن العمل المخصّص؟ وفي القانون الألماني، حيث لا يجوز التنازل أصلاً، البديل المكافئ هو ترخيص استغلال حصري قابل للنقل والترخيص من الباطن.</li>
+  <li>هل التنازل مرتبط بواقعة قابلة للقياس (تحصيل الدفعة الأخيرة) لا بعبارة غامضة مثل «الاكتمال»؟</li>
+  <li>هل عولجت الملكية السابقة بأمانة: لا تُنقل، لكن تُرخَّص لك بصفة دائمة وغير قابلة للرجوع؟</li>
+  <li>هل النطاق مسجَّل باسم شركتك وبطاقتها؟</li>
+  <li>هل تملك الحسابات الجذرية للاستضافة والسحابة، والمطوّر متعاون بصلاحيات محدودة؟</li>
+  <li>هل مستودع Git داخل منظمتك منذ الأسبوع الأول؟</li>
+  <li>هل التسليم معرَّف كقائمة مخرجات بمهلة محددة لا كوعد بإرسال «كل شيء»؟</li>
+  <li>هل جرّبت استعادة نسخة احتياطية بنفسك قبل الإطلاق؟</li>
+  <li>هل هناك اتفاقية سرية متبادلة منفصلة عن بند الملكية؟</li>
+  <li>هل حُدّد القانون الواجب التطبيق وجهة فضّ النزاع، خاصة إذا كان المطوّر في دولة أخرى؟</li>
+</ol>
+
+<p>إذا اعترض مطوّر على أكثر من بندين من هذه، فقد عرفت ما تحتاج معرفته بثمن بريد إلكتروني واحد. آلية الاختيار الكاملة شرحتها في <a href="/ar/blog/how-to-hire-a-web-developer">كيف توظّف مطوّر ويب</a>، والأسئلة المتكررة مجابة في <a href="/ar/faqs">صفحة الأسئلة الشائعة</a>.</p>
+
+<h2>12. كيف أتعامل أنا مع هذا</h2>
+
+<p>كل مشروع أقبله يبدأ بمستودع داخل منظمة العميل على GitHub، وبنية تحتية على حسابات يملكها العميل، وبند مكتوب يتنازل عن كامل العمل المخصّص عند السداد النهائي. عملت بهذه الطريقة في مصر والسعودية والكويت وتركيا وبريطانيا وسويسرا وفرنسا وألمانيا، ولم تكلّفني مشروعاً واحداً. بل أنقذت عدة مشاريع.</p>
+
+<p>السبب بسيط: العميل الواثق أنه سيملك النتيجة يتوقف عن التفاوض دفاعياً ويبدأ الحديث عن المنتج نفسه. وهذا مشروع أفضل لكلينا.</p>
+
+<p>إذا كنت على وشك توقيع عقد وتريد رأياً ثانياً في بنود الملكية والتسليم، أرسله لي عبر <a href="/ar/contact">صفحة التواصل</a>. استشارة مجانية، وعرض سعر ثابت إن أردت التنفيذ، ورد خلال 24 ساعة. وسواء تعاقدت معي أو لا، لا توقّع عقد برمجة لا ترد فيه كلمة «تنازل» ولو مرة واحدة، أو ما يكافئها من ترخيص استغلال حصري حيث يمنع القانون التنازل.</p>
+HTMLAR,
+            ],
+            [
                 'slug' => 'build-saas-mvp-laravel-react-2026',
                 'title' => 'How to Build a Scalable SaaS MVP with Laravel and React in 2026',
                 'title_ar' => 'كيفية بناء تطبيق SaaS MVP قابل للتوسع باستخدام Laravel و React في 2026',
@@ -6259,7 +13931,7 @@ Sitemap: https://www.example.com/sitemap_index.xml</code></pre>
   "author": {
     "@type": "Person",
     "name": "Khaled Ahmed",
-    "url": "https://khaledahmed.dev/about",
+    "url": "https://khaledahmed.net/about",
     "sameAs": [
       "https://www.linkedin.com/in/khaled-ahmed-dev",
       "https://github.com/khaled-ahmed"
@@ -6270,11 +13942,11 @@ Sitemap: https://www.example.com/sitemap_index.xml</code></pre>
     "name": "Khaled Ahmed",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://khaledahmed.dev/logo.png"
+      "url": "https://khaledahmed.net/logo.png"
     }
   },
-  "image": "https://khaledahmed.dev/images/seo-checklist-2026.webp",
-  "mainEntityOfPage": "https://khaledahmed.dev/blog/website-seo-checklist-2026"
+  "image": "https://khaledahmed.net/images/seo-checklist-2026.webp",
+  "mainEntityOfPage": "https://khaledahmed.net/blog/website-seo-checklist-2026"
 }
 &lt;/script&gt;</code></pre>
 
@@ -6490,7 +14162,7 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])
 - [Web Hosting in 2026](/blog/choosing-web-hosting-2026)
 
 ## Contact
-- Email: hello@khaledahmed.dev
+- Email: hello@khaledahmed.net
 - Booking: /contact</code></pre>
 
 <h2>10 أخطاء SEO بشوفها على 80% من تدقيقات العملاء</h2>
@@ -6741,7 +14413,7 @@ Sitemap: https://www.example.com/sitemap_index.xml</code></pre>
   "author": {
     "@type": "Person",
     "name": "Khaled Ahmed",
-    "url": "https://khaledahmed.dev/about",
+    "url": "https://khaledahmed.net/about",
     "sameAs": [
       "https://www.linkedin.com/in/khaled-ahmed-dev",
       "https://github.com/khaled-ahmed"
@@ -6752,11 +14424,11 @@ Sitemap: https://www.example.com/sitemap_index.xml</code></pre>
     "name": "Khaled Ahmed",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://khaledahmed.dev/logo.png"
+      "url": "https://khaledahmed.net/logo.png"
     }
   },
-  "image": "https://khaledahmed.dev/images/seo-checklist-2026.webp",
-  "mainEntityOfPage": "https://khaledahmed.dev/blog/website-seo-checklist-2026"
+  "image": "https://khaledahmed.net/images/seo-checklist-2026.webp",
+  "mainEntityOfPage": "https://khaledahmed.net/blog/website-seo-checklist-2026"
 }
 &lt;/script&gt;</code></pre>
 
@@ -6972,7 +14644,7 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])
 - [Web Hosting in 2026](/blog/choosing-web-hosting-2026)
 
 ## Contact
-- Email: hello@khaledahmed.dev
+- Email: hello@khaledahmed.net
 - Booking: /contact</code></pre>
 
 <h2>The 10 SEO Mistakes I See on 80% of Client Audits</h2>

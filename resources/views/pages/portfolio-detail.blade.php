@@ -78,37 +78,6 @@
                     </div>
 
                     <div class="sidebar-widgets">
-                        <h5 class="inner-header-title">Recent Projects</h5>
-
-                        <div class="recent-post-item clearfix">
-                            <div class="recent-post-img mr-3">
-                                <a href="#"><img src="{{ asset('images/projects/couvreur.jpg') }}" class="img-fluid image-size-100"></a>
-                            </div>
-                            <div class="recent-post-body">
-                                <a href="#"><h6 class="recent-post-title">Couvreur Roofing Website</h6></a>
-                            </div>
-                        </div>
-
-                        <div class="recent-post-item clearfix">
-                            <div class="recent-post-img mr-3">
-                                <a href="#"><img src="{{ asset('images/projects/kebab.jpg') }}" class="img-fluid image-size-100"></a>
-                            </div>
-                            <div class="recent-post-body">
-                                <a href="#"><h6 class="recent-post-title">King Kebab System</h6></a>
-                            </div>
-                        </div>
-
-                        <div class="recent-post-item clearfix">
-                            <div class="recent-post-img mr-3">
-                                <a href="#"><img src="{{ asset('images/projects/water.jpg') }}" class="img-fluid image-size-100"></a>
-                            </div>
-                            <div class="recent-post-body">
-                                <a href="#"><h6 class="recent-post-title">Salsabeel Water Delivery</h6></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="sidebar-widgets">
                         <h5 class="inner-header-title">Copy URL</h5>
                         <ul class="sidebar-share clearfix">
                             <li>

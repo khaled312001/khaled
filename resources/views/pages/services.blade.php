@@ -6,7 +6,7 @@
 
 @section('structured_data')
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"Khaled Ahmed — Web Development Services","url":"https://khaledahmed.net/services","image":"{{ asset('images/logo.png') }}","priceRange":"$$","areaServed":["EG","SA","AE","KW","QA","GB","CH","DE","FR"],"provider":{"@type":"Person","name":"Khaled Ahmed","jobTitle":"Senior Full Stack Web Developer","url":"https://khaledahmed.net","sameAs":["https://linkedin.com/in/khaled-ahmed-82368819b","https://github.com/khaled312001"]},"hasOfferCatalog":{"@type":"OfferCatalog","name":"Web Development Services","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Laravel Backend Development"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"React & Next.js Frontend"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"SaaS MVP Development"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"E-commerce Solutions"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Performance & SEO"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Maintenance & DevOps"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"AI Integration"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"UI/UX Implementation"}}]}}
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Khaled Ahmed — Web Development Services","url":"https://khaledahmed.net/services","image":"{{ asset('images/logo.webp') }}","priceRange":"$$","areaServed":["EG","SA","AE","KW","QA","GB","CH","DE","FR"],"provider":{"@type":"Person","name":"Khaled Ahmed","jobTitle":"Senior Full Stack Web Developer","url":"https://khaledahmed.net","sameAs":["https://linkedin.com/in/khaled-ahmed-82368819b","https://github.com/khaled312001"]},"hasOfferCatalog":{"@type":"OfferCatalog","name":"Web Development Services","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Laravel Backend Development"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"React & Next.js Frontend"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"SaaS MVP Development"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"E-commerce Solutions"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Performance & SEO"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Maintenance & DevOps"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"AI Integration"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"UI/UX Implementation"}}]}}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://khaledahmed.net/"},{"@type":"ListItem","position":2,"name":"Services","item":"https://khaledahmed.net/services"}]}
@@ -65,35 +65,35 @@
         ['fab fa-laravel', $isAr ? 'تطوير الخلفية بـ Laravel' : 'Laravel Backend Development',
             $isAr ? 'تطبيقات ويب ثابتة قابلة للتوسع: واجهات API، أنظمة مصادقة، طوابير معالجة، أنظمة فوترة وتعدد المستأجرين.' : 'Solid scalable web apps: REST/GraphQL APIs, auth systems, queue workers, billing engines, multi-tenant architecture.',
             $isAr ? ['تصميم قواعد البيانات وعلاقاتها','واجهات API موثقة بـ OpenAPI','تكاملات Stripe و PayPal و Paymob','جدولة المهام وطوابير Redis','معالجة الأخطاء والمراقبة'] : ['Database schema and migrations','API documented with OpenAPI','Stripe / PayPal / Paymob integrations','Scheduled jobs and Redis queues','Error handling and observability'],
-            ['Laravel 11','PHP 8.3','MySQL','PostgreSQL','Redis'], 'hire-laravel-developer', 'laravel-code.png'],
+            ['Laravel 11','PHP 8.3','MySQL','PostgreSQL','Redis'], 'hire-laravel-developer', 'laravel-code.webp'],
         ['fab fa-react', $isAr ? 'واجهات React و Next.js' : 'React & Next.js Frontend',
             $isAr ? 'واجهات سريعة جاهزة لمحركات البحث بـ Next.js 15 و React Server Components و TypeScript و Tailwind.' : 'Fast, SEO-ready frontends with Next.js 15, React Server Components, TypeScript, and Tailwind.',
             $isAr ? ['تصميم متجاوب لكل الأجهزة','تحسين الصور والخطوط تلقائيا','أداء Lighthouse 95 فأعلى','إمكانية الوصول WCAG 2.2','تكامل ساعات CMS أو Headless'] : ['Pixel-perfect responsive design','Auto image & font optimization','Lighthouse 95+ performance','WCAG 2.2 accessibility','Headless CMS integration'],
-            ['Next.js 15','React 19','TypeScript','Tailwind','Vercel'], 'hire-react-developer', 'react-frontend.png'],
+            ['Next.js 15','React 19','TypeScript','Tailwind','Vercel'], 'hire-react-developer', 'react-frontend.webp'],
         ['fas fa-rocket', $isAr ? 'بناء MVP لـ SaaS' : 'SaaS MVP Development',
             $isAr ? 'إطلاق منتج SaaS أولي خلال 8 إلى 16 أسبوعا مع كل الأساسيات: التسجيل، الاشتراكات، لوحة التحكم، الفوترة، النشر الآلي.' : 'Ship a SaaS MVP in 8-16 weeks with all essentials: signup, subscriptions, dashboards, billing, CI/CD deployment.',
             $isAr ? ['أنظمة فوترة Stripe كاملة','لوحة تحكم متعددة المستأجرين','أنظمة دور المستخدم والصلاحيات','تحليلات وتقارير','نشر على VPS أو Vercel'] : ['Stripe Cashier billing','Multi-tenant admin dashboard','Roles and permissions','Analytics dashboards','VPS or Vercel deployment'],
-            ['Laravel','Next.js','Stripe','PostgreSQL','Docker'], 'saas-development', 'saas-dashboard.png'],
+            ['Laravel','Next.js','Stripe','PostgreSQL','Docker'], 'saas-development', 'saas-dashboard.webp'],
         ['fas fa-shopping-cart', $isAr ? 'متاجر إلكترونية' : 'E-commerce Solutions',
             $isAr ? 'متاجر WooCommerce أو Shopify أو Laravel مخصصة مع دفع متعدد ومخزون وشحن وتقارير وتكاملات CRM.' : 'WooCommerce, Shopify, or custom Laravel storefronts with multi-gateway payments, inventory, shipping, CRM integrations.',
             $isAr ? ['سله متقدمة بمنطق ضريبي وشحن','تكامل بوابات الدفع المحلية والعالمية','إدارة المخزون والمنتجات','نظام نقاط الولاء','تكامل مع شركات الشحن'] : ['Tax and shipping rule engine','Local + global payment gateways','Inventory + product management','Loyalty points system','Shipping carrier integrations'],
-            ['Shopify','WooCommerce','Laravel','Stripe','Paymob'], 'ecommerce-development', 'ecommerce-store.png'],
+            ['Shopify','WooCommerce','Laravel','Stripe','Paymob'], 'ecommerce-development', 'ecommerce-store.webp'],
         ['fas fa-bolt', $isAr ? 'الأداء وتحسين محركات البحث' : 'Performance & SEO',
             $isAr ? 'تحسين Core Web Vitals، تحقيق درجات Lighthouse فوق 95، schema markup، sitemap، canonical hygiene.' : 'Core Web Vitals tuning, Lighthouse 95+ scores, structured data, sitemap and canonical hygiene, technical SEO.',
             $isAr ? ['تدقيق فني كامل بتقرير مكتوب','إصلاحات أداء قابلة للقياس','schema.org و JSON-LD','sitemap و robots و canonical','تحليل Search Console'] : ['Full technical audit with report','Measurable performance fixes','Schema.org and JSON-LD','Sitemap, robots, canonical','Search Console analysis'],
-            ['Lighthouse','Search Console','Schema.org','WebPageTest','GTmetrix'], null, 'hero-workspace.png'],
+            ['Lighthouse','Search Console','Schema.org','WebPageTest','GTmetrix'], null, 'hero-workspace.webp'],
         ['fas fa-shield-alt', $isAr ? 'الصيانة والأمان و DevOps' : 'Maintenance, Security & DevOps',
             $isAr ? 'تعاقد شهري: تحديثات أمنية، نسخ احتياطي، مراقبة، حل ثغرات، نشر آلي، وإضافة ميزات صغيرة.' : 'Monthly retainers: security patches, backups, monitoring, vulnerability fixes, CI/CD, small feature additions.',
             $isAr ? ['تحديث المكتبات أسبوعيا','نسخ احتياطي يومي مشفر','مراقبة 24/7 بتنبيهات','تدقيقات أمنية ربع سنوية','استجابه طوارئ خلال 4 ساعات'] : ['Weekly dependency updates','Daily encrypted backups','24/7 monitoring with alerts','Quarterly security audits','4-hour emergency response'],
-            ['GitHub Actions','Docker','AWS','Sentry','UptimeRobot'], null, 'process-workflow.png'],
+            ['GitHub Actions','Docker','AWS','Sentry','UptimeRobot'], null, 'process-workflow.webp'],
         ['fas fa-brain', $isAr ? 'تكامل الذكاء الاصطناعي' : 'AI Integration',
             $isAr ? 'دمج OpenAI و Anthropic Claude في تطبيقاتك: روبوتات محادثة، استرجاع محسن (RAG)، تلخيص، توليد محتوى.' : 'Integrate OpenAI, Anthropic Claude and other LLMs into your apps: chatbots, retrieval-augmented generation (RAG), summarization, content generation.',
             $isAr ? ['روبوتات محادثة للموقع','بحث دلالي على البيانات','تلخيص الوثائق','توليد المحتوى المساعد','حماية بيانات العملاء'] : ['Customer chatbots','Semantic search over docs','Document summarization','Content generation','Privacy-first design'],
-            ['OpenAI','Anthropic','Pinecone','LangChain','Vector DB'], null, 'mobile-apps.png'],
+            ['OpenAI','Anthropic','Pinecone','LangChain','Vector DB'], null, 'mobile-apps.webp'],
         ['fas fa-paint-brush', $isAr ? 'تصميم وتطبيق UI/UX' : 'UI/UX Implementation',
             $isAr ? 'تحويل تصاميم Figma و Adobe XD إلى كود إنتاج عالي الجودة مع تفاعلية وانتقالات وميكرو-أنميشن.' : 'Convert Figma and Adobe XD designs into pixel-perfect production code with interactions, transitions, and micro-animations.',
             $isAr ? ['دقه pixel-perfect','تفاعلية وانتقالات لطيفه','تجربه RTL/LTR كاملة','دعم الوضع الداكن','مكونات قابلة لإعاده الاستخدام'] : ['Pixel-perfect implementation','Smooth interactions','Full RTL/LTR support','Dark mode support','Reusable components'],
-            ['Figma','Adobe XD','Tailwind','Framer Motion','GSAP'], null, 'blog-cover.png'],
+            ['Figma','Adobe XD','Tailwind','Framer Motion','GSAP'], null, 'blog-cover.webp'],
     ];
 @endphp
 
@@ -148,7 +148,7 @@
             <p>{{ $isAr ? 'بدون عقود معقدة. نفس الخطوات التي اتبعتها في كل واحد من 25 مشروع نشرتهم.' : 'No 10-page contracts. The same four steps I used for every one of my 25+ shipped projects.' }}</p>
         </div>
         <div class="ks-media ks-fadeup" style="max-width: 920px; margin: 0 auto var(--sp-6);">
-            <img src="{{ asset('images/site/process-workflow.png') }}"
+            <img src="{{ asset('images/site/process-workflow.webp') }}"
                  alt="{{ $isAr ? 'مراحل العمل الأربع: اكتشاف، عرض سعر، تطوير، إطلاق' : 'Four-step delivery process: discovery, quote, build, launch' }}"
                  width="1536" height="1024" loading="lazy" decoding="async">
         </div>

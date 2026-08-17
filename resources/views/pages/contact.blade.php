@@ -202,7 +202,7 @@
 
             <div class="col-lg-4">
                 <div class="ks-media ks-fadeup" style="margin-bottom: 20px;">
-                    <img src="{{ asset('images/site/contact-cta.png') }}"
+                    <img src="{{ asset('images/site/contact-cta.webp') }}"
                          alt="{{ $isAr ? 'تواصل مع خالد أحمد عبر البريد أو الواتساب' : 'Get in touch with Khaled Ahmed via email or WhatsApp' }}"
                          width="1536" height="1024" loading="lazy" decoding="async">
                 </div>
