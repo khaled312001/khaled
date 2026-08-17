@@ -18,7 +18,7 @@
 
 @section('structured_data')
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"CollectionPage","name":"Khaled Ahmed — Portfolio","description":"{{ $projectCount }} real production projects shipped across {{ $countryCount }} countries.","url":"{{ route('portfolios') }}","mainEntity":{"@type":"ItemList","numberOfItems":{{ count($projects) }},"itemListElement":[@foreach($projects as $i => $p){"@type":"ListItem","position":{{ $i + 1 }},"item":{"@type":"CreativeWork","name":@json($p['title']),"description":@json($p['summary']),"url":@json($p['url'])}}@if(!$loop->last),@endif @endforeach]}}
+{"@context":"https://schema.org","@type":"CollectionPage","name":"Khaled Ahmed — Portfolio","description":"{{ $projectCount }} real production projects shipped across {{ $countryCount }} countries.","url":"{{ route('portfolios') }}","mainEntity":{"@type":"ItemList","numberOfItems":{{ count($projects) }},"itemListElement":[@foreach($projects as $i => $p){"@type":"ListItem","position":{{ $i + 1 }},"item":{"@type":"CreativeWork","name":@json($p['title']),"description":@json($p['summary'])@if(empty($p['offline'])),"url":@json($p['url'])@endif}}@if(!$loop->last),@endif @endforeach]}}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},{"@type":"ListItem","position":2,"name":"Portfolio","item":"{{ route('portfolios') }}"}@if(isset($category)),{"@type":"ListItem","position":3,"name":"{{ ucfirst($category) }}","item":"{{ route('portfolios.category', $category) }}"}@endif]}
@@ -71,6 +71,13 @@
     .pf-card__top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
     .pf-card__cat { font-size: 11px; color: var(--brand); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; background: rgba(96,165,250,0.10); border: 1px solid rgba(96,165,250,0.20); border-radius: var(--r-full); }
     .pf-card__feat { font-size: 10.5px; color: var(--warning); font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; padding: 4px 9px; background: rgba(251,191,36,0.10); border: 1px solid rgba(251,191,36,0.25); border-radius: var(--r-full); display: inline-flex; align-items: center; gap: 4px; }
+
+    /* Project whose live site has gone down: still shown as work, but not clickable. */
+    .pf-card__off { font-size: 10.5px; color: var(--text-3); font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; padding: 4px 9px; background: rgba(255,255,255,0.04); border: 1px solid var(--border-2); border-radius: var(--r-full); display: inline-flex; align-items: center; gap: 5px; }
+    .pf-card--offline { cursor: default; opacity: 0.82; }
+    .pf-card--offline:hover { transform: none; border-color: var(--border-1); box-shadow: none; }
+    .pf-card--offline::before { display: none; }
+    .pf-card__visit--off { color: var(--text-4) !important; font-weight: 600; }
     .pf-card__title { font-size: 18px; font-weight: 700; line-height: 1.35; margin: 0 0 10px; color: var(--text-1); }
     .pf-card__sum { color: var(--text-3); font-size: 14px; line-height: 1.65; margin: 0 0 14px; flex: 1; }
     .pf-card__tech { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }

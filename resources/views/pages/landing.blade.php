@@ -158,11 +158,15 @@
         <div class="row g-4">
             @foreach($related as $rp)
                 <div class="col-lg-4 col-md-6 ks-fadeup">
-                    <a href="{{ $rp['url'] }}" target="_blank" rel="noopener" class="lp-related-card">
+                    @php $rpOff = !empty($rp['offline']); @endphp
+                    <{{ $rpOff ? 'div' : 'a' }} @if(!$rpOff) href="{{ $rp['url'] }}" target="_blank" rel="noopener" @endif class="lp-related-card" @if($rpOff) style="cursor:default;opacity:.82;" @endif>
                         <span class="cat">{{ $rp['category'] }} · {{ $rp['country'] }}</span>
                         <h3>{{ $rp['title'] }}</h3>
                         <p>{{ \Illuminate\Support\Str::limit($rp['summary'], 90) }}</p>
-                    </a>
+                        @if($rpOff)
+                            <p style="margin-top:8px;color:var(--text-4);font-size:12px;font-weight:600;">{{ $isAr ? 'الموقع غير متاح حاليا' : 'Site is currently offline' }}</p>
+                        @endif
+                    </{{ $rpOff ? 'div' : 'a' }}>
                 </div>
             @endforeach
         </div>
