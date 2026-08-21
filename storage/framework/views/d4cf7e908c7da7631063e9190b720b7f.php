@@ -1,7 +1,8 @@
+<?php $khAr = app()->getLocale() === 'ar'; ?>
+
 <?php $__env->startSection('title', app()->getLocale() === 'ar' ? 'خالد أحمد — مطور Full Stack مستقل | Laravel و React' : 'Khaled Ahmed — Freelance Full Stack Developer | Laravel & React'); ?>
 <?php $__env->startSection('description', app()->getLocale() === 'ar' ? 'مطور Laravel و React و Next.js من القاهره. 39 مشروعا منشورا في 8 دول، و7 تطبيقات على Google Play. عرض سعر ثابت ورد خلال 24 ساعه.' : 'Senior Laravel, React and Next.js developer in Cairo. 39 products shipped across 8 countries, 7 apps live on Google Play. Fixed-fee quotes, 24-hour reply.'); ?>
 <?php $__env->startSection('keywords', 'freelance full stack developer, freelance laravel developer, freelance react developer, hire web developer, custom web application, SaaS developer, Khaled Ahmed, مطور ويب مستقل, مبرمج مواقع'); ?>
-<?php $__env->startSection('og_image', asset('images/logo.webp')); ?>
 <?php $__env->startSection('lcp_image', asset('images/site/hero-workspace-720w.webp')); ?>
 
 <?php $__env->startSection('structured_data'); ?>
@@ -25,7 +26,57 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('styles'); ?>
+<?php echo $__env->make('partials.flag-css', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <style>
+    /* ---- Auto-scrolling project strip ---- */
+    .mq-wrap { padding-top: var(--sp-6); }
+    .mq { position: relative; padding: 6px 0 10px; --mq-gap: 20px;
+          overflow-x: auto; overflow-y: hidden; cursor: grab;
+          scrollbar-width: none; -ms-overflow-style: none;
+          -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;
+          -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+                  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent); }
+    .mq::-webkit-scrollbar { display: none; }
+    .mq.is-dragging { cursor: grabbing; }
+    .mq.is-dragging a { pointer-events: none; }
+    .mq__track { display: flex; gap: var(--mq-gap); width: max-content; }
+    .mq__set { display: flex; gap: var(--mq-gap); margin: 0; padding: 0; list-style: none; }
+
+    .mqc { position: relative; display: flex; flex-direction: column; width: 320px; flex: 0 0 320px;
+           background: linear-gradient(160deg, var(--surface-1) 0%, var(--bg-2) 100%);
+           border: 1px solid var(--border-1); border-radius: var(--r-lg); overflow: hidden;
+           text-decoration: none; transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease; }
+    .mqc:hover { border-color: var(--border-3); transform: translateY(-5px); box-shadow: var(--shadow-md); }
+    .mqc__shot { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--bg-2);
+                 border-bottom: 1px solid var(--border-1); }
+    .mqc__shot img { display: block; width: 100%; height: auto; transform: translateY(0);
+                     transition: transform .7s cubic-bezier(.4, 0, .2, 1); }
+    .mqc:hover .mqc__shot img { transform: translateY(calc(-1 * var(--shift, 0%)));
+                                transition-duration: var(--dur, 8s);
+                                transition-timing-function: cubic-bezier(.42, 0, .3, 1); }
+    .mqc__badges { position: absolute; inset-inline-start: 12px; top: 12px; z-index: 2; display: flex; gap: 6px; }
+    .mqc__app { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: var(--r-full);
+                background: rgba(10,14,26,.86); border: 1px solid rgba(52,211,153,.35); color: #34d399;
+                font-size: 11px; font-weight: 700; letter-spacing: .3px; backdrop-filter: blur(6px); }
+    .mqc__body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 9px; flex: 1; }
+    .mqc__cat { font-size: 10.5px; font-weight: 700; letter-spacing: 1.1px; text-transform: uppercase; color: var(--brand); }
+    .mqc__title { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.4; color: var(--text-1);
+                  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .mqc__geo { font-size: 12.5px; color: var(--text-4); margin-top: auto; display: flex; align-items: center; gap: 7px; }
+    .mqc__geo .fi { width: 19px; height: 14px; border-radius: 2px; flex-shrink: 0; box-shadow: 0 0 0 1px rgba(255,255,255,.10); }
+    .mqc__geo i { color: var(--text-3); font-size: 12px; }
+    .mqc__tech { display: flex; flex-wrap: wrap; gap: 5px; }
+    .mqc__tech span { font-size: 10.5px; color: var(--text-3); padding: 3px 8px;
+                      background: rgba(255,255,255,.04); border: 1px solid var(--border-1); border-radius: var(--r-sm); }
+
+    @media (max-width: 575px) { .mqc { width: 262px; flex-basis: 262px; } }
+
+    /* No motion: turn the strip into a plain swipeable row and drop the duplicate. */
+    /* No motion: the strip stops advancing on its own but stays scrollable by hand. */
+    @media (prefers-reduced-motion: reduce) {
+        .mqc:hover .mqc__shot img { transform: none; }
+    }
+
     /* Hero */
     .home-hero { padding: calc(var(--nav-h) + var(--sp-7)) 0 var(--sp-9); position: relative; overflow: hidden; }
     .home-hero::before { content:''; position:absolute; inset:0; background: var(--gradient-bg); pointer-events:none; }
@@ -181,6 +232,80 @@
         </div>
     </div>
 </section>
+<?php if(!empty($showcase)): ?>
+
+<section class="ks-section ks-section--tight mq-wrap" aria-labelledby="showcaseHeading">
+    <div class="container">
+        <div class="ks-shead ks-fadeup">
+            <span class="ks-eyebrow"><?php echo e($khAr ? 'أعمال مختارة' : 'Selected work'); ?></span>
+            <h2 id="showcaseHeading"><?php echo e($khAr ? 'أنظمة تعمل الآن في السوق' : 'Systems running in production right now'); ?></h2>
+            <p><?php echo e($khAr
+                ? 'منصات ومتاجر وأنظمة تشغيل سلّمتها لعملاء في أوروبا والخليج ومصر — بعضها يعمل على الويب وعلى Google Play معا. مرّر المؤشر لإيقاف الشريط.'
+                : 'Platforms, stores and operational systems delivered to clients across Europe, the Gulf and Egypt — several running on the web and on Google Play. Hover to pause the strip.'); ?></p>
+        </div>
+    </div>
+
+    <div class="mq" data-mq tabindex="0" role="region"
+         aria-label="<?php echo e($khAr ? 'شريط مشاريع مختارة — قابل للسحب' : 'Selected projects — drag to scroll'); ?>">
+        <div class="mq__track">
+            
+            <?php $__currentLoopData = [false, true, true]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $khDup): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <ul class="mq__set<?php echo e($khDup ? ' mq__set--dup' : ''); ?>" <?php if($khDup): ?> aria-hidden="true" inert <?php endif; ?>>
+                <?php $__currentLoopData = $showcase; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $sh = \App\Services\ScreenshotService::get($sp['slug']); ?>
+                    <li>
+                        <a class="mqc" href="<?php echo e(route('portfolio.show', $sp['slug'])); ?>"
+                           <?php if($khDup): ?> tabindex="-1" <?php endif; ?>>
+                            <?php if($sh): ?>
+                                <div class="mqc__shot" style="--shift:<?php echo e($sh['shift']); ?>;--dur:<?php echo e($sh['dur']); ?>">
+                                    <img src="<?php echo e(asset($sh['src'])); ?>" width="<?php echo e($sh['w']); ?>" height="<?php echo e($sh['h']); ?>"
+                                         loading="lazy" decoding="async"
+                                         alt="<?php echo e($khAr
+                                            ? 'لقطة شاشة لموقع ' . $sp['title'] . ' — ' . $sp['category'] . ' من تطوير خالد أحمد'
+                                            : $sp['title'] . ' screenshot — ' . $sp['category'] . ' built by Khaled Ahmed'); ?>">
+                                    <?php if(!empty($sp['app_count'])): ?>
+                                        <div class="mqc__badges">
+                                            <span class="mqc__app"><i class="fab fa-google-play"></i>
+                                                <?php echo e($sp['app_count']); ?> <?php echo e($khAr ? ($sp['app_count'] > 1 ? 'تطبيقات' : 'تطبيق') : ($sp['app_count'] > 1 ? 'apps' : 'app')); ?>
+
+                                            </span>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
+                            <div class="mqc__body">
+                                <span class="mqc__cat"><?php echo e($sp['category']); ?></span>
+                                <h3 class="mqc__title"><?php echo e($sp['title']); ?></h3>
+                                <?php if(!empty($sp['tech'])): ?>
+                                    <div class="mqc__tech">
+                                        <?php $__currentLoopData = array_slice($sp['tech'], 0, 3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $t): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><span><?php echo e($t); ?></span><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </div>
+                                <?php endif; ?>
+                                <span class="mqc__geo">
+                                    <?php if(!empty($sp['country_code']) && $sp['country_code'] !== 'arab'): ?>
+                                        <span class="fi fi-<?php echo e($sp['country_code']); ?>" aria-hidden="true"></span>
+                                    <?php else: ?>
+                                        <i class="fas fa-globe" aria-hidden="true"></i>
+                                    <?php endif; ?>
+                                    <?php echo e($sp['country']); ?>
+
+                                </span>
+                            </div>
+                        </a>
+                    </li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </div>
+    </div>
+
+    <div class="container" style="text-align:center; margin-top: var(--sp-5);">
+        <a href="<?php echo e(route('portfolios')); ?>" class="ks-btn ks-btn--ghost">
+            <?php echo e($khAr ? 'كل المشاريع الـ39' : 'All 39 projects'); ?> <i class="fa fa-arrow-<?php echo e($khAr ? 'left' : 'right'); ?>"></i>
+        </a>
+    </div>
+</section>
+<?php endif; ?>
 
 <section class="ks-section">
     <div class="container">
@@ -338,5 +463,124 @@
 </section>
 
 <?php $__env->stopSection(); ?>
+
+<?php $__env->startPush('scripts'); ?>
+
+<script>
+(function () {
+    var mq = document.querySelector('[data-mq]');
+    if (!mq) return;
+    var track = mq.querySelector('.mq__track');
+    var set   = mq.querySelector('.mq__set');
+    if (!track || !set) return;
+
+    // RTL scroll offsets are negative in every current engine, but that has not always
+    // been true, so probe it rather than assume: write a positive offset and see whether
+    // it survives. In the negative model it clamps straight back to 0.
+    mq.scrollLeft = 10;
+    var sign = mq.scrollLeft > 0 ? 1 : -1;
+
+    var SPEED  = 0.42;      // px per frame — roughly 25 px/s, slow enough to read
+    var setW   = 0;
+    var paused = false, visible = true;
+    var drag   = null;
+
+    // scrollLeft rounds whatever you write to it, so a sub-pixel increment read back
+    // and re-added never accumulates — the strip stands still. Own the position as a
+    // float and only take the element's value when something else has moved it.
+    var pos = 0;
+
+    function measure() {
+        var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+        var w = set.getBoundingClientRect().width + gap;
+        if (!w) return;
+        setW = w;
+        if (!drag) { pos = setW; mq.scrollLeft = pos * sign; }
+    }
+
+    function wrap() {
+        if (pos >= setW * 2) pos -= setW;
+        else if (pos < setW)  pos += setW;
+    }
+
+    var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function frame() {
+        requestAnimationFrame(frame);
+        if (!setW) return;
+
+        // Native touch/trackpad scrolling moves the element behind our back.
+        var actual = mq.scrollLeft * sign;
+        if (Math.abs(actual - pos) > 1.5) pos = actual;
+
+        if (!calm && !paused && !drag && visible && !document.hidden) pos += SPEED;
+
+        wrap();
+        mq.scrollLeft = pos * sign;
+    }
+
+    // ---- pause -------------------------------------------------------------
+    ['mouseenter', 'focusin'].forEach(function (e) { mq.addEventListener(e, function () { paused = true; }); });
+    ['mouseleave', 'focusout'].forEach(function (e) { mq.addEventListener(e, function () { paused = false; }); });
+
+    // ---- drag --------------------------------------------------------------
+    // Touch and trackpad already scroll the container natively; this is for the mouse.
+    mq.addEventListener('pointerdown', function (e) {
+        if (e.pointerType !== 'mouse' || e.button !== 0) return;
+        drag = { x: e.clientX, start: mq.scrollLeft, moved: 0 };
+        mq.setPointerCapture(e.pointerId);
+        mq.classList.add('is-dragging');
+    });
+
+    mq.addEventListener('pointermove', function (e) {
+        if (!drag) return;
+        var dx = e.clientX - drag.x;
+        drag.moved = Math.max(drag.moved, Math.abs(dx));
+        pos = (drag.start - dx) * sign;
+        wrap();
+        mq.scrollLeft = pos * sign;
+        e.preventDefault();
+    });
+
+    function endDrag(e) {
+        if (!drag) return;
+        // A drag that travelled must not also open the card it finished on.
+        var moved = drag.moved;
+        drag = null;
+        mq.classList.remove('is-dragging');
+        if (moved > 6) {
+            var swallow = function (ev) { ev.preventDefault(); ev.stopPropagation(); };
+            mq.addEventListener('click', swallow, { capture: true, once: true });
+            setTimeout(function () { mq.removeEventListener('click', swallow, true); }, 0);
+        }
+        try { mq.releasePointerCapture(e.pointerId); } catch (err) {}
+    }
+    mq.addEventListener('pointerup', endDrag);
+    mq.addEventListener('pointercancel', endDrag);
+    mq.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
+    // ---- keyboard ----------------------------------------------------------
+    mq.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        pos += (e.key === 'ArrowRight' ? 340 : -340) * sign;
+        wrap();
+        mq.scrollLeft = pos * sign;
+        e.preventDefault();
+    });
+
+    // ---- lifecycle ---------------------------------------------------------
+    if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) { visible = es[0].isIntersecting; },
+                                 { threshold: 0 }).observe(mq);
+    }
+    if ('ResizeObserver' in window) new ResizeObserver(measure).observe(track);
+    window.addEventListener('resize', measure);
+    window.addEventListener('load', measure);
+
+    measure();
+    requestAnimationFrame(frame);
+})();
+</script>
+<?php $__env->stopPush(); ?>
 
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH F:\Certificates\khaled\resources\views/pages/home.blade.php ENDPATH**/ ?>

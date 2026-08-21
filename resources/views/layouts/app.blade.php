@@ -151,6 +151,19 @@
         .fa-phone-alt::before { content: "\f879"; }
         .fa-rocket::before { content: "\f135"; }
         .fa-star::before { content: "\f005"; }
+        .fa-book-quran::before { content: "\f687"; }
+        .fa-cash-register::before { content: "\f788"; }
+        .fa-chart-line::before { content: "\f201"; }
+        .fa-motorcycle::before { content: "\f21c"; }
+        .fa-phone-volume::before { content: "\f2a0"; }
+        .fa-scissors::before { content: "\f0c4"; }
+        .fa-utensils::before { content: "\f2e7"; }
+        .fa-check::before { content: "\f00c"; }
+        .fa-circle-check::before { content: "\f058"; }
+        .fa-file-lines::before { content: "\f15c"; }
+        .fa-layer-group::before { content: "\f5fd"; }
+        .fa-link-slash::before { content: "\f127"; }
+        .fa-up-down::before { content: "\f338"; }
         .fa-times::before { content: "\f00d"; }
         .fa-user::before { content: "\f007"; }
         .fa-whatsapp::before { content: "\f232"; }

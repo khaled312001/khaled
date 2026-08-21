@@ -1984,3 +1984,987 @@
 #10 F:\\Certificates\\khaled\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #11 {main}
 "} 
+[2026-08-21 14:20:14] local.ERROR: syntax error, unexpected token "endif", expecting end of file {"view":{"view":"F:\\Certificates\\khaled\\resources\\views\\pages\\portfolio-detail.blade.php","data":{"errors":"<pre class=sf-dump id=sf-dump-1904923829 data-indent-pad=\"  \"><span class=sf-dump-note>Illuminate\\Support\\ViewErrorBag</span> {<a class=sf-dump-ref>#331</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">bags</span>: []
+</samp>}
+</pre><script>Sfdump(\"sf-dump-1904923829\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","portfolio":"<pre class=sf-dump id=sf-dump-2132755062 data-indent-pad=\"  \"><span class=sf-dump-note>array:23</span> [<samp data-depth=1 class=sf-dump-expanded>
+  \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"13 characters\">barmagly-tech</span>\"
+  \"<span class=sf-dump-key>title</span>\" => \"<span class=sf-dump-str title=\"40 characters\">Barmagly &#8212; Swiss-Licensed Software House</span>\"
+  \"<span class=sf-dump-key>summary</span>\" => \"<span class=sf-dump-str title=\"141 characters\">Founder &amp; lead developer. Enterprise web, mobile, POS and business automation systems delivered to clients across Europe and the Middle East.</span>\"
+  \"<span class=sf-dump-key>title_ar</span>\" => \"<span class=sf-dump-str title=\"31 characters\">Barmagly &#8212; &#1588;&#1585;&#1603;&#1577; &#1576;&#1585;&#1605;&#1580;&#1610;&#1575;&#1578; &#1587;&#1608;&#1610;&#1587;&#1585;&#1610;&#1577;</span>\"
+  \"<span class=sf-dump-key>summary_ar</span>\" => \"<span class=sf-dump-str title=\"100 characters\">&#1605;&#1572;&#1587;&#1587; &#1608;&#1605;&#1591;&#1608;&#1617;&#1585; &#1585;&#1574;&#1610;&#1587;&#1610;. &#1571;&#1606;&#1592;&#1605;&#1577; &#1605;&#1572;&#1587;&#1587;&#1610;&#1577; &#1604;&#1604;&#1608;&#1610;&#1576; &#1608;&#1575;&#1604;&#1605;&#1608;&#1576;&#1575;&#1610;&#1604; &#1608; POS &#1608;&#1571;&#1578;&#1605;&#1578;&#1577; &#1575;&#1604;&#1571;&#1593;&#1605;&#1575;&#1604; &#1604;&#1593;&#1605;&#1604;&#1575;&#1569; &#1601;&#1610; &#1571;&#1608;&#1585;&#1608;&#1576;&#1575; &#1608;&#1575;&#1604;&#1588;&#1585;&#1602; &#1575;&#1604;&#1571;&#1608;&#1587;&#1591;.</span>\"
+  \"<span class=sf-dump-key>category</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+  \"<span class=sf-dump-key>tech</span>\" => <span class=sf-dump-note>array:6</span> [<samp data-depth=2 class=sf-dump-compact>
+    <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"7 characters\">Next.js</span>\"
+    <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"10 characters\">TypeScript</span>\"
+    <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"7 characters\">Node.js</span>\"
+    <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"7 characters\">Laravel</span>\"
+    <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"3 characters\">PHP</span>\"
+    <span class=sf-dump-index>5</span> => \"<span class=sf-dump-str title=\"10 characters\">PostgreSQL</span>\"
+  </samp>]
+  \"<span class=sf-dump-key>url</span>\" => \"<span class=sf-dump-str title=\"21 characters\">https://barmagly.tech</span>\"
+  \"<span class=sf-dump-key>image</span>\" => \"<span class=sf-dump-str title=\"26 characters\">projects/barmagly-tech.jpg</span>\"
+  \"<span class=sf-dump-key>role</span>\" => \"<span class=sf-dump-str title=\"34 characters\">Founder, Architect, Lead Developer</span>\"
+  \"<span class=sf-dump-key>language</span>\" => \"<span class=sf-dump-str title=\"2 characters\">en</span>\"
+  \"<span class=sf-dump-key>country</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+  \"<span class=sf-dump-key>country_ar</span>\" => \"<span class=sf-dump-str title=\"6 characters\">&#1587;&#1608;&#1610;&#1587;&#1585;&#1575;</span>\"
+  \"<span class=sf-dump-key>country_flag</span>\" => \"<span class=sf-dump-str title=\"2 characters\">&#127464;&#127469;</span>\"
+  \"<span class=sf-dump-key>country_code</span>\" => \"<span class=sf-dump-str title=\"2 characters\">ch</span>\"
+  \"<span class=sf-dump-key>featured</span>\" => <span class=sf-dump-const>true</span>
+  \"<span class=sf-dump-key>category_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+  \"<span class=sf-dump-key>country_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+  \"<span class=sf-dump-key>lead</span>\" => \"<span class=sf-dump-str title=\"247 characters\">I founded Barmagly and I still architect every system that leaves it. It is a Swiss-licensed software house delivering enterprise web platforms, mobile applications, POS systems and business automation to clients across Europe and the Middle East.</span>\"
+  \"<span class=sf-dump-key>built</span>\" => <span class=sf-dump-note>array:5</span> [<samp data-depth=2 class=sf-dump-compact>
+    <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"60 characters\">Company-wide architecture standards every project is held to</span>\"
+    <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"47 characters\">Enterprise web platforms in Laravel and Next.js</span>\"
+    <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"42 characters\">Mobile applications shipped to Google Play</span>\"
+    <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"48 characters\">Multi-tenant POS and business automation systems</span>\"
+    <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"76 characters\">Delivery across Switzerland, Germany, the UK, Saudi Arabia, Egypt and beyond</span>\"
+  </samp>]
+  \"<span class=sf-dump-key>decision</span>\" => <span class=sf-dump-note>array:2</span> [<samp data-depth=2 class=sf-dump-compact>
+    <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"245 characters\">What changed for me was the nature of the responsibility. Writing good code is one skill. Owning an architecture a client will still be running in five years &#8212; and being the person they call when it breaks at 2am &#8212; is a completely different one.</span>\"
+    <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"99 characters\">That second skill is the one nobody teaches you, and it is the one clients are actually paying for.</span>\"
+  </samp>]
+  \"<span class=sf-dump-key>keywords</span>\" => \"<span class=sf-dump-str title=\"142 characters\">swiss software house, enterprise web development company, laravel development agency, next.js development company, custom software switzerland</span>\"
+  \"<span class=sf-dump-key>apps</span>\" => []
+</samp>]
+</pre><script>Sfdump(\"sf-dump-2132755062\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","related":"<pre class=sf-dump id=sf-dump-2064338273 data-indent-pad=\"  \"><span class=sf-dump-note>array:3</span> [<samp data-depth=1 class=sf-dump-expanded>
+  <span class=sf-dump-index>0</span> => <span class=sf-dump-note>array:18</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"12 characters\">barmagly-pos</span>\"
+    \"<span class=sf-dump-key>title</span>\" => \"<span class=sf-dump-str title=\"40 characters\">Kassenta &#8212; Cloud Multi-Tenant POS System</span>\"
+    \"<span class=sf-dump-key>summary</span>\" => \"<span class=sf-dump-str title=\"126 characters\">Cloud-based, multi-tenant point-of-sale system for restaurants, caf&#233;s and retail &#8212; with inventory, multi-branch and reporting.</span>\"
+    \"<span class=sf-dump-key>title_ar</span>\" => \"<span class=sf-dump-str title=\"39 characters\">Kassenta &#8212; &#1603;&#1575;&#1588;&#1610;&#1585; &#1587;&#1581;&#1575;&#1576;&#1610; &#1605;&#1578;&#1593;&#1583;&#1583; &#1575;&#1604;&#1605;&#1587;&#1578;&#1571;&#1580;&#1585;&#1610;&#1606;</span>\"
+    \"<span class=sf-dump-key>summary_ar</span>\" => \"<span class=sf-dump-str title=\"94 characters\">&#1606;&#1592;&#1575;&#1605; &#1606;&#1602;&#1575;&#1591; &#1576;&#1610;&#1593; &#1587;&#1581;&#1575;&#1576;&#1610; &#1605;&#1578;&#1593;&#1583;&#1583; &#1575;&#1604;&#1605;&#1587;&#1578;&#1571;&#1580;&#1585;&#1610;&#1606; &#1604;&#1604;&#1605;&#1591;&#1575;&#1593;&#1605; &#1608;&#1575;&#1604;&#1603;&#1575;&#1601;&#1610;&#1607;&#1575;&#1578; &#1608;&#1575;&#1604;&#1578;&#1580;&#1586;&#1574;&#1577;&#1548; &#1605;&#1593; &#1605;&#1582;&#1586;&#1608;&#1606; &#1608;&#1578;&#1593;&#1583;&#1583; &#1601;&#1585;&#1608;&#1593; &#1608;&#1578;&#1602;&#1575;&#1585;&#1610;&#1585;.</span>\"
+    \"<span class=sf-dump-key>category</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>tech</span>\" => <span class=sf-dump-note>array:5</span> [<samp data-depth=3 class=sf-dump-compact>
+      <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"10 characters\">TypeScript</span>\"
+      <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"10 characters\">JavaScript</span>\"
+      <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"7 characters\">Node.js</span>\"
+      <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"5 characters\">MySQL</span>\"
+      <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"6 characters\">Stripe</span>\"
+    </samp>]
+    \"<span class=sf-dump-key>url</span>\" => \"<span class=sf-dump-str title=\"20 characters\">https://kassenta.com</span>\"
+    \"<span class=sf-dump-key>image</span>\" => \"<span class=sf-dump-str title=\"25 characters\">projects/barmagly-pos.png</span>\"
+    \"<span class=sf-dump-key>role</span>\" => \"<span class=sf-dump-str title=\"14 characters\">Lead Developer</span>\"
+    \"<span class=sf-dump-key>language</span>\" => \"<span class=sf-dump-str title=\"2 characters\">de</span>\"
+    \"<span class=sf-dump-key>country</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+    \"<span class=sf-dump-key>country_ar</span>\" => \"<span class=sf-dump-str title=\"6 characters\">&#1587;&#1608;&#1610;&#1587;&#1585;&#1575;</span>\"
+    \"<span class=sf-dump-key>country_flag</span>\" => \"<span class=sf-dump-str title=\"2 characters\">&#127464;&#127469;</span>\"
+    \"<span class=sf-dump-key>country_code</span>\" => \"<span class=sf-dump-str title=\"2 characters\">ch</span>\"
+    \"<span class=sf-dump-key>featured</span>\" => <span class=sf-dump-const>true</span>
+    \"<span class=sf-dump-key>category_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>country_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+  </samp>]
+  <span class=sf-dump-index>1</span> => <span class=sf-dump-note>array:18</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"14 characters\">barmagly-salon</span>\"
+    \"<span class=sf-dump-key>title</span>\" => \"<span class=sf-dump-str title=\"35 characters\">Klipp &#8212; AI-Powered Salon Management</span>\"
+    \"<span class=sf-dump-key>summary</span>\" => \"<span class=sf-dump-str title=\"148 characters\">SaaS platform for salons and barbershops: bookings, POS, inventory, staff scheduling, AI hair-makeover previews and analytics &#8212; all in one platform.</span>\"
+    \"<span class=sf-dump-key>title_ar</span>\" => \"<span class=sf-dump-str title=\"44 characters\">Klipp &#8212; &#1605;&#1606;&#1589;&#1577; &#1573;&#1583;&#1575;&#1585;&#1577; &#1589;&#1575;&#1604;&#1608;&#1606;&#1575;&#1578; &#1576;&#1575;&#1604;&#1584;&#1603;&#1575;&#1569; &#1575;&#1604;&#1575;&#1589;&#1591;&#1606;&#1575;&#1593;&#1610;</span>\"
+    \"<span class=sf-dump-key>summary_ar</span>\" => \"<span class=sf-dump-str title=\"133 characters\">&#1605;&#1606;&#1589;&#1577; SaaS &#1604;&#1604;&#1589;&#1575;&#1604;&#1608;&#1606;&#1575;&#1578; &#1608;&#1605;&#1581;&#1604;&#1575;&#1578; &#1575;&#1604;&#1581;&#1604;&#1575;&#1602;&#1577;: &#1581;&#1580;&#1608;&#1586;&#1575;&#1578;&#1548; POS&#1548; &#1605;&#1582;&#1586;&#1608;&#1606;&#1548; &#1580;&#1583;&#1608;&#1604;&#1577; &#1605;&#1608;&#1592;&#1601;&#1610;&#1606;&#1548; &#1605;&#1593;&#1575;&#1610;&#1606;&#1575;&#1578; &#1578;&#1587;&#1585;&#1610;&#1581;&#1575;&#1578; &#1576;&#1575;&#1604;&#1584;&#1603;&#1575;&#1569; &#1575;&#1604;&#1575;&#1589;&#1591;&#1606;&#1575;&#1593;&#1610; &#1608;&#1578;&#1581;&#1604;&#1610;&#1604;&#1575;&#1578; &#8212; &#1603;&#1604;&#1607; &#1601;&#1610; &#1605;&#1606;&#1589;&#1577; &#1608;&#1575;&#1581;&#1583;&#1577;.</span>\"
+    \"<span class=sf-dump-key>category</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>tech</span>\" => <span class=sf-dump-note>array:5</span> [<samp data-depth=3 class=sf-dump-compact>
+      <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"10 characters\">TypeScript</span>\"
+      <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"5 characters\">React</span>\"
+      <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"7 characters\">Node.js</span>\"
+      <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"10 characters\">OpenAI API</span>\"
+      <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"10 characters\">PostgreSQL</span>\"
+    </samp>]
+    \"<span class=sf-dump-key>url</span>\" => \"<span class=sf-dump-str title=\"22 characters\">https://klippsalon.com</span>\"
+    \"<span class=sf-dump-key>image</span>\" => \"<span class=sf-dump-str title=\"27 characters\">projects/barmagly-salon.png</span>\"
+    \"<span class=sf-dump-key>role</span>\" => \"<span class=sf-dump-str title=\"14 characters\">Lead Developer</span>\"
+    \"<span class=sf-dump-key>language</span>\" => \"<span class=sf-dump-str title=\"2 characters\">en</span>\"
+    \"<span class=sf-dump-key>country</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+    \"<span class=sf-dump-key>country_ar</span>\" => \"<span class=sf-dump-str title=\"6 characters\">&#1587;&#1608;&#1610;&#1587;&#1585;&#1575;</span>\"
+    \"<span class=sf-dump-key>country_flag</span>\" => \"<span class=sf-dump-str title=\"2 characters\">&#127464;&#127469;</span>\"
+    \"<span class=sf-dump-key>country_code</span>\" => \"<span class=sf-dump-str title=\"2 characters\">ch</span>\"
+    \"<span class=sf-dump-key>featured</span>\" => <span class=sf-dump-const>true</span>
+    \"<span class=sf-dump-key>category_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>country_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+  </samp>]
+  <span class=sf-dump-index>2</span> => <span class=sf-dump-note>array:18</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"10 characters\">omnixtrack</span>\"
+    \"<span class=sf-dump-key>title</span>\" => \"<span class=sf-dump-str title=\"36 characters\">Omnixtrack &#8212; Arabic Multi-Tenant CRM</span>\"
+    \"<span class=sf-dump-key>summary</span>\" => \"<span class=sf-dump-str title=\"216 characters\">Made-in-Egypt multi-tenant CRM platform for Arabic-speaking businesses &#8212; lead pipelines, sales tracking, WhatsApp integration, task management, and team analytics &#8212; all in one localized platform, hosted inside Egypt.</span>\"
+    \"<span class=sf-dump-key>title_ar</span>\" => \"<span class=sf-dump-str title=\"45 characters\">Omnixtrack &#8212; &#1605;&#1606;&#1589;&#1577; CRM &#1593;&#1585;&#1576;&#1610;&#1577; &#1605;&#1578;&#1593;&#1583;&#1583;&#1577; &#1575;&#1604;&#1605;&#1587;&#1578;&#1571;&#1580;&#1585;&#1610;&#1606;</span>\"
+    \"<span class=sf-dump-key>summary_ar</span>\" => \"<span class=sf-dump-str title=\"166 characters\">&#1605;&#1606;&#1589;&#1577; CRM &#1605;&#1578;&#1593;&#1583;&#1583;&#1577; &#1575;&#1604;&#1605;&#1587;&#1578;&#1571;&#1580;&#1585;&#1610;&#1606; &#1589;&#1615;&#1606;&#1593;&#1578; &#1601;&#1610; &#1605;&#1589;&#1585; &#1608;&#1605;&#1615;&#1587;&#1578;&#1590;&#1575;&#1601;&#1577; &#1583;&#1575;&#1582;&#1604; &#1605;&#1589;&#1585; &#8212; &#1573;&#1583;&#1575;&#1585;&#1577; &#1575;&#1604;&#1593;&#1605;&#1604;&#1575;&#1569; &#1575;&#1604;&#1605;&#1581;&#1578;&#1605;&#1604;&#1610;&#1606;&#1548; &#1578;&#1578;&#1576;&#1593; &#1575;&#1604;&#1605;&#1576;&#1610;&#1593;&#1575;&#1578;&#1548; &#1578;&#1603;&#1575;&#1605;&#1604; &#1575;&#1604;&#1608;&#1575;&#1578;&#1587;&#1575;&#1576;&#1548; &#1608;&#1573;&#1583;&#1575;&#1585;&#1577; &#1575;&#1604;&#1605;&#1607;&#1575;&#1605; &#1608;&#1575;&#1604;&#1601;&#1585;&#1602; &#1601;&#1610; &#1605;&#1606;&#1589;&#1577; &#1608;&#1575;&#1581;&#1583;&#1577; &#1605;&#1593;&#1585;&#1576;&#1577; &#1576;&#1575;&#1604;&#1603;&#1575;&#1605;&#1604;.</span>\"
+    \"<span class=sf-dump-key>category</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>tech</span>\" => <span class=sf-dump-note>array:6</span> [<samp data-depth=3 class=sf-dump-compact>
+      <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"7 characters\">Laravel</span>\"
+      <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"3 characters\">PHP</span>\"
+      <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"6 characters\">Vue.js</span>\"
+      <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"5 characters\">MySQL</span>\"
+      <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"5 characters\">Redis</span>\"
+      <span class=sf-dump-index>5</span> => \"<span class=sf-dump-str title=\"12 characters\">WhatsApp API</span>\"
+    </samp>]
+    \"<span class=sf-dump-key>url</span>\" => \"<span class=sf-dump-str title=\"22 characters\">https://omnixtrack.com</span>\"
+    \"<span class=sf-dump-key>image</span>\" => \"<span class=sf-dump-str title=\"23 characters\">projects/omnixtrack.png</span>\"
+    \"<span class=sf-dump-key>role</span>\" => \"<span class=sf-dump-str title=\"14 characters\">Lead Developer</span>\"
+    \"<span class=sf-dump-key>language</span>\" => \"<span class=sf-dump-str title=\"2 characters\">ar</span>\"
+    \"<span class=sf-dump-key>country</span>\" => \"<span class=sf-dump-str title=\"5 characters\">Egypt</span>\"
+    \"<span class=sf-dump-key>country_ar</span>\" => \"<span class=sf-dump-str title=\"3 characters\">&#1605;&#1589;&#1585;</span>\"
+    \"<span class=sf-dump-key>country_flag</span>\" => \"<span class=sf-dump-str title=\"2 characters\">&#127466;&#127468;</span>\"
+    \"<span class=sf-dump-key>country_code</span>\" => \"<span class=sf-dump-str title=\"2 characters\">eg</span>\"
+    \"<span class=sf-dump-key>featured</span>\" => <span class=sf-dump-const>true</span>
+    \"<span class=sf-dump-key>category_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>country_en</span>\" => \"<span class=sf-dump-str title=\"5 characters\">Egypt</span>\"
+  </samp>]
+</samp>]
+</pre><script>Sfdump(\"sf-dump-2064338273\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+"}},"exception":"[object] (Spatie\\LaravelIgnition\\Exceptions\\ViewException(code: 0): syntax error, unexpected token \"endif\", expecting end of file at F:\\Certificates\\khaled\\resources\\views\\pages\\portfolio-detail.blade.php:35)
+[stacktrace]
+#0 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(124): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#1 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('F:\\\\Certificates...', Array)
+#2 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(72): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('F:\\\\Certificates...', Array)
+#3 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(207): Illuminate\\View\\Engines\\CompilerEngine->get('F:\\\\Certificates...', Array)
+#4 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(190): Illuminate\\View\\View->getContents()
+#5 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(159): Illuminate\\View\\View->renderContents()
+#6 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(69): Illuminate\\View\\View->render()
+#7 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(35): Illuminate\\Http\\Response->setContent(Object(Illuminate\\View\\View))
+#8 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(918): Illuminate\\Http\\Response->__construct(Object(Illuminate\\View\\View), 200, Array)
+#9 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(885): Illuminate\\Routing\\Router::toResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#10 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Routing\\Router->prepareResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#11 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#12 F:\\Certificates\\khaled\\app\\Http\\Middleware\\SetLocale.php(65): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#13 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): App\\Http\\Middleware\\SetLocale->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#14 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#15 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#17 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#18 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#20 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#21 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#22 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#23 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#24 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#29 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(784): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#30 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(748): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#31 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(737): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#32 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#33 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#34 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#40 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#41 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#42 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(99): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#44 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#45 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#46 F:\\Certificates\\khaled\\app\\Http\\Middleware\\ForceCanonicalDomain.php(48): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#47 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): App\\Http\\Middleware\\ForceCanonicalDomain->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#48 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#49 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#51 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#52 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#53 F:\\Certificates\\khaled\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#54 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('F:\\\\Certificates...')
+#55 {main}
+
+[previous exception] [object] (ParseError(code: 0): syntax error, unexpected token \"endif\", expecting end of file at F:\\Certificates\\khaled\\storage\\framework\\views\\7c066cd46a2e75768b67565011b58940.php:33)
+[stacktrace]
+#0 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(124): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#1 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('F:\\\\Certificates...', Array)
+#2 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(72): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('F:\\\\Certificates...', Array)
+#3 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(207): Illuminate\\View\\Engines\\CompilerEngine->get('F:\\\\Certificates...', Array)
+#4 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(190): Illuminate\\View\\View->getContents()
+#5 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(159): Illuminate\\View\\View->renderContents()
+#6 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(69): Illuminate\\View\\View->render()
+#7 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(35): Illuminate\\Http\\Response->setContent(Object(Illuminate\\View\\View))
+#8 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(918): Illuminate\\Http\\Response->__construct(Object(Illuminate\\View\\View), 200, Array)
+#9 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(885): Illuminate\\Routing\\Router::toResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#10 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Routing\\Router->prepareResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#11 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#12 F:\\Certificates\\khaled\\app\\Http\\Middleware\\SetLocale.php(65): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#13 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): App\\Http\\Middleware\\SetLocale->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#14 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#15 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#17 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#18 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#20 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#21 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#22 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#23 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#24 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#29 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(784): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#30 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(748): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#31 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(737): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#32 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#33 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#34 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#40 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#41 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#42 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(99): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#44 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#45 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#46 F:\\Certificates\\khaled\\app\\Http\\Middleware\\ForceCanonicalDomain.php(48): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#47 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): App\\Http\\Middleware\\ForceCanonicalDomain->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#48 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#49 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#51 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#52 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#53 F:\\Certificates\\khaled\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#54 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('F:\\\\Certificates...')
+#55 {main}
+"} 
+[2026-08-21 14:20:15] local.ERROR: syntax error, unexpected token "endif", expecting end of file {"view":{"view":"F:\\Certificates\\khaled\\resources\\views\\pages\\portfolio-detail.blade.php","data":{"errors":"<pre class=sf-dump id=sf-dump-806394933 data-indent-pad=\"  \"><span class=sf-dump-note>Illuminate\\Support\\ViewErrorBag</span> {<a class=sf-dump-ref>#331</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">bags</span>: []
+</samp>}
+</pre><script>Sfdump(\"sf-dump-806394933\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","portfolio":"<pre class=sf-dump id=sf-dump-518107907 data-indent-pad=\"  \"><span class=sf-dump-note>array:23</span> [<samp data-depth=1 class=sf-dump-expanded>
+  \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"13 characters\">barmagly-tech</span>\"
+  \"<span class=sf-dump-key>title</span>\" => \"<span class=sf-dump-str title=\"40 characters\">Barmagly &#8212; Swiss-Licensed Software House</span>\"
+  \"<span class=sf-dump-key>summary</span>\" => \"<span class=sf-dump-str title=\"141 characters\">Founder &amp; lead developer. Enterprise web, mobile, POS and business automation systems delivered to clients across Europe and the Middle East.</span>\"
+  \"<span class=sf-dump-key>title_ar</span>\" => \"<span class=sf-dump-str title=\"31 characters\">Barmagly &#8212; &#1588;&#1585;&#1603;&#1577; &#1576;&#1585;&#1605;&#1580;&#1610;&#1575;&#1578; &#1587;&#1608;&#1610;&#1587;&#1585;&#1610;&#1577;</span>\"
+  \"<span class=sf-dump-key>summary_ar</span>\" => \"<span class=sf-dump-str title=\"100 characters\">&#1605;&#1572;&#1587;&#1587; &#1608;&#1605;&#1591;&#1608;&#1617;&#1585; &#1585;&#1574;&#1610;&#1587;&#1610;. &#1571;&#1606;&#1592;&#1605;&#1577; &#1605;&#1572;&#1587;&#1587;&#1610;&#1577; &#1604;&#1604;&#1608;&#1610;&#1576; &#1608;&#1575;&#1604;&#1605;&#1608;&#1576;&#1575;&#1610;&#1604; &#1608; POS &#1608;&#1571;&#1578;&#1605;&#1578;&#1577; &#1575;&#1604;&#1571;&#1593;&#1605;&#1575;&#1604; &#1604;&#1593;&#1605;&#1604;&#1575;&#1569; &#1601;&#1610; &#1571;&#1608;&#1585;&#1608;&#1576;&#1575; &#1608;&#1575;&#1604;&#1588;&#1585;&#1602; &#1575;&#1604;&#1571;&#1608;&#1587;&#1591;.</span>\"
+  \"<span class=sf-dump-key>category</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+  \"<span class=sf-dump-key>tech</span>\" => <span class=sf-dump-note>array:6</span> [<samp data-depth=2 class=sf-dump-compact>
+    <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"7 characters\">Next.js</span>\"
+    <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"10 characters\">TypeScript</span>\"
+    <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"7 characters\">Node.js</span>\"
+    <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"7 characters\">Laravel</span>\"
+    <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"3 characters\">PHP</span>\"
+    <span class=sf-dump-index>5</span> => \"<span class=sf-dump-str title=\"10 characters\">PostgreSQL</span>\"
+  </samp>]
+  \"<span class=sf-dump-key>url</span>\" => \"<span class=sf-dump-str title=\"21 characters\">https://barmagly.tech</span>\"
+  \"<span class=sf-dump-key>image</span>\" => \"<span class=sf-dump-str title=\"26 characters\">projects/barmagly-tech.jpg</span>\"
+  \"<span class=sf-dump-key>role</span>\" => \"<span class=sf-dump-str title=\"34 characters\">Founder, Architect, Lead Developer</span>\"
+  \"<span class=sf-dump-key>language</span>\" => \"<span class=sf-dump-str title=\"2 characters\">en</span>\"
+  \"<span class=sf-dump-key>country</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+  \"<span class=sf-dump-key>country_ar</span>\" => \"<span class=sf-dump-str title=\"6 characters\">&#1587;&#1608;&#1610;&#1587;&#1585;&#1575;</span>\"
+  \"<span class=sf-dump-key>country_flag</span>\" => \"<span class=sf-dump-str title=\"2 characters\">&#127464;&#127469;</span>\"
+  \"<span class=sf-dump-key>country_code</span>\" => \"<span class=sf-dump-str title=\"2 characters\">ch</span>\"
+  \"<span class=sf-dump-key>featured</span>\" => <span class=sf-dump-const>true</span>
+  \"<span class=sf-dump-key>category_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+  \"<span class=sf-dump-key>country_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+  \"<span class=sf-dump-key>lead</span>\" => \"<span class=sf-dump-str title=\"247 characters\">I founded Barmagly and I still architect every system that leaves it. It is a Swiss-licensed software house delivering enterprise web platforms, mobile applications, POS systems and business automation to clients across Europe and the Middle East.</span>\"
+  \"<span class=sf-dump-key>built</span>\" => <span class=sf-dump-note>array:5</span> [<samp data-depth=2 class=sf-dump-compact>
+    <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"60 characters\">Company-wide architecture standards every project is held to</span>\"
+    <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"47 characters\">Enterprise web platforms in Laravel and Next.js</span>\"
+    <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"42 characters\">Mobile applications shipped to Google Play</span>\"
+    <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"48 characters\">Multi-tenant POS and business automation systems</span>\"
+    <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"76 characters\">Delivery across Switzerland, Germany, the UK, Saudi Arabia, Egypt and beyond</span>\"
+  </samp>]
+  \"<span class=sf-dump-key>decision</span>\" => <span class=sf-dump-note>array:2</span> [<samp data-depth=2 class=sf-dump-compact>
+    <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"245 characters\">What changed for me was the nature of the responsibility. Writing good code is one skill. Owning an architecture a client will still be running in five years &#8212; and being the person they call when it breaks at 2am &#8212; is a completely different one.</span>\"
+    <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"99 characters\">That second skill is the one nobody teaches you, and it is the one clients are actually paying for.</span>\"
+  </samp>]
+  \"<span class=sf-dump-key>keywords</span>\" => \"<span class=sf-dump-str title=\"142 characters\">swiss software house, enterprise web development company, laravel development agency, next.js development company, custom software switzerland</span>\"
+  \"<span class=sf-dump-key>apps</span>\" => []
+</samp>]
+</pre><script>Sfdump(\"sf-dump-518107907\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","related":"<pre class=sf-dump id=sf-dump-1306570964 data-indent-pad=\"  \"><span class=sf-dump-note>array:3</span> [<samp data-depth=1 class=sf-dump-expanded>
+  <span class=sf-dump-index>0</span> => <span class=sf-dump-note>array:18</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"12 characters\">barmagly-pos</span>\"
+    \"<span class=sf-dump-key>title</span>\" => \"<span class=sf-dump-str title=\"40 characters\">Kassenta &#8212; Cloud Multi-Tenant POS System</span>\"
+    \"<span class=sf-dump-key>summary</span>\" => \"<span class=sf-dump-str title=\"126 characters\">Cloud-based, multi-tenant point-of-sale system for restaurants, caf&#233;s and retail &#8212; with inventory, multi-branch and reporting.</span>\"
+    \"<span class=sf-dump-key>title_ar</span>\" => \"<span class=sf-dump-str title=\"39 characters\">Kassenta &#8212; &#1603;&#1575;&#1588;&#1610;&#1585; &#1587;&#1581;&#1575;&#1576;&#1610; &#1605;&#1578;&#1593;&#1583;&#1583; &#1575;&#1604;&#1605;&#1587;&#1578;&#1571;&#1580;&#1585;&#1610;&#1606;</span>\"
+    \"<span class=sf-dump-key>summary_ar</span>\" => \"<span class=sf-dump-str title=\"94 characters\">&#1606;&#1592;&#1575;&#1605; &#1606;&#1602;&#1575;&#1591; &#1576;&#1610;&#1593; &#1587;&#1581;&#1575;&#1576;&#1610; &#1605;&#1578;&#1593;&#1583;&#1583; &#1575;&#1604;&#1605;&#1587;&#1578;&#1571;&#1580;&#1585;&#1610;&#1606; &#1604;&#1604;&#1605;&#1591;&#1575;&#1593;&#1605; &#1608;&#1575;&#1604;&#1603;&#1575;&#1601;&#1610;&#1607;&#1575;&#1578; &#1608;&#1575;&#1604;&#1578;&#1580;&#1586;&#1574;&#1577;&#1548; &#1605;&#1593; &#1605;&#1582;&#1586;&#1608;&#1606; &#1608;&#1578;&#1593;&#1583;&#1583; &#1601;&#1585;&#1608;&#1593; &#1608;&#1578;&#1602;&#1575;&#1585;&#1610;&#1585;.</span>\"
+    \"<span class=sf-dump-key>category</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>tech</span>\" => <span class=sf-dump-note>array:5</span> [<samp data-depth=3 class=sf-dump-compact>
+      <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"10 characters\">TypeScript</span>\"
+      <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"10 characters\">JavaScript</span>\"
+      <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"7 characters\">Node.js</span>\"
+      <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"5 characters\">MySQL</span>\"
+      <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"6 characters\">Stripe</span>\"
+    </samp>]
+    \"<span class=sf-dump-key>url</span>\" => \"<span class=sf-dump-str title=\"20 characters\">https://kassenta.com</span>\"
+    \"<span class=sf-dump-key>image</span>\" => \"<span class=sf-dump-str title=\"25 characters\">projects/barmagly-pos.png</span>\"
+    \"<span class=sf-dump-key>role</span>\" => \"<span class=sf-dump-str title=\"14 characters\">Lead Developer</span>\"
+    \"<span class=sf-dump-key>language</span>\" => \"<span class=sf-dump-str title=\"2 characters\">de</span>\"
+    \"<span class=sf-dump-key>country</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+    \"<span class=sf-dump-key>country_ar</span>\" => \"<span class=sf-dump-str title=\"6 characters\">&#1587;&#1608;&#1610;&#1587;&#1585;&#1575;</span>\"
+    \"<span class=sf-dump-key>country_flag</span>\" => \"<span class=sf-dump-str title=\"2 characters\">&#127464;&#127469;</span>\"
+    \"<span class=sf-dump-key>country_code</span>\" => \"<span class=sf-dump-str title=\"2 characters\">ch</span>\"
+    \"<span class=sf-dump-key>featured</span>\" => <span class=sf-dump-const>true</span>
+    \"<span class=sf-dump-key>category_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>country_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+  </samp>]
+  <span class=sf-dump-index>1</span> => <span class=sf-dump-note>array:18</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"14 characters\">barmagly-salon</span>\"
+    \"<span class=sf-dump-key>title</span>\" => \"<span class=sf-dump-str title=\"35 characters\">Klipp &#8212; AI-Powered Salon Management</span>\"
+    \"<span class=sf-dump-key>summary</span>\" => \"<span class=sf-dump-str title=\"148 characters\">SaaS platform for salons and barbershops: bookings, POS, inventory, staff scheduling, AI hair-makeover previews and analytics &#8212; all in one platform.</span>\"
+    \"<span class=sf-dump-key>title_ar</span>\" => \"<span class=sf-dump-str title=\"44 characters\">Klipp &#8212; &#1605;&#1606;&#1589;&#1577; &#1573;&#1583;&#1575;&#1585;&#1577; &#1589;&#1575;&#1604;&#1608;&#1606;&#1575;&#1578; &#1576;&#1575;&#1604;&#1584;&#1603;&#1575;&#1569; &#1575;&#1604;&#1575;&#1589;&#1591;&#1606;&#1575;&#1593;&#1610;</span>\"
+    \"<span class=sf-dump-key>summary_ar</span>\" => \"<span class=sf-dump-str title=\"133 characters\">&#1605;&#1606;&#1589;&#1577; SaaS &#1604;&#1604;&#1589;&#1575;&#1604;&#1608;&#1606;&#1575;&#1578; &#1608;&#1605;&#1581;&#1604;&#1575;&#1578; &#1575;&#1604;&#1581;&#1604;&#1575;&#1602;&#1577;: &#1581;&#1580;&#1608;&#1586;&#1575;&#1578;&#1548; POS&#1548; &#1605;&#1582;&#1586;&#1608;&#1606;&#1548; &#1580;&#1583;&#1608;&#1604;&#1577; &#1605;&#1608;&#1592;&#1601;&#1610;&#1606;&#1548; &#1605;&#1593;&#1575;&#1610;&#1606;&#1575;&#1578; &#1578;&#1587;&#1585;&#1610;&#1581;&#1575;&#1578; &#1576;&#1575;&#1604;&#1584;&#1603;&#1575;&#1569; &#1575;&#1604;&#1575;&#1589;&#1591;&#1606;&#1575;&#1593;&#1610; &#1608;&#1578;&#1581;&#1604;&#1610;&#1604;&#1575;&#1578; &#8212; &#1603;&#1604;&#1607; &#1601;&#1610; &#1605;&#1606;&#1589;&#1577; &#1608;&#1575;&#1581;&#1583;&#1577;.</span>\"
+    \"<span class=sf-dump-key>category</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>tech</span>\" => <span class=sf-dump-note>array:5</span> [<samp data-depth=3 class=sf-dump-compact>
+      <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"10 characters\">TypeScript</span>\"
+      <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"5 characters\">React</span>\"
+      <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"7 characters\">Node.js</span>\"
+      <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"10 characters\">OpenAI API</span>\"
+      <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"10 characters\">PostgreSQL</span>\"
+    </samp>]
+    \"<span class=sf-dump-key>url</span>\" => \"<span class=sf-dump-str title=\"22 characters\">https://klippsalon.com</span>\"
+    \"<span class=sf-dump-key>image</span>\" => \"<span class=sf-dump-str title=\"27 characters\">projects/barmagly-salon.png</span>\"
+    \"<span class=sf-dump-key>role</span>\" => \"<span class=sf-dump-str title=\"14 characters\">Lead Developer</span>\"
+    \"<span class=sf-dump-key>language</span>\" => \"<span class=sf-dump-str title=\"2 characters\">en</span>\"
+    \"<span class=sf-dump-key>country</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+    \"<span class=sf-dump-key>country_ar</span>\" => \"<span class=sf-dump-str title=\"6 characters\">&#1587;&#1608;&#1610;&#1587;&#1585;&#1575;</span>\"
+    \"<span class=sf-dump-key>country_flag</span>\" => \"<span class=sf-dump-str title=\"2 characters\">&#127464;&#127469;</span>\"
+    \"<span class=sf-dump-key>country_code</span>\" => \"<span class=sf-dump-str title=\"2 characters\">ch</span>\"
+    \"<span class=sf-dump-key>featured</span>\" => <span class=sf-dump-const>true</span>
+    \"<span class=sf-dump-key>category_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>country_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+  </samp>]
+  <span class=sf-dump-index>2</span> => <span class=sf-dump-note>array:18</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"10 characters\">omnixtrack</span>\"
+    \"<span class=sf-dump-key>title</span>\" => \"<span class=sf-dump-str title=\"36 characters\">Omnixtrack &#8212; Arabic Multi-Tenant CRM</span>\"
+    \"<span class=sf-dump-key>summary</span>\" => \"<span class=sf-dump-str title=\"216 characters\">Made-in-Egypt multi-tenant CRM platform for Arabic-speaking businesses &#8212; lead pipelines, sales tracking, WhatsApp integration, task management, and team analytics &#8212; all in one localized platform, hosted inside Egypt.</span>\"
+    \"<span class=sf-dump-key>title_ar</span>\" => \"<span class=sf-dump-str title=\"45 characters\">Omnixtrack &#8212; &#1605;&#1606;&#1589;&#1577; CRM &#1593;&#1585;&#1576;&#1610;&#1577; &#1605;&#1578;&#1593;&#1583;&#1583;&#1577; &#1575;&#1604;&#1605;&#1587;&#1578;&#1571;&#1580;&#1585;&#1610;&#1606;</span>\"
+    \"<span class=sf-dump-key>summary_ar</span>\" => \"<span class=sf-dump-str title=\"166 characters\">&#1605;&#1606;&#1589;&#1577; CRM &#1605;&#1578;&#1593;&#1583;&#1583;&#1577; &#1575;&#1604;&#1605;&#1587;&#1578;&#1571;&#1580;&#1585;&#1610;&#1606; &#1589;&#1615;&#1606;&#1593;&#1578; &#1601;&#1610; &#1605;&#1589;&#1585; &#1608;&#1605;&#1615;&#1587;&#1578;&#1590;&#1575;&#1601;&#1577; &#1583;&#1575;&#1582;&#1604; &#1605;&#1589;&#1585; &#8212; &#1573;&#1583;&#1575;&#1585;&#1577; &#1575;&#1604;&#1593;&#1605;&#1604;&#1575;&#1569; &#1575;&#1604;&#1605;&#1581;&#1578;&#1605;&#1604;&#1610;&#1606;&#1548; &#1578;&#1578;&#1576;&#1593; &#1575;&#1604;&#1605;&#1576;&#1610;&#1593;&#1575;&#1578;&#1548; &#1578;&#1603;&#1575;&#1605;&#1604; &#1575;&#1604;&#1608;&#1575;&#1578;&#1587;&#1575;&#1576;&#1548; &#1608;&#1573;&#1583;&#1575;&#1585;&#1577; &#1575;&#1604;&#1605;&#1607;&#1575;&#1605; &#1608;&#1575;&#1604;&#1601;&#1585;&#1602; &#1601;&#1610; &#1605;&#1606;&#1589;&#1577; &#1608;&#1575;&#1581;&#1583;&#1577; &#1605;&#1593;&#1585;&#1576;&#1577; &#1576;&#1575;&#1604;&#1603;&#1575;&#1605;&#1604;.</span>\"
+    \"<span class=sf-dump-key>category</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>tech</span>\" => <span class=sf-dump-note>array:6</span> [<samp data-depth=3 class=sf-dump-compact>
+      <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"7 characters\">Laravel</span>\"
+      <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"3 characters\">PHP</span>\"
+      <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"6 characters\">Vue.js</span>\"
+      <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"5 characters\">MySQL</span>\"
+      <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"5 characters\">Redis</span>\"
+      <span class=sf-dump-index>5</span> => \"<span class=sf-dump-str title=\"12 characters\">WhatsApp API</span>\"
+    </samp>]
+    \"<span class=sf-dump-key>url</span>\" => \"<span class=sf-dump-str title=\"22 characters\">https://omnixtrack.com</span>\"
+    \"<span class=sf-dump-key>image</span>\" => \"<span class=sf-dump-str title=\"23 characters\">projects/omnixtrack.png</span>\"
+    \"<span class=sf-dump-key>role</span>\" => \"<span class=sf-dump-str title=\"14 characters\">Lead Developer</span>\"
+    \"<span class=sf-dump-key>language</span>\" => \"<span class=sf-dump-str title=\"2 characters\">ar</span>\"
+    \"<span class=sf-dump-key>country</span>\" => \"<span class=sf-dump-str title=\"5 characters\">Egypt</span>\"
+    \"<span class=sf-dump-key>country_ar</span>\" => \"<span class=sf-dump-str title=\"3 characters\">&#1605;&#1589;&#1585;</span>\"
+    \"<span class=sf-dump-key>country_flag</span>\" => \"<span class=sf-dump-str title=\"2 characters\">&#127466;&#127468;</span>\"
+    \"<span class=sf-dump-key>country_code</span>\" => \"<span class=sf-dump-str title=\"2 characters\">eg</span>\"
+    \"<span class=sf-dump-key>featured</span>\" => <span class=sf-dump-const>true</span>
+    \"<span class=sf-dump-key>category_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>country_en</span>\" => \"<span class=sf-dump-str title=\"5 characters\">Egypt</span>\"
+  </samp>]
+</samp>]
+</pre><script>Sfdump(\"sf-dump-1306570964\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+"}},"exception":"[object] (Spatie\\LaravelIgnition\\Exceptions\\ViewException(code: 0): syntax error, unexpected token \"endif\", expecting end of file at F:\\Certificates\\khaled\\resources\\views\\pages\\portfolio-detail.blade.php:35)
+[stacktrace]
+#0 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(124): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#1 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('F:\\\\Certificates...', Array)
+#2 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(72): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('F:\\\\Certificates...', Array)
+#3 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(207): Illuminate\\View\\Engines\\CompilerEngine->get('F:\\\\Certificates...', Array)
+#4 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(190): Illuminate\\View\\View->getContents()
+#5 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(159): Illuminate\\View\\View->renderContents()
+#6 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(69): Illuminate\\View\\View->render()
+#7 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(35): Illuminate\\Http\\Response->setContent(Object(Illuminate\\View\\View))
+#8 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(918): Illuminate\\Http\\Response->__construct(Object(Illuminate\\View\\View), 200, Array)
+#9 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(885): Illuminate\\Routing\\Router::toResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#10 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Routing\\Router->prepareResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#11 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#12 F:\\Certificates\\khaled\\app\\Http\\Middleware\\SetLocale.php(65): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#13 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): App\\Http\\Middleware\\SetLocale->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#14 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#15 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#17 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#18 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#20 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#21 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#22 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#23 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#24 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#29 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(784): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#30 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(748): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#31 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(737): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#32 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#33 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#34 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#40 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#41 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#42 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(99): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#44 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#45 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#46 F:\\Certificates\\khaled\\app\\Http\\Middleware\\ForceCanonicalDomain.php(48): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#47 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): App\\Http\\Middleware\\ForceCanonicalDomain->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#48 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#49 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#51 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#52 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#53 F:\\Certificates\\khaled\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#54 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('F:\\\\Certificates...')
+#55 {main}
+
+[previous exception] [object] (ParseError(code: 0): syntax error, unexpected token \"endif\", expecting end of file at F:\\Certificates\\khaled\\storage\\framework\\views\\7c066cd46a2e75768b67565011b58940.php:33)
+[stacktrace]
+#0 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(124): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#1 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('F:\\\\Certificates...', Array)
+#2 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(72): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('F:\\\\Certificates...', Array)
+#3 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(207): Illuminate\\View\\Engines\\CompilerEngine->get('F:\\\\Certificates...', Array)
+#4 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(190): Illuminate\\View\\View->getContents()
+#5 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(159): Illuminate\\View\\View->renderContents()
+#6 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(69): Illuminate\\View\\View->render()
+#7 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(35): Illuminate\\Http\\Response->setContent(Object(Illuminate\\View\\View))
+#8 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(918): Illuminate\\Http\\Response->__construct(Object(Illuminate\\View\\View), 200, Array)
+#9 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(885): Illuminate\\Routing\\Router::toResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#10 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Routing\\Router->prepareResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#11 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#12 F:\\Certificates\\khaled\\app\\Http\\Middleware\\SetLocale.php(65): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#13 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): App\\Http\\Middleware\\SetLocale->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#14 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#15 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#17 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#18 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#20 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#21 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#22 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#23 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#24 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#29 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(784): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#30 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(748): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#31 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(737): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#32 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#33 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#34 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#40 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#41 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#42 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(99): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#44 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#45 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#46 F:\\Certificates\\khaled\\app\\Http\\Middleware\\ForceCanonicalDomain.php(48): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#47 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): App\\Http\\Middleware\\ForceCanonicalDomain->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#48 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#49 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#51 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#52 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#53 F:\\Certificates\\khaled\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#54 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('F:\\\\Certificates...')
+#55 {main}
+"} 
+[2026-08-21 14:20:32] local.ERROR: syntax error, unexpected token "endif", expecting end of file {"view":{"view":"F:\\Certificates\\khaled\\resources\\views\\pages\\portfolio-detail.blade.php","data":{"errors":"<pre class=sf-dump id=sf-dump-1672444100 data-indent-pad=\"  \"><span class=sf-dump-note>Illuminate\\Support\\ViewErrorBag</span> {<a class=sf-dump-ref>#331</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">bags</span>: []
+</samp>}
+</pre><script>Sfdump(\"sf-dump-1672444100\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","portfolio":"<pre class=sf-dump id=sf-dump-1058065820 data-indent-pad=\"  \"><span class=sf-dump-note>array:23</span> [<samp data-depth=1 class=sf-dump-expanded>
+  \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"13 characters\">barmagly-tech</span>\"
+  \"<span class=sf-dump-key>title</span>\" => \"<span class=sf-dump-str title=\"40 characters\">Barmagly &#8212; Swiss-Licensed Software House</span>\"
+  \"<span class=sf-dump-key>summary</span>\" => \"<span class=sf-dump-str title=\"141 characters\">Founder &amp; lead developer. Enterprise web, mobile, POS and business automation systems delivered to clients across Europe and the Middle East.</span>\"
+  \"<span class=sf-dump-key>title_ar</span>\" => \"<span class=sf-dump-str title=\"31 characters\">Barmagly &#8212; &#1588;&#1585;&#1603;&#1577; &#1576;&#1585;&#1605;&#1580;&#1610;&#1575;&#1578; &#1587;&#1608;&#1610;&#1587;&#1585;&#1610;&#1577;</span>\"
+  \"<span class=sf-dump-key>summary_ar</span>\" => \"<span class=sf-dump-str title=\"100 characters\">&#1605;&#1572;&#1587;&#1587; &#1608;&#1605;&#1591;&#1608;&#1617;&#1585; &#1585;&#1574;&#1610;&#1587;&#1610;. &#1571;&#1606;&#1592;&#1605;&#1577; &#1605;&#1572;&#1587;&#1587;&#1610;&#1577; &#1604;&#1604;&#1608;&#1610;&#1576; &#1608;&#1575;&#1604;&#1605;&#1608;&#1576;&#1575;&#1610;&#1604; &#1608; POS &#1608;&#1571;&#1578;&#1605;&#1578;&#1577; &#1575;&#1604;&#1571;&#1593;&#1605;&#1575;&#1604; &#1604;&#1593;&#1605;&#1604;&#1575;&#1569; &#1601;&#1610; &#1571;&#1608;&#1585;&#1608;&#1576;&#1575; &#1608;&#1575;&#1604;&#1588;&#1585;&#1602; &#1575;&#1604;&#1571;&#1608;&#1587;&#1591;.</span>\"
+  \"<span class=sf-dump-key>category</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+  \"<span class=sf-dump-key>tech</span>\" => <span class=sf-dump-note>array:6</span> [<samp data-depth=2 class=sf-dump-compact>
+    <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"7 characters\">Next.js</span>\"
+    <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"10 characters\">TypeScript</span>\"
+    <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"7 characters\">Node.js</span>\"
+    <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"7 characters\">Laravel</span>\"
+    <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"3 characters\">PHP</span>\"
+    <span class=sf-dump-index>5</span> => \"<span class=sf-dump-str title=\"10 characters\">PostgreSQL</span>\"
+  </samp>]
+  \"<span class=sf-dump-key>url</span>\" => \"<span class=sf-dump-str title=\"21 characters\">https://barmagly.tech</span>\"
+  \"<span class=sf-dump-key>image</span>\" => \"<span class=sf-dump-str title=\"26 characters\">projects/barmagly-tech.jpg</span>\"
+  \"<span class=sf-dump-key>role</span>\" => \"<span class=sf-dump-str title=\"34 characters\">Founder, Architect, Lead Developer</span>\"
+  \"<span class=sf-dump-key>language</span>\" => \"<span class=sf-dump-str title=\"2 characters\">en</span>\"
+  \"<span class=sf-dump-key>country</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+  \"<span class=sf-dump-key>country_ar</span>\" => \"<span class=sf-dump-str title=\"6 characters\">&#1587;&#1608;&#1610;&#1587;&#1585;&#1575;</span>\"
+  \"<span class=sf-dump-key>country_flag</span>\" => \"<span class=sf-dump-str title=\"2 characters\">&#127464;&#127469;</span>\"
+  \"<span class=sf-dump-key>country_code</span>\" => \"<span class=sf-dump-str title=\"2 characters\">ch</span>\"
+  \"<span class=sf-dump-key>featured</span>\" => <span class=sf-dump-const>true</span>
+  \"<span class=sf-dump-key>category_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+  \"<span class=sf-dump-key>country_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+  \"<span class=sf-dump-key>lead</span>\" => \"<span class=sf-dump-str title=\"247 characters\">I founded Barmagly and I still architect every system that leaves it. It is a Swiss-licensed software house delivering enterprise web platforms, mobile applications, POS systems and business automation to clients across Europe and the Middle East.</span>\"
+  \"<span class=sf-dump-key>built</span>\" => <span class=sf-dump-note>array:5</span> [<samp data-depth=2 class=sf-dump-compact>
+    <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"60 characters\">Company-wide architecture standards every project is held to</span>\"
+    <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"47 characters\">Enterprise web platforms in Laravel and Next.js</span>\"
+    <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"42 characters\">Mobile applications shipped to Google Play</span>\"
+    <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"48 characters\">Multi-tenant POS and business automation systems</span>\"
+    <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"76 characters\">Delivery across Switzerland, Germany, the UK, Saudi Arabia, Egypt and beyond</span>\"
+  </samp>]
+  \"<span class=sf-dump-key>decision</span>\" => <span class=sf-dump-note>array:2</span> [<samp data-depth=2 class=sf-dump-compact>
+    <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"245 characters\">What changed for me was the nature of the responsibility. Writing good code is one skill. Owning an architecture a client will still be running in five years &#8212; and being the person they call when it breaks at 2am &#8212; is a completely different one.</span>\"
+    <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"99 characters\">That second skill is the one nobody teaches you, and it is the one clients are actually paying for.</span>\"
+  </samp>]
+  \"<span class=sf-dump-key>keywords</span>\" => \"<span class=sf-dump-str title=\"142 characters\">swiss software house, enterprise web development company, laravel development agency, next.js development company, custom software switzerland</span>\"
+  \"<span class=sf-dump-key>apps</span>\" => []
+</samp>]
+</pre><script>Sfdump(\"sf-dump-1058065820\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","related":"<pre class=sf-dump id=sf-dump-508187285 data-indent-pad=\"  \"><span class=sf-dump-note>array:3</span> [<samp data-depth=1 class=sf-dump-expanded>
+  <span class=sf-dump-index>0</span> => <span class=sf-dump-note>array:18</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"12 characters\">barmagly-pos</span>\"
+    \"<span class=sf-dump-key>title</span>\" => \"<span class=sf-dump-str title=\"40 characters\">Kassenta &#8212; Cloud Multi-Tenant POS System</span>\"
+    \"<span class=sf-dump-key>summary</span>\" => \"<span class=sf-dump-str title=\"126 characters\">Cloud-based, multi-tenant point-of-sale system for restaurants, caf&#233;s and retail &#8212; with inventory, multi-branch and reporting.</span>\"
+    \"<span class=sf-dump-key>title_ar</span>\" => \"<span class=sf-dump-str title=\"39 characters\">Kassenta &#8212; &#1603;&#1575;&#1588;&#1610;&#1585; &#1587;&#1581;&#1575;&#1576;&#1610; &#1605;&#1578;&#1593;&#1583;&#1583; &#1575;&#1604;&#1605;&#1587;&#1578;&#1571;&#1580;&#1585;&#1610;&#1606;</span>\"
+    \"<span class=sf-dump-key>summary_ar</span>\" => \"<span class=sf-dump-str title=\"94 characters\">&#1606;&#1592;&#1575;&#1605; &#1606;&#1602;&#1575;&#1591; &#1576;&#1610;&#1593; &#1587;&#1581;&#1575;&#1576;&#1610; &#1605;&#1578;&#1593;&#1583;&#1583; &#1575;&#1604;&#1605;&#1587;&#1578;&#1571;&#1580;&#1585;&#1610;&#1606; &#1604;&#1604;&#1605;&#1591;&#1575;&#1593;&#1605; &#1608;&#1575;&#1604;&#1603;&#1575;&#1601;&#1610;&#1607;&#1575;&#1578; &#1608;&#1575;&#1604;&#1578;&#1580;&#1586;&#1574;&#1577;&#1548; &#1605;&#1593; &#1605;&#1582;&#1586;&#1608;&#1606; &#1608;&#1578;&#1593;&#1583;&#1583; &#1601;&#1585;&#1608;&#1593; &#1608;&#1578;&#1602;&#1575;&#1585;&#1610;&#1585;.</span>\"
+    \"<span class=sf-dump-key>category</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>tech</span>\" => <span class=sf-dump-note>array:5</span> [<samp data-depth=3 class=sf-dump-compact>
+      <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"10 characters\">TypeScript</span>\"
+      <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"10 characters\">JavaScript</span>\"
+      <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"7 characters\">Node.js</span>\"
+      <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"5 characters\">MySQL</span>\"
+      <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"6 characters\">Stripe</span>\"
+    </samp>]
+    \"<span class=sf-dump-key>url</span>\" => \"<span class=sf-dump-str title=\"20 characters\">https://kassenta.com</span>\"
+    \"<span class=sf-dump-key>image</span>\" => \"<span class=sf-dump-str title=\"25 characters\">projects/barmagly-pos.png</span>\"
+    \"<span class=sf-dump-key>role</span>\" => \"<span class=sf-dump-str title=\"14 characters\">Lead Developer</span>\"
+    \"<span class=sf-dump-key>language</span>\" => \"<span class=sf-dump-str title=\"2 characters\">de</span>\"
+    \"<span class=sf-dump-key>country</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+    \"<span class=sf-dump-key>country_ar</span>\" => \"<span class=sf-dump-str title=\"6 characters\">&#1587;&#1608;&#1610;&#1587;&#1585;&#1575;</span>\"
+    \"<span class=sf-dump-key>country_flag</span>\" => \"<span class=sf-dump-str title=\"2 characters\">&#127464;&#127469;</span>\"
+    \"<span class=sf-dump-key>country_code</span>\" => \"<span class=sf-dump-str title=\"2 characters\">ch</span>\"
+    \"<span class=sf-dump-key>featured</span>\" => <span class=sf-dump-const>true</span>
+    \"<span class=sf-dump-key>category_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>country_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+  </samp>]
+  <span class=sf-dump-index>1</span> => <span class=sf-dump-note>array:18</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"14 characters\">barmagly-salon</span>\"
+    \"<span class=sf-dump-key>title</span>\" => \"<span class=sf-dump-str title=\"35 characters\">Klipp &#8212; AI-Powered Salon Management</span>\"
+    \"<span class=sf-dump-key>summary</span>\" => \"<span class=sf-dump-str title=\"148 characters\">SaaS platform for salons and barbershops: bookings, POS, inventory, staff scheduling, AI hair-makeover previews and analytics &#8212; all in one platform.</span>\"
+    \"<span class=sf-dump-key>title_ar</span>\" => \"<span class=sf-dump-str title=\"44 characters\">Klipp &#8212; &#1605;&#1606;&#1589;&#1577; &#1573;&#1583;&#1575;&#1585;&#1577; &#1589;&#1575;&#1604;&#1608;&#1606;&#1575;&#1578; &#1576;&#1575;&#1604;&#1584;&#1603;&#1575;&#1569; &#1575;&#1604;&#1575;&#1589;&#1591;&#1606;&#1575;&#1593;&#1610;</span>\"
+    \"<span class=sf-dump-key>summary_ar</span>\" => \"<span class=sf-dump-str title=\"133 characters\">&#1605;&#1606;&#1589;&#1577; SaaS &#1604;&#1604;&#1589;&#1575;&#1604;&#1608;&#1606;&#1575;&#1578; &#1608;&#1605;&#1581;&#1604;&#1575;&#1578; &#1575;&#1604;&#1581;&#1604;&#1575;&#1602;&#1577;: &#1581;&#1580;&#1608;&#1586;&#1575;&#1578;&#1548; POS&#1548; &#1605;&#1582;&#1586;&#1608;&#1606;&#1548; &#1580;&#1583;&#1608;&#1604;&#1577; &#1605;&#1608;&#1592;&#1601;&#1610;&#1606;&#1548; &#1605;&#1593;&#1575;&#1610;&#1606;&#1575;&#1578; &#1578;&#1587;&#1585;&#1610;&#1581;&#1575;&#1578; &#1576;&#1575;&#1604;&#1584;&#1603;&#1575;&#1569; &#1575;&#1604;&#1575;&#1589;&#1591;&#1606;&#1575;&#1593;&#1610; &#1608;&#1578;&#1581;&#1604;&#1610;&#1604;&#1575;&#1578; &#8212; &#1603;&#1604;&#1607; &#1601;&#1610; &#1605;&#1606;&#1589;&#1577; &#1608;&#1575;&#1581;&#1583;&#1577;.</span>\"
+    \"<span class=sf-dump-key>category</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>tech</span>\" => <span class=sf-dump-note>array:5</span> [<samp data-depth=3 class=sf-dump-compact>
+      <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"10 characters\">TypeScript</span>\"
+      <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"5 characters\">React</span>\"
+      <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"7 characters\">Node.js</span>\"
+      <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"10 characters\">OpenAI API</span>\"
+      <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"10 characters\">PostgreSQL</span>\"
+    </samp>]
+    \"<span class=sf-dump-key>url</span>\" => \"<span class=sf-dump-str title=\"22 characters\">https://klippsalon.com</span>\"
+    \"<span class=sf-dump-key>image</span>\" => \"<span class=sf-dump-str title=\"27 characters\">projects/barmagly-salon.png</span>\"
+    \"<span class=sf-dump-key>role</span>\" => \"<span class=sf-dump-str title=\"14 characters\">Lead Developer</span>\"
+    \"<span class=sf-dump-key>language</span>\" => \"<span class=sf-dump-str title=\"2 characters\">en</span>\"
+    \"<span class=sf-dump-key>country</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+    \"<span class=sf-dump-key>country_ar</span>\" => \"<span class=sf-dump-str title=\"6 characters\">&#1587;&#1608;&#1610;&#1587;&#1585;&#1575;</span>\"
+    \"<span class=sf-dump-key>country_flag</span>\" => \"<span class=sf-dump-str title=\"2 characters\">&#127464;&#127469;</span>\"
+    \"<span class=sf-dump-key>country_code</span>\" => \"<span class=sf-dump-str title=\"2 characters\">ch</span>\"
+    \"<span class=sf-dump-key>featured</span>\" => <span class=sf-dump-const>true</span>
+    \"<span class=sf-dump-key>category_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>country_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+  </samp>]
+  <span class=sf-dump-index>2</span> => <span class=sf-dump-note>array:18</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"10 characters\">omnixtrack</span>\"
+    \"<span class=sf-dump-key>title</span>\" => \"<span class=sf-dump-str title=\"36 characters\">Omnixtrack &#8212; Arabic Multi-Tenant CRM</span>\"
+    \"<span class=sf-dump-key>summary</span>\" => \"<span class=sf-dump-str title=\"216 characters\">Made-in-Egypt multi-tenant CRM platform for Arabic-speaking businesses &#8212; lead pipelines, sales tracking, WhatsApp integration, task management, and team analytics &#8212; all in one localized platform, hosted inside Egypt.</span>\"
+    \"<span class=sf-dump-key>title_ar</span>\" => \"<span class=sf-dump-str title=\"45 characters\">Omnixtrack &#8212; &#1605;&#1606;&#1589;&#1577; CRM &#1593;&#1585;&#1576;&#1610;&#1577; &#1605;&#1578;&#1593;&#1583;&#1583;&#1577; &#1575;&#1604;&#1605;&#1587;&#1578;&#1571;&#1580;&#1585;&#1610;&#1606;</span>\"
+    \"<span class=sf-dump-key>summary_ar</span>\" => \"<span class=sf-dump-str title=\"166 characters\">&#1605;&#1606;&#1589;&#1577; CRM &#1605;&#1578;&#1593;&#1583;&#1583;&#1577; &#1575;&#1604;&#1605;&#1587;&#1578;&#1571;&#1580;&#1585;&#1610;&#1606; &#1589;&#1615;&#1606;&#1593;&#1578; &#1601;&#1610; &#1605;&#1589;&#1585; &#1608;&#1605;&#1615;&#1587;&#1578;&#1590;&#1575;&#1601;&#1577; &#1583;&#1575;&#1582;&#1604; &#1605;&#1589;&#1585; &#8212; &#1573;&#1583;&#1575;&#1585;&#1577; &#1575;&#1604;&#1593;&#1605;&#1604;&#1575;&#1569; &#1575;&#1604;&#1605;&#1581;&#1578;&#1605;&#1604;&#1610;&#1606;&#1548; &#1578;&#1578;&#1576;&#1593; &#1575;&#1604;&#1605;&#1576;&#1610;&#1593;&#1575;&#1578;&#1548; &#1578;&#1603;&#1575;&#1605;&#1604; &#1575;&#1604;&#1608;&#1575;&#1578;&#1587;&#1575;&#1576;&#1548; &#1608;&#1573;&#1583;&#1575;&#1585;&#1577; &#1575;&#1604;&#1605;&#1607;&#1575;&#1605; &#1608;&#1575;&#1604;&#1601;&#1585;&#1602; &#1601;&#1610; &#1605;&#1606;&#1589;&#1577; &#1608;&#1575;&#1581;&#1583;&#1577; &#1605;&#1593;&#1585;&#1576;&#1577; &#1576;&#1575;&#1604;&#1603;&#1575;&#1605;&#1604;.</span>\"
+    \"<span class=sf-dump-key>category</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>tech</span>\" => <span class=sf-dump-note>array:6</span> [<samp data-depth=3 class=sf-dump-compact>
+      <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"7 characters\">Laravel</span>\"
+      <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"3 characters\">PHP</span>\"
+      <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"6 characters\">Vue.js</span>\"
+      <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"5 characters\">MySQL</span>\"
+      <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"5 characters\">Redis</span>\"
+      <span class=sf-dump-index>5</span> => \"<span class=sf-dump-str title=\"12 characters\">WhatsApp API</span>\"
+    </samp>]
+    \"<span class=sf-dump-key>url</span>\" => \"<span class=sf-dump-str title=\"22 characters\">https://omnixtrack.com</span>\"
+    \"<span class=sf-dump-key>image</span>\" => \"<span class=sf-dump-str title=\"23 characters\">projects/omnixtrack.png</span>\"
+    \"<span class=sf-dump-key>role</span>\" => \"<span class=sf-dump-str title=\"14 characters\">Lead Developer</span>\"
+    \"<span class=sf-dump-key>language</span>\" => \"<span class=sf-dump-str title=\"2 characters\">ar</span>\"
+    \"<span class=sf-dump-key>country</span>\" => \"<span class=sf-dump-str title=\"5 characters\">Egypt</span>\"
+    \"<span class=sf-dump-key>country_ar</span>\" => \"<span class=sf-dump-str title=\"3 characters\">&#1605;&#1589;&#1585;</span>\"
+    \"<span class=sf-dump-key>country_flag</span>\" => \"<span class=sf-dump-str title=\"2 characters\">&#127466;&#127468;</span>\"
+    \"<span class=sf-dump-key>country_code</span>\" => \"<span class=sf-dump-str title=\"2 characters\">eg</span>\"
+    \"<span class=sf-dump-key>featured</span>\" => <span class=sf-dump-const>true</span>
+    \"<span class=sf-dump-key>category_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>country_en</span>\" => \"<span class=sf-dump-str title=\"5 characters\">Egypt</span>\"
+  </samp>]
+</samp>]
+</pre><script>Sfdump(\"sf-dump-508187285\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+"}},"exception":"[object] (Spatie\\LaravelIgnition\\Exceptions\\ViewException(code: 0): syntax error, unexpected token \"endif\", expecting end of file at F:\\Certificates\\khaled\\resources\\views\\pages\\portfolio-detail.blade.php:35)
+[stacktrace]
+#0 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(124): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#1 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('F:\\\\Certificates...', Array)
+#2 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(72): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('F:\\\\Certificates...', Array)
+#3 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(207): Illuminate\\View\\Engines\\CompilerEngine->get('F:\\\\Certificates...', Array)
+#4 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(190): Illuminate\\View\\View->getContents()
+#5 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(159): Illuminate\\View\\View->renderContents()
+#6 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(69): Illuminate\\View\\View->render()
+#7 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(35): Illuminate\\Http\\Response->setContent(Object(Illuminate\\View\\View))
+#8 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(918): Illuminate\\Http\\Response->__construct(Object(Illuminate\\View\\View), 200, Array)
+#9 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(885): Illuminate\\Routing\\Router::toResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#10 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Routing\\Router->prepareResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#11 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#12 F:\\Certificates\\khaled\\app\\Http\\Middleware\\SetLocale.php(65): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#13 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): App\\Http\\Middleware\\SetLocale->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#14 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#15 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#17 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#18 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#20 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#21 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#22 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#23 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#24 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#29 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(784): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#30 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(748): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#31 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(737): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#32 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#33 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#34 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#40 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#41 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#42 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(99): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#44 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#45 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#46 F:\\Certificates\\khaled\\app\\Http\\Middleware\\ForceCanonicalDomain.php(48): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#47 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): App\\Http\\Middleware\\ForceCanonicalDomain->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#48 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#49 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#51 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#52 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#53 F:\\Certificates\\khaled\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#54 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('F:\\\\Certificates...')
+#55 {main}
+
+[previous exception] [object] (ParseError(code: 0): syntax error, unexpected token \"endif\", expecting end of file at F:\\Certificates\\khaled\\storage\\framework\\views\\7c066cd46a2e75768b67565011b58940.php:33)
+[stacktrace]
+#0 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(124): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#1 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('F:\\\\Certificates...', Array)
+#2 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(72): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('F:\\\\Certificates...', Array)
+#3 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(207): Illuminate\\View\\Engines\\CompilerEngine->get('F:\\\\Certificates...', Array)
+#4 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(190): Illuminate\\View\\View->getContents()
+#5 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(159): Illuminate\\View\\View->renderContents()
+#6 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(69): Illuminate\\View\\View->render()
+#7 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(35): Illuminate\\Http\\Response->setContent(Object(Illuminate\\View\\View))
+#8 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(918): Illuminate\\Http\\Response->__construct(Object(Illuminate\\View\\View), 200, Array)
+#9 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(885): Illuminate\\Routing\\Router::toResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#10 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Routing\\Router->prepareResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#11 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#12 F:\\Certificates\\khaled\\app\\Http\\Middleware\\SetLocale.php(65): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#13 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): App\\Http\\Middleware\\SetLocale->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#14 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#15 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#17 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#18 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#20 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#21 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#22 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#23 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#24 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#29 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(784): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#30 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(748): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#31 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(737): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#32 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#33 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#34 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#40 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#41 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#42 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(99): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#44 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#45 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#46 F:\\Certificates\\khaled\\app\\Http\\Middleware\\ForceCanonicalDomain.php(48): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#47 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): App\\Http\\Middleware\\ForceCanonicalDomain->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#48 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#49 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#51 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#52 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#53 F:\\Certificates\\khaled\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#54 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('F:\\\\Certificates...')
+#55 {main}
+"} 
+[2026-08-21 14:20:55] local.ERROR: syntax error, unexpected token "endif", expecting end of file {"view":{"view":"F:\\Certificates\\khaled\\resources\\views\\pages\\portfolio-detail.blade.php","data":{"errors":"<pre class=sf-dump id=sf-dump-630193954 data-indent-pad=\"  \"><span class=sf-dump-note>Illuminate\\Support\\ViewErrorBag</span> {<a class=sf-dump-ref>#331</a><samp data-depth=1 class=sf-dump-expanded>
+  #<span class=sf-dump-protected title=\"Protected property\">bags</span>: []
+</samp>}
+</pre><script>Sfdump(\"sf-dump-630193954\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","portfolio":"<pre class=sf-dump id=sf-dump-694747917 data-indent-pad=\"  \"><span class=sf-dump-note>array:23</span> [<samp data-depth=1 class=sf-dump-expanded>
+  \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"13 characters\">barmagly-tech</span>\"
+  \"<span class=sf-dump-key>title</span>\" => \"<span class=sf-dump-str title=\"40 characters\">Barmagly &#8212; Swiss-Licensed Software House</span>\"
+  \"<span class=sf-dump-key>summary</span>\" => \"<span class=sf-dump-str title=\"141 characters\">Founder &amp; lead developer. Enterprise web, mobile, POS and business automation systems delivered to clients across Europe and the Middle East.</span>\"
+  \"<span class=sf-dump-key>title_ar</span>\" => \"<span class=sf-dump-str title=\"31 characters\">Barmagly &#8212; &#1588;&#1585;&#1603;&#1577; &#1576;&#1585;&#1605;&#1580;&#1610;&#1575;&#1578; &#1587;&#1608;&#1610;&#1587;&#1585;&#1610;&#1577;</span>\"
+  \"<span class=sf-dump-key>summary_ar</span>\" => \"<span class=sf-dump-str title=\"100 characters\">&#1605;&#1572;&#1587;&#1587; &#1608;&#1605;&#1591;&#1608;&#1617;&#1585; &#1585;&#1574;&#1610;&#1587;&#1610;. &#1571;&#1606;&#1592;&#1605;&#1577; &#1605;&#1572;&#1587;&#1587;&#1610;&#1577; &#1604;&#1604;&#1608;&#1610;&#1576; &#1608;&#1575;&#1604;&#1605;&#1608;&#1576;&#1575;&#1610;&#1604; &#1608; POS &#1608;&#1571;&#1578;&#1605;&#1578;&#1577; &#1575;&#1604;&#1571;&#1593;&#1605;&#1575;&#1604; &#1604;&#1593;&#1605;&#1604;&#1575;&#1569; &#1601;&#1610; &#1571;&#1608;&#1585;&#1608;&#1576;&#1575; &#1608;&#1575;&#1604;&#1588;&#1585;&#1602; &#1575;&#1604;&#1571;&#1608;&#1587;&#1591;.</span>\"
+  \"<span class=sf-dump-key>category</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+  \"<span class=sf-dump-key>tech</span>\" => <span class=sf-dump-note>array:6</span> [<samp data-depth=2 class=sf-dump-compact>
+    <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"7 characters\">Next.js</span>\"
+    <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"10 characters\">TypeScript</span>\"
+    <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"7 characters\">Node.js</span>\"
+    <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"7 characters\">Laravel</span>\"
+    <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"3 characters\">PHP</span>\"
+    <span class=sf-dump-index>5</span> => \"<span class=sf-dump-str title=\"10 characters\">PostgreSQL</span>\"
+  </samp>]
+  \"<span class=sf-dump-key>url</span>\" => \"<span class=sf-dump-str title=\"21 characters\">https://barmagly.tech</span>\"
+  \"<span class=sf-dump-key>image</span>\" => \"<span class=sf-dump-str title=\"26 characters\">projects/barmagly-tech.jpg</span>\"
+  \"<span class=sf-dump-key>role</span>\" => \"<span class=sf-dump-str title=\"34 characters\">Founder, Architect, Lead Developer</span>\"
+  \"<span class=sf-dump-key>language</span>\" => \"<span class=sf-dump-str title=\"2 characters\">en</span>\"
+  \"<span class=sf-dump-key>country</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+  \"<span class=sf-dump-key>country_ar</span>\" => \"<span class=sf-dump-str title=\"6 characters\">&#1587;&#1608;&#1610;&#1587;&#1585;&#1575;</span>\"
+  \"<span class=sf-dump-key>country_flag</span>\" => \"<span class=sf-dump-str title=\"2 characters\">&#127464;&#127469;</span>\"
+  \"<span class=sf-dump-key>country_code</span>\" => \"<span class=sf-dump-str title=\"2 characters\">ch</span>\"
+  \"<span class=sf-dump-key>featured</span>\" => <span class=sf-dump-const>true</span>
+  \"<span class=sf-dump-key>category_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+  \"<span class=sf-dump-key>country_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+  \"<span class=sf-dump-key>lead</span>\" => \"<span class=sf-dump-str title=\"247 characters\">I founded Barmagly and I still architect every system that leaves it. It is a Swiss-licensed software house delivering enterprise web platforms, mobile applications, POS systems and business automation to clients across Europe and the Middle East.</span>\"
+  \"<span class=sf-dump-key>built</span>\" => <span class=sf-dump-note>array:5</span> [<samp data-depth=2 class=sf-dump-compact>
+    <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"60 characters\">Company-wide architecture standards every project is held to</span>\"
+    <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"47 characters\">Enterprise web platforms in Laravel and Next.js</span>\"
+    <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"42 characters\">Mobile applications shipped to Google Play</span>\"
+    <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"48 characters\">Multi-tenant POS and business automation systems</span>\"
+    <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"76 characters\">Delivery across Switzerland, Germany, the UK, Saudi Arabia, Egypt and beyond</span>\"
+  </samp>]
+  \"<span class=sf-dump-key>decision</span>\" => <span class=sf-dump-note>array:2</span> [<samp data-depth=2 class=sf-dump-compact>
+    <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"245 characters\">What changed for me was the nature of the responsibility. Writing good code is one skill. Owning an architecture a client will still be running in five years &#8212; and being the person they call when it breaks at 2am &#8212; is a completely different one.</span>\"
+    <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"99 characters\">That second skill is the one nobody teaches you, and it is the one clients are actually paying for.</span>\"
+  </samp>]
+  \"<span class=sf-dump-key>keywords</span>\" => \"<span class=sf-dump-str title=\"142 characters\">swiss software house, enterprise web development company, laravel development agency, next.js development company, custom software switzerland</span>\"
+  \"<span class=sf-dump-key>apps</span>\" => []
+</samp>]
+</pre><script>Sfdump(\"sf-dump-694747917\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+","related":"<pre class=sf-dump id=sf-dump-1598949256 data-indent-pad=\"  \"><span class=sf-dump-note>array:3</span> [<samp data-depth=1 class=sf-dump-expanded>
+  <span class=sf-dump-index>0</span> => <span class=sf-dump-note>array:18</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"12 characters\">barmagly-pos</span>\"
+    \"<span class=sf-dump-key>title</span>\" => \"<span class=sf-dump-str title=\"40 characters\">Kassenta &#8212; Cloud Multi-Tenant POS System</span>\"
+    \"<span class=sf-dump-key>summary</span>\" => \"<span class=sf-dump-str title=\"126 characters\">Cloud-based, multi-tenant point-of-sale system for restaurants, caf&#233;s and retail &#8212; with inventory, multi-branch and reporting.</span>\"
+    \"<span class=sf-dump-key>title_ar</span>\" => \"<span class=sf-dump-str title=\"39 characters\">Kassenta &#8212; &#1603;&#1575;&#1588;&#1610;&#1585; &#1587;&#1581;&#1575;&#1576;&#1610; &#1605;&#1578;&#1593;&#1583;&#1583; &#1575;&#1604;&#1605;&#1587;&#1578;&#1571;&#1580;&#1585;&#1610;&#1606;</span>\"
+    \"<span class=sf-dump-key>summary_ar</span>\" => \"<span class=sf-dump-str title=\"94 characters\">&#1606;&#1592;&#1575;&#1605; &#1606;&#1602;&#1575;&#1591; &#1576;&#1610;&#1593; &#1587;&#1581;&#1575;&#1576;&#1610; &#1605;&#1578;&#1593;&#1583;&#1583; &#1575;&#1604;&#1605;&#1587;&#1578;&#1571;&#1580;&#1585;&#1610;&#1606; &#1604;&#1604;&#1605;&#1591;&#1575;&#1593;&#1605; &#1608;&#1575;&#1604;&#1603;&#1575;&#1601;&#1610;&#1607;&#1575;&#1578; &#1608;&#1575;&#1604;&#1578;&#1580;&#1586;&#1574;&#1577;&#1548; &#1605;&#1593; &#1605;&#1582;&#1586;&#1608;&#1606; &#1608;&#1578;&#1593;&#1583;&#1583; &#1601;&#1585;&#1608;&#1593; &#1608;&#1578;&#1602;&#1575;&#1585;&#1610;&#1585;.</span>\"
+    \"<span class=sf-dump-key>category</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>tech</span>\" => <span class=sf-dump-note>array:5</span> [<samp data-depth=3 class=sf-dump-compact>
+      <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"10 characters\">TypeScript</span>\"
+      <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"10 characters\">JavaScript</span>\"
+      <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"7 characters\">Node.js</span>\"
+      <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"5 characters\">MySQL</span>\"
+      <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"6 characters\">Stripe</span>\"
+    </samp>]
+    \"<span class=sf-dump-key>url</span>\" => \"<span class=sf-dump-str title=\"20 characters\">https://kassenta.com</span>\"
+    \"<span class=sf-dump-key>image</span>\" => \"<span class=sf-dump-str title=\"25 characters\">projects/barmagly-pos.png</span>\"
+    \"<span class=sf-dump-key>role</span>\" => \"<span class=sf-dump-str title=\"14 characters\">Lead Developer</span>\"
+    \"<span class=sf-dump-key>language</span>\" => \"<span class=sf-dump-str title=\"2 characters\">de</span>\"
+    \"<span class=sf-dump-key>country</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+    \"<span class=sf-dump-key>country_ar</span>\" => \"<span class=sf-dump-str title=\"6 characters\">&#1587;&#1608;&#1610;&#1587;&#1585;&#1575;</span>\"
+    \"<span class=sf-dump-key>country_flag</span>\" => \"<span class=sf-dump-str title=\"2 characters\">&#127464;&#127469;</span>\"
+    \"<span class=sf-dump-key>country_code</span>\" => \"<span class=sf-dump-str title=\"2 characters\">ch</span>\"
+    \"<span class=sf-dump-key>featured</span>\" => <span class=sf-dump-const>true</span>
+    \"<span class=sf-dump-key>category_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>country_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+  </samp>]
+  <span class=sf-dump-index>1</span> => <span class=sf-dump-note>array:18</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"14 characters\">barmagly-salon</span>\"
+    \"<span class=sf-dump-key>title</span>\" => \"<span class=sf-dump-str title=\"35 characters\">Klipp &#8212; AI-Powered Salon Management</span>\"
+    \"<span class=sf-dump-key>summary</span>\" => \"<span class=sf-dump-str title=\"148 characters\">SaaS platform for salons and barbershops: bookings, POS, inventory, staff scheduling, AI hair-makeover previews and analytics &#8212; all in one platform.</span>\"
+    \"<span class=sf-dump-key>title_ar</span>\" => \"<span class=sf-dump-str title=\"44 characters\">Klipp &#8212; &#1605;&#1606;&#1589;&#1577; &#1573;&#1583;&#1575;&#1585;&#1577; &#1589;&#1575;&#1604;&#1608;&#1606;&#1575;&#1578; &#1576;&#1575;&#1604;&#1584;&#1603;&#1575;&#1569; &#1575;&#1604;&#1575;&#1589;&#1591;&#1606;&#1575;&#1593;&#1610;</span>\"
+    \"<span class=sf-dump-key>summary_ar</span>\" => \"<span class=sf-dump-str title=\"133 characters\">&#1605;&#1606;&#1589;&#1577; SaaS &#1604;&#1604;&#1589;&#1575;&#1604;&#1608;&#1606;&#1575;&#1578; &#1608;&#1605;&#1581;&#1604;&#1575;&#1578; &#1575;&#1604;&#1581;&#1604;&#1575;&#1602;&#1577;: &#1581;&#1580;&#1608;&#1586;&#1575;&#1578;&#1548; POS&#1548; &#1605;&#1582;&#1586;&#1608;&#1606;&#1548; &#1580;&#1583;&#1608;&#1604;&#1577; &#1605;&#1608;&#1592;&#1601;&#1610;&#1606;&#1548; &#1605;&#1593;&#1575;&#1610;&#1606;&#1575;&#1578; &#1578;&#1587;&#1585;&#1610;&#1581;&#1575;&#1578; &#1576;&#1575;&#1604;&#1584;&#1603;&#1575;&#1569; &#1575;&#1604;&#1575;&#1589;&#1591;&#1606;&#1575;&#1593;&#1610; &#1608;&#1578;&#1581;&#1604;&#1610;&#1604;&#1575;&#1578; &#8212; &#1603;&#1604;&#1607; &#1601;&#1610; &#1605;&#1606;&#1589;&#1577; &#1608;&#1575;&#1581;&#1583;&#1577;.</span>\"
+    \"<span class=sf-dump-key>category</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>tech</span>\" => <span class=sf-dump-note>array:5</span> [<samp data-depth=3 class=sf-dump-compact>
+      <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"10 characters\">TypeScript</span>\"
+      <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"5 characters\">React</span>\"
+      <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"7 characters\">Node.js</span>\"
+      <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"10 characters\">OpenAI API</span>\"
+      <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"10 characters\">PostgreSQL</span>\"
+    </samp>]
+    \"<span class=sf-dump-key>url</span>\" => \"<span class=sf-dump-str title=\"22 characters\">https://klippsalon.com</span>\"
+    \"<span class=sf-dump-key>image</span>\" => \"<span class=sf-dump-str title=\"27 characters\">projects/barmagly-salon.png</span>\"
+    \"<span class=sf-dump-key>role</span>\" => \"<span class=sf-dump-str title=\"14 characters\">Lead Developer</span>\"
+    \"<span class=sf-dump-key>language</span>\" => \"<span class=sf-dump-str title=\"2 characters\">en</span>\"
+    \"<span class=sf-dump-key>country</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+    \"<span class=sf-dump-key>country_ar</span>\" => \"<span class=sf-dump-str title=\"6 characters\">&#1587;&#1608;&#1610;&#1587;&#1585;&#1575;</span>\"
+    \"<span class=sf-dump-key>country_flag</span>\" => \"<span class=sf-dump-str title=\"2 characters\">&#127464;&#127469;</span>\"
+    \"<span class=sf-dump-key>country_code</span>\" => \"<span class=sf-dump-str title=\"2 characters\">ch</span>\"
+    \"<span class=sf-dump-key>featured</span>\" => <span class=sf-dump-const>true</span>
+    \"<span class=sf-dump-key>category_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>country_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Switzerland</span>\"
+  </samp>]
+  <span class=sf-dump-index>2</span> => <span class=sf-dump-note>array:18</span> [<samp data-depth=2 class=sf-dump-compact>
+    \"<span class=sf-dump-key>slug</span>\" => \"<span class=sf-dump-str title=\"10 characters\">omnixtrack</span>\"
+    \"<span class=sf-dump-key>title</span>\" => \"<span class=sf-dump-str title=\"36 characters\">Omnixtrack &#8212; Arabic Multi-Tenant CRM</span>\"
+    \"<span class=sf-dump-key>summary</span>\" => \"<span class=sf-dump-str title=\"216 characters\">Made-in-Egypt multi-tenant CRM platform for Arabic-speaking businesses &#8212; lead pipelines, sales tracking, WhatsApp integration, task management, and team analytics &#8212; all in one localized platform, hosted inside Egypt.</span>\"
+    \"<span class=sf-dump-key>title_ar</span>\" => \"<span class=sf-dump-str title=\"45 characters\">Omnixtrack &#8212; &#1605;&#1606;&#1589;&#1577; CRM &#1593;&#1585;&#1576;&#1610;&#1577; &#1605;&#1578;&#1593;&#1583;&#1583;&#1577; &#1575;&#1604;&#1605;&#1587;&#1578;&#1571;&#1580;&#1585;&#1610;&#1606;</span>\"
+    \"<span class=sf-dump-key>summary_ar</span>\" => \"<span class=sf-dump-str title=\"166 characters\">&#1605;&#1606;&#1589;&#1577; CRM &#1605;&#1578;&#1593;&#1583;&#1583;&#1577; &#1575;&#1604;&#1605;&#1587;&#1578;&#1571;&#1580;&#1585;&#1610;&#1606; &#1589;&#1615;&#1606;&#1593;&#1578; &#1601;&#1610; &#1605;&#1589;&#1585; &#1608;&#1605;&#1615;&#1587;&#1578;&#1590;&#1575;&#1601;&#1577; &#1583;&#1575;&#1582;&#1604; &#1605;&#1589;&#1585; &#8212; &#1573;&#1583;&#1575;&#1585;&#1577; &#1575;&#1604;&#1593;&#1605;&#1604;&#1575;&#1569; &#1575;&#1604;&#1605;&#1581;&#1578;&#1605;&#1604;&#1610;&#1606;&#1548; &#1578;&#1578;&#1576;&#1593; &#1575;&#1604;&#1605;&#1576;&#1610;&#1593;&#1575;&#1578;&#1548; &#1578;&#1603;&#1575;&#1605;&#1604; &#1575;&#1604;&#1608;&#1575;&#1578;&#1587;&#1575;&#1576;&#1548; &#1608;&#1573;&#1583;&#1575;&#1585;&#1577; &#1575;&#1604;&#1605;&#1607;&#1575;&#1605; &#1608;&#1575;&#1604;&#1601;&#1585;&#1602; &#1601;&#1610; &#1605;&#1606;&#1589;&#1577; &#1608;&#1575;&#1581;&#1583;&#1577; &#1605;&#1593;&#1585;&#1576;&#1577; &#1576;&#1575;&#1604;&#1603;&#1575;&#1605;&#1604;.</span>\"
+    \"<span class=sf-dump-key>category</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>tech</span>\" => <span class=sf-dump-note>array:6</span> [<samp data-depth=3 class=sf-dump-compact>
+      <span class=sf-dump-index>0</span> => \"<span class=sf-dump-str title=\"7 characters\">Laravel</span>\"
+      <span class=sf-dump-index>1</span> => \"<span class=sf-dump-str title=\"3 characters\">PHP</span>\"
+      <span class=sf-dump-index>2</span> => \"<span class=sf-dump-str title=\"6 characters\">Vue.js</span>\"
+      <span class=sf-dump-index>3</span> => \"<span class=sf-dump-str title=\"5 characters\">MySQL</span>\"
+      <span class=sf-dump-index>4</span> => \"<span class=sf-dump-str title=\"5 characters\">Redis</span>\"
+      <span class=sf-dump-index>5</span> => \"<span class=sf-dump-str title=\"12 characters\">WhatsApp API</span>\"
+    </samp>]
+    \"<span class=sf-dump-key>url</span>\" => \"<span class=sf-dump-str title=\"22 characters\">https://omnixtrack.com</span>\"
+    \"<span class=sf-dump-key>image</span>\" => \"<span class=sf-dump-str title=\"23 characters\">projects/omnixtrack.png</span>\"
+    \"<span class=sf-dump-key>role</span>\" => \"<span class=sf-dump-str title=\"14 characters\">Lead Developer</span>\"
+    \"<span class=sf-dump-key>language</span>\" => \"<span class=sf-dump-str title=\"2 characters\">ar</span>\"
+    \"<span class=sf-dump-key>country</span>\" => \"<span class=sf-dump-str title=\"5 characters\">Egypt</span>\"
+    \"<span class=sf-dump-key>country_ar</span>\" => \"<span class=sf-dump-str title=\"3 characters\">&#1605;&#1589;&#1585;</span>\"
+    \"<span class=sf-dump-key>country_flag</span>\" => \"<span class=sf-dump-str title=\"2 characters\">&#127466;&#127468;</span>\"
+    \"<span class=sf-dump-key>country_code</span>\" => \"<span class=sf-dump-str title=\"2 characters\">eg</span>\"
+    \"<span class=sf-dump-key>featured</span>\" => <span class=sf-dump-const>true</span>
+    \"<span class=sf-dump-key>category_en</span>\" => \"<span class=sf-dump-str title=\"11 characters\">Tech / SaaS</span>\"
+    \"<span class=sf-dump-key>country_en</span>\" => \"<span class=sf-dump-str title=\"5 characters\">Egypt</span>\"
+  </samp>]
+</samp>]
+</pre><script>Sfdump(\"sf-dump-1598949256\", {\"maxDepth\":3,\"maxStringLength\":160})</script>
+"}},"exception":"[object] (Spatie\\LaravelIgnition\\Exceptions\\ViewException(code: 0): syntax error, unexpected token \"endif\", expecting end of file at F:\\Certificates\\khaled\\resources\\views\\pages\\portfolio-detail.blade.php:35)
+[stacktrace]
+#0 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(124): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#1 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('F:\\\\Certificates...', Array)
+#2 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(72): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('F:\\\\Certificates...', Array)
+#3 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(207): Illuminate\\View\\Engines\\CompilerEngine->get('F:\\\\Certificates...', Array)
+#4 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(190): Illuminate\\View\\View->getContents()
+#5 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(159): Illuminate\\View\\View->renderContents()
+#6 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(69): Illuminate\\View\\View->render()
+#7 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(35): Illuminate\\Http\\Response->setContent(Object(Illuminate\\View\\View))
+#8 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(918): Illuminate\\Http\\Response->__construct(Object(Illuminate\\View\\View), 200, Array)
+#9 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(885): Illuminate\\Routing\\Router::toResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#10 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Routing\\Router->prepareResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#11 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#12 F:\\Certificates\\khaled\\app\\Http\\Middleware\\SetLocale.php(65): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#13 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): App\\Http\\Middleware\\SetLocale->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#14 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#15 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#17 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#18 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#20 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#21 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#22 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#23 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#24 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#29 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(784): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#30 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(748): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#31 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(737): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#32 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#33 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#34 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#40 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#41 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#42 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(99): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#44 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#45 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#46 F:\\Certificates\\khaled\\app\\Http\\Middleware\\ForceCanonicalDomain.php(48): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#47 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): App\\Http\\Middleware\\ForceCanonicalDomain->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#48 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#49 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#51 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#52 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#53 F:\\Certificates\\khaled\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#54 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('F:\\\\Certificates...')
+#55 {main}
+
+[previous exception] [object] (ParseError(code: 0): syntax error, unexpected token \"endif\", expecting end of file at F:\\Certificates\\khaled\\storage\\framework\\views\\7c066cd46a2e75768b67565011b58940.php:33)
+[stacktrace]
+#0 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(124): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#1 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('F:\\\\Certificates...', Array)
+#2 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(72): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('F:\\\\Certificates...', Array)
+#3 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(207): Illuminate\\View\\Engines\\CompilerEngine->get('F:\\\\Certificates...', Array)
+#4 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(190): Illuminate\\View\\View->getContents()
+#5 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(159): Illuminate\\View\\View->renderContents()
+#6 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(69): Illuminate\\View\\View->render()
+#7 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Response.php(35): Illuminate\\Http\\Response->setContent(Object(Illuminate\\View\\View))
+#8 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(918): Illuminate\\Http\\Response->__construct(Object(Illuminate\\View\\View), 200, Array)
+#9 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(885): Illuminate\\Routing\\Router::toResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#10 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Routing\\Router->prepareResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#11 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#12 F:\\Certificates\\khaled\\app\\Http\\Middleware\\SetLocale.php(65): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#13 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): App\\Http\\Middleware\\SetLocale->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#14 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#15 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#16 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php(78): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#17 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#18 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#19 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#20 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#21 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#22 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#23 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#24 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php(67): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(805): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#29 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(784): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#30 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(748): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#31 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(737): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#32 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#33 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(144): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#34 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#37 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#40 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#41 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#42 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(99): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#44 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#45 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#46 F:\\Certificates\\khaled\\app\\Http\\Middleware\\ForceCanonicalDomain.php(48): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#47 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): App\\Http\\Middleware\\ForceCanonicalDomain->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#48 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#49 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(183): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#51 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#52 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#53 F:\\Certificates\\khaled\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#54 F:\\Certificates\\khaled\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('F:\\\\Certificates...')
+#55 {main}
+"} 

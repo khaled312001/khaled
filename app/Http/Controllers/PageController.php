@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactMail;
 use App\Services\BlogService;
 use App\Services\PortfolioService;
+use App\Services\ScreenshotService;
 use App\Services\LandingService;
 use Illuminate\Support\Facades\Log;
 use Exception;
@@ -200,74 +201,32 @@ class PageController extends Controller
         return view('pages.portfolios', compact('projects', 'categories', 'category', 'categorySlug', 'countryCount'));
     }
 
+    /**
+     * Case study for one project.
+     *
+     * This route used to serve a hard-coded array of six mockup-design demos left
+     * over from the purchased template, and returned "Portfolio Item" with the text
+     * "Portfolio item description." for every one of the 39 real projects. That is
+     * 39 indexable near-duplicate pages saying nothing, so the demo slugs are now
+     * 410 Gone and the real projects render their own content.
+     */
     public function portfolioShow($slug)
     {
-        // Portfolio data
-        $portfolios = [
-            'business-card' => [
-                'title' => 'Business Card Design — ElseColor',
-                'category' => 'UI/UX',
-                'slug' => 'business-card',
-                'date' => '18 March 2024',
-                'value' => '$150',
-                'customer' => 'ElseColor',
-                'created_date' => '20 December 2024',
-                'end_date' => '28 December 2024',
-                'description' => '<p>A complete business card identity for ElseColor — clean typography, balanced negative space, and print-ready CMYK files. Delivered in PSD, AI, and PDF formats with a 3 mm bleed, ready for both digital sharing and physical printing on 350 gsm matte stock.</p><p>The brief: a card that reads as professional at a first glance but reveals brand personality on closer inspection. The final design uses a two-tone palette grounded in the ElseColor brand guide, a subtle spot-UV accent on the logo, and a back-side QR code linking to the company contact page. Turnaround was 8 days from kickoff to print-ready files.</p>',
-                'images' => ['1710766686-portfolio_single_01.jpg', '1710766690-portfolio_single_02.jpg'],
-            ],
-            'paper-design' => [
-                'title' => 'Paper Design',
-                'category' => 'Creative',
-                'slug' => 'paper-design',
-                'date' => '18 March 2024',
-                'description' => '<p>Creative paper design project with modern aesthetics.</p>',
-                'images' => ['1710766610-portfolio-img-5.jpg'],
-            ],
-            'square-box' => [
-                'title' => 'Square Box',
-                'category' => 'Mockup',
-                'slug' => 'square-box',
-                'date' => '18 March 2024',
-                'description' => '<p>Square box mockup design project.</p>',
-                'images' => ['1710766597-portfolio-img-4.jpg'],
-            ],
-            'coffee-mockup' => [
-                'title' => 'Coffee Mockup',
-                'category' => 'Mockup',
-                'slug' => 'coffee-mockup',
-                'date' => '18 March 2024',
-                'description' => '<p>Coffee mockup design project.</p>',
-                'images' => ['no-image.jpg'],
-            ],
-            'mockup-box' => [
-                'title' => 'Mockup Box',
-                'category' => 'Mockup',
-                'slug' => 'mockup-box',
-                'date' => '18 March 2024',
-                'description' => '<p>Mockup box design project.</p>',
-                'images' => ['1710766555-portfolio-grid-img-2.jpg'],
-            ],
-            'card-mockup' => [
-                'title' => 'Card Mockup',
-                'category' => 'Creative',
-                'slug' => 'card-mockup',
-                'date' => '18 March 2024',
-                'description' => '<p>Card mockup design project.</p>',
-                'images' => ['1710766541-portfolio-grid-img-1.jpg'],
-            ],
-        ];
+        // Template leftovers. 410 rather than 404: they were indexable for months,
+        // and Gone tells Google to drop them without waiting out the 404 grace period.
+        $templateDemos = ['business-card', 'paper-design', 'square-box', 'coffee-mockup', 'mockup-box', 'card-mockup'];
+        if (in_array($slug, $templateDemos, true)) {
+            abort(410);
+        }
 
-        $portfolio = $portfolios[$slug] ?? [
-            'title' => 'Portfolio Item',
-            'category' => 'Category',
-            'slug' => $slug,
-            'date' => '18 March 2024',
-            'description' => '<p>Portfolio item description.</p>',
-            'images' => ['no-image.jpg'],
-        ];
+        $portfolio = PortfolioService::find($slug);
+        if (!$portfolio) {
+            abort(404);
+        }
 
-        return view('pages.portfolio-detail', compact('portfolio'));
+        $related = PortfolioService::related($slug, 3);
+
+        return view('pages.portfolio-detail', compact('portfolio', 'related'));
     }
 
     public function plans()
@@ -289,12 +248,13 @@ class PageController extends Controller
         // produced the Soft-404 / Crawled-not-indexed reports in Search Console.
         $entries = [];
 
-        $add = function (string $path, string $freq, string $priority, ?string $lastmod = null) use (&$entries, $today) {
+        $add = function (string $path, string $freq, string $priority, ?string $lastmod = null, ?array $image = null) use (&$entries, $today) {
             $entries[] = [
                 'path'     => $path === '/' ? '' : $path,
                 'freq'     => $freq,
                 'priority' => $priority,
                 'lastmod'  => $lastmod ?: $today,
+                'image'    => $image,   // ['loc' =>, 'title' =>, 'title_ar' =>, 'caption' =>, 'caption_ar' =>]
             ];
         };
 
@@ -312,6 +272,30 @@ class PageController extends Controller
             $add('/' . $slug, 'weekly', '0.9');
         }
 
+        // Project case studies. Each is several hundred words of content that exists
+        // nowhere else on the site, and until now nothing linked to or listed them.
+        foreach (PortfolioService::projects_for_sitemap() as $p) {
+            $slug  = $p['slug'];
+            $shot  = ScreenshotService::large($slug);
+            $image = null;
+            if ($shot) {
+                $stack = implode(', ', array_slice($p['tech'], 0, 4));
+                $image = [
+                    'loc'        => $base . '/' . ltrim($shot['src'], '/'),
+                    'title'      => $p['title'] . ' — ' . $p['category'] . ' project screenshot',
+                    'title_ar'   => 'لقطة شاشة لمشروع ' . ($p['title_ar'] ?? $p['title']) . ' — ' . PortfolioService::categoryToArabic($p['category']),
+                    'caption'    => $p['title'] . ' homepage, built with ' . $stack . ' for a client in ' . $p['country'] . '. Developed by Khaled Ahmed.',
+                    'caption_ar' => 'الصفحة الرئيسية لموقع ' . ($p['title_ar'] ?? $p['title']) . '، مبني بـ ' . $stack . ' لعميل في ' . ($p['country_ar'] ?? $p['country']) . '. من تطوير خالد أحمد.',
+                ];
+            }
+            $add('/portfolio/' . $slug, 'monthly', '0.8', null, $image);
+        }
+
+        // Category archives on the portfolio, which the listing page links to.
+        foreach (array_keys(PortfolioService::categories()) as $catSlug) {
+            $add('/portfolio/category/' . $catSlug, 'monthly', '0.6');
+        }
+
         foreach (BlogService::all() as $post) {
             $add('/blog/' . $post['slug'], 'monthly', '0.8', $post['date']);
         }
@@ -327,7 +311,7 @@ class PageController extends Controller
         }
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
 
         foreach ($entries as $e) {
             $en = $base . $e['path'];
@@ -339,6 +323,17 @@ class PageController extends Controller
                 $xml .= "    <xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"" . htmlspecialchars($en, ENT_XML1) . "\"/>\n";
                 $xml .= "    <xhtml:link rel=\"alternate\" hreflang=\"ar\" href=\"" . htmlspecialchars($ar, ENT_XML1) . "\"/>\n";
                 $xml .= "    <xhtml:link rel=\"alternate\" hreflang=\"x-default\" href=\"" . htmlspecialchars($en, ENT_XML1) . "\"/>\n";
+                if (!empty($e['image'])) {
+                    $img     = $e['image'];
+                    $isArUrl = str_starts_with($loc, $base . '/ar');
+                    $title   = $isArUrl ? $img['title_ar']   : $img['title'];
+                    $caption = $isArUrl ? $img['caption_ar'] : $img['caption'];
+                    $xml .= "    <image:image>\n";
+                    $xml .= "      <image:loc>" . htmlspecialchars($img['loc'], ENT_XML1) . "</image:loc>\n";
+                    $xml .= "      <image:title>" . htmlspecialchars($title, ENT_XML1) . "</image:title>\n";
+                    $xml .= "      <image:caption>" . htmlspecialchars($caption, ENT_XML1) . "</image:caption>\n";
+                    $xml .= "    </image:image>\n";
+                }
                 $xml .= "    <lastmod>{$e['lastmod']}</lastmod>\n";
                 $xml .= "    <changefreq>{$e['freq']}</changefreq>\n";
                 $xml .= "    <priority>{$e['priority']}</priority>\n";
