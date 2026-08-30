@@ -3,7 +3,7 @@
 @php $khAr = app()->getLocale() === 'ar'; @endphp
 
 @section('title', app()->getLocale() === 'ar' ? 'خالد أحمد — مطور Full Stack مستقل | Laravel و React' : 'Khaled Ahmed — Freelance Full Stack Developer | Laravel & React')
-@section('description', app()->getLocale() === 'ar' ? 'مطور Laravel و React و Next.js من القاهره. 40 مشروعا منشورا في 8 دول، و8 تطبيقات على Google Play. عرض سعر ثابت ورد خلال 24 ساعه.' : 'Senior Laravel, React and Next.js developer in Cairo. 40 products shipped across 8 countries, 8 apps live on Google Play. Fixed-fee quotes, 24-hour reply.')
+@section('description', app()->getLocale() === 'ar' ? 'مطور Laravel و React و Next.js من القاهره. 39+ مشروعًا منشورًا في 8 دول، و8 تطبيقات على Google Play. عرض سعر ثابت ورد خلال 24 ساعة.' : 'Senior Laravel, React and Next.js developer in Cairo. 39+ products shipped across 8 countries, 8 apps live on Google Play. Fixed-fee quotes, 24-hour reply.')
 @section('keywords', 'freelance full stack developer, freelance laravel developer, freelance react developer, hire web developer, custom web application, SaaS developer, Khaled Ahmed, مطور ويب مستقل, مبرمج مواقع')
 @section('lcp_image', asset('images/site/hero-workspace-720w.webp'))
 
@@ -144,10 +144,9 @@
     .home-speed__head { text-align: center; max-width: 760px; margin: 0 auto; }
     .home-speed__head h2 { margin: 14px 0 12px; }
     .home-speed__head p { color: var(--text-2); font-size: 16.5px; line-height: 1.7; margin: 0; }
-    .home-speed__card { height: 100%; padding: 24px 22px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-1); border-radius: var(--r-lg); transition: transform .3s ease, border-color .3s ease; }
+    .home-speed__card { height: 100%; min-height: 220px; padding: 28px 24px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-1); border-radius: var(--r-lg); transition: transform .3s ease, border-color .3s ease; display: flex; flex-direction: column; justify-content: center; text-align: left; }
     .home-speed__card:hover { transform: translateY(-4px); border-color: var(--border-3); }
-    .home-speed__ico { width: 48px; height: 48px; border-radius: var(--r-md); display: grid; place-items: center; font-size: 20px; color: var(--brand); background: linear-gradient(135deg, rgba(96,165,250,0.18), rgba(124,58,237,0.18)); border: 1px solid rgba(96,165,250,0.20); margin-bottom: 16px; }
-    .home-speed__card h3 { font-size: 16.5px; margin: 0 0 8px; color: var(--text-1); }
+    .home-speed__card h3 { font-size: 16.5px; margin: 0 0 10px; color: var(--text-1); }
     .home-speed__card p { font-size: 13.5px; line-height: 1.6; color: var(--text-3); margin: 0; }
     .home-speed__cta { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; margin-top: 32px; padding-top: 26px; border-top: 1px solid var(--border-1); }
     .home-speed__note { color: var(--text-2); font-size: 15px; font-weight: 500; }
@@ -218,7 +217,7 @@
                     <div class="home-trust-card__ico"><i class="fas fa-rocket"></i></div>
                     <div>
                         <div class="lbl">{{ app()->getLocale() === 'ar' ? 'سجل حافل' : 'Proven track record' }}</div>
-                        <div class="val">{{ app()->getLocale() === 'ar' ? '40+ مشروع منشور و8 تطبيقات على Google Play' : '40+ live projects & 8 apps on Google Play' }}</div>
+                        <div class="val">{{ app()->getLocale() === 'ar' ? '39+ مشروع منشور و8 تطبيقات على Google Play' : '39+ live projects & 8 apps on Google Play' }}</div>
                     </div>
                 </div>
             </div>
@@ -353,16 +352,14 @@
                 @php
                     $isAr = app()->getLocale() === 'ar';
                     $speed = [
-                        ['fas fa-layer-group', $isAr ? 'بنية جاهزة ومجرّبة' : 'Battle-tested architecture', $isAr ? 'أبدأ من أساس إنتاجي جاهز (مصادقة، فوترة، صلاحيات، API) بدل الصفر — يوفّر أسابيع.' : 'I start from a production-ready foundation (auth, billing, roles, API) instead of scratch — saving weeks.'],
-                        ['fas fa-cubes', $isAr ? 'وحدات قابلة لإعادة الاستخدام' : 'Reusable modules', $isAr ? 'مكتبة مكوّنات ولوحات تحكم بنيتها عبر 39 مشروع، أركّبها وأخصّصها لمشروعك بسرعة.' : 'A library of components and dashboards built across 39 projects, assembled and customized fast for you.'],
-                        ['fas fa-gauge-high', $isAr ? 'نسخة تشتغل من أول يوم' : 'Working build from day one', $isAr ? 'رابط staging حيّ من اليوم الأول وعروض متكرّرة — تتابع التقدّم لحظياً بدل الانتظار.' : 'A live staging URL from day one with frequent demos — you track progress live, no waiting.'],
-                        ['fas fa-user-check', $isAr ? 'مطوّر واحد مسؤول' : 'One accountable senior', $isAr ? 'بدون طبقات وكالة ولا تسليمات بين فرق — قرارات أسرع وتنفيذ مباشر بجودة عالية.' : 'No agency layers or hand-offs between teams — faster decisions and direct, high-quality execution.'],
+                        [$isAr ? 'وحدات قابلة لإعادة الاستخدام' : 'Reusable modules', $isAr ? 'مكتبة مكوّنات ولوحات تحكم بنيتها عبر 39 مشروع، أركّبها وأخصّصها لمشروعك بسرعة.' : 'A library of components and dashboards built across 39 projects, assembled and customized fast for you.'],
+                        [$isAr ? 'نسخة تشتغل من أول يوم' : 'Working build from day one', $isAr ? 'رابط staging حيّ من اليوم الأول وعروض متكرّرة — تتابع التقدّم لحظياً بدل الانتظار.' : 'A live staging URL from day one with frequent demos — you track progress live, no waiting.'],
+                        [$isAr ? 'مطوّر واحد مسؤول' : 'One accountable senior', $isAr ? 'بدون طبقات وكالة ولا تسليمات بين فرق — قرارات أسرع وتنفيذ مباشر بجودة عالية.' : 'No agency layers or hand-offs between teams — faster decisions and direct, high-quality execution.'],
                     ];
                 @endphp
-                @foreach($speed as [$icon, $t, $dsc])
-                    <div class="col-md-6 col-lg-3 ks-fadeup">
+                @foreach($speed as [$t, $dsc])
+                    <div class="col-md-6 col-lg-4 ks-fadeup">
                         <div class="home-speed__card">
-                            <div class="home-speed__ico"><i class="{{ $icon }}"></i></div>
                             <h3>{{ $t }}</h3>
                             <p>{{ $dsc }}</p>
                         </div>

@@ -73,7 +73,7 @@
         </div>
         <span class="ks-eyebrow"><span class="ks-dot"></span> {{ app()->getLocale() === 'ar' ? 'تعرف علي' : 'Get to know me' }}</span>
         <h1>{{ app()->getLocale() === 'ar' ? 'أنا خالد أحمد، أصمم وأبني تطبيقات ويب' : 'I am Khaled Ahmed — I design and ship web applications' }} <span class="ks-grad-text">{{ app()->getLocale() === 'ar' ? 'تعمل فعلا' : 'that actually ship' }}</span></h1>
-        <p class="lead">{{ app()->getLocale() === 'ar' ? 'مطور ويب Full Stack من القاهرة بأكثر من خمس سنوات من الخبرة العملية. سلمت 25 مشروع إنتاج في 8 دول، من شركات ناشئة سعودية إلى وكالات أوروبية. تخصصي: Laravel و React و Node.js وتصميم البنية القابلة للتوسع.' : 'Cairo-based full stack web developer with 5+ years of hands-on experience. Shipped 25+ production projects across 8 countries — from Saudi startups to European agencies. Specialized in Laravel, React, Node.js, and scalable architecture.' }}</p>
+        <p class="lead">{{ app()->getLocale() === 'ar' ? 'مطور ويب Full Stack من القاهرة بأكثر من خمس سنوات من الخبرة العملية. سلمت 39+ مشروع إنتاج في 8 دول، من شركات ناشئة سعودية إلى وكالات أوروبية. تخصصي: Laravel و React و Node.js وتصميم البنية القابلة للتوسع.' : 'Cairo-based full stack web developer with 5+ years of hands-on experience. Shipped 39+ production projects across 8 countries — from Saudi startups to European agencies. Specialized in Laravel, React, Node.js, and scalable architecture.' }}</p>
     </div>
 </section>
 

@@ -10,7 +10,7 @@
                     <img src="{{ asset('images/logo-360w.webp') }}" alt="Khaled Ahmed" width="180" height="38">
                 </div>
                 <p class="ks-foot__about">
-                    {{ $khLocale === 'ar' ? 'مطور ويب Full Stack خبير في Laravel و React و Node.js. أكثر من خمس سنوات خبرة و25 مشروعا منشورا في ثماني دول.' : 'Senior full stack web developer specialized in Laravel, React, and Node.js. 5+ years of experience and 25+ shipped production projects across 8 countries.' }}
+                    {{ $khLocale === 'ar' ? 'مطور ويب Full Stack خبير في Laravel و React و Node.js. أكثر من خمس سنوات خبرة و39+ مشروعًا منشورًا في ثماني دول.' : 'Senior full stack web developer specialized in Laravel, React, and Node.js. 5+ years of experience and 39+ shipped production projects across 8 countries.' }}
                 </p>
                 <div class="ks-foot__social">
                     <a href="https://github.com/khaled312001" target="_blank" rel="me noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>

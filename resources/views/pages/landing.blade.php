@@ -91,7 +91,7 @@
             <a href="{{ route('portfolios') }}" class="ks-btn ks-btn--ghost">{{ $isAr ? 'شاهد أعمالي' : 'See my work' }} <i class="fa fa-arrow-right"></i></a>
         </div>
         <div class="ks-stats mt-5" style="max-width:720px;">
-            <div class="ks-stat"><div class="ks-stat__num">25+</div><div class="ks-stat__lbl">{{ $isAr ? 'مشروع' : 'Projects' }}</div></div>
+            <div class="ks-stat"><div class="ks-stat__num">39+</div><div class="ks-stat__lbl">{{ $isAr ? 'مشروع' : 'Projects' }}</div></div>
             <div class="ks-stat"><div class="ks-stat__num">8</div><div class="ks-stat__lbl">{{ $isAr ? 'دول' : 'Countries' }}</div></div>
             <div class="ks-stat"><div class="ks-stat__num">5+</div><div class="ks-stat__lbl">{{ $isAr ? 'سنوات' : 'Years' }}</div></div>
             <div class="ks-stat"><div class="ks-stat__num">24h</div><div class="ks-stat__lbl">{{ $isAr ? 'رد' : 'Response' }}</div></div>
