@@ -40,11 +40,12 @@
          URL; this tells Google the Arabic version is intended for Saudi, the UAE, Kuwait,
          Qatar and Egypt, and that the English version also serves the UAE's large
          English-speaking business population. Both are target markets. --}}
-    @foreach(['ar-SA', 'ar-AE', 'ar-KW', 'ar-QA', 'ar-EG'] as $khRegion)
+    @foreach(['ar-SA', 'ar-AE', 'ar-KW', 'ar-QA', 'ar-BH', 'ar-OM', 'ar-EG'] as $khRegion)
         <link rel="alternate" hreflang="{{ $khRegion }}" href="{{ $khArUrl }}">
     @endforeach
-    <link rel="alternate" hreflang="en-AE" href="{{ $khEnUrl }}">
-    <link rel="alternate" hreflang="en-SA" href="{{ $khEnUrl }}">
+    @foreach(['en-AE', 'en-SA', 'en-GB', 'en-US', 'en-CH'] as $khRegion)
+        <link rel="alternate" hreflang="{{ $khRegion }}" href="{{ $khEnUrl }}">
+    @endforeach
     <link rel="alternate" hreflang="x-default" href="{{ $khEnUrl }}">
 
     {{-- Open Graph --}}
@@ -151,6 +152,7 @@
         .fa-phone-alt::before { content: "\f879"; }
         .fa-rocket::before { content: "\f135"; }
         .fa-star::before { content: "\f005"; }
+        .fa-kit-medical::before { content: "\f479"; }
         .fa-book-quran::before { content: "\f687"; }
         .fa-cash-register::before { content: "\f788"; }
         .fa-chart-line::before { content: "\f201"; }
@@ -763,6 +765,13 @@
         .ks-foot__social { display: flex; gap: 10px; margin-top: var(--sp-3); }
         .ks-foot__social a { width: 38px; height: 38px; display: grid; place-items: center; background: var(--surface-1); border: 1px solid var(--border-1); border-radius: var(--r-sm); color: var(--text-2); transition: all .2s ease; }
         .ks-foot__social a:hover { background: rgba(96,165,250,0.10); border-color: var(--border-3); color: var(--brand); transform: translateY(-2px); }
+        /* Markets band — fourteen country pages as a flat list of peers, since they are
+           not services and do not belong in that column. */
+        .ks-foot__markets { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; padding-top: var(--sp-5); margin-top: var(--sp-6); border-top: 1px solid var(--border-1); }
+        .ks-foot__markets-h { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text-3); margin-inline-end: 4px; }
+        .ks-foot__markets a { font-size: 13px; color: var(--text-3); text-decoration: none; }
+        .ks-foot__markets a:hover { color: var(--brand); text-decoration: underline; }
+        .ks-foot__markets + .ks-foot__bot { margin-top: var(--sp-5); }
         .ks-foot__bot { border-top: 1px solid var(--border-1); margin-top: var(--sp-6); padding-top: var(--sp-5); display: flex; justify-content: space-between; gap: var(--sp-4); flex-wrap: wrap; font-size: 13px; color: var(--text-3); }
 
         /* ─── FLOATING WHATSAPP (left) — expanding pill ─── */
@@ -867,6 +876,58 @@
     </style>
 
     @stack('styles')
+    {{-- Site-wide entity graph. Individual pages add their own CreativeWork, FAQPage or
+         BlogPosting on top of this; those describe the work, this describes who did it.
+         Without it there is nothing for a search or AI answer to attribute the work to. --}}
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@graph":[
+      {"@type":"Person","@id":"https://khaledahmed.net/#khaled",
+       "name":"Khaled Ahmed","alternateName":"خالد أحمد",
+       "url":"https://khaledahmed.net",
+       "jobTitle":"Senior Full Stack Web Developer",
+       "description":"Independent full stack developer building web platforms, SaaS, POS, CRM and e-commerce systems in Laravel, Node.js and React, with Android applications on Google Play.",
+       "image":"{{ asset('images/og-cover.webp') }}",
+       "email":"mailto:khaledahmedhaggagy@gmail.com",
+       "knowsLanguage":[{"@type":"Language","name":"Arabic","alternateName":"ar"},{"@type":"Language","name":"English","alternateName":"en"}],
+       "knowsAbout":["Laravel","PHP","Node.js","Express.js","React","React Native","TypeScript","JavaScript","MySQL","PostgreSQL","REST API design","System integration","Multi-tenant SaaS architecture","Point of sale systems","Customer relationship management systems","Learning management systems","E-commerce development","Arabic RTL web development","Core Web Vitals and performance optimisation","Technical SEO","Linux server administration","Nginx","Docker","Git"],
+       "sameAs":["https://linkedin.com/in/khaled-ahmed-82368819b","https://github.com/khaled312001","https://play.google.com/store/apps/dev?id=khaled"],
+       "worksFor":{"@id":"https://khaledahmed.net/#practice"}},
+
+      {"@type":"ProfessionalService","@id":"https://khaledahmed.net/#practice",
+       "name":"Khaled Ahmed — Web &amp; Software Development",
+       "url":"https://khaledahmed.net",
+       "description":"Custom web platforms, SaaS products, point-of-sale and CRM systems, e-commerce stores and Android applications, delivered by one senior developer rather than an agency.",
+       "founder":{"@id":"https://khaledahmed.net/#khaled"},
+       "provider":{"@id":"https://khaledahmed.net/#khaled"},
+       "image":"{{ asset('images/og-cover.webp') }}",
+       "priceRange":"$$",
+       "areaServed":[
+         {"@type":"Country","name":"Saudi Arabia"},{"@type":"Country","name":"United Arab Emirates"},
+         {"@type":"Country","name":"Kuwait"},{"@type":"Country","name":"Qatar"},
+         {"@type":"Country","name":"Bahrain"},{"@type":"Country","name":"Oman"},
+         {"@type":"Country","name":"Egypt"},{"@type":"Country","name":"United Kingdom"},
+         {"@type":"Country","name":"Switzerland"},{"@type":"Country","name":"Germany"},
+         {"@type":"Country","name":"France"},{"@type":"Country","name":"Netherlands"},
+         {"@type":"Country","name":"Spain"},{"@type":"Country","name":"Italy"},
+         {"@type":"Country","name":"United States"}],
+       "availableLanguage":["ar","en"],
+       "hasOfferCatalog":{"@type":"OfferCatalog","name":"Development services","itemListElement":[
+         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Laravel and Node.js backend development"}},
+         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Multi-tenant SaaS platform development"}},
+         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Cloud point-of-sale and CRM systems"}},
+         {"@type":"Offer","itemOffered":{"@type":"Service","name":"E-commerce development including Arabic RTL storefronts"}},
+         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Learning management and student information systems"}},
+         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Android application development"}},
+         {"@type":"Offer","itemOffered":{"@type":"Service","name":"REST API design and system integration"}},
+         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Performance optimisation and technical SEO"}}]}},
+
+      {"@type":"WebSite","@id":"https://khaledahmed.net/#website",
+       "url":"https://khaledahmed.net","name":"Khaled Ahmed",
+       "inLanguage":["en","ar"],
+       "publisher":{"@id":"https://khaledahmed.net/#khaled"}}
+    ]}
+    </script>
+
     @yield('structured_data')
 </head>
 <body>

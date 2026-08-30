@@ -22,7 +22,7 @@
             <div class="col-6 col-md-4 col-lg-3">
                 <h2 class="ks-foot__h">{{ $khLocale === 'ar' ? 'الخدمات' : 'Services' }}</h2>
                 <ul class="ks-foot__links">
-                    @foreach(\App\Services\LandingService::index() as $lp)
+                    @foreach(\App\Services\LandingService::index('service') as $lp)
                         <li><a href="{{ route('landing', $lp['slug']) }}">{{ $lp['label'] }}</a></li>
                     @endforeach
                 </ul>
@@ -48,6 +48,12 @@
                 </ul>
             </div>
         </div>
+        <nav class="ks-foot__markets" aria-label="{{ $khLocale === 'ar' ? 'الأسواق' : 'Markets' }}">
+            <span class="ks-foot__markets-h">{{ $khLocale === 'ar' ? 'أعمل في' : 'Working in' }}</span>
+            @foreach(\App\Services\LandingService::index('market') as $m)
+                <a href="{{ route('landing', $m['slug']) }}">{{ $m['label'] }}</a>
+            @endforeach
+        </nav>
         <div class="ks-foot__bot">
             <div>&copy; {{ $year }} Khaled Ahmed. {{ $khLocale === 'ar' ? 'جميع الحقوق محفوظة.' : 'All rights reserved.' }}</div>
             <div>

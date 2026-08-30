@@ -4,17 +4,23 @@
     $countryCount = $countryCount ?? \App\Services\PortfolioService::countryCount();
 ?>
 
-<?php $__env->startSection('title', isset($category)
+<?php $__env->startSection('title', isset($hub) && $hub ? $hub['meta_title'] . ($isAr ? ' | خالد أحمد' : ' | Khaled Ahmed') : (isset($category)
     ? ucfirst(str_replace('-', ' ', $category)) . (app()->getLocale() === 'ar' ? ' | أعمال خالد أحمد' : ' Projects | Khaled Ahmed Portfolio')
     : (app()->getLocale() === 'ar'
         ? $projectCount . ' مشروعا منفّذا في ' . $countryCount . ' دول — أعمال خالد أحمد'
-        : $projectCount . ' Shipped Projects Across ' . $countryCount . ' Countries — Khaled Ahmed')); ?>
-<?php $__env->startSection('description', app()->getLocale() === 'ar'
-    ? 'تطبيقات في بيئه الإنتاج عبر 8 دول و7 تطبيقات منشوره على Google Play. التقنيات والنطاق والمده والنتيجه لكل مشروع.'
-    : 'Production apps across 8 countries and 7 live Google Play releases. Stack, scope, timeline and outcome for each build.'); ?>
-<?php $__env->startSection('keywords', 'laravel react case studies, web developer portfolio, custom web application examples, saas case study, معرض أعمال مطور ويب, مشاريع برمجة'); ?>
+        : $projectCount . ' Shipped Projects Across ' . $countryCount . ' Countries — Khaled Ahmed'))); ?>
+<?php $__env->startSection('description', isset($hub) && $hub ? $hub['meta_desc'] : (app()->getLocale() === 'ar'
+    ? 'مشاريع في بيئة الإنتاج عبر ' . $countryCount . ' دول و' . \App\Services\PortfolioService::appCount() . ' تطبيقات منشورة على Google Play. التقنيات والنطاق والنتيجة لكل مشروع.'
+    : 'Production projects across ' . $countryCount . ' countries and ' . \App\Services\PortfolioService::appCount() . ' live Google Play releases. Stack, scope and outcome for each build.')); ?>
+<?php $__env->startSection('keywords', isset($hub) && $hub ? $hub['keywords'] : 'laravel react case studies, web developer portfolio, custom web application examples, saas case study, معرض أعمال مطور ويب, مشاريع برمجة'); ?>
 
 <?php $__env->startSection('structured_data'); ?>
+<?php if(isset($hub) && $hub): ?>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[<?php $__currentLoopData = $hub['faq']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $f): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>{"@type":"Question","name":<?php echo json_encode($f['q'], 15, 512) ?>,"acceptedAnswer":{"@type":"Answer","text":<?php echo json_encode($f['a'], 15, 512) ?>}}<?php if(!$loop->last): ?>,<?php endif; ?> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>]}
+</script>
+<?php endif; ?>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"CollectionPage","name":"Khaled Ahmed — Portfolio","description":"<?php echo e($projectCount); ?> real production projects shipped across <?php echo e($countryCount); ?> countries.","url":"<?php echo e(route('portfolios')); ?>","mainEntity":{"@type":"ItemList","numberOfItems":<?php echo e(count($projects)); ?>,"itemListElement":[<?php $__currentLoopData = $projects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>{"@type":"ListItem","position":<?php echo e($i + 1); ?>,"item":{"@type":"CreativeWork","name":<?php echo json_encode($p['title'], 15, 512) ?>,"description":<?php echo json_encode($p['summary'], 15, 512) ?>,"url":"<?php echo e(route('portfolio.show', $p['slug'])); ?>","genre":<?php echo json_encode($p['category'], 15, 512) ?><?php if(empty($p['offline'])): ?>,"sameAs":<?php echo json_encode($p['url'], 15, 512) ?><?php endif; ?>}}<?php if(!$loop->last): ?>,<?php endif; ?> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>]}}
 </script>
@@ -99,6 +105,30 @@
         .pf-card.is-panning .pf-shot img, .app-card.is-panning .pf-shot img { transform: none; }
     }
 
+    .pf-hero__kicker { font-family: inherit; font-size: clamp(22px, 2.6vw, 32px); font-weight: 800; line-height: 1.2; color: var(--text-1); }
+
+    /* ---- Category hub copy ---- */
+    .hub { padding-top: var(--sp-5); }
+    .hub__h1 { font-size: clamp(24px, 3vw, 36px); line-height: 1.2; color: var(--text-1); margin: 0 0 var(--sp-4); max-width: 24ch; letter-spacing: -.015em; }
+    .hub__lead { font-size: clamp(15.5px, 1.4vw, 17.5px); line-height: 1.85; color: var(--text-2); max-width: 74ch; margin: 0 0 16px; }
+    .hub__grid { margin-top: var(--sp-6); }
+    .hub__card { height: 100%; background: var(--surface-1); border: 1px solid var(--border-1); border-radius: var(--r-lg); padding: 24px; }
+    .hub__h2 { font-size: 13px; font-weight: 800; letter-spacing: 1.1px; text-transform: uppercase; color: var(--text-3); margin: 0 0 16px; }
+    .hub__h2--wide { margin-top: var(--sp-6); }
+    .hub__list { margin: 0; padding-inline-start: 20px; }
+    .hub__list li { color: var(--text-2); font-size: 14.5px; line-height: 1.7; margin-bottom: 9px; }
+    .hub__list li::marker { color: var(--brand); }
+    .hub__chips { display: flex; flex-wrap: wrap; gap: 7px; }
+    .hub__chips span { font-size: 12.5px; color: var(--text-2); padding: 5px 11px; background: var(--bg-2); border: 1px solid var(--border-1); border-radius: var(--r-full); }
+    .hub__faq { display: grid; gap: 10px; max-width: 900px; }
+    .hub__q { background: var(--surface-1); border: 1px solid var(--border-1); border-radius: var(--r-md); overflow: hidden; }
+    .hub__q[open] { border-color: var(--border-3); }
+    .hub__q summary { cursor: pointer; padding: 15px 18px; font-weight: 600; color: var(--text-1); font-size: 15.5px; list-style: none; }
+    .hub__q summary::-webkit-details-marker { display: none; }
+    .hub__q summary:hover { background: var(--bg-2); }
+    .hub__q summary:focus-visible { outline: 2px solid var(--brand); outline-offset: -2px; }
+    .hub__q p { margin: 0; padding: 0 18px 18px; color: var(--text-2); font-size: 14.5px; line-height: 1.8; }
+
     /* Project card */
     .pf-card { display: flex; flex-direction: column; height: 100%; padding: 26px 24px; background: linear-gradient(160deg, var(--surface-1) 0%, var(--bg-2) 100%); border: 1px solid var(--border-1); border-radius: var(--r-lg); text-decoration: none; transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; position: relative; overflow: hidden; opacity: 0; transform: translateY(20px); }
     .pf-card.is-in { opacity: 1; transform: translateY(0); transition: opacity .5s ease, transform .5s ease, border-color .3s ease, box-shadow .3s ease; }
@@ -176,7 +206,7 @@
         </div>
         <?php if(isset($category)): ?>
             <span class="ks-eyebrow"><?php echo e($isAr ? 'تخصص' : 'Category'); ?></span>
-            <h1 class="mt-3"><?php echo e(ucfirst(str_replace('-', ' ', $category))); ?> <span class="ks-grad-text">Projects</span></h1>
+            <div class="pf-hero__kicker mt-3"><?php echo e(ucfirst(str_replace('-', ' ', $category))); ?> <span class="ks-grad-text">Projects</span></div>
             <p class="lead"><?php echo e($isAr ? 'مشاريع إنتاج حقيقية في' : 'Real production work in'); ?> <strong><?php echo e(strtolower(str_replace('-', ' ', $category))); ?></strong>.</p>
         <?php else: ?>
             <span class="ks-eyebrow"><span class="ks-dot"></span> <?php echo e($isAr ? 'سابقة الأعمال' : 'Portfolio'); ?></span>
@@ -191,6 +221,47 @@
         <?php endif; ?>
     </div>
 </section>
+
+<?php if(isset($hub) && $hub): ?>
+
+<section class="ks-section ks-section--tight hub">
+    <div class="container">
+        <h1 class="hub__h1"><?php echo e($hub['h1']); ?></h1>
+        <?php $__currentLoopData = $hub['intro']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $para): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <p class="hub__lead"><?php echo e($para); ?></p>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+        <div class="row g-4 hub__grid">
+            <div class="col-lg-6">
+                <div class="hub__card">
+                    <h2 class="hub__h2"><?php echo e($isAr ? 'لمن يناسب هذا النوع من العمل' : 'Who this work suits'); ?></h2>
+                    <ul class="hub__list">
+                        <?php $__currentLoopData = $hub['suits']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><li><?php echo e($item); ?></li><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hub__card">
+                    <h2 class="hub__h2"><?php echo e($isAr ? 'الناس تصل هنا وهي تبحث عن' : 'People arrive here searching for'); ?></h2>
+                    <div class="hub__chips">
+                        <?php $__currentLoopData = $hub['intents']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $q): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><span><?php echo e($q); ?></span><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="hub__h2 hub__h2--wide"><?php echo e($isAr ? 'أسئلة تُسأل قبل التعاقد' : 'Questions people ask before hiring'); ?></h2>
+        <div class="hub__faq">
+            <?php $__currentLoopData = $hub['faq']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $f): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <details class="hub__q">
+                    <summary><?php echo e($f['q']); ?></summary>
+                    <p><?php echo e($f['a']); ?></p>
+                </details>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
 
 <?php if(!isset($category)): ?>
 <div class="pf-toggle">
@@ -303,8 +374,8 @@
                                          width="<?php echo e($khAppShot['w']); ?>" height="<?php echo e($khAppShot['h']); ?>"
                                          loading="lazy" decoding="async"
                                          alt="<?php echo e($isAr
-                                            ? 'لقطة من الشاشة الرئيسية لتطبيق ' . $app['name'] . ' على أندرويد — ' . $app['category'] . ' من تطوير خالد أحمد'
-                                            : $app['name'] . ' Android app home screen — ' . $app['category'] . ' app built by Khaled Ahmed'); ?>">
+                                            ? 'لقطة شاشة من تطبيق ' . $app['name'] . ' على أندرويد — ' . $app['category'] . ' من تطوير خالد أحمد'
+                                            : $app['name'] . ' Android app screenshot — ' . $app['category'] . ' app built by Khaled Ahmed'); ?>">
                                 </figure>
                             <?php endif; ?>
                             <div class="app-card__top">

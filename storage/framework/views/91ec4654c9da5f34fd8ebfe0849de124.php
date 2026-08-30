@@ -23,7 +23,7 @@
             <div class="col-6 col-md-4 col-lg-3">
                 <h2 class="ks-foot__h"><?php echo e($khLocale === 'ar' ? 'الخدمات' : 'Services'); ?></h2>
                 <ul class="ks-foot__links">
-                    <?php $__currentLoopData = \App\Services\LandingService::index(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = \App\Services\LandingService::index('service'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <li><a href="<?php echo e(route('landing', $lp['slug'])); ?>"><?php echo e($lp['label']); ?></a></li>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>
@@ -49,6 +49,12 @@
                 </ul>
             </div>
         </div>
+        <nav class="ks-foot__markets" aria-label="<?php echo e($khLocale === 'ar' ? 'الأسواق' : 'Markets'); ?>">
+            <span class="ks-foot__markets-h"><?php echo e($khLocale === 'ar' ? 'أعمل في' : 'Working in'); ?></span>
+            <?php $__currentLoopData = \App\Services\LandingService::index('market'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <a href="<?php echo e(route('landing', $m['slug'])); ?>"><?php echo e($m['label']); ?></a>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </nav>
         <div class="ks-foot__bot">
             <div>&copy; <?php echo e($year); ?> Khaled Ahmed. <?php echo e($khLocale === 'ar' ? 'جميع الحقوق محفوظة.' : 'All rights reserved.'); ?></div>
             <div>

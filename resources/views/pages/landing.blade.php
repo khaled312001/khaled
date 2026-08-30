@@ -23,7 +23,7 @@
 {"@context":"https://schema.org","@type":"Service","serviceType":@json($page['service_type'] ?? $page['h1']),"provider":{"@type":"Person","name":"Khaled Ahmed","jobTitle":"Senior Full Stack Web Developer","url":"https://khaledahmed.net","sameAs":["https://linkedin.com/in/khaled-ahmed-82368819b","https://github.com/khaled312001"]},"areaServed":["SA","AE","KW","QA","EG","GB","US","DE","CH","FR"],"url":"https://khaledahmed.net/{{ $page['slug'] }}","description":@json($page['meta_description'])}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[@foreach(($page['faq'] ?? []) as $i => $f){"@type":"Question","name":@json($f['q']),"acceptedAnswer":{"@type":"Answer","text":@json($f['a'])}}@if(!$loop->last),@endif @endforeach]}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[@foreach(($faq ?? []) as $i => $f){"@type":"Question","name":@json($f['q']),"acceptedAnswer":{"@type":"Answer","text":@json($f['a'])}}@if(!$loop->last),@endif @endforeach]}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ route('home') }}"},{"@type":"ListItem","position":2,"name":"Services","item":"{{ route('services') }}"},{"@type":"ListItem","position":3,"name":@json($page['h1']),"item":"{{ route('landing', $page['slug']) }}"}]}

@@ -31,6 +31,8 @@ use Illuminate\Support\Facades\Redirect;
 // ---------------------------------------------------------------------
 Route::get('/sitemap.xml', [App\Http\Controllers\PageController::class, 'sitemap'])->name('sitemap');
 Route::get('/robots.txt', [App\Http\Controllers\PageController::class, 'robots'])->name('robots');
+// A site map written for language models rather than crawlers — https://llmstxt.org
+Route::get('/llms.txt', [App\Http\Controllers\PageController::class, 'llms'])->name('llms');
 
 // Language switcher — maps the current URL to its counterpart in the other language.
 Route::get('/lang/{locale}', [App\Http\Controllers\LocaleController::class, 'switch'])

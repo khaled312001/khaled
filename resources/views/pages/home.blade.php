@@ -3,7 +3,7 @@
 @php $khAr = app()->getLocale() === 'ar'; @endphp
 
 @section('title', app()->getLocale() === 'ar' ? 'خالد أحمد — مطور Full Stack مستقل | Laravel و React' : 'Khaled Ahmed — Freelance Full Stack Developer | Laravel & React')
-@section('description', app()->getLocale() === 'ar' ? 'مطور Laravel و React و Next.js من القاهره. 39 مشروعا منشورا في 8 دول، و7 تطبيقات على Google Play. عرض سعر ثابت ورد خلال 24 ساعه.' : 'Senior Laravel, React and Next.js developer in Cairo. 39 products shipped across 8 countries, 7 apps live on Google Play. Fixed-fee quotes, 24-hour reply.')
+@section('description', app()->getLocale() === 'ar' ? 'مطور Laravel و React و Next.js من القاهره. 40 مشروعا منشورا في 8 دول، و8 تطبيقات على Google Play. عرض سعر ثابت ورد خلال 24 ساعه.' : 'Senior Laravel, React and Next.js developer in Cairo. 40 products shipped across 8 countries, 8 apps live on Google Play. Fixed-fee quotes, 24-hour reply.')
 @section('keywords', 'freelance full stack developer, freelance laravel developer, freelance react developer, hire web developer, custom web application, SaaS developer, Khaled Ahmed, مطور ويب مستقل, مبرمج مواقع')
 @section('lcp_image', asset('images/site/hero-workspace-720w.webp'))
 
@@ -12,18 +12,19 @@
 {
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": "https://khaledahmed.net/#khaled",
   "name": "Khaled Ahmed",
   "url": "https://khaledahmed.net",
   "jobTitle": "Senior Full Stack Web Developer",
   "worksFor": {"@type":"Organization","name":"Barmagly","url":"https://barmagly.tech"},
-  "description": "Senior full stack web developer with 5+ years of experience and 25+ shipped projects across 8 countries.",
+  "description": "Senior full stack web developer with 5+ years of experience and 40 shipped projects across 9 countries, plus 9 Android apps on Google Play.",
   "address": {"@type":"PostalAddress","addressLocality":"Cairo","addressCountry":"EG"},
   "sameAs": ["https://linkedin.com/in/khaled-ahmed-82368819b","https://github.com/khaled312001"],
   "knowsAbout": ["Laravel","React","Next.js","Node.js","TypeScript","PHP","MySQL","PostgreSQL","SEO","Web Performance"]
 }
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","url":"https://khaledahmed.net","name":"Khaled Ahmed","potentialAction":{"@type":"SearchAction","target":"https://khaledahmed.net/blogs?q={search_term_string}","query-input":"required name=search_term_string"}}
+{"@context":"https://schema.org","@type":"WebSite","@id":"https://khaledahmed.net/#website","url":"https://khaledahmed.net","name":"Khaled Ahmed","potentialAction":{"@type":"SearchAction","target":"https://khaledahmed.net/blogs?q={search_term_string}","query-input":"required name=search_term_string"}}
 </script>
 @endsection
 
@@ -217,7 +218,7 @@
                     <div class="home-trust-card__ico"><i class="fas fa-rocket"></i></div>
                     <div>
                         <div class="lbl">{{ app()->getLocale() === 'ar' ? 'سجل حافل' : 'Proven track record' }}</div>
-                        <div class="val">{{ app()->getLocale() === 'ar' ? '39+ مشروع منشور و7 تطبيقات على Google Play' : '39+ live projects & 7 apps on Google Play' }}</div>
+                        <div class="val">{{ app()->getLocale() === 'ar' ? '40+ مشروع منشور و8 تطبيقات على Google Play' : '40+ live projects & 8 apps on Google Play' }}</div>
                     </div>
                 </div>
             </div>

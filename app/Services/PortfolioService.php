@@ -77,6 +77,21 @@ class PortfolioService
         // grad: two-color CSS gradient for the icon tile. icon: Font Awesome class.
         return [
             [
+                'name' => 'Interprova — Interview Practice',
+                'name_ar' => 'Interprova — تدريب مقابلات العمل',
+                'tagline' => 'Practise a job interview with an AI interviewer in Arabic or English, and get scored on every answer.',
+                'tagline_ar' => 'تدرّب على مقابلة عمل مع محاوِر ذكاء اصطناعي بالعربية أو الإنجليزية، واحصل على تقييم لكل إجابة.',
+                'category' => 'Education / Careers',
+                'category_ar' => 'تعليم / وظائف',
+                'icon' => 'fas fa-comments',
+                'grad' => 'linear-gradient(135deg, #2D73FD, #0736A8)',
+                'store' => 'https://play.google.com/store/apps/details?id=com.interprova.app',
+                'shot' => 'app-interprova',
+                'project' => 'interprova',
+                'website' => 'https://interprova.com',
+                'featured' => true,
+            ],
+            [
                 'name' => 'Omnixtrack CRM',
                 'name_ar' => 'Omnixtrack CRM',
                 'tagline' => 'Multi-tenant CRM: leads, sales pipelines, WhatsApp and tasks — on the go.',
@@ -182,7 +197,21 @@ class PortfolioService
                 'website' => 'https://omnixtrack.com',
                 'featured' => false,
             ],
-        ];
+
+            [
+                'name' => 'Dr. Hussein Kamal Pharmacy',
+                'name_ar' => 'صيدلية د/ حسين كمال',
+                'tagline' => 'Arabic-first online pharmacy: 2,900+ products across 7 categories, with pharmacist consultation and 24/7 support.',
+                'tagline_ar' => 'صيدلية أونلاين بالعربية أولا: أكثر من 2900 منتج في 7 أقسام، مع استشارة صيدلي ودعم على مدار الساعة.',
+                'category' => 'Healthcare / Pharmacy',
+                'category_ar' => 'صحة / صيدلية',
+                'icon' => 'fas fa-kit-medical',
+                'grad' => 'linear-gradient(135deg, #14b8a6, #0f766e)',
+                'store' => 'https://play.google.com/store/apps/details?id=com.husseinkamal.pharmacy',
+                'shot' => 'app-pharmacy-hussein',
+                'website' => null,
+                'featured' => false,
+            ],        ];
     }
 
     private static function countryPriority(): array
@@ -463,7 +492,7 @@ class PortfolioService
     }
 
     /**
-     * 39 real production projects shipped by Khaled Ahmed.
+     * 40 real production projects shipped by Khaled Ahmed.
      * Curated from live deployments — duplicates removed.
      */
     private static function projects(): array
@@ -1145,6 +1174,24 @@ class PortfolioService
                 'country_ar' => 'السعودية',
                 'country_flag' => '🇸🇦',
                 'country_code' => 'sa',
+            ],
+            [
+                'slug' => 'interprova',
+                'title' => 'Interprova — Arabic AI Interview Coach',
+                'summary' => 'My own product: an AI interviewer that runs a full job interview in Arabic or English — by voice and camera, or in writing. It builds its questions from the candidate\'s CV and the job advert, then scores each answer out of 10 with a written reason behind every point. One Node process serves the marketing site, the web app, the admin dashboard and the API, and the same codebase ships the Android app on Google Play.',
+                'title_ar' => 'Interprova — مدرّب مقابلات العمل بالذكاء الاصطناعي',
+                'summary_ar' => 'منتجي الخاص: محاوِر ذكاء اصطناعي يدير مقابلة عمل كاملة بالعربية أو الإنجليزية، بالصوت والكاميرا أو كتابةً. يبني أسئلته من السيرة الذاتية للمرشّح ومن إعلان الوظيفة، ثم يقيّم كل إجابة بدرجة من عشرة مع سبب مكتوب لكل نقطة. عملية Node واحدة تخدم الموقع التعريفي وتطبيق الويب ولوحة الإدارة وواجهة الـ API، ونفس الكود يُنتج تطبيق أندرويد المنشور على Google Play.',
+                'category' => 'Tech / SaaS',
+                'tech' => ['Node.js', 'Express', 'Prisma', 'MySQL', 'React Native', 'Expo'],
+                'url' => 'https://interprova.com',
+                'image' => 'projects/interprova.png',
+                'role' => 'Founder, Architect, Lead Developer',
+                'language' => 'ar',
+                'country' => 'Egypt',
+                'country_ar' => 'مصر',
+                'country_flag' => '🇪🇬',
+                'country_code' => 'eg',
+                'featured' => true,
             ],
         ];
     }

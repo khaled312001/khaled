@@ -3,7 +3,7 @@
 namespace App\Services;
 
 /**
- * Long-form, bilingual case-study content for the 39 projects in PortfolioService.
+ * Long-form, bilingual case-study content for the 40 projects in PortfolioService.
  *
  * This exists as a separate service because PortfolioService is the *index*: the
  * short fields every card and listing needs. The detail pages need several
@@ -60,6 +60,38 @@ class ProjectDetailService
     private static function data(): array
     {
         return [
+
+            'interprova' => [
+                'lead' => 'Interprova is my own product, not a client build. It is an AI interviewer that runs a real job interview in Arabic — it asks, it listens to the answer spoken aloud, and it scores it out of 10 with a written reason for every point. Built for the Arab market rather than translated into it.',
+                'lead_ar' => 'Interprova منتجي أنا، لا عمل لعميل. محاوِر ذكاء اصطناعي يدير مقابلة عمل حقيقية بالعربية: يسأل، ويسمع الإجابة منطوقة، ويقيّمها بدرجة من عشرة مع سبب مكتوب لكل نقطة. مبني للسوق العربي، لا مترجَم إليه.',
+                'built' => [
+                    'Live interview by voice and camera: the model speaks, the browser transcribes the answer, and the call is scored at the end',
+                    'Questions generated from the candidate\'s uploaded CV and the pasted job advert, not from a fixed question bank',
+                    'Written practice mode with a per-answer score, strengths, weaknesses and a model answer',
+                    'One Expo codebase producing both the Android app on Google Play and the web app at /app',
+                    'Express and Prisma API on MySQL, with an admin dashboard for users, content, payments and AI cost per call',
+                ],
+                'built_ar' => [
+                    'مقابلة مباشرة بالصوت والكاميرا: النموذج يتحدّث، والمتصفّح يفرّغ الإجابة نصًّا، وتُقيَّم المكالمة في نهايتها',
+                    'أسئلة مولّدة من السيرة الذاتية التي يرفعها المرشّح ومن إعلان الوظيفة، لا من بنك أسئلة ثابت',
+                    'وضع تدريب كتابي بدرجة لكل إجابة، ونقاط القوة والضعف، وإجابة نموذجية',
+                    'كود Expo واحد يُنتج تطبيق أندرويد على Google Play وتطبيق الويب على ‎/app‎ معًا',
+                    'واجهة API بـ Express و Prisma على MySQL، ولوحة إدارة للمستخدمين والمحتوى والمدفوعات وتكلفة كل نداء للنموذج',
+                ],
+                'decision' => [
+                    'Every model call goes through one module that will try a second and a third provider before it gives up, with a 45-second budget for the whole chain and a one-minute cooldown on whichever provider just failed. That sounds like over-engineering until a quota runs out mid-interview: the candidate is sitting in a live call, and a provider that is merely slow is far worse than one that fails fast enough to fall back.',
+                    'The rule underneath it is that an AI failure must never be written down as a result. An earlier version returned a placeholder score when the model was unreachable, and the interface saved it as a real grade. Now the call throws, the request returns 503, and the minutes it would have cost are refunded. A product that quietly invents a score is worse than one that admits it is down.',
+                ],
+                'decision_ar' => [
+                    'كل نداء للنموذج يمرّ عبر وحدة واحدة تجرّب مزوّدًا ثانيًا وثالثًا قبل أن تستسلم، بميزانية خمس وأربعين ثانية للسلسلة كلها، وفترة تهدئة دقيقة للمزوّد الذي أخفق للتو. يبدو هذا مبالغة هندسية إلى أن تنفد حصة أحد المزوّدين في منتصف مقابلة: المرشّح جالس في مكالمة مباشرة، ومزوّد بطيء أسوأ بكثير من مزوّد يفشل بسرعة تكفي للتحويل إلى غيره.',
+                    'القاعدة تحت ذلك أن إخفاق النموذج يجب ألا يُسجَّل نتيجةً أبدًا. نسخة سابقة كانت تُرجع درجة بديلة حين يتعذّر الوصول إلى النموذج، فتحفظها الواجهة كأنها تقييم حقيقي. الآن يرمي النداء خطأً، ويردّ الخادم بـ 503، وتُعاد الدقائق التي كانت ستُخصم. المنتج الذي يخترع درجة بصمت أسوأ من المنتج الذي يعترف بأنه متوقّف.',
+                ],
+                'keywords' => 'ai interview practice, arabic ai product, expo react native android app, multi provider ai failover, node express prisma saas',
+                'keywords_ar' => 'تدريب مقابلات العمل بالذكاء الاصطناعي, منتج ذكاء اصطناعي عربي, تطبيق Expo و React Native, تعدد مزودي الذكاء الاصطناعي, منصة Node و Express',
+                'apps' => [
+                    ['name' => 'Interprova', 'name_ar' => 'تطبيق Interprova', 'url' => 'https://play.google.com/store/apps/details?id=com.interprova.app'],
+                ],
+            ],
 
             'barmagly-tech' => [
                 'lead' => 'I founded Barmagly and I still architect every system that leaves it. It is a Swiss-licensed software house delivering enterprise web platforms, mobile applications, POS systems and business automation to clients across Europe and the Middle East.',

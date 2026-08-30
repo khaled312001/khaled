@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', app()->getLocale() === 'ar' ? 'عن خالد أحمد — مطور Laravel و React من القاهره' : 'About Khaled Ahmed — Laravel & React Developer, Cairo')
-@section('description', app()->getLocale() === 'ar' ? 'خمس سنوات و39 مشروعا في بيئه الإنتاج عبر 8 دول، و7 تطبيقات على Google Play. كيف أعمل، وكم أتقاضى، وأي المشاريع أعتذر عنها.' : 'Five years, 39 production builds across 8 countries, 7 apps on Google Play. How I work, what I charge, and the projects I turn down.')
+@section('description', app()->getLocale() === 'ar' ? 'خمس سنوات و40 مشروعا في بيئه الإنتاج عبر 8 دول، و8 تطبيقات على Google Play. كيف أعمل، وكم أتقاضى، وأي المشاريع أعتذر عنها.' : 'Five years, 40 production builds across 8 countries, 8 apps on Google Play. How I work, what I charge, and the projects I turn down.')
 @section('keywords', 'Khaled Ahmed web developer, about Khaled Ahmed, Laravel expert Cairo, React developer Egypt, senior full stack developer, خالد أحمد مطور ويب')
 
 @section('structured_data')

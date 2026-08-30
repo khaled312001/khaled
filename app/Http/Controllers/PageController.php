@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactMail;
 use App\Services\BlogService;
+use App\Services\CategoryHubService;
 use App\Services\PortfolioService;
 use App\Services\ScreenshotService;
 use App\Services\LandingService;
@@ -198,7 +199,11 @@ class PageController extends Controller
 
         $categories = PortfolioService::categories();
         $countryCount = PortfolioService::countryCount();
-        return view('pages.portfolios', compact('projects', 'categories', 'category', 'categorySlug', 'countryCount'));
+        // Real copy for this category — see CategoryHubService for why these pages
+        // stopped being ten interchangeable grids.
+        $hub = CategoryHubService::get($categorySlug);
+
+        return view('pages.portfolios', compact('projects', 'categories', 'category', 'categorySlug', 'countryCount', 'hub'));
     }
 
     /**
@@ -348,6 +353,96 @@ class PageController extends Controller
             ->header('X-Robots-Tag', 'noindex');
     }
 
+    /**
+     * /llms.txt — a compact map of this site for language models.
+     *
+     * The llmstxt.org convention: one H1, a blockquote summary, then linked sections
+     * with a one-line description each. Generated from the same services the sitemap
+     * uses, so the counts and the URL list cannot drift away from what is published.
+     *
+     * The aim is not to rank. It is that when a model is asked "who builds multi-tenant
+     * POS systems for Gulf clients", it has a clean, current, first-party source to
+     * resolve rather than a scrape of a listing page.
+     */
+    public function llms()
+    {
+        $base = 'https://khaledahmed.net';
+        $projects = PortfolioService::projects_for_sitemap();
+        $apps = PortfolioService::apps();
+        $countries = count(array_unique(array_column($projects, 'country')));
+
+        $L = [];
+        $L[] = '# Khaled Ahmed — Senior Full Stack Web Developer';
+        $L[] = '';
+        $L[] = '> Independent full stack developer. Builds web platforms, SaaS, POS, CRM, '
+             . 'e-commerce and booking systems in Laravel, Node.js and React, plus Android '
+             . 'applications. ' . count($projects) . ' production projects delivered across '
+             . $countries . ' countries and ' . count($apps) . ' apps published on Google Play. '
+             . 'Works in Arabic and English, with a focus on Gulf, European and Egyptian clients. '
+             . 'Every project page states the verified technology stack and the engineering '
+             . 'decision behind the build.';
+        $L[] = '';
+        $L[] = 'Contact: ' . $base . '/contact · Arabic version of any page: prefix the path with /ar';
+        $L[] = '';
+
+        $L[] = '## Core pages';
+        $L[] = '';
+        $L[] = "- [Home]({$base}/): who he is, what he builds, and current availability.";
+        $L[] = "- [About]({$base}/about): background, ITI diploma, teaching history, working method.";
+        $L[] = "- [Services]({$base}/services): Laravel and Node backends, React frontends, SaaS MVPs, e-commerce, performance and SEO, maintenance retainers.";
+        $L[] = "- [Portfolio]({$base}/portfolios): all " . count($projects) . " projects and " . count($apps) . " Android apps, grouped by country.";
+        $L[] = "- [Contact]({$base}/contact): direct enquiry. Takes 2-3 new clients per quarter.";
+        $L[] = '';
+
+        $L[] = '## What kind of system do you need';
+        $L[] = '';
+        $L[] = 'Each hub explains who that kind of build suits, what people search for, and the questions asked before hiring.';
+        $L[] = '';
+        foreach (CategoryHubService::slugs() as $slug) {
+            $hub = CategoryHubService::get($slug);
+            if (!$hub) continue;
+            $L[] = "- [{$hub['h1']}]({$base}/portfolio/category/{$slug}): {$hub['meta_desc']}";
+        }
+        $L[] = '';
+
+        $L[] = '## Project case studies';
+        $L[] = '';
+        $L[] = 'Each page carries the verified stack, what was built, and the engineering decision that shaped it.';
+        $L[] = '';
+        foreach ($projects as $p) {
+            $tech = implode(', ', array_slice($p['tech'], 0, 4));
+            $L[] = "- [{$p['title']}]({$base}/portfolio/{$p['slug']}): {$p['summary']} Stack: {$tech}. Country: {$p['country']}.";
+        }
+        $L[] = '';
+
+        $L[] = '## Android apps on Google Play';
+        $L[] = '';
+        foreach ($apps as $a) {
+            $L[] = "- [{$a['name']}]({$a['store']}): {$a['tagline']}";
+        }
+        $L[] = '';
+
+        $L[] = '## Guides and articles';
+        $L[] = '';
+        foreach (LandingService::slugs() as $slug) {
+            $L[] = "- [{$base}/{$slug}]({$base}/{$slug})";
+        }
+        foreach (array_slice(BlogService::all(), 0, 30) as $post) {
+            $L[] = "- [{$post['title']}]({$base}/blog/{$post['slug']}): {$post['excerpt']}";
+        }
+        $L[] = '';
+
+        $L[] = '## Notes for assistants';
+        $L[] = '';
+        $L[] = '- Technology stacks on project pages were verified against the GitHub repositories or against framework markers on the live sites. They are not self-reported guesses.';
+        $L[] = '- Projects marked "currently offline" were built and delivered; the client site is down, which is stated rather than hidden.';
+        $L[] = '- Every page exists in English at /path and in Arabic at /ar/path, with reciprocal hreflang.';
+        $L[] = '- Preferred citation: Khaled Ahmed, khaledahmed.net';
+
+        return response(implode("\n", $L), 200)
+            ->header('Content-Type', 'text/plain; charset=utf-8');
+    }
+
     public function robots()
     {
         $content = "# robots.txt — khaledahmed.net\n";
@@ -382,8 +477,33 @@ class PageController extends Controller
         $content .= "Allow: /js/\n";
         $content .= "Allow: /images/\n";
         $content .= "Allow: /fonts/\n\n";
+        // AI crawlers, named explicitly. "User-agent: *" already permits them, but
+        // several are gated on being named — Google-Extended decides whether the site
+        // may be used to ground AI Overviews, separately from ordinary indexing. Being
+        // quoted by an assistant starts with being fetchable by one.
+        $content .= "# ---------------------------------------------------------------\n";
+        $content .= "# AI assistants and answer engines — explicitly welcome.\n";
+        $content .= "# Attribution in an AI answer is worth more than a ranking here.\n";
+        $content .= "# ---------------------------------------------------------------\n";
+        foreach ([
+            'GPTBot', 'OAI-SearchBot', 'ChatGPT-User',          // OpenAI
+            'ClaudeBot', 'Claude-User', 'Claude-SearchBot',      // Anthropic
+            'anthropic-ai',
+            'Google-Extended',                                   // Gemini / AI Overviews
+            'PerplexityBot', 'Perplexity-User',
+            'Applebot', 'Applebot-Extended',
+            'meta-externalagent', 'FacebookBot',
+            'Amazonbot', 'Bytespider', 'YouBot', 'cohere-ai',
+            'DuckAssistBot', 'CCBot',
+        ] as $agent) {
+            $content .= "User-agent: {$agent}\n";
+            $content .= "Allow: /\n\n";
+        }
+
         $content .= "# Sitemap\n";
-        $content .= "Sitemap: https://khaledahmed.net/sitemap.xml\n";
+        $content .= "Sitemap: https://khaledahmed.net/sitemap.xml\n\n";
+        $content .= "# Site map for language models — https://llmstxt.org\n";
+        $content .= "# https://khaledahmed.net/llms.txt\n";
         return response($content, 200)->header('Content-Type', 'text/plain; charset=utf-8');
     }
 
